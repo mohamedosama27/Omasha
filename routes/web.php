@@ -12,10 +12,18 @@
 */
 
 Route::get('/', 'ItemController@showAll');
+Route::get('/add-to-cart/{id}', [
+    'uses' => 'ItemController@AddToCart',
+    'as' => 'item.addToCart'
+]);
+Route::get('/home', 'ItemController@showAll');
 
-Route::get('/cart', function () {
-    return view('cart');
-});
+Route::get('/cart', 'CartController@showCart');
+
+Route::get('/removefromcart/{id}', [
+    'uses' => 'CartController@removeItem',
+    'as' => 'removefromcart'
+]);
 Route::get('/item', function () {
     return view('item');
 });
@@ -25,4 +33,3 @@ Route::get('/item', function () {
 
 Auth::routes();
 
-Route::get('/home', 'ItemController@showAll');

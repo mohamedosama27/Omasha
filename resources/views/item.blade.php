@@ -48,7 +48,7 @@ img {
 
 .card {
   margin-top: 20px;
-  background:rgb(247, 247, 247);
+  background:rgb(250, 250, 250);
   padding: 3em;
   line-height: 1.5em; }
 

@@ -19,7 +19,7 @@
       <div class="w3-container">
         <img src="{{$item->image}}" style="width:100%">
         <p>{{$item->name}}<br><b>${{$item->price}}</b></p>
-        <button type="button" class="btn btn-default" style="margin-bottom:10px;">Add to Cart</button>
+        <a href="{{route('item.addToCart',['id' => $item->id])}}"><button type="button" class="btn btn-default" style="margin-bottom:10px;">Add to Cart</button></a>
       </div>
      
     </div>

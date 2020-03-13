@@ -31,7 +31,6 @@
   <input type="text" class="form-control  @error('email') is-invalid @enderror" id="basic-addon1" name="email" value="{{ old('email') }}" type="email" placeholder="Email" name="email" required autocomplete="email"  aria-describedby="basic-addon1">
   </div>
   @error('email')
-    <br>
                                      <span role="alert" style="color:red;">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -48,13 +47,13 @@
     <input class="form-control @error('password') is-invalid @enderror" type="password" placeholder="Password" name="password" required autocomplete="current-password">
     </div>
     @error('password')
-    <br>
                                     <span role="alert" style="color:red;">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror  
 </div>
-<a href="register" class="margintop" style="float:right;">Create Account</a>
+<a href="register" class="margintop" style="float:right;margin-bottom:10px;">Create Account</a>
+
   <button type="submit" class="w3-btn btn-block w3-round-xxlarge w3-light-blue" style="margin-bottom:10px;">Login</button>
 <br>
 </form>

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\cart;
+use Session;
 class ItemController extends Controller
 {
      /**
@@ -19,6 +20,33 @@ class ItemController extends Controller
             'items'=>$items ?? 'Doesnot exist'
         ]);
        
+    }
+
+    public function AddToCart(Request $request,$id)
+    {
+        // $items = \App\item::find($id);
+        // $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        // $cart = new cart($oldCart);
+        // $cart->add($items,$items->id);
+        // $request->session()->put('cart',$cart);
+        // dd($cart);
+    //     $quantity = Session::has('cartQuantity') ? Session::get('cartQuantity') : 0;
+    //     echo $quantity;
+    //     $request->session()->put('cartQuantity',$quantity);
+    //     dd(        $request->session()->put('cartQuantity',$quantity)
+    // );
+
+    $number_of_items = Session::has('number_of_items') ? Session::get('number_of_items') : 0;
+    $items_ids = Session::has('items_ids') ? Session::get('items_ids') : array();
+    array_push($items_ids,$id);
+    $number_of_items++;
+    Session::put('number_of_items',$number_of_items );
+    Session::put('items_ids',$items_ids );
+
+    // return Session::get('items_ids');
+    //     Session::flush();
+        return redirect('home');
+
     }
 
     /**

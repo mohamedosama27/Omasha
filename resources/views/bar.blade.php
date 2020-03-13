@@ -16,6 +16,17 @@
 <style>
 .w3-sidebar a {font-family: "Roboto", sans-serif}
 body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
+.wrapper{
+position: relative;
+}
+.wrapper .countCart{
+position: absolute;
+top: -2px;
+right: -2px; 
+}
+.countCart{
+  background-color:red;
+}
 </style>
 <body class="w3-content" style="max-width:1200px">
 
@@ -26,7 +37,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
     <h3 class="w3-wide"><b>LOGO</b></h3>
   </div>
   <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
-    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-home" style="margin-right:5px;"></i>Home</a>
+    <a href="home" class="w3-bar-item w3-button"><i class="fa fa-home" style="margin-right:5px;"></i>Home</a>
     
     <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
     <i class='fa fa-product-hunt'></i> Products <i class="fa fa-caret-down"></i>
@@ -50,7 +61,12 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
 <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
   <div class="w3-bar-item w3-padding-24 w3-wide">LOGO</div>
   <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></a>
-  <a href="cart" class="w3-bar-item w3-button w3-padding-24 w3-right" ><i class="fa fa-shopping-cart w3-margin-right"></i></a>
+  <a href="cart" class="w3-bar-item w3-button w3-padding-24 w3-right" >
+  <div class="wrapper">
+  <i class="fa fa-shopping-cart w3-margin-right"></i>
+  <span class="badge countCart" >{{Session::has('number_of_items') ? Session::get('number_of_items'): ''}}</span>
+  </div>
+  </a>
   @guest
                             
                                 <a class="w3-bar-item w3-button w3-padding-24 w3-right" href="{{ route('login') }}"><i class="fa fa-sign-in" style="margin-right:5px;"></i></a>
