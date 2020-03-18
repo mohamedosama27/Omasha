@@ -5,6 +5,12 @@ Side note: I know that this style of nesting in SASS doesn't result in the most 
 */
 /* Global settings */
 /* Global "table" column settings */
+.product-quantity i{
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-top: 3px;
+  display: inline-block;
+}
 .product-image {
     float: left;
     width: 20%;
@@ -197,13 +203,13 @@ Side note: I know that this style of nesting in SASS doesn't result in the most 
     .product-quantity {
       width: 100px;
     }
-    .product-quantity input {
+    .product-quantity{
       margin-left: 20px;
     }
+   
   
-    .product-quantity:before {
-      content: 'x';
-    }
+   
+  
   
     .product-removal {
       width: auto;

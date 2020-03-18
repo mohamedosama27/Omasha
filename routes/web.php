@@ -13,10 +13,11 @@
 
 Route::get('/', 'ItemController@showAll');
 Route::get('/add-to-cart/{id}', [
-    'uses' => 'ItemController@AddToCart',
+    'uses' => 'CartController@AddToCart',
     'as' => 'item.addToCart'
 ]);
 Route::get('/home', 'ItemController@showAll');
+Route::put('/createitem', 'ItemController@create');
 
 Route::get('/cart', 'CartController@showCart');
 
@@ -27,7 +28,9 @@ Route::get('/removefromcart/{id}', [
 Route::get('/item', function () {
     return view('item');
 });
-
+Route::get('/additem', function () {
+    return view('additem');
+});
 // Route::get('/','ItemController@showAll');
 
 

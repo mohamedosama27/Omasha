@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="{{ asset('css/w3schools.css') }}">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -27,8 +27,11 @@ right: -2px;
 .countCart{
   background-color:red;
 }
+body{
+  margin-top:70px;
+}
 </style>
-<body class="w3-content" style="max-width:1200px">
+<body class="w3-content" style="max-width:1200px;">
 
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
@@ -38,7 +41,8 @@ right: -2px;
   </div>
   <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
     <a href="home" class="w3-bar-item w3-button"><i class="fa fa-home" style="margin-right:5px;"></i>Home</a>
-    
+    <a href="additem" class="w3-bar-item w3-button"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Item</a>
+
     <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
     <i class='fa fa-product-hunt'></i> Products <i class="fa fa-caret-down"></i>
     </a>
@@ -51,17 +55,17 @@ right: -2px;
     <a href="#" class="w3-bar-item w3-button">
       <i class='fa fa-phone' style="margin-right:5px;">
     </i>Contact</a>
-    <a href="javascript:void(0)" class="w3-bar-item w3-button" onclick="document.getElementById('newsletter').style.display='block'">Newsletter</a> 
+    <a href="javascript:void(0)" class="w3-bar-item w3-button" onclick="document.getElementById('newsletter').style.display='block'"><i class="fa fa-envelope" style="margin-right:5px;"></i>Newsletter</a> 
     <a href="#" class="w3-bar-item w3-button">Subscribe</a>
   </div>
   
 </nav>
 
 <!-- Top menu on small screens -->
-<header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
+<header class="w3-bar w3-top w3-black w3-xlarge" style="margin-bottom:30px;">
   <div class="w3-bar-item w3-padding-24 w3-wide">LOGO</div>
   <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></a>
-  <a href="cart" class="w3-bar-item w3-button w3-padding-24 w3-right" >
+  <a href="{{ Request::is('cart') ? 'home' : 'cart' }}" class="w3-bar-item w3-button w3-padding-24 w3-right" >
   <div class="wrapper">
   <i class="fa fa-shopping-cart w3-margin-right"></i>
   <span class="badge countCart" >{{Session::has('number_of_items') ? Session::get('number_of_items'): ''}}</span>
@@ -69,7 +73,7 @@ right: -2px;
   </a>
   @guest
                             
-                                <a class="w3-bar-item w3-button w3-padding-24 w3-right" href="{{ route('login') }}"><i class="fa fa-sign-in" style="margin-right:5px;"></i></a>
+                                <a class="w3-bar-item w3-button w3-padding-24 w3-right" href="{{ Request::is('login') ? 'home' : 'login' }}"><i class="fa fa-sign-in" style="margin-right:5px;"></i></a>
                                 @else
                             <div class="nav-item dropdown">
                                 <a id="navbarDropdown" class="w3-bar-item w3-button w3-padding-24 w3-right" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

@@ -4,85 +4,18 @@
 <link href="css/cart.css" rel="stylesheet" type="text/css" media="all" />
 <script src="js/cart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script>
-  var taxRate = 0.05;
-var shippingRate = 15.00; 
-var fadeTime = 300;
-
-
-/* Assign actions */
-$('.product-quantity input').change( function() {
-  updateQuantity(this);
-});
-
-$('.product-removal button').click( function() {
-  removeItem(this);
-});
-
-
-/* Recalculate cart */
-function recalculateCart()
-{
-  var subtotal = 0;
-  
-  /* Sum up row totals */
-  $('.product').each(function () {
-    subtotal += parseFloat($(this).children('.product-line-price').text());
-  });
-  
-  /* Calculate totals */
-  var tax = subtotal * taxRate;
-  var shipping = (subtotal > 0 ? shippingRate : 0);
-  var total = subtotal + tax + shipping;
-  
-  /* Update totals display */
-  $('.totals-value').fadeOut(fadeTime, function() {
-    $('#cart-subtotal').html(subtotal.toFixed(2));
-    $('#cart-tax').html(tax.toFixed(2));
-    $('#cart-shipping').html(shipping.toFixed(2));
-    $('#cart-total').html(total.toFixed(2));
-    if(total == 0){
-      $('.checkout').fadeOut(fadeTime);
-    }else{
-      $('.checkout').fadeIn(fadeTime);
+<style>   .div1{
+     height:150px;
+      width:110px;
     }
-    $('.totals-value').fadeIn(fadeTime);
-  });
-}
-
-
-/* Update quantity */
-function updateQuantity(quantityInput)
-{
-  /* Calculate line price */
-  var productRow = $(quantityInput).parent().parent();
-  var price = parseFloat(productRow.children('.product-price').text());
-  var quantity = $(quantityInput).val();
-  var linePrice = price * quantity;
-  
-  /* Update line price display and recalc cart totals */
-  productRow.children('.product-line-price').each(function () {
-    $(this).fadeOut(fadeTime, function() {
-      $(this).text(linePrice.toFixed(2));
-      recalculateCart();
-      $(this).fadeIn(fadeTime);
-    });
-  });  
-}
-
-
-/* Remove item from cart */
-function removeItem(removeButton)
-{
-  /* Remove row from DOM and recalc cart total */
-  var productRow = $(removeButton).parent().parent();
-  productRow.slideUp(fadeTime, function() {
-    productRow.remove();
-    recalculateCart();
-  });
-}
-</script>
-<style>
+    .div2{
+      height:200px;
+      width:110px;
+    }
+    img{
+      height:100%;
+      width:100%;
+    }
     .cardspace{
         margin:10px;
     }
@@ -100,27 +33,67 @@ function removeItem(removeButton)
 <div class="shopping-cart">
 
 <br>
-
-@foreach($items as $item)
+@php
+$totalprice=0
+@endphp
+@foreach($items as $selecteditem)
   <div class="product " >
-    <div class="product-image">
-      <img src="{{$item->image}}">
-    </div>
+    
+  <div id="myCarousel{{$loop->iteration}}" class="carousel slide div1" data-ride="carousel" data-interval="false" >
+   
+
+   <!-- Wrapper for slides -->
+   
+   <div class="carousel-inner div1" >
+  
+   @foreach($selecteditem->item->images as $image)
+   @if ($loop->first)
+   <div class="item active div1">
+       <img src="images\{{$image->name}}" height="150" width="110">
+     </div>    
+    @else
+     <div class="item div1">
+       <img height="150" width="110" src="images\{{$image->name}}">
+       
+     </div>
+     @endif
+     @endforeach
+
+     
+   </div>
+
+   <!-- Left and right controls -->
+   <a class="left carousel-control" href="#myCarousel{{$loop->iteration}}" data-slide="prev">
+     <span class="glyphicon glyphicon-chevron-left"></span>
+     <span class="sr-only">Previous</span>
+   </a>
+   <a class="right carousel-control" href="#myCarousel{{$loop->iteration}}" data-slide="next">
+     <span class="glyphicon glyphicon-chevron-right"></span>
+     <span class="sr-only">Next</span>
+   </a>
+ </div>
+
     <div class="product-details">
-      <div class="product-title">{{$item->name}}</div>
-      <p class="product-description">{{$item->description}}</p>
+      <div class="product-title">{{$selecteditem->item->name}}</div>
+      <p class="product-description">{{$selecteditem->item->description}}</p>
     </div>
-    <div class="product-price">{{$item->price}}</div>
-    <div class="product-quantity">
-      <input type="number" value="2" min="1">
-    </div>
+    <div class="product-price">{{$selecteditem->item->price}}</div>
+    <div class="row product-quantity" >
+    <i class="fa fa-plus-square"></i>
+
+      <p>{{$selecteditem->Quantity}}</p>
+      <i class="fa fa-minus-square"></i>
+
+</div>
+    
     <div class="product-removal">
-    <a href="{{route('removefromcart',['id' => $item->id])}}"><button class="remove-product">
+    <a href="{{route('removefromcart',['id' => $selecteditem->item->id])}}"><button class="remove-product">
         Remove
       </button></a>
     </div>
-    <div class="product-line-price">25.98</div>
+    <div class="product-line-price">{{$selecteditem->item->price*$selecteditem->Quantity}}</div>
   </div>
+  @php $totalprice+=$selecteditem->item->price*$selecteditem->Quantity @endphp
   @endforeach
 
 
@@ -128,7 +101,7 @@ function removeItem(removeButton)
   <div class="totals">
     <div class="totals-item">
       <label>Subtotal</label>
-      <div class="totals-value" id="cart-subtotal">71.97</div>
+      <div class="totals-value" id="cart-subtotal">{{$totalprice}}</div>
     </div>
     <div class="totals-item">
       <label>Tax (5%)</label>
@@ -140,7 +113,7 @@ function removeItem(removeButton)
     </div>
     <div class="totals-item totals-item-total">
       <label>Grand Total</label>
-      <div class="totals-value" id="cart-total">90.57</div>
+      <div class="totals-value" id="cart-total">{{$totalprice}}</div>
     </div>
   </div>
       
