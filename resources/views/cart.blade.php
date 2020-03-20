@@ -1,3 +1,4 @@
+@include('addaddress')
 @extends('bar')
 
 @section('content')
@@ -33,6 +34,7 @@
 <div class="shopping-cart">
 
 <br>
+
 @php
 $totalprice=0
 @endphp
@@ -79,11 +81,13 @@ $totalprice=0
     </div>
     <div class="product-price">{{$selecteditem->item->price}}</div>
     <div class="row product-quantity" >
-    <i class="fa fa-plus-square"></i>
-
+    <a href="{{route('incrementItem',['id' => $selecteditem->item->id])}}">
+      <i class="fa fa-plus-square"></i>
+  </a>
       <p>{{$selecteditem->Quantity}}</p>
+      <a href="{{route('decrementItem',['id' => $selecteditem->item->id])}}">
       <i class="fa fa-minus-square"></i>
-
+  </a>
 </div>
     
     <div class="product-removal">
@@ -117,7 +121,7 @@ $totalprice=0
     </div>
   </div>
       
-      <button class="checkout">Checkout</button>
+  <a  @auth data-toggle="modal" data-target="#addaddress" @else href=" login" @endauth ><button class="checkout">Checkout</button>
 </div>
 <br>
 

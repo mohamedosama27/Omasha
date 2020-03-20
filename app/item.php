@@ -10,4 +10,8 @@ class item extends Model
     {
         return $this->hasMany(image::class);
     }
+    public function orders()
+    {
+        return $this->belongsToMany(order::class);
+    }
 }

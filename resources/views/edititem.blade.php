@@ -29,29 +29,28 @@ form.addEventLisener('submit,function(e){
 </script>
 {{--Form of inserting a new Item--}}
 
-    <form method="POST" action="{{route('item.store')}}" enctype="multipart/form-data">
+    <form method="POST" action="{{route('item.update',['id' => $item->id])}}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
-    
         <h1 style="color:lightskyblue;">New item</h1>
 
             <label for="exampleInputEmail1">Item Name</label>
-            <input type="Text" class="form-control" id="text" Name="Name" placeholder="Item Name" required>
+            <input @if($item->name) value="{{$item->name}}"@endif type="Text" class="form-control" id="text" Name="Name" placeholder="Item Name" required>
 
             <label for="exampleInputEmail1">Description</label>
-            <input type="Text" class="form-control" id="text" Name="Description" placeholder="Description">
+            <input @if($item->description) value="{{$item->description}}"@endif type="Text" class="form-control" id="text" Name="Description" placeholder="Description">
 
             <label for="exampleInputEmail1">Price</label>
-            <input type="Text" class="form-control" id="text" Name="Price" placeholder="EGP..." required>
+            <input @if($item->price) value="{{$item->price}}"@endif type="Text" class="form-control" id="text" Name="Price" placeholder="EGP..." required>
 
             <label for="exampleInputEmail1">Quantity</label>
-            <input type="Text" class="form-control" id="text" Name="Quantity" placeholder="Quantity" required>
+            <input @if($item->quantity) value="{{$item->quantity}}"@endif type="Text" class="form-control" id="text" Name="Quantity" placeholder="Quantity" required>
 
             <label for="exampleInputEmail1">Image Path</label>
             <!-- <input type="file" id="text" Name="img" required> -->
 
             <div class="custom-file">
-            <input type="file" class="custom-file-input" id="validatedCustomFile" Name="img[]" required multiple>
+            <input type="file" class="custom-file-input" id="validatedCustomFile" Name="img[]"  multiple>
             <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
             </div>
           
@@ -60,6 +59,7 @@ form.addEventLisener('submit,function(e){
                     <label for="sel1" Name="Category">Category</label>
                     <select class="form-control" id="sel1" Name="Category">
                     <option value="" disabled selected>Choose your option</option>
+
                     @foreach($categories as $category)
                         <option value="{{$category->id}}">{{$category->name}}</option>
                     @endforeach

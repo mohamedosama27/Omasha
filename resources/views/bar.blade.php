@@ -1,6 +1,7 @@
+@extends('addcategory')
 <!DOCTYPE html>
 <html>
-<title>W3.CSS Template</title>
+<title>LOGO</title>
 <meta charset="UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,23 +41,30 @@ body{
     <h3 class="w3-wide"><b>LOGO</b></h3>
   </div>
   <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
-    <a href="home" class="w3-bar-item w3-button"><i class="fa fa-home" style="margin-right:5px;"></i>Home</a>
-    <a href="additem" class="w3-bar-item w3-button"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Item</a>
+    <a href="{{route('home')}}" class="w3-bar-item w3-button"><i class="fa fa-home" style="margin-right:5px;"></i>Home</a>
+    @auth
+    @if(Auth::user()->type == 1)
+    <a href="{{route('item.create')}}" class="w3-bar-item w3-button"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Item</a>
+    <a data-toggle="modal" data-target="#addcategory" class="w3-bar-item w3-button"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Category</a>
+
+@endif
+@endauth
 
     <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
     <i class='fa fa-product-hunt'></i> Products <i class="fa fa-caret-down"></i>
     </a>
     <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-      <a href="#" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>Skinny</a>
-      <a href="#" class="w3-bar-item w3-button">Relaxed</a>
-      <a href="#" class="w3-bar-item w3-button">Bootcut</a>
-      <a href="#" class="w3-bar-item w3-button">Straight</a>
+    @php( $categories = \App\category::all() )
+    @foreach($categories as $category)
+      <a href="#" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>{{$category->name}}</a>
+     
+      @endforeach
     </div>
     <a href="#" class="w3-bar-item w3-button">
       <i class='fa fa-phone' style="margin-right:5px;">
     </i>Contact</a>
-    <a href="javascript:void(0)" class="w3-bar-item w3-button" onclick="document.getElementById('newsletter').style.display='block'"><i class="fa fa-envelope" style="margin-right:5px;"></i>Newsletter</a> 
-    <a href="#" class="w3-bar-item w3-button">Subscribe</a>
+    <a href="javascript:void(0)" class="w3-bar-item w3-button" onclick="document.getElementById('newsletter').style.display='block'">
+    <i class="fa fa-envelope" style="margin-right:5px;"></i>Mail Us</a> 
   </div>
   
 </nav>
@@ -65,7 +73,7 @@ body{
 <header class="w3-bar w3-top w3-black w3-xlarge" style="margin-bottom:30px;">
   <div class="w3-bar-item w3-padding-24 w3-wide">LOGO</div>
   <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></a>
-  <a href="{{ Request::is('cart') ? 'home' : 'cart' }}" class="w3-bar-item w3-button w3-padding-24 w3-right" >
+  <a href="{{ Request::is('cart') ? route('home') : route('cart') }}" class="w3-bar-item w3-button w3-padding-24 w3-right" >
   <div class="wrapper">
   <i class="fa fa-shopping-cart w3-margin-right"></i>
   <span class="badge countCart" >{{Session::has('number_of_items') ? Session::get('number_of_items'): ''}}</span>
@@ -117,21 +125,9 @@ body{
 
 
 
-  <!-- End page content -->
 </div>
 
-<!-- Newsletter Modal -->
-<div id="newsletter" class="w3-modal">
-  <div class="w3-modal-content w3-animate-zoom" style="padding:32px">
-    <div class="w3-container w3-white w3-center">
-      <i onclick="document.getElementById('newsletter').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
-      <h2 class="w3-wide">NEWSLETTER</h2>
-      <p>Join our mailing list to receive updates on new arrivals and special offers.</p>
-      <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail"></p>
-      <button type="button" class="w3-button w3-padding-large w3-red w3-margin-bottom" onclick="document.getElementById('newsletter').style.display='none'">Subscribe</button>
-    </div>
-  </div>
-</div>
+
 
 <script>
 // Accordion 

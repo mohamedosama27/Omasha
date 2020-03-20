@@ -9,49 +9,45 @@
  
    
     .div1{
-     height:150px;
-      width:110px;
+     height:170px;
+      width:130px;
     }
     .div2{
-      height:200px;
-      width:110px;
+      height:220px;
+      width:130px;
     }
     img{
-      height:100%;
-      width:100%;
+      height:150px;
+      width:130px;
     }
+    .div3
+    {
+      max-height:220px;
+      display: table;
+
+    }
+    p 
+    {
+     color:black;
+     max-width: 110px;
+     height :20px;
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+    }
+    
 
 </style>
 <br>
-<!-- <div class="w3-card cardspace">
 
-<div class="cardspace">
-  <div class=" w3-grayscale">
-  @foreach($items as $item)
-    <div class="w3-col l3 s6">
-      <div class="w3-container">
-        <img height="150" width="110"src="{{$item->image}}" style="width:100%">
-        <p>{{$item->name}}<br><b>${{$item->price}}</b></p>
-        <a href="{{route('item.addToCart',['id' => $item->id])}}"><button type="button" class="btn btn-default" style="margin-bottom:10px;">Add to Cart</button></a>
-      </div>
-     
-    </div>
-   
-
-    @endforeach
-
-    
-  </div>
-  </div>
-  </div> -->
 
   <div class="w3-card cardspace ">
 
 <div class="cardspace">
   <div class=" w3-grayscale">
   @foreach($items as $item)
-    <div class="w3-col l3 s6 div2">
-      <div class="w3-container div2">
+    <div class="w3-col l3 s6 div2  div3">
+      <div class="w3-container">
 
   <div id="myCarousel{{$loop->iteration}}" class="carousel slide div1" data-ride="carousel" data-interval="false" >
    
@@ -62,24 +58,18 @@
    
     @foreach($item->images as $image)
     @if ($loop->first)
-    <div class="item active div1">
-        <img src="images\{{$image->name}}" height="150" width="110">
+    <div class="item active">
+        <img src="images\{{$image->name}}">
       </div>    
      @else
-      <div class="item div1">
+      <div class="item">
         <img height="150" width="110" src="images\{{$image->name}}">
         
       </div>
       @endif
       @endforeach
 
-      <!-- <div class="item">
-        <img src="images/2.jpg" alt="Chicago" >
-      </div>
-    
-      <div class="item">
-        <img src="images/3.jpg" alt="New york">
-      </div> -->
+   
     </div>
 
     <!-- Left and right controls -->
@@ -93,10 +83,26 @@
     </a>
   </div>
   <p>{{$item->name}}<br><b>${{$item->price}}</b></p>
-        <a href="{{route('item.addToCart',['id' => $item->id])}}"><button type="button" class="btn btn-default" style="margin-bottom:10px;">Add to Cart</button></a>
-     
+  
+      @auth
+        @if(Auth::user()->type == 1)
+        <a href="{{route('item.delete',['id' => $item->id])}}"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a>
+        <a href="{{route('item.edit',['id' => $item->id])}}"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Edit</b></button></a>
+
+
+        @else
+        <a href="{{route('item.addToCart',['id' => $item->id])}}"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Add to Cart</b></button></a>
+
+        @endif
+        @else
+        <a href="{{route('item.addToCart',['id' => $item->id])}}"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Add to Cart</b></button></a>
+
+      @endauth
+        <hr>
 </div>
+
 </div>
+
 @endforeach
   </div>
 </div>
