@@ -37,6 +37,9 @@ form.addEventLisener('submit,function(e){
 
             <label for="exampleInputEmail1">Item Name</label>
             <input type="Text" class="form-control" id="text" Name="Name" placeholder="Item Name" required>
+   
+            <label for="exampleInputEmail1">Bar Code</label>
+            <input type="Text" class="form-control" id="text" Name="barcode" placeholder="Bar code" required>
 
             <label for="exampleInputEmail1">Description</label>
             <input type="Text" class="form-control" id="text" Name="Description" placeholder="Description">

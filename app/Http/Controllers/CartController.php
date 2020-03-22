@@ -59,7 +59,7 @@ class CartController extends Controller
     Session::put('selcteditems',$selcteditems);
 
      //return Session::get('selcteditems');
-       return redirect('home');
+       return redirect()->back();
 
     }
     public function decrementItem($id)

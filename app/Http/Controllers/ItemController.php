@@ -55,6 +55,7 @@ class ItemController extends Controller
         $item->description=$request['Description'];
         $item->quantity=$request['Quantity'];
         $item->price=$request['Price'];
+        $item->barcode=$request['barcode'];
         $item->category_id=$request['Category'];
         $item->save();
     
@@ -80,9 +81,14 @@ class ItemController extends Controller
      * @param  \App\item  $item
      * @return \Illuminate\Http\Response
      */
-    public function show(item $item)
+    public function show($id)
     {
+        $item = \App\item::find($id);
 
+        return view('item',[
+            'item'=>$item,
+        ]);
+        
     }
 
     /**
@@ -119,6 +125,7 @@ class ItemController extends Controller
         $item->quantity=$request['Quantity'];
         $item->price=$request['Price'];
         $item->category_id=$request['Category'];
+        $item->barcode=$request['barcode'];
         $item->save();
         $item_id = $item->id;
         if($files = $request->file('img')){

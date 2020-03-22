@@ -36,6 +36,8 @@ form.addEventLisener('submit,function(e){
 
             <label for="exampleInputEmail1">Item Name</label>
             <input @if($item->name) value="{{$item->name}}"@endif type="Text" class="form-control" id="text" Name="Name" placeholder="Item Name" required>
+            <label for="exampleInputEmail1">Bar Code</label>
+            <input @if($item->barcode) value="{{$item->barcode}}" @endif type="Text" class="form-control" id="text" Name="barcode" placeholder="Bar code" required>
 
             <label for="exampleInputEmail1">Description</label>
             <input @if($item->description) value="{{$item->description}}"@endif type="Text" class="form-control" id="text" Name="Description" placeholder="Description">

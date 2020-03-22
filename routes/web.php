@@ -26,9 +26,23 @@ Route::put('/update/{id}',
     'uses' => 'ItemController@update',
     'as' => 'item.update'
 ]);
-Route::get('/edit/{id}', [
-    'uses' => 'ItemController@edit',
-    'as' => 'item.edit'
+Route::get('/show/{id}', [
+    'uses' => 'ItemController@show',
+    'as' => 'item.show'
+]);
+
+
+Route::get('/accept/{id}', [
+    'uses' => 'OrderController@accept',
+    'as' => 'order.accept'
+]);
+Route::get('/reject/{id}', [
+    'uses' => 'OrderController@reject',
+    'as' => 'order.reject'
+]);
+Route::get('/deleteOrder/{id}', [
+    'uses' => 'OrderController@destroy',
+    'as' => 'order.delete'
 ]);
 
 Route::get('/createitem',
@@ -46,10 +60,27 @@ Route::get('/deleteitem/{id}',
     'uses' => 'ItemController@destroy',
     'as' => 'item.delete'
 ]);
+Route::get('/edititem/{id}', [
+    'uses' => 'ItemController@edit',
+    'as' => 'item.edit'
+]);
 Route::put('/createcategory',
 [
     'uses' => 'CategoryController@store',
     'as' => 'category.store'
+]);
+Route::get('/editcategory', [
+    'uses' => 'CategoryController@edit',
+    'as' => 'category.edit'
+]);
+Route::get('/deleteCategory/{id}', [
+    'uses' => 'CategoryController@destroy',
+    'as' => 'category.delete'
+]);
+Route::put('/updateCategory/{id}',
+[
+    'uses' => 'CategoryController@update',
+    'as' => 'category.update'
 ]);
 
 
@@ -71,13 +102,17 @@ Route::get('/incrementItem/{id}', [
     'uses' => 'CartController@incrementItem',
     'as' => 'incrementItem'
 ]);
-Route::get('/item', function () {
-    return view('item');
-});
+
 Route::get('/vieworders',[
     'uses' => 'OrderController@showAll',
     'as' => 'vieworders'
 ]);
+Route::get('/viewmails',[
+    'uses' => 'MailController@index',
+    'as' => 'viewmails'
+]);
+
+
 Route::put('/storeitem', [
     'uses' => 'ItemController@store',
     'as' => 'item.store'

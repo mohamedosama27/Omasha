@@ -3,6 +3,7 @@
 @section('content')
  
 <style>
+
     .cardspace{
         margin:10px;
     }
@@ -24,7 +25,7 @@
     {
       max-height:220px;
       display: table;
-
+      
     }
     p 
     {
@@ -82,8 +83,12 @@
       <span class="sr-only">Next</span>
     </a>
   </div>
-  <p>{{$item->name}}<br><b>${{$item->price}}</b></p>
-  
+  @if($item->quantity == 0)
+  <p style="color:red;">Available Soon</p>
+  @else
+  <p><a href="{{route('item.show',['id' => $item->id])}}">{{$item->name}}</a></p>
+  @endif
+  <b>${{$item->price}}</b><br>
       @auth
         @if(Auth::user()->type == 1)
         <a href="{{route('item.delete',['id' => $item->id])}}"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a>

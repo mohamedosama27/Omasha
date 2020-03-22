@@ -14,4 +14,28 @@ class CategoryController extends Controller
         $category->save();
         return redirect('home');
     }
+    public function edit()
+    {
+        $categories = \App\category::all();
+
+        return view('editcategory',[
+            'categories'=>$categories
+        ]);
+    }
+    public function update(Request $request, $id)
+    {
+        
+        $category = \App\category::find($id);
+        $category->name=$request['name'];
+        $category->save();
+        return redirect('editcategory');
+    }
+    public function destroy($id)
+    {
+        $category = \App\category::find($id);
+
+        $category->delete();
+        return redirect('editcategory');
+
+    }
 }

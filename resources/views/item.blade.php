@@ -1,4 +1,4 @@
-<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 @extends('bar')
 
 @section('content')
@@ -9,7 +9,11 @@
 
 
 img {
-  max-width: 100%; }
+  max-width: 100%; 
+  max-height:400px;
+  max-width:200px;
+  
+   }
 
 
   @media screen and (max-width: 996px) {
@@ -125,30 +129,35 @@ img {
 					<div class="preview col-md-6">
 						
 						<div class="preview-pic tab-content">
-						  <div class="tab-pane active" id="pic-1"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-2"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-3"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-4"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-5"><img src="http://placekitten.com/400/252" /></div>
-						</div>
+          @foreach($item->images as $image)
+             @if ($loop->first)
+						  <div class="tab-pane active" id="pic-{{$loop->iteration}}"><img src={{ URL::asset("images/{$image->name}")}} alt="{{$image->name}}" /></div>
+						  @else
+              <div class="tab-pane" id="pic-{{$loop->iteration}}"><img max-height="200" max-width="200" src={{ URL::asset("images/{$image->name}")}} alt="{{$image->name}}" /></div>
+              @endif
+          @endforeach
+            </div>
 						<ul class="preview-thumbnail nav nav-tabs">
-						  <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						  <li><a data-target="#pic-2" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						  <li><a data-target="#pic-3" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						  <li><a data-target="#pic-4" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						  <li><a data-target="#pic-5" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						</ul>
+            @foreach($item->images as $image)
+             @if ($loop->first)
+             
+						  <li class="active"><a data-target="#pic-{{$loop->iteration}}" data-toggle="tab"><img src={{ URL::asset("images/{$image->name}")}} /></a></li>
+						  @else
+              <li><a data-target="#pic-{{$loop->iteration}}" data-toggle="tab"><img src={{ URL::asset("images/{$image->name}")}} /></a></li>
+              @endif
+          @endforeach
+            </ul>
 						
 					</div>
 					<div class="details col-md-6">
-						<h3 class="product-title">men's shoes fashion</h3>
+						<h3 class="product-title">{{$item->name}}</h3>
 						
-						<p class="product-description">Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere.</p>
-						<h4 class="price">current price: <span>$180</span></h4>
+						<p class="product-description">{{$item->description}}</p>
+						<h4 class="price">current price: <span>${{$item->price}}</span></h4>
 					
 					
 						<div class="action">
-							<button class="add-to-cart btn btn-default" type="button">add to cart</button>
+            <a href="{{route('item.addToCart',['id' => $item->id])}}"><button class="add-to-cart btn btn-default" type="button">add to cart</button></a>
 							<button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
 						</div>
 					</div>

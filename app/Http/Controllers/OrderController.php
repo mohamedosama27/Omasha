@@ -11,9 +11,12 @@ class OrderController extends Controller
     public function showAll()
     {
         $orders = \App\order::all();
+        $items=DB::table('item_order')->get();
 
         return view('vieworders',[
-            'orders'=>$orders ?? 'Doesnot exist'
+            'orders'=>$orders,
+            'items'=>$items,
+
         ]);
        
     }
@@ -29,6 +32,10 @@ class OrderController extends Controller
         $totalprice=0;
         foreach($selcteditems as $selecteditem)
         {
+            $item = \App\item::find($selecteditem->item->id);
+            $item->quantity-=$selecteditem->Quantity;
+            $item->save();
+
             $totalprice+=$selecteditem->Quantity*$selecteditem->item->price;
             DB::table('item_order')->insert(
                 ['item_id' => $selecteditem->item->id,
@@ -42,6 +49,35 @@ class OrderController extends Controller
         Session::put('number_of_items',0 );
         Session::put('selcteditems',array());
              return redirect('home');
+    }
+    public function accept($id)
+    {
+        $order = \App\order::findorfail($id);
+        $order->status=1;
+        $order->save();
+        return redirect('vieworders');
+
+
+    }
+    public function reject($id)
+    {
+        $order = \App\order::findorfail($id);
+        $order->status=1;
+        $order->save();
+        return redirect('vieworders');
+
+
+    }
+    public function destroy($id)
+    {
+        $order = \App\order::findorfail($id);
+        $order->delete();
+        DB::table('item_order')->where('order_id', '=', $id)->delete();
+        return redirect('vieworders');
+
+        
+
+
     }
 
 
