@@ -1,4 +1,3 @@
-@include('addaddress')
 @extends('bar')
 
 @section('content')
@@ -91,7 +90,8 @@ $totalprice=0
 </div>
     
     <div class="product-removal">
-    <a href="{{route('removefromcart',['id' => $selecteditem->item->id])}}"><button class="remove-product">
+    <a href="{{route('removefromcart',['id' => $selecteditem->item->id])}}">
+    <button class="remove-product">
         Remove
       </button></a>
     </div>
@@ -120,8 +120,10 @@ $totalprice=0
       <div class="totals-value" id="cart-total">{{$totalprice}}</div>
     </div>
   </div>
-      
-  <a  @auth data-toggle="modal" data-target="#addaddress" @else href=" login" @endauth ><button class="checkout">Checkout</button>
+  @include('addaddress')
+
+  <a  @auth data-toggle="modal" data-target="#addaddress" @else href=" login" @endauth >
+  <button class="checkout">Checkout</button>
 </div>
 <br>
 

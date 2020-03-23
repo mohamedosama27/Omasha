@@ -3,7 +3,45 @@
 @section('content')
  
 <style>
+  @media screen and (max-width: 330px) {
 
+  .div1{
+    
+      width:200px;
+    }
+  .div2{
+    width:200px;
+    }
+    .div3{
+      width:200px;
+
+    }
+    p{
+      max-width: 150px;
+
+    }
+  }
+  @media screen and (min-width: 320px) {
+    .div1{
+      width:130px;
+    }
+    .div2{
+      width:130px;
+    }
+    img{
+      width:130px;
+    }
+    .div3
+    {
+      display: table;
+      
+    }
+    p{
+      max-width: 110px;
+
+    }
+
+  }
     .cardspace{
         margin:10px;
     }
@@ -11,26 +49,21 @@
    
     .div1{
      height:170px;
-      width:130px;
     }
     .div2{
       height:220px;
-      width:130px;
     }
     img{
       height:150px;
-      width:130px;
     }
     .div3
     {
       max-height:220px;
-      display: table;
       
     }
     p 
     {
      color:black;
-     max-width: 110px;
      height :20px;
      white-space: nowrap;
      overflow: hidden;

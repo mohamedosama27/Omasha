@@ -1,4 +1,3 @@
-@extends('addcategory')
 <!DOCTYPE html>
 <html>
 <title>LOGO</title>
@@ -32,7 +31,11 @@ body{
   margin-top:70px;
 }
 </style>
-
+@auth
+    @if(Auth::user()->type == 1)
+@include('addcategory')
+@endif
+@endauth
 <body class="w3-content" style="max-width:1200px;">
 
 <!-- Sidebar/menu -->
@@ -45,6 +48,8 @@ body{
     <a href="{{route('home')}}" class="w3-bar-item w3-button"><i class="fa fa-home" style="margin-right:5px;"></i>Home</a>
     @auth
     @if(Auth::user()->type == 1)
+    <a href="register" class="w3-bar-item w3-button"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Admin</a>
+
     <a href="{{route('item.create')}}" class="w3-bar-item w3-button"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Item</a>
     <a href="{{route('vieworders')}}" class="w3-bar-item w3-button"><i class="fa fa-list" style="margin-right:5px;"></i>View Orders</a>
     <a href="{{route('category.edit')}}" class="w3-bar-item w3-button"><i class="fa fa-edit" style="margin-right:5px;"></i>Edit Categories</a>
@@ -74,18 +79,20 @@ body{
 </nav>
 
 <!-- Top menu on small screens -->
-<header class="w3-bar w3-top w3-black w3-xlarge" style="margin-bottom:30px;">
-<a href="{{route('home')}}" style="color:white;"><div class="w3-bar-item w3-padding-24 w3-wide">LOGO</div></a>
-  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+<header class="w3-bar w3-top w3-black w3-large" style="margin-bottom:40px;">
+<a href="{{route('home')}}" style="color:white;">
+<div class="w3-bar-item w3-padding-24 w3-wide">LOGO</div></a>
+  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i class="fa fa-lg fa-bars"></i></a>
   <a href="{{ Request::is('cart') ? route('home') : route('cart') }}" class="w3-bar-item w3-button w3-padding-24 w3-right" >
   <div class="wrapper">
-  <i class="fa fa-shopping-cart w3-margin-right"></i>
+  <i class="fa fa-shopping-cart fa-lg  w3-margin-right"></i>
   <span class="badge countCart" >{{Session::has('number_of_items') ? Session::get('number_of_items'): ''}}</span>
   </div>
   </a>
   @guest
                             
-                                <a class="w3-bar-item w3-button w3-padding-24 w3-right" href="{{ Request::is('login') ? route('home') : route('login') }}"><i class="fa fa-sign-in" style="margin-right:5px;"></i></a>
+                                <a class="w3-bar-item w3-button w3-padding-24 w3-right" href="{{ Request::is('login') ? route('home') : route('login') }}">
+                                <i class="fa fa-sign-in fa-lg " style="margin-right:5px;"></i></a>
                                 @else
                             <div class="nav-item dropdown">
                                 <a id="navbarDropdown" class="w3-bar-item w3-button w3-padding-24 w3-right" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -97,6 +104,10 @@ body{
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('user.edit',['id' => Auth::user()->id]) }}"
+                                       >
+                                        Edit Profile
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

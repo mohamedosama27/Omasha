@@ -8,6 +8,8 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use Rule;
 
 class RegisterController extends Controller
 {
@@ -38,7 +40,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        // $this->middleware('guest');
     }
 
     /**
@@ -71,6 +73,55 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+    protected function createAdmin(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone' => ['required', 'string', 'min:11','max:11'],
+        ]);
+
+        $User = new  \App\User;
+        $User->name = $request['name'];
+        $User->email = $request['email'];
+        $User->phone = $request['phone'];
+        $User->type = 1;
+        $User->password = Hash::make($request['password']);
+        $User->save();
+        return redirect('home');
+
+        
+    }
+    public function edit($id)
+    {
+        $user = \App\User::find($id);
+
+        return view('auth/editUser',[
+            'user'=>$user,
+        ]);
+
+    }
+    public function update(Request $request,$id)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255',
+            'unique:users,email,'.$id       ],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone' => ['required', 'string', 'min:11','max:11'],
+        ]);
+        $User = \App\User::find($id);
+        $User->name = $request['name'];
+        $User->email = $request['email'];
+        $User->phone = $request['phone'];
+        $User->type = 1;
+        $User->password = Hash::make($request['password']);
+        $User->save();
+        return redirect('home');
+
+
     }
     
 }

@@ -18,25 +18,20 @@
 <div class="w3-card cardspace">
 
 <div class="cardspace">
-@auth
-    @if(Auth::user()->type == 1)
-    <form method="POST" action="{{ route('addAdmin') }}">
-    @endif
-    @else
-    <form method="POST" action="{{ route('register') }}">
 
-@endauth
+    <form method="POST" action="{{ route('user.update',['id' => $user->id]) }}">
+
 
     @csrf
     @method('PUT')
 <br>
-  <h2>Create Account</h2>
+  <h2>Edit Account</h2>
   <br>
   <div class="input-group mb-3">
   <div class="input-group-prepend">
     <span class="input-group-text" ><i class="fa fa-3x fa-user"></i>
     </span>
-    <input class="form-control" type="text" placeholder="Name" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+    <input class="form-control" type="text" placeholder="Name" name="name" value="{{$user->name}}" required autocomplete="name" autofocus>
   </div>
   </div>
 
@@ -44,7 +39,7 @@
   <div class="input-group-prepend">
     <span class="input-group-text" ><i class="fa fa-2x fa-envelope "></i>
     </span>
-    <input class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" type="email" placeholder="Email" name="email" required autocomplete="email" autofocus>
+    <input class="form-control @error('email') is-invalid @enderror" name="email" value="{{$user->email}}" type="email" placeholder="Email" name="email" required autocomplete="email" autofocus>
 
 </div>
 @error('email')
@@ -78,7 +73,7 @@
   <div class="input-group-prepend">
     <span class="input-group-text" ><i class="fa fa-2x fa-phone-square"></i>
     </span>
-    <input class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}" type="text" placeholder="Phone Number" name="phone" required>
+    <input class="form-control @error('phone') is-invalid @enderror" type="text" placeholder="Phone Number" value="{{$user->phone}}" name="phone" required>
 
    
 </div>
@@ -89,15 +84,7 @@
                                 @enderror  
 </div>
   <button type="submit" class="w3-btn btn-block w3-round-xxlarge w3-light-blue">
-  @auth
-    @if(Auth::user()->type == 1)
-    Add
-    @endif
-    @else
-    Sign Up
-    @endauth
-
-
+Edit
     </button>
   <br>
 </form>

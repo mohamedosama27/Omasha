@@ -58,7 +58,6 @@ class CartController extends Controller
     Session::put('number_of_items',$number_of_items );
     Session::put('selcteditems',$selcteditems);
 
-     //return Session::get('selcteditems');
        return redirect()->back();
 
     }

@@ -118,6 +118,18 @@ Route::put('/storeitem', [
     'as' => 'item.store'
 ]);
 
+Route::put('/addAdmin', [
+    'uses' => 'Auth\RegisterController@createAdmin',
+    'as' => 'addAdmin'
+]);
+Route::get('/edituser/{id}', [
+    'uses' => 'Auth\RegisterController@edit',
+    'as' => 'user.edit'
+]);
+Route::put('/updateuser/{id}', [
+    'uses' => 'Auth\RegisterController@update',
+    'as' => 'user.update'
+]);
 
 Auth::routes();
 
