@@ -47,26 +47,55 @@ form.addEventLisener('submit,function(e){
 
             <label for="exampleInputEmail1">Quantity</label>
             <input @if($item->quantity) value="{{$item->quantity}}"@endif type="Text" class="form-control" id="text" Name="Quantity" placeholder="Quantity" required>
+            <label >Delete images</label>
 
-            <label for="exampleInputEmail1">Image Path</label>
+            <table class="table">
+           
+            <tbody>
+            @forelse($item->images as $image)
+                <tr>
+                <th scope="row"><img height="150" width="110" src={{ URL::asset("images/{$image->name}")}}></th>
+                <td><a href="{{route('image.delete',['id' => $image->id])}}">
+                <button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a></td>
+                </tr>
+                @empty
+                <p style="color:red;margin-left:50px;">No Images</p>
+
+                @endforelse
+       
+            </tbody>
+            </table>
+            <label for="exampleInputEmail1">Add images</label>
             <!-- <input type="file" id="text" Name="img" required> -->
 
             <div class="custom-file">
-            <input type="file" class="custom-file-input" id="validatedCustomFile" Name="img[]"  multiple>
+            <input type="file" class="custom-file-input" id="validatedCustomFile" Name="img[]"  accept="image/*" multiple>
             <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
             </div>
+            <script>
+             $('.custom-file input').change(function (e) {
+                var files = [];
+               
+                $(this).next('.custom-file-label').html("you choose : "+ $(this)[0].files.length+" images");
+            });
+            </script>
           
 
              <div class="form-group">
                     <label for="sel1" Name="Category">Category</label>
                     <select class="form-control" id="sel1" Name="Category">
-                    <option value="" disabled selected>Choose your option</option>
-
                     @foreach($categories as $category)
+                        @if($category->id==$item->category_id)
+                        <option value="{{$category->id}}" selected>{{$category->name}}</option>
+                        @else
                         <option value="{{$category->id}}">{{$category->name}}</option>
+                        @endif
                     @endforeach
                     </select>
                     </div>
+          
+          
+
             <input type="submit" name="submit" style="border:none; width:100%; background-color:#c1e2b3;">
             <br><br>
             <input type="reset" style="border:none; width:100%; background-color:#d43f3a;">

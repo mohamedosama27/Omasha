@@ -1,33 +1,18 @@
 @extends('bar')
 
 @section('content')
- 
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+
 <style>
-  @media screen and (max-width: 330px) {
 
-  .div1{
-    
-      width:200px;
-    }
-  .div2{
-    width:200px;
-    }
-    .div3{
-      width:200px;
-
-    }
-    p{
-      max-width: 150px;
-
-    }
-  }
-  @media screen and (min-width: 320px) {
     .div1{
       width:130px;
+      height:170px;
+
     }
-    .div2{
-      width:130px;
-    }
+  
     img{
       width:130px;
     }
@@ -41,20 +26,17 @@
 
     }
 
-  }
+  
     .cardspace{
         margin:10px;
     }
  
-   
-    .div1{
-     height:170px;
-    }
-    .div2{
-      height:220px;
-    }
+
+ 
     img{
+      width:130px;
       height:150px;
+      
     }
     .div3
     {
@@ -72,18 +54,23 @@
     
 
 </style>
-<br>
 
+
+<br>
 
   <div class="w3-card cardspace ">
 
 <div class="cardspace">
-  <div class=" w3-grayscale">
-  @foreach($items as $item)
-    <div class="w3-col l3 s6 div2  div3">
-      <div class="w3-container">
 
-  <div id="myCarousel{{$loop->iteration}}" class="carousel slide div1" data-ride="carousel" data-interval="false" >
+  <div class=" w3-grayscale" id="results">
+  
+  @foreach($items as $item)
+<form>
+
+<div class="w3-col l3 s6">
+      <div class="w3-container div3">
+      
+  <div id="myCarousel{{$loop->iteration}}" class="carousel slide" data-ride="carousel" data-interval="false" >
    
 
     <!-- Wrapper for slides -->
@@ -129,22 +116,67 @@
 
 
         @else
-        <a href="{{route('item.addToCart',['id' => $item->id])}}"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Add to Cart</b></button></a>
+        <button type="button" class="btn btn-default btn-submit" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;"><b>Add to Cart</b></button>
 
         @endif
         @else
-        <a href="{{route('item.addToCart',['id' => $item->id])}}"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Add to Cart</b></button></a>
-
+        <a href="{{route('item.addToCart',['id' => $item->id])}}">
+        <button type="button" class="btn btn-default btn-submit" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;"><b>Add to Cart</b></button></a>
       @endauth
+
         <hr>
 </div>
 
 </div>
 
+</form>
 @endforeach
   </div>
 </div>
 </div>
+<script type="text/javascript">
 
+   
+
+    $.ajaxSetup({
+
+        headers: {
+
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+        }
+
+    });
+
+   
+
+    $(".btn-submit").click(function(e){
+
+  
+
+       e.preventDefault();
+
+           var str =  $(this).data('value');;
+        $.ajax({
+
+           type:'POST',
+
+           url:"{{ route('item.addToCart') }}",
+
+           data:{name:str},
+
+           success:function(data){
+
+              $("#countcart").text(data.success);
+              
+           }
+
+        });
+
+  
+
+	});
+
+</script>
 
 @endsection

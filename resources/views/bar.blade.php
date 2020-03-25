@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
 .w3-sidebar a {font-family: "Roboto", sans-serif}
@@ -53,8 +53,8 @@ body{
     <a href="{{route('item.create')}}" class="w3-bar-item w3-button"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Item</a>
     <a href="{{route('vieworders')}}" class="w3-bar-item w3-button"><i class="fa fa-list" style="margin-right:5px;"></i>View Orders</a>
     <a href="{{route('category.edit')}}" class="w3-bar-item w3-button"><i class="fa fa-edit" style="margin-right:5px;"></i>Edit Categories</a>
-
     <a data-toggle="modal" data-target="#addcategory" class="w3-bar-item w3-button"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Category</a>
+    <a href="{{route('viewmails')}}" class="w3-bar-item w3-button"><i class="fa fa-envelope" style="margin-right:5px;"></i>View Mails</a> 
 
 @endif
 @endauth
@@ -86,7 +86,7 @@ body{
   <a href="{{ Request::is('cart') ? route('home') : route('cart') }}" class="w3-bar-item w3-button w3-padding-24 w3-right" >
   <div class="wrapper">
   <i class="fa fa-shopping-cart fa-lg  w3-margin-right"></i>
-  <span class="badge countCart" >{{Session::has('number_of_items') ? Session::get('number_of_items'): ''}}</span>
+  <span class="badge countCart" id='countcart'>{{Session::has('number_of_items') ? Session::get('number_of_items'): ''}}</span>
   </div>
   </a>
   @guest

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 
 
 class ItemController extends Controller
@@ -157,6 +158,20 @@ class ItemController extends Controller
 
         $item->delete();
         return redirect('home');
+
+    }
+    public function deleteImage($id)
+    {
+        DB::table('images')->where('id', '=', $id)->delete();
+
+        return redirect()->back();
+
+    }
+    public function ajaxRequestPost(Request $request)
+
+    {
+   
+        return response()->json(['success'=>$request['name']]);
 
     }
 }

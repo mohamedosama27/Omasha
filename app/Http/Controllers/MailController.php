@@ -14,9 +14,7 @@ class MailController extends Controller
      */
     public function index()
     {
-        // $messages=new mail_us();
-
-        $messages= DB::table('mails')->select('*')->where('Status','Waiting')->get();
+        $messages= DB::table('mails')->select('*')->where('status',0)->get();
         return view('view_mails_admin', ['messages'=>$messages]);
     }
 
@@ -38,8 +36,14 @@ class MailController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Answer=$request->Answer;
+        DB::table('mails')
+            ->where('id',$_GET['hiddenMessageID'])
+            ->update(['answer' =>$Answer ,'status' => 1]);
+
+        return redirect('/viewmails');
     }
+
 
     /**
      * Display the specified resource.

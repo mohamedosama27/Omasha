@@ -35,8 +35,9 @@ class CartController extends Controller
         return redirect('cart');
 
     }
-    public function AddToCart(Request $request,$id)
+    public function AddToCart(Request $request)
     {
+        $id=$request['name'];
     $number_of_items = Session::has('number_of_items') ? Session::get('number_of_items') : 0;
     $selcteditems = Session::has('selcteditems') ? Session::get('selcteditems') : array();
     $found=false;
@@ -58,7 +59,7 @@ class CartController extends Controller
     Session::put('number_of_items',$number_of_items );
     Session::put('selcteditems',$selcteditems);
 
-       return redirect()->back();
+    return response()->json(['success'=>$number_of_items]);
 
     }
     public function decrementItem($id)
@@ -99,4 +100,5 @@ class CartController extends Controller
         return redirect('cart');
 
     }
+    
 }

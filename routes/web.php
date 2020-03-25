@@ -12,7 +12,7 @@
 */
 
 Route::get('/', 'ItemController@showAll');
-Route::get('/add-to-cart/{id}', [
+Route::post('/add-to-cart', [
     'uses' => 'CartController@AddToCart',
     'as' => 'item.addToCart'
 ]);
@@ -59,6 +59,11 @@ Route::get('/deleteitem/{id}',
 [
     'uses' => 'ItemController@destroy',
     'as' => 'item.delete'
+]);
+Route::get('/deleteimage/{id}',
+[
+    'uses' => 'ItemController@deleteImage',
+    'as' => 'image.delete'
 ]);
 Route::get('/edititem/{id}', [
     'uses' => 'ItemController@edit',
@@ -107,10 +112,8 @@ Route::get('/vieworders',[
     'uses' => 'OrderController@showAll',
     'as' => 'vieworders'
 ]);
-Route::get('/viewmails',[
-    'uses' => 'MailController@index',
-    'as' => 'viewmails'
-]);
+Route::get('/viewmails','MailController@index')->name('viewmails');
+Route::get('/Mail_us_Admin/reply','MailController@store');
 
 
 Route::put('/storeitem', [
@@ -130,6 +133,8 @@ Route::put('/updateuser/{id}', [
     'uses' => 'Auth\RegisterController@update',
     'as' => 'user.update'
 ]);
+Route::get('autocomplete', 'ItemController@autocomplete')->name('autocomplete');
+
 
 Auth::routes();
 
