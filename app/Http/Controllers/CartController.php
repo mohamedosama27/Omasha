@@ -59,11 +59,12 @@ class CartController extends Controller
     Session::put('number_of_items',$number_of_items );
     Session::put('selcteditems',$selcteditems);
 
-    return response()->json(['success'=>$number_of_items]);
+    return response()->json(['countCart'=>$number_of_items]);
 
     }
-    public function decrementItem($id)
+    public function decrementItem(Request $request)
     {
+        $id=$request['id'];
         $selcteditems = Session::get('selcteditems'); 
         $number_of_items = Session::has('number_of_items') ? Session::get('number_of_items') : 0;
 
@@ -73,16 +74,19 @@ class CartController extends Controller
             {
                 $number_of_items-=1;
                 $selcteditems[$i]->Quantity-=1;
+                $quantity=$selcteditems[$i]->Quantity;
+                $totalprice=$quantity*$selcteditems[$i]->item->price;
                 Session::put('selcteditems', $selcteditems);
                 Session::put('number_of_items',$number_of_items );
 
             }
         }
-        return redirect('cart');
+        return response()->json(['quantity'=>$quantity,'totalprice'=>$totalprice,'countCart'=>$number_of_items]);
 
     }
-    public function incrementItem($id)
+    public function incrementItem(Request $request)
     {
+        $id=$request['id'];
         $selcteditems = Session::get('selcteditems'); 
         $number_of_items = Session::has('number_of_items') ? Session::get('number_of_items') : 0;
 
@@ -92,12 +96,14 @@ class CartController extends Controller
             {
                 $number_of_items+=1;
                 $selcteditems[$i]->Quantity+=1;
+                $quantity=$selcteditems[$i]->Quantity;
+                $totalprice=$quantity*$selcteditems[$i]->item->price;
                 Session::put('selcteditems', $selcteditems);
                 Session::put('number_of_items',$number_of_items );
 
             }
         }
-        return redirect('cart');
+        return response()->json(['quantity'=>$quantity,'totalprice'=>$totalprice,'countCart'=>$number_of_items]);
 
     }
     

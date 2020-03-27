@@ -20,6 +20,16 @@ Route::post('/add-to-cart', [
     'uses' => 'CartController@AddToCart',
     'as' => 'item.addToCart'
 ]);
+Route::post('/decrementItem', [
+    'uses' => 'CartController@decrementItem',
+    'as' => 'decrementItem'
+]);
+Route::post('/incrementItem', [
+    'uses' => 'CartController@incrementItem',
+    'as' => 'incrementItem'
+]);
+
+
 
 Route::get('/home', [
     'uses' => 'ItemController@index',
@@ -103,14 +113,8 @@ Route::get('/removefromcart/{id}', [
     'uses' => 'CartController@removeItem',
     'as' => 'removefromcart'
 ]);
-Route::get('/decrementItem/{id}', [
-    'uses' => 'CartController@decrementItem',
-    'as' => 'decrementItem'
-]);
-Route::get('/incrementItem/{id}', [
-    'uses' => 'CartController@incrementItem',
-    'as' => 'incrementItem'
-]);
+
+
 
 Route::get('/vieworders',[
     'uses' => 'OrderController@showAll',

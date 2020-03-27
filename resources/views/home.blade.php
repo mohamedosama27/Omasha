@@ -67,12 +67,11 @@
 
 <section class="items endless-pagination" data-next-page="{{ $items->nextPageUrl() }}">
     @foreach($items as $item)
-    <form>
 
 <div class="w3-col l3 s6">
       <div class="w3-container div3">
       
-  <div id="myCarousel{{$loop->iteration}}" class="carousel slide" data-ride="carousel" data-interval="false" >
+  <div id="myCarousel{{$item->id}}" class="carousel slide" data-ride="carousel" data-interval="false" >
    
 
     <!-- Wrapper for slides -->
@@ -96,11 +95,11 @@
     </div>
 
     <!-- Left and right controls -->
-    <a class="left carousel-control" href="#myCarousel{{$loop->iteration}}" data-slide="prev">
+    <a class="left carousel-control" href="#myCarousel{{$item->id}}" data-slide="prev">
       <span class="glyphicon glyphicon-chevron-left"></span>
       <span class="sr-only">Previous</span>
     </a>
-    <a class="right carousel-control" href="#myCarousel{{$loop->iteration}}" data-slide="next">
+    <a class="right carousel-control" href="#myCarousel{{$item->id}}" data-slide="next">
       <span class="glyphicon glyphicon-chevron-right"></span>
       <span class="sr-only">Next</span>
     </a>
@@ -118,11 +117,11 @@
 
 
         @else
-        <button type="button" class="btn btn-default btn-submit" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;"><b>Add to Cart</b></button>
+        <button type="button" class="btn btn-default btn-addtocart" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;"><b>Add to Cart</b></button>
 
         @endif
         @else
-        <button type="button" class="btn btn-default btn-submit" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;"><b>Add to Cart</b></button>
+        <button type="button" class="btn btn-default btn-addtocart" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;"><b>Add to Cart</b></button>
       @endauth
 
         <hr>
@@ -130,7 +129,6 @@
 
 </div>
 
-</form>
 
     @endforeach
     </div>
@@ -152,7 +150,7 @@
 
     });
 
-    $(document).on("click", '.btn-submit', function(e) { 
+    $(document).on("click", '.btn-addtocart', function(e) { 
 
 
 
@@ -171,7 +169,7 @@
 
            success:function(data){
 
-              $("#countcart").text(data.success);
+              $("#countcart").text(data.countCart);
               
            }
 

@@ -3,7 +3,9 @@
 @section('content')
 <link href="css/cart.css" rel="stylesheet" type="text/css" media="all" />
 <script src="js/cart.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <style>   .div1{
      height:150px;
       width:110px;
@@ -25,6 +27,15 @@
     p{
         word-break: break-all;
     }
+    button{
+      padding: 0;
+      border: none;
+      background: none;
+      outline: none;
+      }
+      .fa-plus-square , .fa-minus-square{
+        color:blue;
+      }
 </style>
 <br>
 <div class="w3-card cardspace">
@@ -80,13 +91,17 @@ $totalprice=0
     </div>
     <div class="product-price">{{$selecteditem->item->price}}</div>
     <div class="row product-quantity" >
-    <a href="{{route('incrementItem',['id' => $selecteditem->item->id])}}">
-      <i class="fa fa-plus-square"></i>
-  </a>
-      <p>{{$selecteditem->Quantity}}</p>
-      <a href="{{route('decrementItem',['id' => $selecteditem->item->id])}}">
+
+    <button type="button" class="btn-increment" data-value="{{$selecteditem->item->id}}" style="margin-bottom:10px;" style="color:black;">
+    <i class="fa fa-plus-square"></i></button>
+
+  
+      <p id="quantity{{$selecteditem->item->id}}">{{$selecteditem->Quantity}}</p>
+
+      <button type="button" class="btn-decrement" data-value="{{$selecteditem->item->id}}" style="margin-bottom:10px;" style="color:black;">
       <i class="fa fa-minus-square"></i>
-  </a>
+      </button>
+  
 </div>
     
     <div class="product-removal">
@@ -95,7 +110,7 @@ $totalprice=0
         Remove
       </button></a>
     </div>
-    <div class="product-line-price">{{$selecteditem->item->price*$selecteditem->Quantity}}</div>
+    <div class="product-line-price" id="totalprice{{$selecteditem->item->id}}">{{$selecteditem->item->price*$selecteditem->Quantity}}</div>
   </div>
   @php $totalprice+=$selecteditem->item->price*$selecteditem->Quantity @endphp
   @endforeach
@@ -129,5 +144,74 @@ $totalprice=0
 
 </div>
 </div>
+
+<script type="text/javascript">
+
+   
+
+    $.ajaxSetup({
+
+        headers: {
+
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+        }
+
+    });
+    $(document).on("click", '.btn-decrement', function(e) { 
+
+        e.preventDefault();
+
+            var id =  $(this).data('value');
+        $.ajax({
+
+            type:'POST',
+
+            url:"{{ route('decrementItem') }}",
+
+            data:{id:id},
+            datatype:'json',
+
+            success:function(data){
+              $("#quantity"+id).text(data.quantity);              
+              $("#totalprice"+id).text(data.totalprice);
+              $("#countcart").text(data.countCart);
+       
+            }
+
+        });
+
+});
+    $(document).on("click", '.btn-increment', function(e) { 
+
+
+  
+
+       e.preventDefault();
+
+           var id =  $(this).data('value');
+        $.ajax({
+
+           type:'POST',
+
+           url:"{{ route('incrementItem') }}",
+
+           data:{id:id},
+           datatype:'json',
+
+           success:function(data){
+              $("#quantity"+id).text(data.quantity);              
+              $("#totalprice"+id).text(data.totalprice);   
+              $("#countcart").text(data.countCart);
+    
+           }
+
+        });
+
+	});
+
+ 
+
+</script>
 
 @endsection
