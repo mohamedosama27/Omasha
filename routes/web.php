@@ -11,14 +11,18 @@
 |
 */
 
-Route::get('/', 'ItemController@showAll');
+// Route::get('/', 'ItemController@showAll');
+
+    Route::get('/', 'ItemController@index')->name('home');
+
+
 Route::post('/add-to-cart', [
     'uses' => 'CartController@AddToCart',
     'as' => 'item.addToCart'
 ]);
 
 Route::get('/home', [
-    'uses' => 'ItemController@showAll',
+    'uses' => 'ItemController@index',
     'as' => 'home'
 ]);
 Route::put('/update/{id}',

@@ -64,8 +64,10 @@
 
   <div class=" w3-grayscale" id="results">
   
-  @foreach($items as $item)
-<form>
+
+<section class="items endless-pagination" data-next-page="{{ $items->nextPageUrl() }}">
+    @foreach($items as $item)
+    <form>
 
 <div class="w3-col l3 s6">
       <div class="w3-container div3">
@@ -120,8 +122,7 @@
 
         @endif
         @else
-        <a href="{{route('item.addToCart',['id' => $item->id])}}">
-        <button type="button" class="btn btn-default btn-submit" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;"><b>Add to Cart</b></button></a>
+        <button type="button" class="btn btn-default btn-submit" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;"><b>Add to Cart</b></button>
       @endauth
 
         <hr>
@@ -130,10 +131,13 @@
 </div>
 
 </form>
-@endforeach
-  </div>
+
+    @endforeach
+    </div>
 </div>
 </div>
+{{--{!! $items->render() !!}--}}
+
 <script type="text/javascript">
 
    
@@ -148,9 +152,9 @@
 
     });
 
-   
+    $(document).on("click", '.btn-submit', function(e) { 
 
-    $(".btn-submit").click(function(e){
+
 
   
 
@@ -179,4 +183,37 @@
 
 </script>
 
+</section>
+<script>
+
+$(document).ready(function() {
+
+    $(window).scroll(fetchitems);
+
+    function fetchitems() {
+
+        var page = $('.endless-pagination').data('next-page');
+
+        if(page !== null) {
+
+            clearTimeout( $.data( this, "scrollCheck" ) );
+
+            $.data( this, "scrollCheck", setTimeout(function() {
+                var scroll_position_for_items_load = $(window).height() + $(window).scrollTop() + 100;
+
+                if(scroll_position_for_items_load >= $(document).height()) {
+                    $.get(page, function(data){
+                        $('.items').append(data.items);
+                        $('.endless-pagination').data('next-page', data.next_page);
+                    });
+                }
+            }, 350))
+
+        }
+    }
+
+
+})
+
+</script>
 @endsection
