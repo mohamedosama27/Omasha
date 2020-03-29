@@ -59,6 +59,7 @@
 <br>
 
   <div class="w3-card cardspace ">
+  <input type="text" name="search" id="search" class="form-control" placeholder="Search by name" />
 
 <div class="cardspace">
 
@@ -150,11 +151,8 @@
 
     });
 
-    $(document).on("click", '.btn-addtocart', function(e) { 
 
-
-
-  
+$(document).on("click", '.btn-addtocart', function(e) { 
 
        e.preventDefault();
 
@@ -178,40 +176,65 @@
   
 
 	});
+  $(document).ready(function(){
+
+      fetch_customer_data();
+
+      function fetch_customer_data(query = '')
+      {
+      $.ajax({
+        url:"{{ route('ItemController.action') }}",
+        method:'GET',
+        data:{query:query},
+        dataType:'json',
+        success:function(data)
+        {
+        $('#results').html(data.table_data);
+        }
+      })
+      }
+
+$(document).on('keyup', '#search', function(){
+ var query = $(this).val();
+ if(query != '')
+      {
+ fetch_customer_data(query);
+      }
+      else{
+        location.reload(true);
+
+              }
+  
+});
+$(window).scroll(fetchitems);
+
+function fetchitems() {
+
+    var page = $('.endless-pagination').data('next-page');
+
+    if(page !== null) {
+
+        clearTimeout( $.data( this, "scrollCheck" ) );
+
+        $.data( this, "scrollCheck", setTimeout(function() {
+            var scroll_position_for_items_load = $(window).height() + $(window).scrollTop() + 100;
+
+            if(scroll_position_for_items_load >= $(document).height()) {
+                $.get(page, function(data){
+                    $('.items').append(data.items);
+                    $('.endless-pagination').data('next-page', data.next_page);
+                });
+            }
+        }, 350))
+
+    }
+}
+
+
+});
 
 </script>
 
 </section>
-<script>
 
-$(document).ready(function() {
-
-    $(window).scroll(fetchitems);
-
-    function fetchitems() {
-
-        var page = $('.endless-pagination').data('next-page');
-
-        if(page !== null) {
-
-            clearTimeout( $.data( this, "scrollCheck" ) );
-
-            $.data( this, "scrollCheck", setTimeout(function() {
-                var scroll_position_for_items_load = $(window).height() + $(window).scrollTop() + 100;
-
-                if(scroll_position_for_items_load >= $(document).height()) {
-                    $.get(page, function(data){
-                        $('.items').append(data.items);
-                        $('.endless-pagination').data('next-page', data.next_page);
-                    });
-                }
-            }, 350))
-
-        }
-    }
-
-
-})
-
-</script>
 @endsection

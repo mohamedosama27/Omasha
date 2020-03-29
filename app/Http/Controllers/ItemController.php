@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Auth;
 
 
 class ItemController extends Controller
@@ -200,87 +201,107 @@ class ItemController extends Controller
         return redirect()->back();
 
     }
-
-public function search(Request $request)
-{
-    if($request->ajax())
+    function action(Request $request)
     {
-        $output="";
-        $products=DB::table('products')->where('title','LIKE','%'.$request->search."%")->get();
-        if($products)
-        {
-            foreach ($products as $key => $product)
-             {
-                $output.='<form>
-
-                <div class="w3-col l3 s6">
-                    <div class="w3-container div3">
-                    
-                <div id="myCarousel{{$loop->iteration}}" class="carousel slide" data-ride="carousel" data-interval="false" >
-                
-
-                    <!-- Wrapper for slides -->
-                    
-                    <div class="carousel-inner div1" >
-                
-                    @foreach($item->images as $image)
-                    @if ($loop->first)
-                    <div class="item active">
-                        <img src="images\{{$image->name}}">
-                    </div>    
-                    @else
-                    <div class="item">
-                        <img height="150" width="110" src="images\{{$image->name}}">
-                        
-                    </div>
-                    @endif
-                    @endforeach
-
-                
-                    </div>
-
-                    <!-- Left and right controls -->
-                    <a class="left carousel-control" href="#myCarousel{{$loop->iteration}}" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                    <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="right carousel-control" href="#myCarousel{{$loop->iteration}}" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                    <span class="sr-only">Next</span>
-                    </a>
-                </div>
-                @if($item->quantity == 0)
-                <p style="color:red;">Available Soon</p>
-                @else
-                <p><a href="{{route("item.show",["id" => $item->id])}}">{{$item->name}}</a></p>
-                @endif
-                <b>${{$item->price}}</b><br>
-                    @auth
-                        @if(Auth::user()->type == 1)
-                        <a href="{{route("item.delete",["id" => $item->id])}}"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a>
-                        <a href="{{route("item.edit",["id" => $item->id])}}"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Edit</b></button></a>
-
-
-                        @else
-                        <button type="button" class="btn btn-default btn-submit" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;"><b>Add to Cart</b></button>
-
-                        @endif
-                        @else
-                        <a href="{{route("item.addToCart",["id" => $item->id])}}">
-                        <button type="button" class="btn btn-default btn-submit" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;"><b>Add to Cart</b></button></a>
-                    @endauth
-
-                        <hr>
-                </div>
-
-                </div>
-
-                </form>';
-        }
-return Response($output);
-   }
+     if($request->ajax())
+     {
+      $output = '';
+      $query = $request->get('query');
+      if($query != '')
+      {
+       $data = \App\item::where('name', 'like', '%'.$query.'%')
+         ->orderBy('id')->get();
+         
+      }
+   
+      $total_row = $data->count();
+      if($total_row > 0)
+      {
+       foreach($data as $item)
+       {
+        $images=DB::table('images')->where('item_id', '=',$item->id)->get();
+        
+        $output .= '<div class="w3-col l3 s6">
+        <div class="w3-container div3">
+        
+         <div id="myCarousel'.$item->id.'" class="carousel slide" data-ride="carousel" data-interval="false" >
+     
   
-}
-}
+     
+      
+      <div class="carousel-inner div1" >';
+     
+      foreach($images as $index => $image){
+
+      if ($index == 0) {
+        $output .='<div class="item active">
+          <img src="images\\'.$image->name.'">
+        </div> ';
+      }   
+       else{
+       $output .='<div class="item">
+          <img height="150" width="110" src="images\\'.$image->name.'">
+          
+        </div>';
+    }
+    }
+       
+     
+    $output .='</div>
+  
+      <!-- Left and right controls -->
+      <a class="left carousel-control" href="#myCarousel'.$item->id.'" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control"  href="#myCarousel'.$item->id.'" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div> ';
+    
+    if($item->quantity == 0){
+        $output .='<p style="color:red;">Available Soon</p>';
+        }
+        else{
+        $output .='<p><a href="'.route("item.show",["id" => $item->id]).'">'.$item->name.'</a></p>';
+        }
+        if (Auth::check()) {
+            if(Auth::user()->type == 1){
+            $output .='<a href="'.route("item.delete",["id" => $item->id]).'"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a>
+            <a  href="'.route("item.edit",["id" => $item->id]).'"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Edit</b></button></a>';
+          }
+    
+            else{
+              $output .=' <button type="button" class="btn btn-default btn-addtocart" data-value="'.$item->id.'" style="margin-bottom:10px;" style="color:black;"><b>Add to Cart</b></button>';
+          }
+      }
+      else{
+          $output .=' <button type="button" class="btn btn-default btn-addtocart" data-value="'.$item->id.'" style="margin-bottom:10px;" style="color:black;"><b>Add to Cart</b></button>';
+      }  
+      $output .=' <hr>
+    </div>
+    
+    </div>
+    
+    ';
+    
+       }
+      }
+      else
+      {
+       $output = '
+       <h5>No product with this name</h5>
+       ';
+      }
+      $data = array(
+       'table_data'  => $output,
+       'total_data'  => $total_row
+      );
+
+      echo json_encode($data);
+     }
+    }
+
 }
 

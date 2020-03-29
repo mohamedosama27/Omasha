@@ -15,6 +15,7 @@
 
     Route::get('/', 'ItemController@index')->name('home');
 
+    Route::get('/ItemController/action', 'ItemController@action')->name('ItemController.action');
 
 Route::post('/add-to-cart', [
     'uses' => 'CartController@AddToCart',
