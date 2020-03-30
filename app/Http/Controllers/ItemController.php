@@ -180,7 +180,7 @@ class ItemController extends Controller
         $item = \App\item::find($id);
 
         $item->delete();
-        return redirect('home');
+        return redirect()->back();
 
     }
     public function deleteImage($id)

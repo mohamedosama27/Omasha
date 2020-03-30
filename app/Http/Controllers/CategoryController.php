@@ -6,6 +6,22 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    protected $items_per_page = 10;
+
+    public function index(Request $request,$id) {
+
+        $items = \App\item::where('category_id','=',$id)->paginate($this->items_per_page);
+
+        if($request->ajax()) {
+            return [
+                'items' => view('ajax.index')->with(compact('items'))->render(),
+                'next_page' => $items->nextPageUrl()
+            ];
+        }
+
+        return view('home')->with(compact('items'));
+
+    }
     public function store(Request $request)
     {
         $category = new  \App\category;

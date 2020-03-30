@@ -7,15 +7,15 @@
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 <link rel="stylesheet" href="{{ asset('css/w3schools.css') }}">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
 .w3-sidebar a {font-family: "Roboto", sans-serif}
-body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
+a{
+  color:black;
+}
 .wrapper{
 position: relative;
 }
@@ -65,7 +65,7 @@ body{
     <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
     @php( $categories = \App\category::all() )
     @foreach($categories as $category)
-      <a href="#" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>{{$category->name}}</a>
+      <a href="{{route('category',['id' => $category->id])}}" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>{{$category->name}}</a>
         
       @endforeach
     </div>

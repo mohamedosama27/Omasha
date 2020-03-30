@@ -1,41 +1,31 @@
 @extends('bar')
 
 @section('content')
+
 <link href="css/cart.css" rel="stylesheet" type="text/css" media="all" />
-<script src="js/cart.min.js"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <meta name="csrf-token" content="{{ csrf_token() }}" />
-<style>   .div1{
-     height:150px;
-      width:110px;
-    }
-    .div2{
-      height:200px;
-      width:110px;
-    }
-    img{
-      height:100%;
-      width:100%;
-    }
-    .cardspace{
-        margin:10px;
-    }
-    .margintop{
-        margin-top:10px;
-    }
-    p{
-        word-break: break-all;
-    }
-    button{
-      padding: 0;
-      border: none;
-      background: none;
-      outline: none;
-      }
-      .fa-plus-square , .fa-minus-square{
-        color:blue;
-      }
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+}
+
+
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+  }
+}
 </style>
 <br>
 <div class="w3-card cardspace">
@@ -48,9 +38,10 @@
 @php
 $totalprice=0
 @endphp
+@if(Session::get('number_of_items')!=0)
 @foreach($items as $selecteditem)
-  <div class="product " >
-    
+  <div class="product row" >
+    <div class="column">
   <div id="myCarousel{{$loop->iteration}}" class="carousel slide div1" data-ride="carousel" data-interval="false" >
    
 
@@ -84,10 +75,13 @@ $totalprice=0
      <span class="sr-only">Next</span>
    </a>
  </div>
-
+ </div>
+ <div class="column">
     <div class="product-details">
       <div class="product-title">{{$selecteditem->item->name}}</div>
       <p class="product-description">{{$selecteditem->item->description}}</p>
+    </div>
+    
     </div>
     <div class="product-price">{{$selecteditem->item->price}}</div>
     <div class="row product-quantity" >
@@ -110,29 +104,32 @@ $totalprice=0
         Remove
       </button></a>
     </div>
-    <div class="product-line-price" id="totalprice{{$selecteditem->item->id}}">{{$selecteditem->item->price*$selecteditem->Quantity}}</div>
+    
+    <b class="totalprice">Total price : </b><div class="product-line-price" style="margin-left:10px;" id="totalprice{{$selecteditem->item->id}}">{{$selecteditem->item->price*$selecteditem->Quantity}}</div>
+  
   </div>
+  
   @php $totalprice+=$selecteditem->item->price*$selecteditem->Quantity @endphp
   @endforeach
+  </div>
+  </div>
+  </div>
 
 
 
-  <div class="totals">
+  <div class="totals cardspace">
     <div class="totals-item">
-      <label>Subtotal</label>
+      <label>Subtotal : </label>
       <div class="totals-value" id="cart-subtotal">{{$totalprice}}</div>
     </div>
     <div class="totals-item">
-      <label>Tax (5%)</label>
-      <div class="totals-value" id="cart-tax">3.60</div>
+      <label>Delivery : </label>
+      <div class="totals-value" id="cart-tax">10</div>
     </div>
-    <div class="totals-item">
-      <label>Shipping</label>
-      <div class="totals-value" id="cart-shipping">15.00</div>
-    </div>
+   
     <div class="totals-item totals-item-total">
-      <label>Grand Total</label>
-      <div class="totals-value" id="cart-total">{{$totalprice}}</div>
+      <label>Total Price : </label>
+      <div class="totals-value" id="cart-total">{{$totalprice+10}}</div>
     </div>
   </div>
   @include('addaddress')
@@ -143,7 +140,10 @@ $totalprice=0
 <br>
 
 </div>
-</div>
+@else
+<h1 style="margin-bottom:60px;">No items in cart</h1>
+@endif
+
 
 <script type="text/javascript">
 
@@ -173,9 +173,14 @@ $totalprice=0
             datatype:'json',
 
             success:function(data){
-              $("#quantity"+id).text(data.quantity);              
-              $("#totalprice"+id).text(data.totalprice);
+              $("#cart-subtotal").text(data.totalprice);
+              $("#cart-total").text(data.totalprice+10);
+
+              $("#quantity"+id).text(data.quantity); 
+              $("#totalprice"+id).text(data.item_total_price)             
               $("#countcart").text(data.countCart);
+              
+
        
             }
 
@@ -200,9 +205,13 @@ $totalprice=0
            datatype:'json',
 
            success:function(data){
-              $("#quantity"+id).text(data.quantity);              
-              $("#totalprice"+id).text(data.totalprice);   
+              $("#quantity"+id).text(data.quantity);
+              $("#cart-total").text(data.totalprice+10);
+              
+              $("#totalprice"+id).text(data.item_total_price);   
               $("#countcart").text(data.countCart);
+              $("#cart-subtotal").text(data.totalprice);
+
     
            }
 

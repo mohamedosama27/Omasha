@@ -67,6 +67,7 @@ class CartController extends Controller
         $id=$request['id'];
         $selcteditems = Session::get('selcteditems'); 
         $number_of_items = Session::has('number_of_items') ? Session::get('number_of_items') : 0;
+        $totalprice=0;
 
         for($i=0;$i<sizeof($selcteditems);$i++)
         {
@@ -75,21 +76,25 @@ class CartController extends Controller
                 $number_of_items-=1;
                 $selcteditems[$i]->Quantity-=1;
                 $quantity=$selcteditems[$i]->Quantity;
-                $totalprice=$quantity*$selcteditems[$i]->item->price;
+                $item_total_price=$quantity*$selcteditems[$i]->item->price;
                 Session::put('selcteditems', $selcteditems);
                 Session::put('number_of_items',$number_of_items );
 
             }
-        }
-        return response()->json(['quantity'=>$quantity,'totalprice'=>$totalprice,'countCart'=>$number_of_items]);
+            $totalprice+=$selcteditems[$i]->Quantity*$selcteditems[$i]->item->price;
 
+        }
+        return response()->json(['quantity'=>$quantity,
+                                'item_total_price'=>$item_total_price,
+                                'countCart'=>$number_of_items,
+                                'totalprice'=>$totalprice]);
     }
     public function incrementItem(Request $request)
     {
         $id=$request['id'];
         $selcteditems = Session::get('selcteditems'); 
         $number_of_items = Session::has('number_of_items') ? Session::get('number_of_items') : 0;
-
+        $totalprice=0;
         for($i=0;$i<sizeof($selcteditems);$i++)
         {
             if($selcteditems[$i]->item->id == $id)
@@ -97,13 +102,18 @@ class CartController extends Controller
                 $number_of_items+=1;
                 $selcteditems[$i]->Quantity+=1;
                 $quantity=$selcteditems[$i]->Quantity;
-                $totalprice=$quantity*$selcteditems[$i]->item->price;
+                $item_total_price=$quantity*$selcteditems[$i]->item->price;
                 Session::put('selcteditems', $selcteditems);
                 Session::put('number_of_items',$number_of_items );
 
             }
+            $totalprice+=$selcteditems[$i]->Quantity*$selcteditems[$i]->item->price;
+
         }
-        return response()->json(['quantity'=>$quantity,'totalprice'=>$totalprice,'countCart'=>$number_of_items]);
+        return response()->json(['quantity'=>$quantity,
+                                'item_total_price'=>$item_total_price,
+                                'countCart'=>$number_of_items,
+                                'totalprice'=>$totalprice]);
 
     }
     

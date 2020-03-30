@@ -5,55 +5,8 @@
 
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-<style>
+<link rel="stylesheet" href="{{ asset('css/home.css') }}">
 
-    .div1{
-      width:130px;
-      height:170px;
-
-    }
-  
-    img{
-      width:130px;
-    }
-    .div3
-    {
-      display: table;
-      
-    }
-    p{
-      max-width: 110px;
-
-    }
-
-  
-    .cardspace{
-        margin:10px;
-    }
- 
-
- 
-    img{
-      width:130px;
-      height:150px;
-      
-    }
-    .div3
-    {
-      max-height:220px;
-      
-    }
-    p 
-    {
-     color:black;
-     height :20px;
-     white-space: nowrap;
-     overflow: hidden;
-     text-overflow: ellipsis;
-    }
-    
-
-</style>
 
 
 <br>
@@ -113,7 +66,7 @@
   <b>${{$item->price}}</b><br>
       @auth
         @if(Auth::user()->type == 1)
-        <a href="{{route('item.delete',['id' => $item->id])}}"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a>
+        <a href="{{route('item.delete',['id' => $item->id])}}" onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a>
         <a href="{{route('item.edit',['id' => $item->id])}}"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Edit</b></button></a>
 
 

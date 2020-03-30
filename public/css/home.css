@@ -1,0 +1,45 @@
+
+    .div1{
+        width:130px;
+        height:170px;
+  
+      }
+    
+      img{
+        width:130px;
+      }
+      .div3
+      {
+        display: table;
+        
+      }
+      p{
+        max-width: 110px;
+  
+      }
+  
+    
+      .cardspace{
+          margin:10px;
+      }
+   
+  
+   
+      img{
+        width:130px;
+        height:150px;
+        
+      }
+      .div3
+      {
+        max-height:220px;
+        
+      }
+      p 
+      {
+       color:black;
+       height :20px;
+       white-space: nowrap;
+       overflow: hidden;
+       text-overflow: ellipsis;
+      }
