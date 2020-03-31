@@ -3,10 +3,11 @@
 
 @section('content')
  
-<!------ Include the above in your HEAD tag ---------->
-<style>
-/*****************globals*************/
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+<style>
+  
 
 img {
   max-width: 100%; 
@@ -118,9 +119,6 @@ img {
             transform: scale(1); } }
 
 </style>
-
-
-
 	
 	<div class="container">
 		<div class="card">
@@ -157,13 +155,62 @@ img {
 					
 					
 						<div class="action">
-            <a href="{{route('item.addToCart',['id' => $item->id])}}"><button class="add-to-cart btn btn-default" type="button">add to cart</button></a>
-							<button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
+            @auth
+        @if(Auth::user()->type == 1)
+        <a href="{{route('item.delete',['id' => $item->id])}}" onclick="return confirm('Are you sure?')"><button type="button" class="like btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a>
+        <a href="{{route('item.edit',['id' => $item->id])}}"><button type="button" class="like btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Edit</b></button></a>
+
+
+        @else
+        <button type="button" class="btn btn-default btn-addtocart" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;"><b>Add to Cart</b></button>
+
+        @endif
+        @else
+        <button type="button" class="add-to-cart btn btn-default btn-addtocart" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;"><b>Add to Cart</b></button>
+      @endauth						
+      	<!-- <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button> -->
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+  <script type="text/javascript">
+
+$.ajaxSetup({
+
+    headers: {
+
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+    }
+
+});
+
+
+$(document).on("click", '.btn-addtocart', function(e) { 
+
+   e.preventDefault();
+
+       var str =  $(this).data('value');
+       alert(str);
+
+    $.ajax({
+
+       type:'POST',
+
+       url:"{{ route('item.addToCart') }}",
+       data:{name:str},
+       
+       success:function(data){
+
+          $("#countcart").text(data.countCart);
+          
+       }
+
+    });
+  });
+  </script>
 
 @endsection

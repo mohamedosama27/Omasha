@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\item;
+use App\image;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -12,6 +13,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
-        factory(item::class,1000)->create();
+        factory(image::class,80)->create();
+        // factory(item::class,100)->create();
     }
 }

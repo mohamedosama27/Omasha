@@ -232,15 +232,18 @@ class ItemController extends Controller
       <div class="carousel-inner div1" >';
      
       foreach($images as $index => $image){
-
+        $url=asset('images/'.$image->name);
       if ($index == 0) {
-        $output .='<div class="item active">
-          <img src="images\\'.$image->name.'">
+        
+        $output .='
+        <div class="item active">
+        
+          <img src="'.$url.'">
         </div> ';
       }   
        else{
        $output .='<div class="item">
-          <img height="150" width="110" src="images\\'.$image->name.'">
+          <img height="150" width="110" src="'.$url.'">
           
         </div>';
     }
@@ -264,6 +267,7 @@ class ItemController extends Controller
         $output .='<p style="color:red;">Available Soon</p>';
         }
         else{
+          
         $output .='<p><a href="'.route("item.show",["id" => $item->id]).'">'.$item->name.'</a></p>';
         }
         if (Auth::check()) {

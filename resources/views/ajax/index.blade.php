@@ -14,11 +14,11 @@
     @foreach($item->images as $image)
     @if ($loop->first)
     <div class="item active">
-        <img src="images\{{$image->name}}">
+        <img src='{{ URL::asset("images/{$image->name}")}}'>
       </div>    
      @else
       <div class="item">
-        <img height="150" width="110" src="images\{{$image->name}}">
+        <img height="150" width="110" src='{{ URL::asset("images/{$image->name}")}}'>
         
       </div>
       @endif

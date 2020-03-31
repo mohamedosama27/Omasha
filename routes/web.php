@@ -16,7 +16,7 @@
     Route::get('/', 'ItemController@index')->name('home');
     Route::get('/category/{id}', 'CategoryController@index')->name('category');
 
-    Route::get('/ItemController/action', 'ItemController@action')->name('ItemController.action');
+Route::get('/ItemController/action', 'ItemController@action')->name('ItemController.action');
 Route::post('/add-to-cart', 'CartController@AddToCart')->name('item.addToCart');
 
 Route::post('/decrementItem', [

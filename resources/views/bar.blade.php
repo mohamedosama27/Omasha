@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-<title>LOGO</title>
+<link rel="icon" type="image/png" href="images/icon.ico" >
+<title>OMASHA</title>
 <meta charset="UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,6 +31,17 @@ right: -2px;
 body{
   margin-top:70px;
 }
+.icon {
+  margin:5px;
+  display:inline-block;
+}
+.toptitle
+{
+  margin:-5px;
+  margin-bottom:-10px;
+  letter-spacing: 6px;
+  font-size: 25px;
+}
 </style>
 @auth
     @if(Auth::user()->type == 1)
@@ -42,7 +54,12 @@ body{
 <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
   <div class="w3-container w3-display-container w3-padding-16">
     <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-    <h3 class="w3-wide"><b>LOGO</b></h3>
+    <h2 class="w3-wide">
+  <span class="icon">
+
+<img width="50" height="50" class="manImg" src="images/icon.png"></img>
+
+</span><b>OMASHA</b></h2>
   </div>
   <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
     <a href="{{route('home')}}" class="w3-bar-item w3-button"><i class="fa fa-home" style="margin-right:5px;"></i>Home</a>
@@ -81,7 +98,7 @@ body{
 <!-- Top menu on small screens -->
 <header class="w3-bar w3-top w3-black w3-large" style="margin-bottom:40px;">
 <a href="{{route('home')}}" style="color:white;">
-<div class="w3-bar-item w3-padding-24 w3-wide">LOGO</div></a>
+<div class="w3-bar-item w3-padding-24 w3-wide toptitle"><b>OMASHA</b></div></a>
   <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i class="fa fa-lg fa-bars"></i></a>
   <a href="{{ Request::is('cart') ? route('home') : route('cart') }}" class="w3-bar-item w3-button w3-padding-24 w3-right" >
   <div class="wrapper">

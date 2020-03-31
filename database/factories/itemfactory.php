@@ -4,11 +4,12 @@
 
 use App\Model;
 use App\item;
+
 use Faker\Generator as Faker;
 
 $factory->define(item::class, function (Faker $faker) {
     return [
-        'name'=>$faker->name,
+        'name'=>$faker->word,
         'barcode'=>$faker->word,
         'description'=>$faker->paragraph,
         'price'=>$faker->randomDigit,

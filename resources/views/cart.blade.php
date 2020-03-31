@@ -10,6 +10,15 @@
 * {
   box-sizing: border-box;
 }
+.item{
+      text-align:center;
+      }
+     
+      .carousel img {
+        width:100%;
+        height: 100%!important;
+        display:inline-block  !important;
+      }
 
 /* Create two equal columns that floats next to each other */
 .column {
@@ -77,8 +86,9 @@ $totalprice=0
  </div>
  </div>
  <div class="column">
+ <h3>{{$selecteditem->item->name}}</h3>
     <div class="product-details">
-      <div class="product-title">{{$selecteditem->item->name}}</div>
+      
       <p class="product-description">{{$selecteditem->item->description}}</p>
     </div>
     
