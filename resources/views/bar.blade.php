@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<link rel="icon" type="image/png" href="images/icon.ico" >
+<link rel="icon" type="image/png" href={{ URL::asset("images/icon.ico")}} >
 <title>OMASHA</title>
 <meta charset="UTF-8">
 
