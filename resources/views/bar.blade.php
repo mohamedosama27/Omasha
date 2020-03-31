@@ -57,7 +57,7 @@ body{
     <h2 class="w3-wide">
   <span class="icon">
 
-<img width="50" height="50" class="manImg" src="images/icon.png"></img>
+<img width="50" height="50" class="manImg" src={{ URL::asset("images/icon.png")}}></img>
 
 </span><b>OMASHA</b></h2>
   </div>
