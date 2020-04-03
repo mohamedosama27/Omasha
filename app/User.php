@@ -8,6 +8,10 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    public function favorites()
+    {
+        return $this->hasMany(item::class);
+    }
     public function orders()
     {
         return $this->hasMany(order::class);

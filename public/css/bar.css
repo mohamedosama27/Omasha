@@ -16,3 +16,8 @@ right: -2px;
 body{
   margin-top:70px;
 }
+@media screen and (min-width: 1245px) {
+  .w3-sidebar{
+    margin-left: -10px;
+  }
+}

@@ -62,16 +62,16 @@ body{
 </span><b>OMASHA</b></h2>
   </div>
   <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
-    <a href="{{route('home')}}" class="w3-bar-item w3-button"><i class="fa fa-home" style="margin-right:5px;"></i>Home</a>
+    <a href="{{route('home')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-home" style="margin-right:5px;"></i>Home</a>
     @auth
     @if(Auth::user()->type == 1)
-    <a href="register" class="w3-bar-item w3-button"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Admin</a>
+    <a href="register" class="w3-bar-item w3-button w3-white"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Admin</a>
 
-    <a href="{{route('item.create')}}" class="w3-bar-item w3-button"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Item</a>
-    <a href="{{route('vieworders')}}" class="w3-bar-item w3-button"><i class="fa fa-list" style="margin-right:5px;"></i>View Orders</a>
-    <a href="{{route('category.edit')}}" class="w3-bar-item w3-button"><i class="fa fa-edit" style="margin-right:5px;"></i>Edit Categories</a>
-    <a data-toggle="modal" data-target="#addcategory" class="w3-bar-item w3-button"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Category</a>
-    <a href="{{route('viewmails')}}" class="w3-bar-item w3-button"><i class="fa fa-envelope" style="margin-right:5px;"></i>View Mails</a> 
+    <a href="{{route('item.create')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Item</a>
+    <a href="{{route('vieworders')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-list" style="margin-right:5px;"></i>View Orders</a>
+    <a href="{{route('category.edit')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-edit" style="margin-right:5px;"></i>Edit Categories</a>
+    <a data-toggle="modal" data-target="#addcategory" class="w3-bar-item w3-button w3-white"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Category</a>
+    <a href="{{route('viewmails')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-envelope" style="margin-right:5px;"></i>View Mails</a> 
 
 @endif
 @endauth
@@ -82,15 +82,14 @@ body{
     <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
     @php( $categories = \App\category::all() )
     @foreach($categories as $category)
-      <a href="{{route('category',['id' => $category->id])}}" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>{{$category->name}}</a>
+      <a href="{{route('category',['id' => $category->id])}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-caret-right w3-margin-right"></i>{{$category->name}}</a>
         
       @endforeach
     </div>
-    <a href="#" class="w3-bar-item w3-button">
+    <a href="#" class="w3-bar-item w3-button w3-white">
       <i class='fa fa-phone' style="margin-right:5px;">
     </i>Contact</a>
-    <!-- <a href="javascript:void(0)" class="w3-bar-item w3-button" onclick="document.getElementById('newsletter').style.display='block'"> -->
-    <a href="{{route('viewmails')}}" class="w3-bar-item w3-button"><i class="fa fa-envelope" style="margin-right:5px;"></i>Mail Us</a> 
+    <a href="{{route('viewmails')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-envelope" style="margin-right:5px;"></i>Mail Us</a> 
   </div>
   
 </nav>
@@ -174,7 +173,7 @@ function myAccFunc() {
 }
 
 // Click on the "Jeans" link on page load to open the accordion for demo purposes
-document.getElementById("myBtn").click();
+// document.getElementById("myBtn").click();
 
 
 // Open and close sidebar

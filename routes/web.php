@@ -12,9 +12,9 @@
 */
 
 // Route::get('/', 'ItemController@showAll');
-
-    Route::get('/', 'ItemController@index')->name('home');
-    Route::get('/category/{id}', 'CategoryController@index')->name('category');
+Route::get('send-mail','MailSend@mailsend');
+Route::get('/', 'ItemController@index')->name('home');
+Route::get('/category/{id}', 'CategoryController@index')->name('category');
 
 Route::get('/ItemController/action', 'ItemController@action')->name('ItemController.action');
 Route::post('/add-to-cart', 'CartController@AddToCart')->name('item.addToCart');

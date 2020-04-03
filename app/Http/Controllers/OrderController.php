@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \App\Mail\SendMail;
+
 use Session;
 use DB;
 
@@ -30,6 +32,7 @@ class OrderController extends Controller
         $order->save();
         $order = \App\order::find($order->id);
         $totalprice=0;
+       
         foreach($selcteditems as $selecteditem)
         {
             $item = \App\item::find($selecteditem->item->id);
@@ -48,6 +51,12 @@ class OrderController extends Controller
         $order->save();
         Session::put('number_of_items',0 );
         Session::put('selcteditems',array());
+        
+        $details = [
+            'title' => 'You have new order',
+            'order' => $order ,
+        ];
+        \Mail::to('mohamed1705725@gmail.com')->send(new SendMail($details));
              return redirect('home');
     }
     public function accept($id)

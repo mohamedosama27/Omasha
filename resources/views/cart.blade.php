@@ -7,9 +7,7 @@
 
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <style>
-* {
-  box-sizing: border-box;
-}
+
 .item{
       text-align:center;
       }
@@ -21,7 +19,7 @@
       }
 
 /* Create two equal columns that floats next to each other */
-.column {
+.column1 {
   float: left;
   width: 50%;
   padding: 10px;
@@ -31,7 +29,7 @@
 
 /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
-  .column {
+  .column1 {
     width: 100%;
   }
 }
@@ -50,7 +48,7 @@ $totalprice=0
 @if(Session::get('number_of_items')!=0)
 @foreach($items as $selecteditem)
   <div class="product row" >
-    <div class="column">
+    <div class="column1">
   <div id="myCarousel{{$loop->iteration}}" class="carousel slide div1" data-ride="carousel" data-interval="false" >
    
 
@@ -85,7 +83,7 @@ $totalprice=0
    </a>
  </div>
  </div>
- <div class="column">
+ <div class="column1">
  <h3>{{$selecteditem->item->name}}</h3>
     <div class="product-details">
       

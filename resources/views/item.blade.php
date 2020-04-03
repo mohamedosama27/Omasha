@@ -194,8 +194,6 @@ $(document).on("click", '.btn-addtocart', function(e) {
    e.preventDefault();
 
        var str =  $(this).data('value');
-       alert(str);
-
     $.ajax({
 
        type:'POST',
