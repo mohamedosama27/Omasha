@@ -15,6 +15,12 @@ img {
   max-width:200px;
   
    }
+   @media screen and (min-width: 996px) {
+     .card{
+       margin-right:100px;
+     }
+   }
+
 
 
   @media screen and (max-width: 996px) {
@@ -117,6 +123,7 @@ img {
     opacity: 1;
     -webkit-transform: scale(1);
             transform: scale(1); } }
+        
 
 </style>
 	

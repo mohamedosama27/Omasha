@@ -13,6 +13,13 @@
 
 // Route::get('/', 'ItemController@showAll');
 Route::get('send-mail','MailSend@mailsend');
+Route::get('chat','MessageController@show');
+Route::post('/sendmessage', [
+    'uses' => 'MessageController@create',
+    'as' => 'sendmessage'
+]);
+
+
 Route::get('/', 'ItemController@index')->name('home');
 Route::get('/category/{id}', 'CategoryController@index')->name('category');
 

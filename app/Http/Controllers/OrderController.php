@@ -30,7 +30,7 @@ class OrderController extends Controller
         $order->user_id = auth()->id();
         $order->address=$request['address'];
         $order->save();
-        $order = \App\order::find($order->id);
+        // $order = \App\order::find($order->id);
         $totalprice=0;
        
         foreach($selcteditems as $selecteditem)
@@ -56,7 +56,7 @@ class OrderController extends Controller
             'title' => 'You have new order',
             'order' => $order ,
         ];
-        \Mail::to('mohamed1705725@gmail.com')->send(new SendMail($details));
+        \Mail::to('mohamed1705725@miuegypt.edu.eg')->send(new SendMail($details));
              return redirect('home');
     }
     public function accept($id)

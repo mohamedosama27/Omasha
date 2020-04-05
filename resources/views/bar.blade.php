@@ -42,13 +42,22 @@ body{
   letter-spacing: 6px;
   font-size: 25px;
 }
+@media (max-width:330px){
+  .toptitle
+{
+  margin:-2px;
+  margin-bottom:-10px;
+  letter-spacing: 0px;
+  font-size: 20px;
+}
+}
 </style>
 @auth
     @if(Auth::user()->type == 1)
 @include('addcategory')
 @endif
 @endauth
-<body class="w3-content" style="max-width:1200px;">
+<body >
 
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
@@ -171,11 +180,8 @@ function myAccFunc() {
     x.className = x.className.replace(" w3-show", "");
   }
 }
-
 // Click on the "Jeans" link on page load to open the accordion for demo purposes
 // document.getElementById("myBtn").click();
-
-
 // Open and close sidebar
 function w3_open() {
   document.getElementById("mySidebar").style.display = "block";

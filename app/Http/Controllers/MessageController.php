@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\mail;
+use App\message;
 use Illuminate\Http\Request;
 use DB;
-class MailController extends Controller
+class MessageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,9 +23,19 @@ class MailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $message = new  \App\message;
+        $message->message = $request['message'];
+        $message->sender_id = auth()->id();
+        $message->recivier_id = '3';
+        $message->save();
+        $output='
+      <div class="container darker right" style="margin-bottom:50px" >
+        
+        <p>'.$message->message.'</p> <span class="time-right">'.$message->created_at.'</span>
+      </div>';
+        return response()->json(['output'=>$output]);
     }
 
     /**
@@ -51,9 +61,16 @@ class MailController extends Controller
      * @param  \App\mail  $mail
      * @return \Illuminate\Http\Response
      */
-    public function show(mail $mail)
+    public function show()
     {
-        //
+        $messages = \App\message::where('sender_id','=',auth()->id())
+                                ->orWhere('recivier_id','=',auth()->id())->get();
+            
+            return view('chat',[
+                'messages'=>$messages,
+            ]);
+        
+
     }
 
     /**

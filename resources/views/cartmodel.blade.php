@@ -1,6 +1,3 @@
-@extends('bar')
-
-@section('content')
 
 <link href="css/cart.css" rel="stylesheet" type="text/css" media="all" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -36,10 +33,26 @@
 .product-details{
   width: auto;
 }
-
 </style>
-<br>
-<div class="w3-card cardspace">
+
+
+  <!-- The Modal -->
+  <div class="modal" id="cart">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h1 class="modal-title">Modal Heading</h1>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <h3>Some text to enable scrolling..</h3>
+
+
+          <div class="cardspace">
 
 <div class="cardspace">
 <div class="shopping-cart">
@@ -50,7 +63,7 @@
 $totalprice=0
 @endphp
 @if(Session::get('number_of_items')!=0)
-@foreach($items as $selecteditem)
+@foreach(Session::get('selcteditems') as $selecteditem)
   <div class="product row" >
     <div class="column1">
   <div id="myCarousel{{$loop->iteration}}" class="carousel slide div1" data-ride="carousel" data-interval="false" >
@@ -144,7 +157,6 @@ $totalprice=0
       <div class="totals-value" id="cart-total">{{$totalprice+10}}</div>
     </div>
   </div>
-  @include('addaddress')
 
   <a  @auth data-toggle="modal" data-target="#addaddress" @else href=" login" @endauth >
   <button class="checkout">Checkout</button>
@@ -156,83 +168,13 @@ $totalprice=0
 <h1 style="margin-bottom:60px;">No items in cart</h1>
 @endif
 
-
-<script type="text/javascript">
-
-   
-
-    $.ajaxSetup({
-
-        headers: {
-
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-
-        }
-
-    });
-    $(document).on("click", '.btn-decrement', function(e) { 
-
-        e.preventDefault();
-
-            var id =  $(this).data('value');
-        $.ajax({
-
-            type:'POST',
-
-            url:"{{ route('decrementItem') }}",
-
-            data:{id:id},
-            datatype:'json',
-
-            success:function(data){
-              $("#cart-subtotal").text(data.totalprice);
-              $("#cart-total").text(data.totalprice+10);
-
-              $("#quantity"+id).text(data.quantity); 
-              $("#totalprice"+id).text(data.item_total_price)             
-              $("#countcart").text(data.countCart);
-              
-
-       
-            }
-
-        });
-
-});
-    $(document).on("click", '.btn-increment', function(e) { 
-
-
+          </div>
+          
+        
+    
+        
+      </div>
+    
+  
   
 
-       e.preventDefault();
-
-           var id =  $(this).data('value');
-        $.ajax({
-
-           type:'POST',
-
-           url:"{{ route('incrementItem') }}",
-
-           data:{id:id},
-           datatype:'json',
-
-           success:function(data){
-              $("#quantity"+id).text(data.quantity);
-              $("#cart-total").text(data.totalprice+10);
-              
-              $("#totalprice"+id).text(data.item_total_price);   
-              $("#countcart").text(data.countCart);
-              $("#cart-subtotal").text(data.totalprice);
-
-    
-           }
-
-        });
-
-	});
-
- 
-
-</script>
-
-@endsection
