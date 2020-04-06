@@ -28,6 +28,14 @@ right: -2px;
 .countCart{
   background-color:red;
 }
+.wrapper .countmessage{
+position: absolute;
+top: -2px;
+right: -15px; 
+}
+.countmessage{
+  background-color:red;
+}
 body{
   margin-top:70px;
 }
@@ -39,17 +47,22 @@ body{
 {
   margin:-5px;
   margin-bottom:-10px;
-  letter-spacing: 6px;
-  font-size: 25px;
+  letter-spacing: 4px;
+  font-size: 20px;
+}
+.w3-bar{
+  height:10%;
 }
 @media (max-width:330px){
   .toptitle
 {
   margin:-2px;
   margin-bottom:-10px;
+  margin-top:5px;
   letter-spacing: 0px;
-  font-size: 20px;
+  font-size:70% ;
 }
+
 }
 </style>
 @auth
@@ -107,13 +120,23 @@ body{
 <header class="w3-bar w3-top w3-black w3-large" style="margin-bottom:40px;">
 <a href="{{route('home')}}" style="color:white;">
 <div class="w3-bar-item w3-padding-24 w3-wide toptitle"><b>OMASHA</b></div></a>
-  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i class="fa fa-lg fa-bars"></i></a>
+  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()">
+  <i class="fa fa-lg fa-bars"></i></a>
   <a href="{{ Request::is('cart') ? route('home') : route('cart') }}" class="w3-bar-item w3-button w3-padding-24 w3-right" >
   <div class="wrapper">
   <i class="fa fa-shopping-cart fa-lg  w3-margin-right"></i>
   <span class="badge countCart" id='countcart'>{{Session::has('number_of_items') ? Session::get('number_of_items'): ''}}</span>
   </div>
   </a>
+  <a href="{{route('chat')}}" class="w3-bar-item w3-button w3-padding-24 w3-right" >
+  <div class="wrapper">
+  <i class="fa fa-lg fa-comments"></i>
+  <span class="badge countmessage" id='countmessage'>5</span>
+  </div>
+  </a>
+  
+</a>
+
   @guest
                             
                                 <a class="w3-bar-item w3-button w3-padding-24 w3-right" href="{{ Request::is('login') ? route('home') : route('login') }}">

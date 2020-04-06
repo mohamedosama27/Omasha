@@ -13,7 +13,9 @@
 
 // Route::get('/', 'ItemController@showAll');
 Route::get('send-mail','MailSend@mailsend');
-Route::get('chat','MessageController@show');
+Route::get('chat','MessageController@show')->name('chat');
+Route::post('getmessage','MessageController@getmessage')->name('getmessage');
+
 Route::post('/sendmessage', [
     'uses' => 'MessageController@create',
     'as' => 'sendmessage'

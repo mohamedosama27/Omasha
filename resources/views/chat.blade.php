@@ -104,7 +104,7 @@
 @foreach($messages as $message)
 @if($message->sender_id != Auth::user()->id)
 
-
+<input id="id" value="{{$message->sender_id}}" hidden/>
 <div class="container left"  @if($loop->last) style="margin-bottom:50px" @endif>
   <p>{{$message->message}}</p>
   <span class="time-right">{{$message->created_at}}</span>
@@ -118,7 +118,7 @@
 @endforeach
 <div class="footer">
 
-<input class="form-control messageinput" id="message">
+<input class="form-control messageinput" id="message" autocomplete="off">
   <button type="button" class="messagebutton btn-send"> <i class="fa fa-paper-plane sendicon" ></i></button>
 </div>
 
@@ -137,12 +137,14 @@ $.ajaxSetup({
     }
 
 });
+setInterval(getmessage, 1000);
+
 $(document).on("click", '.btn-send', function(e) { 
 
     e.preventDefault();
-
+   
         var message =  $("#message"). val();
-
+        var id =  $("#id"). val();
     $.ajax({
 
         type:'POST',
@@ -150,7 +152,7 @@ $(document).on("click", '.btn-send', function(e) {
 
         url:"{{ route('sendmessage') }}",
 
-        data:{message:message},
+        data:{message:message,id:id},
         datatype:'json',
 
         success:function(data){
@@ -165,6 +167,36 @@ $(document).on("click", '.btn-send', function(e) {
     });
 
 });
+function getmessage() { 
+
+
+
+    var message =  $("#message"). val();
+
+$.ajax({
+
+    type:'POST',
+    _token: $('meta[name=csrf_token]').attr('content'),
+
+    url:"{{ route('getmessage') }}",
+
+    data:{message:message},
+    datatype:'json',
+
+    success:function(data){
+      if(data.output!=''){
+        $('.container').css('margin-bottom','0px')
+        $( ".chat" ).append( $( data.output ) );
+        $(function(){
+$('html, body').animate({scrollTop: $(document).height()-$(window).height()}, 0);
+  });
+    }
+  
+    }
+
+});
+
+}
 $(function(){
     $('html, body').animate({scrollTop: $(document).height()-$(window).height()}, 0);
 });

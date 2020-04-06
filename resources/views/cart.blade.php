@@ -38,6 +38,10 @@
 }
 
 </style>
+@php
+$totalprice=0
+@endphp
+@if(Session::get('number_of_items')!=0)
 <br>
 <div class="w3-card cardspace">
 
@@ -46,10 +50,7 @@
 
 <br>
 
-@php
-$totalprice=0
-@endphp
-@if(Session::get('number_of_items')!=0)
+
 @foreach($items as $selecteditem)
   <div class="product row" >
     <div class="column1">
@@ -153,7 +154,10 @@ $totalprice=0
 
 </div>
 @else
-<h1 style="margin-bottom:60px;">No items in cart</h1>
+<div class="alert alert-dark" role="alert">
+<h1 style="margin-left:13%">No items in cart</h1>
+</div>
+
 @endif
 
 

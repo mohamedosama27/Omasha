@@ -28,13 +28,42 @@ class MessageController extends Controller
         $message = new  \App\message;
         $message->message = $request['message'];
         $message->sender_id = auth()->id();
-        $message->recivier_id = '3';
+        if(auth()->user()->type==NULL){
+        $message->recivier_id = '0';
+        }
+        else{
+            $message->recivier_id =$request['id'];
+        }
         $message->save();
         $output='
       <div class="container darker right" style="margin-bottom:50px" >
         
         <p>'.$message->message.'</p> <span class="time-right">'.$message->created_at.'</span>
       </div>';
+        return response()->json(['output'=>$output]);
+    }
+    public function getmessage(Request $request)
+    {
+        if(auth()->user()->type==NULL){   
+        $messages = \App\message::where('recivier_id','=',auth()->id())
+        ->Where('status','=',NULL)->get();
+        }
+        else{
+            $messages = \App\message::where('recivier_id','=',0)
+        ->Where('status','=',NULL)->get();
+        }
+        $output='';
+        foreach($messages as $message){
+            $message->status=1;
+            $message->save();
+        $output.='
+        <input id="id" value="'.$message->sender_id.'" hidden/>
+
+      <div class="container left" style="margin-bottom:50px" >
+        
+        <p>'.$message->message.'</p> <span class="time-right">'.$message->created_at.'</span>
+      </div>';
+        }
         return response()->json(['output'=>$output]);
     }
 
@@ -63,8 +92,16 @@ class MessageController extends Controller
      */
     public function show()
     {
+        if(auth()->user()->type==NULL){   
+
         $messages = \App\message::where('sender_id','=',auth()->id())
                                 ->orWhere('recivier_id','=',auth()->id())->get();
+        }
+        else{
+            $messages = \App\message::where('sender_id','=',0)
+                                ->orWhere('recivier_id','=',0)->get();
+
+        }
             
             return view('chat',[
                 'messages'=>$messages,
