@@ -10,7 +10,8 @@ $factory->define(User::class, function (Faker $faker) {
     $password= bcrypt('12345678');
     return [
         'name' => 'omasha',
-        'email' => 'admin@gmail.com',
+        'email' => 'dmin@gmail.com',
+        'phone' => '01118221684',
         'email_verified_at' => now(),
         'password' => $password, // password
         'remember_token' => Str::random(10),
