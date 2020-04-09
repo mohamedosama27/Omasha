@@ -22,7 +22,7 @@ class ItemController extends Controller
         $items = \App\item::paginate($this->items_per_page);
       }
       else{
-        $items = \App\item::paginate(\App\item::count());
+        $items = \App\item::paginate(0);
       }
         if($request->ajax()) {
             return [
