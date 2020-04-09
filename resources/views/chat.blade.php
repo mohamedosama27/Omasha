@@ -113,6 +113,9 @@ padding-left:10px;
     width:75%;
     display:inline;
 }
+.fa {
+    font-size: 20px;
+  }
 
 }
 

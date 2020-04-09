@@ -12,7 +12,9 @@
     .margintop{
         margin-top:10px;
     }
-
+    .fa {
+    font-size: 20px;
+  }
 </style>
 <br>
 <div class="w3-card cardspace">
