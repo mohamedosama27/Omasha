@@ -13,7 +13,6 @@
  
   <div class="w3-card cardspace ">
   <input type="text" name="search" id="search" class="form-control" placeholder="Search by name" />
-<h1 class="count">{{count($items)}}</h1>
 <div class="cardspace">
 
   <div class=" w3-grayscale" id="results">
