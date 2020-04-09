@@ -18,7 +18,6 @@ class CreateImagesTable extends Migration
             $table->text('name');
             $table->unsignedBigInteger('item_id');
             $table->timestamps();
-
             $table->foreign('item_id')
             ->references('id')
             ->on('items')
