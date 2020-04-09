@@ -16,10 +16,11 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('name');
+            $table->text('barcode');
             $table->text('description');
             $table->text('price');
             $table->Integer('quantity');
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->timestamps();
         });
     }
