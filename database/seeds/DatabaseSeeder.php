@@ -3,6 +3,8 @@
 use Illuminate\Database\Seeder;
 use App\item;
 use App\image;
+use App\User;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -13,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
-        factory(image::class,80)->create();
-        // factory(item::class,100)->create();
+        // factory(image::class,80)->create();
+        factory(User::class,100)->create();
     }
 }
