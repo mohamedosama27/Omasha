@@ -107,6 +107,14 @@ padding-left:10px;
 .time-right{
     float:right;
 }
+@media (max-width:470px){
+    .messageinput{
+    margin:5px;
+    width:75%;
+    display:inline;
+}
+
+}
 
 </style>
 <div class=" chat">

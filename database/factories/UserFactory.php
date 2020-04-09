@@ -23,6 +23,7 @@ $factory->define(User::class, function (Faker $faker) {
         'email' => 'admin@gmail.com',
         'email_verified_at' => now(),
         'phone' => '01118221684',
+        'type' => '1',
         'password' => bcrypt('12345678'), // password
         'remember_token' => Str::random(10),
     ];
