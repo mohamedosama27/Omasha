@@ -2,6 +2,8 @@
 
 
 <div class="w3-col l3 s6">
+<h1 class="count">{{count($items)}}</h1>
+
       <div class="w3-container div3">
       
   <div id="myCarousel{{$item->id}}" class="carousel slide" data-ride="carousel" data-interval="false" >
