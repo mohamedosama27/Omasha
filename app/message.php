@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class message extends Model
 {
-    public function user()
+    public function sender()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'sender_id');
     }
 }

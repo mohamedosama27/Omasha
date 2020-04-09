@@ -9,8 +9,8 @@
 
 
     <table class="table table-hover">
-        <th>Message ID</th>
-        <th>Question</th>
+       
+        <th>Message</th>
         <th>From</th>
         <th>Answer</th>
         <th>Reply Button</th>
@@ -20,9 +20,9 @@
 
             <form method='get' action='/Mail_us_Admin/reply'>
                 <tr>
-                    <td>{{$message->id}}</td>
-                    <td>{{$message->question}}</td>
-                    <td>{{$message->sender_id}}</td>
+                    
+                    <td style="max-width:100px;">{{$message->message}}</td>
+                    <td><a href="{{ route('chat',['id' =>$message->sender_id ]) }}">{{$message->sender->name}}</a></td>
                     <td><textarea class="form-control" rows="5" style="width:100%;" name="Answer"></textarea></td>
                     <td><input type='submit' name='Reply' style='margin-top:5px;' class='btn btn-sucess' value='Reply'>
                     </td>

@@ -13,8 +13,9 @@
 
 // Route::get('/', 'ItemController@showAll');
 Route::get('send-mail','MailSend@mailsend');
-Route::get('chat','MessageController@show')->name('chat');
+Route::get('chat/{id}','MessageController@show')->name('chat');
 Route::post('getmessage','MessageController@getmessage')->name('getmessage');
+Route::post('countmessage','MessageController@countmessage')->name('countmessage');
 
 Route::post('/sendmessage', [
     'uses' => 'MessageController@create',
@@ -128,8 +129,8 @@ Route::get('/vieworders',[
     'uses' => 'OrderController@showAll',
     'as' => 'vieworders'
 ]);
-Route::get('/viewmails','MailController@index')->name('viewmails');
-Route::get('/Mail_us_Admin/reply','MailController@store');
+Route::get('/viewmails','MessageController@index')->name('viewmails');
+Route::get('/Mail_us_Admin/reply','MessageController@store');
 
 
 Route::put('/storeitem', [

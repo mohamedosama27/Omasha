@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 use \App\Mail\SendMail;
+use Illuminate\Http\Request;
+use App\Event\CreateOrder;
+use App\Http\Controllers\MessageController;
 
 use Session;
 use DB;
@@ -57,6 +58,7 @@ class OrderController extends Controller
             'order' => $order ,
         ];
         \Mail::to('mohamed1705725@miuegypt.edu.eg')->send(new SendMail($details));
+
              return redirect('home');
     }
     public function accept($id)
@@ -64,6 +66,7 @@ class OrderController extends Controller
         $order = \App\order::findorfail($id);
         $order->status=1;
         $order->save();
+        $message=MessageController::createmessage('Your order accepted','0',$order->user->id);
         return redirect('vieworders');
 
 
@@ -71,7 +74,7 @@ class OrderController extends Controller
     public function reject($id)
     {
         $order = \App\order::findorfail($id);
-        $order->status=1;
+        $order->status=0;
         $order->save();
         return redirect('vieworders');
 

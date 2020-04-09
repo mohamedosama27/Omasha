@@ -16,6 +16,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(order::class);
     }
+    public function messages()
+    {
+        return $this->hasMany(message::class,'recivier_id');
+    }
     use Notifiable;
 
     /**

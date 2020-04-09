@@ -12,58 +12,7 @@
   padding: 0 20px;
 }
 
-.container {
-  background-color: #f1f1f1;
-  height:auto;
-  width:100%;
-  border-radius: 5px;
-  padding-top: 10px;
-  margin: 10px;
-  margin: 10px 0;
-  
 
-}
-.left::before{
-    width: 0;
-    height: 0;
-    content:"";
-    top:-5px;
-    left:-23px;
-    position:relative;
-    border-style: solid;
-    border-width: 0 13px 13px 0;
-    border-color: transparent #f1f1f1 transparent transparent;            
-}
-.right::after{
-    width: 0;
-    height: 0;
-    content:"";
-    top:-5px;
-
-    left:calc(100% + 10px);
-    position:relative;
-    border-style: solid;
-    border-width: 13px 13px 0 0;
-    border-color:  #ddd transparent transparent transparent;           
-}  
-
-.darker {
-  background-color: #ddd;
-}
-
-.container::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-
-
-
-.time-right {
-  float: right;
-  color: #aaa;
-}
 .footer {
     height:50px;
    position: fixed;
@@ -98,22 +47,96 @@
     color:white;
 }
 
+.msg-right{
+    background:#3BA1EE;
+    padding:5px;
+    padding-right:10px;
+
+padding-left:10px;
+    text-align:right;
+    color:#fff;
+    margin:5px;
+    width:auto;
+     max-width:70%;
+         float:right;
+  margin-right: 30px;
+  border-radius: 15px;
+  
+  
+
+}
+.msg-left{
+    background:#ddd;
+    padding:5px;
+
+    padding-right:10px;
+
+    margin:5px;
+     width:auto;
+     max-width:70%;
+    float:left;
+  margin-left: 30px;
+  border-radius: 15px;
+
+}
+.msg-left:before {
+   width: 0;
+    height: 0;
+    content: "";
+    top:17px;
+    left: -16px;
+    position: relative;
+    border-style: solid;
+    border-width: 20px 0px 0px 20px;
+    border-color: #ddd transparent transparent transparent;
+   
+}
+.msg-right:after {
+   width: 0;
+    height: 0;
+    content: "";
+    top: 16px;
+    left: 16px;
+    position: relative;
+    border-style: solid;
+    border-width: 20px 20px 00px 0px;
+    border-color: #3BA1EE transparent transparent transparent;
+  
+   
+}
+.time-right{
+    float:right;
+}
+
 </style>
 <div class=" chat">
 
 @foreach($messages as $message)
-@if($message->sender_id != Auth::user()->id)
+@if($message->sender_id == Auth::user()->id)
 
-<input id="id" value="{{$message->sender_id}}" hidden/>
-<div class="container left"  @if($loop->last) style="margin-bottom:50px" @endif>
-  <p>{{$message->message}}</p>
-  <span class="time-right">{{$message->created_at}}</span>
-</div>
-@else
-<div class="container darker right" @if($loop->last) style="margin-bottom:50px" @endif>
+<div class="msg-right msg" @if($loop->last) style="margin-bottom:50px" @endif>
   
-  <p>{{$message->message}} </p> <span class="time-right">{{$message->created_at}}</span>
+ {{$message->message}} 
 </div>
+<br clear="all" />
+
+@elseif($message->sender_id == 0 && Auth::user()->type==1)
+
+
+<div class="msg-right msg" @if($loop->last) style="margin-bottom:50px" @endif>
+  
+{{$message->message}} 
+</div>
+<br clear="all" />
+
+
+@else
+<input id="senderid" value="{{$message->sender_id}}" hidden/>
+<div class="msg-left msg"  @if($loop->last) style="margin-bottom:50px" @endif>
+{{$message->message}}
+</div>
+
+<br clear="all" />
 @endif
 @endforeach
 <div class="footer">
@@ -137,14 +160,14 @@ $.ajaxSetup({
     }
 
 });
-setInterval(getmessage, 1000);
+setInterval(getmessage, 5000);
 
 $(document).on("click", '.btn-send', function(e) { 
 
     e.preventDefault();
    
         var message =  $("#message"). val();
-        var id =  $("#id"). val();
+        var id =  $("#senderid"). val();
     $.ajax({
 
         type:'POST',
@@ -157,7 +180,7 @@ $(document).on("click", '.btn-send', function(e) {
 
         success:function(data){
             $("#message").val('');
-            $('.container').css('margin-bottom','0px')
+            $('.msg').css('margin-bottom','0px')
             $( ".chat" ).append( $( data.output ) );
        $(function(){
     $('html, body').animate({scrollTop: $(document).height()-$(window).height()}, 0);
@@ -185,7 +208,7 @@ $.ajax({
 
     success:function(data){
       if(data.output!=''){
-        $('.container').css('margin-bottom','0px')
+        $('.msg').css('margin-bottom','0px')
         $( ".chat" ).append( $( data.output ) );
         $(function(){
 $('html, body').animate({scrollTop: $(document).height()-$(window).height()}, 0);

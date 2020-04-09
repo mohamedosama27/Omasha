@@ -8,9 +8,9 @@
 <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 
 
-
 <br>
 
+ 
   <div class="w3-card cardspace ">
   <input type="text" name="search" id="search" class="form-control" placeholder="Search by name" />
 
@@ -27,25 +27,28 @@
       
   <div id="myCarousel{{$item->id}}" class="carousel slide" data-ride="carousel" data-interval="false" >
    
-
+ 
     <!-- Wrapper for slides -->
     
     <div class="carousel-inner div1" >
-   
+    
+
     @foreach($item->images as $image)
+
     @if ($loop->first)
     <div class="item active" >
-        <img src={{ URL::asset("images/{$image->name}")}}>
+    <a href="{{route('item.show',['id' => $item->id])}}"> <img src={{ URL::asset("images/{$image->name}")}}></a>
       </div>    
      @else
       <div class="item">
-        <img src={{ URL::asset("images/{$image->name}")}}>
+      <a href="{{route('item.show',['id' => $item->id])}}">  <img src={{ URL::asset("images/{$image->name}")}}></a>
         
       </div>
       
 
       @endif
       @endforeach
+      
 
    
     </div>
@@ -106,7 +109,7 @@
 
     });
 
-
+    
 $(document).on("click", '.btn-addtocart', function(e) { 
 
        e.preventDefault();

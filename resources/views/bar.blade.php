@@ -6,6 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 
 <link rel="stylesheet" href="{{ asset('css/w3schools.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -46,24 +49,34 @@ body{
 .toptitle
 {
   margin:-5px;
+  margin-top:5px;
   margin-bottom:-10px;
   letter-spacing: 4px;
-  font-size: 20px;
+  font-size: 24px;
 }
 .w3-bar{
-  height:10%;
+  height:50px;
 }
-@media (max-width:330px){
+@media (max-width:370px){
   .toptitle
 {
-  margin:-2px;
   margin-bottom:-10px;
-  margin-top:5px;
   letter-spacing: 0px;
-  font-size:70% ;
+  font-size:20px ;
+}
+.fa {
+    font-size: 30px;
 }
 
 }
+@media (max-width:307px){
+  .fa {
+    margin-top:5px;
+    font-size: 20px;
+}
+}
+
+
 </style>
 @auth
     @if(Auth::user()->type == 1)
@@ -71,6 +84,37 @@ body{
 @endif
 @endauth
 <body >
+
+
+<div class="w3-bar w3-black w3-large w3-top">
+
+
+<a href="{{route('home')}}" style="color:white;">
+<div class="w3-bar-item w3-wide toptitle"><b>OMASHA</b></div></a>
+  <a href="javascript:void(0)" class="w3-bar-item w3-button  w3-right" onclick="w3_open()">
+  <i class="fa fa-2x fa-bars"></i></a>
+  <a href="{{ Request::is('cart') ? route('home') : route('cart') }}" class="w3-bar-item w3-button  w3-right" >
+  <div class="wrapper">
+  <i class="fa fa-shopping-cart fa-2x  w3-margin-right"></i>
+  <span class="badge countCart" id='countcart'>{{Session::has('number_of_items') ? Session::get('number_of_items'): ''}}</span>
+  </div>
+  </a>
+
+  
+</a>
+<a @guest href="{{ route('login')}}"
+ @else
+ href="{{ route('chat',['id' => Auth::user()->id]) }}" @endguest class="w3-bar-item w3-button w3-right" >
+  <div class="wrapper">
+          <i class="fa fa-2x fa-comments"></i>
+          <span class="badge countmessage" id='countmessages'></span>
+          </div>
+    </a>
+  
+
+                   
+</div>
+
 
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
@@ -85,7 +129,17 @@ body{
   </div>
   <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
     <a href="{{route('home')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-home" style="margin-right:5px;"></i>Home</a>
+
     @auth
+    <a href="{{ route('user.edit',['id' => Auth::user()->id]) }}" class="w3-bar-item w3-button w3-white"><i class="fa fa-user" style="margin-right:5px;"></i>Edit profile</a>
+
+    <a href="{{route('logout')}}" onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();"
+                    class="w3-bar-item w3-button w3-white"><i class="fa fa-sign-out" style="margin-right:5px;"></i>Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+   
     @if(Auth::user()->type == 1)
     <a href="register" class="w3-bar-item w3-button w3-white"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Admin</a>
 
@@ -96,6 +150,9 @@ body{
     <a href="{{route('viewmails')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-envelope" style="margin-right:5px;"></i>View Mails</a> 
 
 @endif
+@else
+<a href="{{ Request::is('login') ? route('home') : route('login') }}"" class="w3-bar-item w3-button w3-white"><i class="fa fa-sign-in fa-lg " style="margin-right:5px;"></i>Login</a>
+
 @endauth
 
     <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
@@ -116,61 +173,8 @@ body{
   
 </nav>
 
+
 <!-- Top menu on small screens -->
-<header class="w3-bar w3-top w3-black w3-large" style="margin-bottom:40px;">
-<a href="{{route('home')}}" style="color:white;">
-<div class="w3-bar-item w3-padding-24 w3-wide toptitle"><b>OMASHA</b></div></a>
-  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()">
-  <i class="fa fa-lg fa-bars"></i></a>
-  <a href="{{ Request::is('cart') ? route('home') : route('cart') }}" class="w3-bar-item w3-button w3-padding-24 w3-right" >
-  <div class="wrapper">
-  <i class="fa fa-shopping-cart fa-lg  w3-margin-right"></i>
-  <span class="badge countCart" id='countcart'>{{Session::has('number_of_items') ? Session::get('number_of_items'): ''}}</span>
-  </div>
-  </a>
-  <a href="{{route('chat')}}" class="w3-bar-item w3-button w3-padding-24 w3-right" >
-  <div class="wrapper">
-  <i class="fa fa-lg fa-comments"></i>
-  <span class="badge countmessage" id='countmessage'>5</span>
-  </div>
-  </a>
-  
-</a>
-
-  @guest
-                            
-                                <a class="w3-bar-item w3-button w3-padding-24 w3-right" href="{{ Request::is('login') ? route('home') : route('login') }}">
-                                <i class="fa fa-sign-in fa-lg " style="margin-right:5px;"></i></a>
-                                @else
-                            <div class="nav-item dropdown">
-                                <a id="navbarDropdown" class="w3-bar-item w3-button w3-padding-24 w3-right" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <i class="fa fa-user" ></i> <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('user.edit',['id' => Auth::user()->id]) }}"
-                                       >
-                                        Edit Profile
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-</div>
-                        @endguest
-                            <!-- @if (Route::has('register'))
-                               
-                                    <a class="w3-bar-item w3-button" href="{{ route('register') }}"></a>
-                                
-                            @endif -->
-                   
-</header>
 
 <!-- Overlay effect when opening sidebar on small screens -->
 <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
@@ -178,6 +182,7 @@ body{
 
   <!-- Push down content on small screens -->
   <div class="w3-hide-large" style="margin-top:83px"> </div>
+
   
   @yield('content')
 
@@ -194,6 +199,7 @@ body{
 
 
 <script>
+
 // Accordion 
 function myAccFunc() {
   var x = document.getElementById("demoAcc");
@@ -214,6 +220,45 @@ function w3_open() {
 function w3_close() {
   document.getElementById("mySidebar").style.display = "none";
   document.getElementById("myOverlay").style.display = "none";
+}
+$.ajaxSetup({
+
+headers: {
+
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+}
+
+});
+@auth
+countmessages();
+
+setInterval(countmessages, 5000);
+@endauth
+function countmessages() { 
+$.ajax({
+
+type:'POST',
+_token: $('meta[name=csrf_token]').attr('content'),
+
+url:"{{ route('countmessage') }}",
+
+data:{},
+datatype:'json',
+
+success:function(data)
+{
+    if(data.countmessages != 0){
+      $("#countmessages").text(data.countmessages);
+    }
+    else{
+      $("#countmessages").text('');
+
+    }
+}
+
+});
+
 }
 </script>
 </body>

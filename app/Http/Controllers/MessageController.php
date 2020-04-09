@@ -14,7 +14,8 @@ class MessageController extends Controller
      */
     public function index()
     {
-        $messages= DB::table('mails')->select('*')->where('status',0)->get();
+        $messages= \App\message::where('recivier_id','=','0')
+        ->Where('status','=','1')->get();
         return view('view_mails_admin', ['messages'=>$messages]);
     }
 
@@ -23,23 +24,37 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public static function createmessage($message,$sender,$recivier)
+    {
+        $Newmessage = new  \App\message;
+        $Newmessage->message = $message;
+        $Newmessage->sender_id =$sender;
+        $Newmessage->recivier_id =$recivier;
+
+        $Newmessage->save();
+        return $Newmessage;
+
+    }
     public function create(Request $request)
     {
-        $message = new  \App\message;
-        $message->message = $request['message'];
-        $message->sender_id = auth()->id();
-        if(auth()->user()->type==NULL){
-        $message->recivier_id = '0';
+     
+        if(auth()->user()->type==NULL)
+        {
+        $message = $this->createmessage($request['message'],auth()->id(),'0');
+
         }
         else{
-            $message->recivier_id =$request['id'];
+        $message = $this->createmessage($request['message'],'0',$request['id']);
+
+            
         }
-        $message->save();
         $output='
-      <div class="container darker right" style="margin-bottom:50px" >
+      <div class="msg-right msg" style="margin-bottom:50px" >
         
-        <p>'.$message->message.'</p> <span class="time-right">'.$message->created_at.'</span>
-      </div>';
+       '.$message->message.'
+      </div>       <br clear="all" />
+      '
+      ;
         return response()->json(['output'=>$output]);
     }
     public function getmessage(Request $request)
@@ -57,12 +72,13 @@ class MessageController extends Controller
             $message->status=1;
             $message->save();
         $output.='
-        <input id="id" value="'.$message->sender_id.'" hidden/>
+        <input id="senderid" value="'.$message->sender_id.'" hidden/>
 
-      <div class="container left" style="margin-bottom:50px" >
+      <div class="msg-left msg" style="margin-bottom:50px" >
         
-        <p>'.$message->message.'</p> <span class="time-right">'.$message->created_at.'</span>
-      </div>';
+        '.$message->message.'
+      </div><br clear="all" />
+      ';
         }
         return response()->json(['output'=>$output]);
     }
@@ -73,6 +89,16 @@ class MessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function countmessage(Request $request)
+    {
+        if(auth()->user()->type==NULL){   
+            $messages = \App\message::where('recivier_id','=',auth()->id())
+            ->Where('status','=',NULL)->count();
+            }
+            return response()->json(['countmessages'=>$messages]);
+
+
+    }
     public function store(Request $request)
     {
         $Answer=$request->Answer;
@@ -90,18 +116,17 @@ class MessageController extends Controller
      * @param  \App\mail  $mail
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        if(auth()->user()->type==NULL){   
-
-        $messages = \App\message::where('sender_id','=',auth()->id())
-                                ->orWhere('recivier_id','=',auth()->id())->get();
-        }
-        else{
-            $messages = \App\message::where('sender_id','=',0)
-                                ->orWhere('recivier_id','=',0)->get();
-
-        }
+        
+        $messages = \App\message::where('sender_id','=',$id)
+                                ->orWhere('recivier_id','=',$id)->get();
+       
+      
+        foreach($messages as $message){
+        $message->status=1;
+        $message->save();
+    }
             
             return view('chat',[
                 'messages'=>$messages,
