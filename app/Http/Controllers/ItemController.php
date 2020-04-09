@@ -17,16 +17,20 @@ class ItemController extends Controller
     protected $items_per_page = 10;
 
     public function index(Request $request) {
+      if(\App\item::count()>10){
 
         $items = \App\item::paginate($this->items_per_page);
-      
         if($request->ajax()) {
-            return [
-                'items' => view('ajax.index')->with(compact('items'))->render(),
-                'next_page' => $items->nextPageUrl()
-            ];
-        }
-
+          return [
+              'items' => view('ajax.index')->with(compact('items'))->render(),
+              'next_page' => $items->nextPageUrl()
+          ];
+      }
+      }
+      else{
+        $items = \App\item::all();
+      }
+        
         return view('home')->with(compact('items'));
 
     }

@@ -167,6 +167,7 @@ $(window).scroll(fetchitems);
 
 function fetchitems() {
 
+  
     var page = $('.endless-pagination').data('next-page');
 
     if(page !== null) {
