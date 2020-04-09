@@ -7,11 +7,12 @@ use App\image;
 use Faker\Generator as Faker;
 
 $factory->define(User::class, function (Faker $faker) {
+    $password= bcrypt('12345678');
     return [
         'name' => 'omasha',
         'email' => 'admin@gmail.com',
         'email_verified_at' => now(),
-        'password' => bcrypt('12345678'), // password
+        'password' => $password, // password
         'remember_token' => Str::random(10),
     ];
 });
