@@ -144,7 +144,7 @@ class ItemController extends Controller
     {
         
         $item = \App\item::find($id);
-        $item->Name = $request['Name'];
+        $item->name = $request['Name'];
         $item->description=$request['Description'];
         $item->quantity=$request['Quantity'];
         $item->price=$request['Price'];
