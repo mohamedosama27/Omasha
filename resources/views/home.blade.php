@@ -18,7 +18,7 @@
   <div class=" w3-grayscale" id="results">
   
 
-<section class="items endless-pagination" data-next-page="{{ $items->nextPageUrl() }}">
+<section class="items endless-pagination" @if(count($items)>10) data-next-page="{{ $items->nextPageUrl() }}" @endif>
     @foreach($items as $item)
 
 <div class="w3-col l3 s6">
@@ -167,7 +167,7 @@ $(window).scroll(fetchitems);
 
 function fetchitems() {
 
-  
+
     var page = $('.endless-pagination').data('next-page');
 
     if(page !== null) {
