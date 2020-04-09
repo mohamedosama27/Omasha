@@ -75,12 +75,12 @@ class ItemController extends Controller
     {
         $item = new  \App\item;
  
-        $item->Name = $request['name'];
-        $item->description=$request['description'];
-        $item->quantity=$request['quantity'];
-        $item->price=$request['price'];
+        $item->name = $request['Name'];
+        $item->description=$request['Description'];
+        $item->quantity=$request['Quantity'];
+        $item->price=$request['Price'];
         $item->barcode=$request['barcode'];
-        $item->category_id=$request['category'];
+        $item->category_id=$request['Category'];
         $item->save();
     
         $item_id = $item->id;
