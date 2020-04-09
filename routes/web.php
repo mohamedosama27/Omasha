@@ -142,6 +142,10 @@ Route::put('/addAdmin', [
     'uses' => 'Auth\RegisterController@createAdmin',
     'as' => 'addAdmin'
 ]);
+Route::get('/addadminview', function () {
+    return view('auth/addadmin');
+})->name('addadminview');
+
 Route::get('/edituser/{id}', [
     'uses' => 'Auth\RegisterController@edit',
     'as' => 'user.edit'

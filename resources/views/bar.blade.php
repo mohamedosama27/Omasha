@@ -141,7 +141,7 @@ body{
                                     </form>
    
     @if(Auth::user()->type == 1)
-    <a href="register" class="w3-bar-item w3-button w3-white"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Admin</a>
+    <a href="{{route('addadminview')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Admin</a>
 
     <a href="{{route('item.create')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Item</a>
     <a href="{{route('vieworders')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-list" style="margin-right:5px;"></i>View Orders</a>

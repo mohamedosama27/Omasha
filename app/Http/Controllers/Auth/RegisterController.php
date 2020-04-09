@@ -116,7 +116,6 @@ class RegisterController extends Controller
         $User->name = $request['name'];
         $User->email = $request['email'];
         $User->phone = $request['phone'];
-        $User->type = 1;
         $User->password = Hash::make($request['password']);
         $User->save();
         return redirect('home');

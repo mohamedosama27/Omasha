@@ -18,10 +18,14 @@
 <div class="w3-card cardspace">
 
 <div class="cardspace">
-    <form method="POST" action="{{ route('register') }}">
+<form method="POST" action="{{route('addAdmin')}}" enctype="multipart/form-data">
     @csrf
+    @method('PUT')
+ 
+
+
 <br>
-  <h2>Create Account</h2>
+  <h2>Add Admin</h2>
   <br>
   <div class="input-group mb-3">
   <div class="input-group-prepend">
@@ -79,7 +83,7 @@
                                     </span>
                                 @enderror  
 </div>
-  <button type="submit" class="w3-btn btn-block w3-round-xxlarge w3-light-blue">Sign Up</button>
+  <button type="submit" class="w3-btn btn-block w3-round-xxlarge w3-light-blue">Add Admin</button>
   <br>
 </form>
 </div>
