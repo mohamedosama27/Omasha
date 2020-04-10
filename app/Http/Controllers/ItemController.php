@@ -274,6 +274,8 @@ class ItemController extends Controller
           
         $output .='<p><a href="'.route("item.show",["id" => $item->id]).'">'.$item->name.'</a></p>';
         }
+        $output .='<b>$'.$item->price.'</b><br>';
+
         if (Auth::check()) {
             if(Auth::user()->type == 1){
             $output .='<a href="'.route("item.delete",["id" => $item->id]).'"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a>
