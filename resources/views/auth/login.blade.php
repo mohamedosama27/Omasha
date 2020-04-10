@@ -31,7 +31,7 @@
   
 
   
-  <input type="text" class="form-control  @error('email') is-invalid @enderror" id="basic-addon1" name="email" value="{{ old('email') }}" type="email" placeholder="Email" name="email" required autocomplete="email"  aria-describedby="basic-addon1">
+  <input type="email" class="form-control  @error('email') is-invalid @enderror" id="basic-addon1" name="email" value="{{ old('email') }}" type="email" placeholder="Email" name="email" required autocomplete="email"  aria-describedby="basic-addon1">
   </div>
   @error('email')
                                      <span role="alert" style="color:red;">
