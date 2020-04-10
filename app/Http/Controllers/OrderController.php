@@ -61,7 +61,7 @@ class OrderController extends Controller
         Nexmo::message()->send([
             'to'   => '+201118221684',
             'from' => '+201118221684',
-            'text' => 'You submit new order  http://aqueous-dawn-37150.herokuapp.com/chat/'.auth()->id()." ",
+            'text' => 'You submit new order  http://aqueous-dawn-37150.herokuapp.com/chat/'.auth()->id()." .",
         ]);
         // \Mail::to('mohamed1705725@miuegypt.edu.eg')->send(new SendMail($details));
 
