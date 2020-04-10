@@ -5,6 +5,7 @@ use \App\Mail\SendMail;
 use Illuminate\Http\Request;
 use App\Event\CreateOrder;
 use App\Http\Controllers\MessageController;
+use Nexmo\Laravel\Facade\Nexmo;
 
 use Session;
 use DB;
@@ -57,6 +58,11 @@ class OrderController extends Controller
             'title' => 'You have new order',
             'order' => $order ,
         ];
+        Nexmo::message()->send([
+            'to'   => '+201118221684',
+            'from' => '+201118221684',
+            'text' => 'Using the facade to send a message.'
+        ]);
         // \Mail::to('mohamed1705725@miuegypt.edu.eg')->send(new SendMail($details));
 
              return redirect('home');
