@@ -57,7 +57,7 @@ class OrderController extends Controller
             'title' => 'You have new order',
             'order' => $order ,
         ];
-        \Mail::to('mohamed1705725@miuegypt.edu.eg')->send(new SendMail($details));
+        // \Mail::to('mohamed1705725@miuegypt.edu.eg')->send(new SendMail($details));
 
              return redirect('home');
     }
