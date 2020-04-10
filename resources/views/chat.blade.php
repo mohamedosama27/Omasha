@@ -48,10 +48,10 @@
 }
 
 .msg-right{
+    z-index:-1;
     background:#3BA1EE;
     padding:5px;
     padding-right:10px;
-
 padding-left:10px;
     text-align:right;
     color:#fff;
@@ -66,11 +66,10 @@ padding-left:10px;
 
 }
 .msg-left{
+    z-index:-1;
     background:#ddd;
     padding:5px;
-
     padding-right:10px;
-
     margin:5px;
      width:auto;
      max-width:70%;
@@ -80,6 +79,7 @@ padding-left:10px;
 
 }
 .msg-left:before {
+    z-index:-1;
    width: 0;
     height: 0;
     content: "";
@@ -92,6 +92,7 @@ padding-left:10px;
    
 }
 .msg-right:after {
+    z-index:-1;
    width: 0;
     height: 0;
     content: "";
@@ -113,7 +114,7 @@ padding-left:10px;
     width:75%;
     display:inline;
 }
-.fa {
+.sendicon {
     font-size: 20px;
   }
 

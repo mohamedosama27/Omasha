@@ -64,17 +64,13 @@ body{
   letter-spacing: 0px;
   font-size:20px ;
 }
-.fa {
+.topicons {
+  margin-top:5px;
     font-size: 30px;
 }
 
 }
-@media (max-width:307px){
-  .fa {
-    margin-top:5px;
-    font-size: 20px;
-}
-}
+
 
 
 </style>
@@ -92,10 +88,10 @@ body{
 <a href="{{route('home')}}" style="color:white;">
 <div class="w3-bar-item w3-wide toptitle"><b>OMASHA</b></div></a>
   <a href="javascript:void(0)" class="w3-bar-item w3-button  w3-right" onclick="w3_open()">
-  <i class="fa fa-2x fa-bars"></i></a>
+  <i class="fa fa-2x fa-bars topicons"></i></a>
   <a href="{{ Request::is('cart') ? route('home') : route('cart') }}" class="w3-bar-item w3-button  w3-right" >
   <div class="wrapper">
-  <i class="fa fa-shopping-cart fa-2x  w3-margin-right"></i>
+  <i class="fa fa-shopping-cart fa-2x  w3-margin-right topicons"></i>
   <span class="badge countCart" id='countcart'>{{Session::has('number_of_items') ? Session::get('number_of_items'): ''}}</span>
   </div>
   </a>
@@ -106,7 +102,7 @@ body{
  @else
  href="{{ route('chat',['id' => Auth::user()->id]) }}" @endguest class="w3-bar-item w3-button w3-right" >
   <div class="wrapper">
-          <i class="fa fa-2x fa-comments"></i>
+          <i class="fa fa-2x fa-comments topicons"></i>
           <span class="badge countmessage" id='countmessages'></span>
           </div>
     </a>

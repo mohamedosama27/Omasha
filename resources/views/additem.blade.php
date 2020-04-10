@@ -50,13 +50,19 @@ form.addEventLisener('submit,function(e){
             <label for="exampleInputEmail1">Quantity</label>
             <input type="Text" class="form-control" id="text" Name="Quantity" placeholder="Quantity" required>
 
-            <label for="exampleInputEmail1">Image Path</label>
-            <!-- <input type="file" id="text" Name="img" required> -->
-
+            <label for="exampleInputEmail1">Choose images</label>
+            
             <div class="custom-file">
-            <input type="file" class="custom-file-input" id="validatedCustomFile" Name="img[]" required multiple>
+            <input type="file" class="custom-file-input" id="validatedCustomFile" Name="img[]"  accept="image/*" multiple>
             <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
             </div>
+            <script>
+             $('.custom-file input').change(function (e) {
+                var files = [];
+               
+                $(this).next('.custom-file-label').html("you choose : "+ $(this)[0].files.length+" images");
+            });
+            </script>
           
 
              <div class="form-group">

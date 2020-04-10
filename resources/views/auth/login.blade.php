@@ -12,7 +12,7 @@
     .margintop{
         margin-top:10px;
     }
-    .fa {
+    .formicon {
     font-size: 20px;
   }
 </style>
@@ -25,7 +25,8 @@
 
   <div class="input-group mb-3 space">
   <div class="input-group-prepend margintop">
-    <span class="input-group-text" ><i class="fa fa-2x fa-envelope "></i>
+    <span class="input-group-text" >
+    <i class="fa fa-envelope formicon"></i>
     </span>
   
 
@@ -42,7 +43,8 @@
 
 <div class="input-group mb-3">
   <div class="input-group-prepend">
-  <span class="input-group-text" ><i class="fa fa-2x fa-key"></i>
+  <span class="input-group-text" >
+  <i class="fa  fa-key formicon"></i>
 
   </span>
 
