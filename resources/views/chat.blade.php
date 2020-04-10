@@ -207,6 +207,7 @@ function getmessage() {
 
 
     var message =  $("#message"). val();
+    var sender_id =  $("#senderid"). val();
 
 $.ajax({
 
@@ -215,7 +216,7 @@ $.ajax({
 
     url:"{{ route('getmessage') }}",
 
-    data:{message:message},
+    data:{message:message,sender_id:sender_id},
     datatype:'json',
 
     success:function(data){

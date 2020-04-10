@@ -12,6 +12,26 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+    public function getSenders()
+    {
+        $messages = \App\message::where('recivier_id','=','0')
+            ->Where('status','=',NULL)->get();
+            $output='';
+            foreach($messages as $message){
+                $output.='<a class="chatlink" href="'.route("chat",["id" => $message->sender->id]).'"
+                <div class="chat_list">
+                <div class="chat_people">
+                  <div class="chat_ib">
+                    <h3>'.$message->sender->name.' <span class="chat_date">'.$message->created_at.'</span></h3>
+                    <p>'.$message->message.'.</p>
+                  </div>
+                </div>
+              </div>
+              </a>';
+            }
+            return response()->json(['senders'=>$output]);
+    }
     public function index()
     {
         $messages= \App\message::where('recivier_id','=','0')
@@ -65,7 +85,7 @@ class MessageController extends Controller
         }
         else{
             $messages = \App\message::where('recivier_id','=',0)
-        ->Where('status','=',NULL)->get();
+        ->Where('status','=',NULL)->Where('sender_id','=',$request['sender_id'])->get();
         }
         $output='';
         foreach($messages as $message){
@@ -91,10 +111,16 @@ class MessageController extends Controller
      */
     public function countmessage(Request $request)
     {
-        if(auth()->user()->type==NULL){   
+        if(auth()->user()->type!=1){   
             $messages = \App\message::where('recivier_id','=',auth()->id())
             ->Where('status','=',NULL)->count();
             }
+        else
+        {
+            $messages = \App\message::where('recivier_id','=','0')
+            ->Where('status','=',NULL)->count();
+        }
+        
             return response()->json(['countmessages'=>$messages]);
 
 
@@ -118,7 +144,8 @@ class MessageController extends Controller
      */
     public function show($id)
     {
-        
+        if(auth()->user()->type==1 || auth()->user()->id == $id)
+        {
         $messages = \App\message::where('sender_id','=',$id)
                                 ->orWhere('recivier_id','=',$id)->get();
        
@@ -132,7 +159,10 @@ class MessageController extends Controller
                 'messages'=>$messages,
             ]);
         
-
+            }
+            else{
+                abort(404);
+            }
     }
 
     /**

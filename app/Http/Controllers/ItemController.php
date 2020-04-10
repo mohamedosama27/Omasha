@@ -213,7 +213,7 @@ class ItemController extends Controller
       $query = $request->get('query');
       if($query != '')
       {
-       $data = \App\item::where('name', 'ilike', '%'.$query.'%')
+       $data = \App\item::where('name', 'like', '%'.$query.'%')
          ->orderBy('id')->get();
          
       }
@@ -301,8 +301,9 @@ class ItemController extends Controller
       else
       {
        $output = '
-       <h5>No product with this name</h5>
-       ';
+       <div class="alert alert-dark">
+       <h3 >No items with this name</h3>
+       </div>       ';
       }
       $data = array(
        'table_data'  => $output,

@@ -13,7 +13,7 @@ class OrderController extends Controller
 {
     public function showAll()
     {
-        $orders = \App\order::all();
+        $orders = \App\order::orderBy('id', 'DESC')->get();
         $items=DB::table('item_order')->get();
 
         return view('vieworders',[

@@ -68,6 +68,7 @@
   <p><a href="{{route('item.show',['id' => $item->id])}}">{{$item->name}}</a></p>
   @endif
   <b>${{$item->price}}</b><br>
+  
       @auth
         @if(Auth::user()->type == 1)
         <a href="{{route('item.delete',['id' => $item->id])}}" onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a>
@@ -75,11 +76,17 @@
 
 
         @else
-        <button type="button" class="btn btn-default btn-addtocart" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;" onclick="this.blur();"><b>Add to Cart</b></button>
+        <button  
+        @if($item->quantity == 0)
+        disabled
+        @endif type="button" class="btn btn-default btn-addtocart" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;" ><b>Add to Cart</b></button>
 
         @endif
         @else
-        <button type="button" class="btn btn-default btn-addtocart" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;" onclick="this.blur();"><b>Add to Cart</b></button>
+        <button  @if($item->quantity == 0)
+        disabled
+        @endif
+         type="button" class="btn btn-default btn-addtocart" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;" ><b>Add to Cart</b></button>
       @endauth
 
         <hr>

@@ -71,8 +71,41 @@ body{
 
 }
 
+.chat_list {
+	margin: 0;
+	padding: 18px 16px 10px;
+}
+.chat_people {
+	overflow: hidden;
+	clear: both;
+}
+.chat_ib {
+	float: left;
+	padding: 0 0 0 15px;
+	width: 88%;
+  border-bottom: 1px solid #ddd;
+}
+.chat_ib h3 {
+	font-size: 20px;
+	color: #464646;
+	margin: 0 0 8px 0;
+}
 
+.chat_ib h3 span {
+	font-size: 13px;
+	float: right;
+}
 
+.chat_ib p {
+    font-size: 16px;
+    color: #989898;
+    margin: auto;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width:90%;
+    text-overflow: ellipsis;
+}
 </style>
 @auth
     @if(Auth::user()->type == 1)
@@ -98,9 +131,17 @@ body{
 
   
 </a>
-<a @guest href="{{ route('login')}}"
+ @auth 
+@if(Auth::user()->type == 1)
+<a href="javascript:void(0)"
+   onclick="senders_open()" class="w3-bar-item w3-button w3-right" >
+   @else
+   <a href="{{ route('chat',['id' => Auth::user()->id]) }}" class="w3-bar-item w3-button w3-right" >
+@endif
  @else
- href="{{ route('chat',['id' => Auth::user()->id]) }}" @endguest class="w3-bar-item w3-button w3-right" >
+ <a href="{{ route('login')}}" class="w3-bar-item w3-button w3-right" >
+  @endauth 
+
   <div class="wrapper">
           <i class="fa fa-2x fa-comments topicons"></i>
           <span class="badge countmessage" id='countmessages'></span>
@@ -172,6 +213,21 @@ body{
 
 <!-- Top menu on small screens -->
 
+<nav class="w3-sidebar w3-bar-block w3-white w3-top" style="z-index:3;width:250px;display:none;" id="senders">
+  <div class="w3-container w3-display-container w3-padding-16">
+    <i onclick="senders_close()" class="fa fa-remove w3-button w3-display-topright"></i>
+    <h2 class="w3-wide">
+  <span class="icon">
+
+
+</span><b>Senders</b></h2>
+  </div>
+  <div class="w3-padding-64 w3-large senders" style="font-weight:bold">
+  
+     </div>
+  
+</nav>
+
 <!-- Overlay effect when opening sidebar on small screens -->
 <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 <div class="w3-main" style="margin-left:250px">
@@ -217,6 +273,14 @@ function w3_close() {
   document.getElementById("mySidebar").style.display = "none";
   document.getElementById("myOverlay").style.display = "none";
 }
+function senders_open() {
+  document.getElementById("senders").style.display = "block";
+  getSenders();
+}
+ 
+function senders_close() {
+  document.getElementById("senders").style.display = "none";
+}
 $.ajaxSetup({
 
 headers: {
@@ -251,6 +315,26 @@ success:function(data)
       $("#countmessages").text('');
 
     }
+}
+
+});
+}
+
+function getSenders() {
+
+$.ajax({
+
+type:'POST',
+_token: $('meta[name=csrf_token]').attr('content'),
+
+url:"{{ route('getSenders') }}",
+
+data:{},
+datatype:'json',
+
+success:function(data)
+{
+  $( ".senders" ).append( $( data.senders ) );
 }
 
 });

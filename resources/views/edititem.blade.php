@@ -66,7 +66,6 @@ form.addEventLisener('submit,function(e){
             </tbody>
             </table>
             <label for="exampleInputEmail1">Add images</label>
-            <!-- <input type="file" id="text" Name="img" required> -->
 
             <div class="custom-file">
             <input type="file" class="custom-file-input" id="validatedCustomFile" Name="img[]"  accept="image/*" multiple>

@@ -13,14 +13,16 @@
 
 // Route::get('/', 'ItemController@showAll');
 Route::get('send-mail','MailSend@mailsend');
-Route::get('chat/{id}','MessageController@show')->name('chat');
-Route::post('getmessage','MessageController@getmessage')->name('getmessage');
+Route::get('chat/{id}','MessageController@show')->name('chat')->middleware('auth');
+Route::post('getmessage','MessageController@getmessage')->name('getmessage')->middleware('auth');
+Route::post('getSenders','MessageController@getSenders')->name('getSenders')->middleware('auth');
+
 Route::post('countmessage','MessageController@countmessage')->name('countmessage');
 
 Route::post('/sendmessage', [
     'uses' => 'MessageController@create',
     'as' => 'sendmessage'
-]);
+])->middleware('auth');
 
 
 Route::get('/', 'ItemController@index')->name('home');
@@ -48,7 +50,7 @@ Route::put('/update/{id}',
 [
     'uses' => 'ItemController@update',
     'as' => 'item.update'
-]);
+])->middleware('auth','ifAdmin');
 Route::get('/show/{id}', [
     'uses' => 'ItemController@show',
     'as' => 'item.show'
@@ -58,58 +60,58 @@ Route::get('/show/{id}', [
 Route::get('/accept/{id}', [
     'uses' => 'OrderController@accept',
     'as' => 'order.accept'
-]);
+])->middleware('auth','ifAdmin');
 Route::get('/reject/{id}', [
     'uses' => 'OrderController@reject',
     'as' => 'order.reject'
-]);
+])->middleware('auth','ifAdmin');
 Route::get('/deleteOrder/{id}', [
     'uses' => 'OrderController@destroy',
     'as' => 'order.delete'
-]);
+])->middleware('auth','ifAdmin');
 
 Route::get('/createitem',
 [
     'uses' => 'ItemController@create',
     'as' => 'item.create'
-]);
+])->middleware('auth','ifAdmin');
 Route::put('/checkout',
 [
     'uses' => 'OrderController@create',
     'as' => 'checkout'
-]);
+])->middleware('auth');
 Route::get('/deleteitem/{id}',
 [
     'uses' => 'ItemController@destroy',
     'as' => 'item.delete'
-]);
+])->middleware('auth','ifAdmin');
 Route::get('/deleteimage/{id}',
 [
     'uses' => 'ItemController@deleteImage',
     'as' => 'image.delete'
-]);
+])->middleware('auth','ifAdmin');
 Route::get('/edititem/{id}', [
     'uses' => 'ItemController@edit',
     'as' => 'item.edit'
-]);
+])->middleware('auth','ifAdmin');
 Route::put('/createcategory',
 [
     'uses' => 'CategoryController@store',
     'as' => 'category.store'
-]);
+])->middleware('auth','ifAdmin');
 Route::get('/editcategory', [
     'uses' => 'CategoryController@edit',
     'as' => 'category.edit'
-]);
+])->middleware('auth','ifAdmin');
 Route::get('/deleteCategory/{id}', [
     'uses' => 'CategoryController@destroy',
     'as' => 'category.delete'
-]);
+])->middleware('auth','ifAdmin');
 Route::put('/updateCategory/{id}',
 [
     'uses' => 'CategoryController@update',
     'as' => 'category.update'
-]);
+])->middleware('auth','ifAdmin');
 
 
 Route::get('/cart',
@@ -128,28 +130,28 @@ Route::get('/removefromcart/{id}', [
 Route::get('/vieworders',[
     'uses' => 'OrderController@showAll',
     'as' => 'vieworders'
-]);
-Route::get('/viewmails','MessageController@index')->name('viewmails');
-Route::get('/Mail_us_Admin/reply','MessageController@store');
+])->middleware('auth','ifAdmin');
+Route::get('/viewmails','MessageController@index')->name('viewmails')->middleware('auth','ifAdmin');
+Route::get('/Mail_us_Admin/reply','MessageController@store')->middleware('auth','ifAdmin');
 
 
 Route::put('/storeitem', [
     'uses' => 'ItemController@store',
     'as' => 'item.store'
-]);
+])->middleware('auth','ifAdmin');
 
 Route::put('/addAdmin', [
     'uses' => 'Auth\RegisterController@createAdmin',
     'as' => 'addAdmin'
-]);
+])->middleware('auth','ifAdmin');
 Route::get('/addadminview', function () {
     return view('auth/addadmin');
-})->name('addadminview');
+})->name('addadminview')->middleware('auth','ifAdmin');
 
 Route::get('/edituser/{id}', [
     'uses' => 'Auth\RegisterController@edit',
     'as' => 'user.edit'
-]);
+])->middleware('auth');
 Route::put('/updateuser/{id}', [
     'uses' => 'Auth\RegisterController@update',
     'as' => 'user.update'
