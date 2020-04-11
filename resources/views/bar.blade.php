@@ -335,7 +335,7 @@ datatype:'json',
 
 success:function(data)
 {
-  $( ".senders" ).append( $( data.senders ) );
+  $( ".senders" ).html( $( data.senders ) );
 }
 
 });
