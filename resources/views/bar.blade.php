@@ -33,8 +33,8 @@ right: -2px;
 }
 .wrapper .countmessage{
 position: absolute;
-top: -2px;
-right: -15px; 
+top: 1px;
+right: -9px; 
 }
 .countmessage{
   background-color:red;
