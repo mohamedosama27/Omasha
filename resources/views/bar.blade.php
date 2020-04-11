@@ -184,7 +184,7 @@ body{
     <a href="{{route('vieworders')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-list" style="margin-right:5px;"></i>View Orders</a>
     <a href="{{route('category.edit')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-edit" style="margin-right:5px;"></i>Edit Categories</a>
     <a data-toggle="modal" data-target="#addcategory" class="w3-bar-item w3-button w3-white"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Category</a>
-    <a href="{{route('viewmails')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-envelope" style="margin-right:5px;"></i>View Mails</a> 
+    <!-- <a href="{{route('viewmails')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-envelope" style="margin-right:5px;"></i>View Mails</a>  -->
 
 @endif
 @else
@@ -202,10 +202,11 @@ body{
         
       @endforeach
     </div>
-    <a href="#" class="w3-bar-item w3-button w3-white">
+    <!-- <a href="#" class="w3-bar-item w3-button w3-white">
       <i class='fa fa-phone' style="margin-right:5px;">
     </i>Contact</a>
     <a href="{{route('viewmails')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-envelope" style="margin-right:5px;"></i>Mail Us</a> 
+   -->
   </div>
   
 </nav>
