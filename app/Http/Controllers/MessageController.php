@@ -156,6 +156,10 @@ class MessageController extends Controller
         $message->status=1;
         $message->save();
             }
+            if(auth()->user()->type==1 && $message->recivier_id=='0'){
+                $message->status=1;
+                $message->save();
+            }
     }
             
             return view('chat',[
