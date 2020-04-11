@@ -19,7 +19,7 @@ class ItemController extends Controller
     public function index(Request $request) {
       if(\App\item::count()>10){
 
-        $items = \App\item::paginate($this->items_per_page);
+        $items = \App\item::orderBy('id', 'DESC')->paginate($this->items_per_page);
         if($request->ajax()) {
           return [
               'items' => view('ajax.index')->with(compact('items'))->render(),
@@ -28,7 +28,7 @@ class ItemController extends Controller
       }
       }
       else{
-        $items = \App\item::all();
+        $items = \App\item::orderBy('id', 'DESC')->get();
       }
         
         return view('home')->with(compact('items'));
@@ -213,8 +213,8 @@ class ItemController extends Controller
       $query = $request->get('query');
       if($query != '')
       {
-       $data = \App\item::where('name', 'like', '%'.$query.'%')
-         ->orderBy('id')->get();
+       $data = \App\item::where('name', 'ilike', '%'.$query.'%')
+         ->orderBy('id', 'DESC')->get();
          
       }
    
