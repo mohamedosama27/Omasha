@@ -242,12 +242,12 @@ class ItemController extends Controller
         $output .='
         <div class="item active">
         
-          <img src="'.$url.'">
+        <a href="'.route("item.show",["id" => $item->id]).'"> <img src="'.$url.'"></a>
         </div> ';
       }   
        else{
        $output .='<div class="item">
-          <img height="150" width="110" src="'.$url.'">
+       <a href="'.route("item.show",["id" => $item->id]).'">  <img height="150" width="110" src="'.$url.'"></a>
           
         </div>';
     }
@@ -278,6 +278,7 @@ class ItemController extends Controller
 
         if (Auth::check()) {
             if(Auth::user()->type == 1){
+              $output .='<b>Quantity : '.$item->quantity.'</b><br>';
             $output .='<a href="'.route("item.delete",["id" => $item->id]).'"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a>
             <a  href="'.route("item.edit",["id" => $item->id]).'"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Edit</b></button></a>';
           }

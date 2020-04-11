@@ -71,7 +71,9 @@
   
       @auth
         @if(Auth::user()->type == 1)
-        <a href="{{route('item.delete',['id' => $item->id])}}" onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a>
+        <b>Quantity : {{$item->quantity}}</b><br>
+
+        <a href="{{route('item.delete',['id' => $item->id])}}" onclick="return confirm('Are you sure to delete {{$item->name}}?')"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a>
         <a href="{{route('item.edit',['id' => $item->id])}}"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Edit</b></button></a>
 
 

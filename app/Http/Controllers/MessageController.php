@@ -146,9 +146,10 @@ class MessageController extends Controller
     {
         if(auth()->user()->type==1 || auth()->user()->id == $id)
         {
+           
         $messages = \App\message::where('sender_id','=',$id)
                                 ->orWhere('recivier_id','=',$id)->get();
-       
+                         
       
         foreach($messages as $message){
         $message->status=1;
