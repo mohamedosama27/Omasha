@@ -152,8 +152,10 @@ class MessageController extends Controller
                          
       
         foreach($messages as $message){
+            if($message->recivier_id==auth()->user()->id){
         $message->status=1;
         $message->save();
+            }
     }
             
             return view('chat',[
