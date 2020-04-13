@@ -28,7 +28,7 @@ position: relative;
 .wrapper .countCart{
 position: absolute;
 top: -2px;
-right: -2px; 
+right: 0px; 
 }
 .countCart{
   background-color:red;

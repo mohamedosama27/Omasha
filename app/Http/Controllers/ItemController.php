@@ -90,9 +90,8 @@ class ItemController extends Controller
         $item_id = $item->id;
         $files = $request->file('img');
             foreach ($files as $file){
-             $name = rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
+              $name = rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
              $file->move("images", $name);
-            
              $image = new \App\image;
      
              $image->name = $name;
@@ -217,6 +216,7 @@ class ItemController extends Controller
          ->orderBy('id', 'DESC')->get();
          
       }
+    
    
       $total_row = $data->count();
       if($total_row > 0)

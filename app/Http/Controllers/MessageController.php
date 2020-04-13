@@ -16,7 +16,7 @@ class MessageController extends Controller
     public function getSenders()
     {
         $messages = \App\message::where('recivier_id','=','0')
-            ->Where('status','=',NULL)->get();
+            ->Where('status','=',NULL)->get()->keyBy('sender_id');
             $output='';
             foreach($messages as $message){
                 $output.='<a class="chatlink" href="'.route("chat",["id" => $message->sender->id]).'"

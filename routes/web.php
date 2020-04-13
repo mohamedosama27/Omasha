@@ -158,6 +158,9 @@ Route::put('/updateuser/{id}', [
 ]);
 Route::get('autocomplete', 'ItemController@autocomplete')->name('autocomplete');
 
+Route::get('/users','UserController@showAll')->name('users')->middleware('auth','ifAdmin');
+Route::post('/usersearch','UserController@search')->name('user.search')->middleware('auth','ifAdmin');
+
 
 Auth::routes();
 
