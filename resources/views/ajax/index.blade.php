@@ -46,6 +46,8 @@
   <b>${{$item->price}}</b><br>
       @auth
         @if(Auth::user()->type == 1)
+        <b>Quantity : {{$item->quantity}}</b><br>
+
         <a href="{{route('item.delete',['id' => $item->id])}}"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a>
         <a href="{{route('item.edit',['id' => $item->id])}}"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Edit</b></button></a>
 

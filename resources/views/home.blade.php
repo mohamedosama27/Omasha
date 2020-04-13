@@ -13,6 +13,7 @@
  
   <div class="w3-card cardspace ">
   <input type="text" name="search" id="search" class="form-control" placeholder="Search by name" />
+  <input type="number" id="countitems" value="{{count($items)}}"hidden/>
 <div class="cardspace">
 
   <div class=" w3-grayscale" id="results">
@@ -174,6 +175,7 @@ $(document).on('keyup', '#search', function(){
 });
 $(window).scroll(fetchitems);
 
+
 function fetchitems() {
 
 
@@ -188,8 +190,19 @@ function fetchitems() {
 
             if(scroll_position_for_items_load >= $(document).height()) {
                 $.get(page, function(data){
-                    $('.items').append(data.items);
+                    
+                    var numberofitems=$("#countitems").val();
+                    if(numberofitems<=10)
+                    {
+                      $('.items').html(data.items);
                     $('.endless-pagination').data('next-page', data.next_page);
+                      $("#countitems").val(numberofitems+data.numberofitems);
+
+                    }
+                    else{
+                      $('.items').append(data.items);
+                    $('.endless-pagination').data('next-page', data.next_page);
+                    }
                 });
             }
         }, 350))

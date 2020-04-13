@@ -23,15 +23,20 @@ class ItemController extends Controller
         if($request->ajax()) {
           return [
               'items' => view('ajax.index')->with(compact('items'))->render(),
-              'next_page' => $items->nextPageUrl()
+              'next_page' => $items->nextPageUrl(),
+              'numberofitems'=>count($items)
           ];
       }
+      
+        return view('home')->with(compact('items'));
+      
       }
       else{
         $items = \App\item::orderBy('id', 'DESC')->get();
+        return view('home')->with(compact('items'));
+
       }
         
-        return view('home')->with(compact('items'));
 
     }
 
@@ -212,10 +217,11 @@ class ItemController extends Controller
       $query = $request->get('query');
       if($query != '')
       {
-       $data = \App\item::where('name', 'ilike', '%'.$query.'%')
+       $data = \App\item::where('name', 'like', '%'.$query.'%')
          ->orderBy('id', 'DESC')->get();
          
       }
+      
     
    
       $total_row = $data->count();
