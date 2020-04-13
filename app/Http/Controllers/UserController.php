@@ -8,10 +8,10 @@ class UserController extends Controller
 {
     public function showAll()
     {
-        $users = \App\User::where('type','=',NULL)->get();
+      $messages = \App\message::where('recivier_id','=','0')->get()->keyBy('sender_id');
 
-        return view('users',[
-            'users'=>$users,
+        return view('chats',[
+            'messages'=>$messages,
             
         ]);
        
@@ -19,27 +19,29 @@ class UserController extends Controller
     public function search(Request $request)
     {
         $output = '';
-        $query = $request['query'];
+       $query = $request['query'];
         if($query != '')
       {
-       $data = \App\User::where('type','=',NULL)->where('name', 'like', '%'.$query.'%')->get();
-         
+       $data = \App\message::where('recivier_id','=','0')->whereHas('sender', function($q)use ($query) {
+        $q->where('name','like','%'.$query.'%');
+        })->get()->keyBy('sender_id');
+
       }
       else{
-        $data = \App\User::where('type','=',NULL)->get();
+        $data = \App\message::where('recivier_id','=','0')->get()->keyBy('sender_id');
       }
    
       $total_row = $data->count();
       if($total_row > 0)
       {
-       foreach($data as $user)
+       foreach($data as $message)
        {
-        $output.='<a class="chatlink" href="'.route("chat",["id" => $user->id]).'"
+        $output.='<a class="chatlink" href="'.route("chat",["id" => $message->sender->id]).'"
         <div class="chat_list">
         <div class="chat_people">
-          <div class="chat_ib">
-            <h3>'.$user->name.' <span class="chat_date">17/5/2020</span></h3>
-            <p>haiiii.</p>
+          <div class="chat_ib" style="margin-top:15px;">
+            <h3>'.$message->sender->name.' <span class="chat_date">'.$message->created_at.'</span></h3>
+            <p>'.$message->message.'</p>
           </div>
             </div>
         </div>

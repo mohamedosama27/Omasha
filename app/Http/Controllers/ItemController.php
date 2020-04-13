@@ -15,7 +15,18 @@ class ItemController extends Controller
      * @return \Illuminate\Http\Response
      */
     protected $items_per_page = 10;
+   public function validation($request){
+    $request->validate([
+      'name' => ['required', 'string', 'max:255'],
+      'description' => ['required', 'string'],
+      'quantity' => ['required', 'numeric'],
+      'price' => ['required', 'numeric'],
+      'price' => ['required', 'numeric'],
+      'barcode' => ['required','string', 'max:255']
 
+  ]);
+
+   }
     public function index(Request $request) {
       if(\App\item::count()>10){
 
@@ -82,8 +93,8 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
+      $this->validation($request);
         $item = new  \App\item;
- 
         $item->name = $request['Name'];
         $item->description=$request['Description'];
         $item->quantity=$request['Quantity'];
@@ -150,12 +161,14 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
+      $this->validation($request);
+
         
         $item = \App\item::find($id);
-        $item->name = $request['Name'];
-        $item->description=$request['Description'];
-        $item->quantity=$request['Quantity'];
-        $item->price=$request['Price'];
+        $item->name = $request['name'];
+        $item->description=$request['description'];
+        $item->quantity=$request['quantity'];
+        $item->price=$request['price'];
         $item->category_id=$request['Category'];
         $item->barcode=$request['barcode'];
         $item->save();

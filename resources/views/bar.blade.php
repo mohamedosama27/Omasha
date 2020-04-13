@@ -180,6 +180,7 @@ body{
                                     </form>
    
     @if(Auth::user()->type == 1)
+  
     <a href="{{route('addadminview')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Admin</a>
 
     <a href="{{route('item.create')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Item</a>
@@ -223,8 +224,13 @@ body{
   <span class="icon">
 
 
-</span><b>Senders</b></h2>
+</span><b>Notifications</b></h2>
   </div>
+  <a href="{{route('users')}}" class="w3-bar-item w3-button w3-white">
+  <button type="submit" class="w3-btn btn-block w3-round-xxlarge w3-light-blue">Show All</button>
+</a>
+
+
   <div class="w3-padding-64 w3-large senders" style="font-weight:bold">
   
      </div>

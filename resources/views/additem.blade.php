@@ -35,21 +35,41 @@ form.addEventLisener('submit,function(e){
     
         <h1 style="color:lightskyblue;">New item</h1>
 
-            <label for="exampleInputEmail1">Item Name</label>
-            <input type="Text" class="form-control" id="text" Name="Name" placeholder="Item Name" required>
-   
-            <label for="exampleInputEmail1">Bar Code</label>
-            <input type="Text" class="form-control" id="text" Name="barcode" placeholder="Bar code" required>
-
-            <label for="exampleInputEmail1">Description</label>
-            <input type="Text" class="form-control" id="text" Name="Description" placeholder="Description">
-
+            <label>Item Name</label>
+            <input type="Text" class="form-control" id="text" Name="name" placeholder="Item Name" value="{{ old('name') }}" required>
+            @error('name')
+                                     <span role="alert" style="color:red;">
+                                        <strong>{{ $message }}</strong>
+                                    </span><br>
+                                @enderror  
+            <label>Bar Code</label>
+            <input type="Text" class="form-control" id="text" Name="barcode" placeholder="Bar code" value="{{ old('name') }}" required>
+            @error('barcode')
+                                     <span role="alert" style="color:red;">
+                                        <strong>{{ $message }}</strong>
+                                    </span><br>
+                                @enderror  
+            <label >Description</label>
+            <input type="Text" class="form-control" id="text" Name="description" placeholder="Description" value="{{ old('description') }}">
+            @error('Description')
+                                     <span role="alert" style="color:red;">
+                                        <strong>{{ $message }}</strong>
+                                    </span><br>
+                                @enderror  
             <label for="exampleInputEmail1">Price</label>
-            <input type="Text" class="form-control" id="text" Name="Price" placeholder="EGP..." required>
-
+            <input type="Text" class="form-control" id="text" Name="price" placeholder="EGP..." value="{{ old('price') }}" required>
+            @error('price')
+                                     <span role="alert" style="color:red;">
+                                        <strong>{{ $message }}</strong>
+                                    </span><br>
+                                @enderror
             <label for="exampleInputEmail1">Quantity</label>
-            <input type="Text" class="form-control" id="text" Name="Quantity" placeholder="Quantity" required>
-
+            <input type="Text" class="form-control" id="text" Name="quantity" placeholder="Quantity" value="{{ old('quantity') }}" required>
+            @error('quantity')
+                                     <span role="alert" style="color:red;">
+                                        <strong>{{ $message }}</strong>
+                                    </span><br>
+                                @enderror
             <label for="exampleInputEmail1">Choose images</label>
             
             <div class="custom-file">

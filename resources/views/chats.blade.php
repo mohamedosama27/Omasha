@@ -4,17 +4,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-<input type="text" name="search" id="search" class="form-control" placeholder="Search by name" />
+<input type="text" name="search" id="search" class="form-control" placeholder="Search by name"/>
 <div id="result">
-@foreach($users as $user)
-<a class="chatlink" href="{{route('chat',['id' => $user->id])}}">
+@foreach($messages as $message)
+<a class="chatlink" href="{{route('chat',['id' => $message->sender->id])}}">
                 <div class="chat_list">
                 <div class="chat_people">
                   <div class="chat_ib">
-                    <h3>{{$user->name}} <span class="chat_date">17/5/2020</span></h3>
-                    @if(count($user->messages) > 0)
-                    <p>{{$user->messages->last()->message}}</p>                 
-                    @endif
+                    <h3>{{$message->sender->name}} <span class="chat_date">{{$message->created_at}}</span></h3>
+                    <p>{{$message->message}}</p>                 
                   </div>
                 </div>
               </div>
