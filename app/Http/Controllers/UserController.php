@@ -23,7 +23,7 @@ class UserController extends Controller
         if($query != '')
       {
        $data = \App\message::where('recivier_id','=','0')->whereHas('sender', function($q)use ($query) {
-        $q->where('name','like','%'.$query.'%');
+        $q->where('name','ilike','%'.$query.'%');
         })->get()->keyBy('sender_id');
 
       }
@@ -42,13 +42,13 @@ class UserController extends Controller
           <div class="chat_ib" style="margin-top:15px;">
             <h3>'.$message->sender->name.' <span class="chat_date">'.$message->created_at.'</span></h3>
             <p>'.$message->message.'</p>';
-            if($message->status==NULL) 
+            if($message->status==NULL || $message->status==2) 
             {
-                $output.=' <i class="fa fa-envelope"></i> ';
+                $output.=' <i class="fa fa-envelope envelopeicon"></i> ';
             }
             else{
                 $output.='<a href="'.route("changeStatus",["id" => $message->id]).'">
-              <i class="fa fa-envelope-open"></i></a>';
+              <i class="fa fa-envelope-open envelopeicon"></i></a>';
             }    
             $output.='  </div>
             </div>
