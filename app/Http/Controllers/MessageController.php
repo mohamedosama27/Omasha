@@ -25,19 +25,15 @@ class MessageController extends Controller
                   <div class="chat_ib">
                     <h3>'.$message->sender->name.' <span class="chat_date">'.$message->created_at.'</span></h3>
                     <p>'.$message->message.'.</p>
-                  </div>
+                  
+                    </div>
                 </div>
               </div>
               </a>';
             }
             return response()->json(['senders'=>$output]);
     }
-    public function index()
-    {
-        $messages= \App\message::where('recivier_id','=','0')
-        ->Where('status','=','1')->get();
-        return view('view_mails_admin', ['messages'=>$messages]);
-    }
+  
 
     /**
      * Show the form for creating a new resource.
@@ -102,6 +98,27 @@ class MessageController extends Controller
         }
         return response()->json(['output'=>$output]);
     }
+    public function automatedmessage(Request $request)
+    {
+        if(auth()->user()->type==NULL)
+        {
+        $message = $this->createmessage("Thanks",'0',auth()->id());
+        $message->status=1;
+        $message->save();
+        
+        $output='
+      <div class="msg-left msg" style="margin-bottom:50px" >
+        Thanks
+      </div><br clear="all" />
+      ';
+        
+        return response()->json(['output'=>$output]);
+        }
+        else{
+            return response()->json(['output'=>'']);
+
+        }
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -125,23 +142,9 @@ class MessageController extends Controller
 
 
     }
-    public function store(Request $request)
-    {
-        $Answer=$request->Answer;
-        DB::table('mails')
-            ->where('id',$_GET['hiddenMessageID'])
-            ->update(['answer' =>$Answer ,'status' => 1]);
-
-        return redirect('/viewmails');
-    }
 
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\mail  $mail
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         if(auth()->user()->type==1 || auth()->user()->id == $id)
@@ -164,6 +167,7 @@ class MessageController extends Controller
             
             return view('chat',[
                 'messages'=>$messages,
+                'sender_id'=>$id
             ]);
         
             }
@@ -172,37 +176,15 @@ class MessageController extends Controller
             }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\mail  $mail
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(mail $mail)
+   
+    public function changeStatus($id)
     {
-        //
+        $message = \App\message::find($id);
+        $message->status=NULL;
+        $message->save();
+
+        return redirect()->back();
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\mail  $mail
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, mail $mail)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\mail  $mail
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(mail $mail)
-    {
-        //
-    }
+    
 }

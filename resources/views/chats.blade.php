@@ -3,19 +3,45 @@
 @section('content')
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="csrf-token" content="{{ csrf_token() }}" />
+<style>
+.envelopeicon{
+  float:right;
+  font-size: 25px;
+  margin-bottom:5px;
 
+}
+.fa-envelope{
+  color:green;
+}
+.fa-envelope-open{
+  color:red;
+}
+
+.chat_ib p {
+  max-width:85%;
+
+}
+</style>
 <input type="text" name="search" id="search" class="form-control" placeholder="Search by name"/>
 <div id="result">
 @foreach($messages as $message)
 <a class="chatlink" href="{{route('chat',['id' => $message->sender->id])}}">
+
                 <div class="chat_list">
-                <div class="chat_people">
-                  <div class="chat_ib">
-                    <h3>{{$message->sender->name}} <span class="chat_date">{{$message->created_at}}</span></h3>
-                    <p>{{$message->message}}</p>                 
+                <div class="chat_people" >
+                  <div class="chat_ib" >
+                    <h3>{{$message->sender->name}} 
+                    <span class="chat_date"> {{$message->created_at}}</span></h3>
+                    <p>{{$message->message}}</p>  
+                    @if($message->status==NULL) <i class="fa fa-envelope envelopeicon"></i> 
+                    @else
+                    <a href="{{route('changeStatus',['id' => $message->id])}}">
+                      <i class="fa fa-envelope-open envelopeicon"></i></a>
+                    @endif               
                   </div>
                 </div>
               </div>
+              
               </a>
  @endforeach 
  </div>

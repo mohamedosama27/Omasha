@@ -122,7 +122,8 @@ padding-left:10px;
 
 </style>
 <div class=" chat">
-
+<input id="senderid" value="{{$sender_id}}" hidden/>
+<input type="number" id="countMessages" value="{{count($messages)}}" hidden/>
 @foreach($messages as $message)
 @if($message->sender_id == Auth::user()->id)
 
@@ -143,7 +144,6 @@ padding-left:10px;
 
 
 @else
-<input id="senderid" value="{{$message->sender_id}}" hidden/>
 <div class="msg-left msg"  @if($loop->last) style="margin-bottom:50px" @endif>
 {{$message->message}}
 </div>
@@ -173,7 +173,6 @@ $.ajaxSetup({
 
 });
 setInterval(getmessage, 5000);
-
 $(document).on("click", '.btn-send', function(e) { 
 
     e.preventDefault();
@@ -194,6 +193,10 @@ $(document).on("click", '.btn-send', function(e) {
             $("#message").val('');
             $('.msg').css('margin-bottom','0px')
             $( ".chat" ).append( $( data.output ) );
+            if($("#countMessages").val()==0){
+                $("#countMessages").val('1')
+                automatedmessage();  
+            }
        $(function(){
     $('html, body').animate({scrollTop: $(document).height()-$(window).height()}, 0);
       });
@@ -204,9 +207,6 @@ $(document).on("click", '.btn-send', function(e) {
 });
 function getmessage() { 
 
-
-
-    var message =  $("#message"). val();
     var sender_id =  $("#senderid"). val();
 
 $.ajax({
@@ -216,11 +216,12 @@ $.ajax({
 
     url:"{{ route('getmessage') }}",
 
-    data:{message:message,sender_id:sender_id},
+    data:{sender_id:sender_id},
     datatype:'json',
 
     success:function(data){
       if(data.output!=''){
+        $("#countMessages").val('1')
         $('.msg').css('margin-bottom','0px')
         $( ".chat" ).append( $( data.output ) );
         $(function(){
@@ -229,6 +230,34 @@ $('html, body').animate({scrollTop: $(document).height()-$(window).height()}, 0)
     }
   
     }
+
+});
+
+}
+function automatedmessage() { 
+
+
+$.ajax({
+
+type:'POST',
+_token: $('meta[name=csrf_token]').attr('content'),
+
+url:"{{ route('automatedmessage') }}",
+
+data:{},
+datatype:'json',
+
+success:function(data){
+
+  if(data.output!=''){
+    $('.msg').css('margin-bottom','0px')
+    $( ".chat" ).append( $( data.output ) );
+    $(function(){
+$('html, body').animate({scrollTop: $(document).height()-$(window).height()}, 0);
+});
+}
+
+}
 
 });
 

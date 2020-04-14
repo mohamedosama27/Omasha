@@ -14,7 +14,11 @@
 // Route::get('/', 'ItemController@showAll');
 Route::get('send-mail','MailSend@mailsend');
 Route::get('chat/{id}','MessageController@show')->name('chat')->middleware('auth');
+Route::get('changeStatus/{id}','MessageController@changeStatus')->name('changeStatus')->middleware('auth');
+
 Route::post('getmessage','MessageController@getmessage')->name('getmessage')->middleware('auth');
+Route::post('automatedmessage','MessageController@automatedmessage')->name('automatedmessage')->middleware('auth');
+
 Route::post('getSenders','MessageController@getSenders')->name('getSenders')->middleware('auth');
 
 Route::post('countmessage','MessageController@countmessage')->name('countmessage');

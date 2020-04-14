@@ -41,8 +41,16 @@ class UserController extends Controller
         <div class="chat_people">
           <div class="chat_ib" style="margin-top:15px;">
             <h3>'.$message->sender->name.' <span class="chat_date">'.$message->created_at.'</span></h3>
-            <p>'.$message->message.'</p>
-          </div>
+            <p>'.$message->message.'</p>';
+            if($message->status==NULL) 
+            {
+                $output.=' <i class="fa fa-envelope"></i> ';
+            }
+            else{
+                $output.='<a href="'.route("changeStatus",["id" => $message->id]).'">
+              <i class="fa fa-envelope-open"></i></a>';
+            }    
+            $output.='  </div>
             </div>
         </div>
         </a>';
