@@ -151,7 +151,7 @@ class MessageController extends Controller
         {
            
         $messages = \App\message::where('sender_id','=',$id)
-                                ->orWhere('recivier_id','=',$id)->get();
+                                ->orWhere('recivier_id','=',$id)->orderBy('id')->get();
                          
       
         foreach($messages as $message){
