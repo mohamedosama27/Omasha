@@ -180,7 +180,7 @@ class MessageController extends Controller
     public function changeStatus($id)
     {
         $message = \App\message::find($id);
-        $message->status=NULL;
+        $message->status=2;
         $message->save();
 
         return redirect()->back();
