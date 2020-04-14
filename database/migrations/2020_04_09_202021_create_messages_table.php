@@ -18,7 +18,7 @@ class CreateMessagesTable extends Migration
             $table->unsignedBigInteger('sender_id');
             $table->unsignedBigInteger('recivier_id');
             $table->string('message');
-            $table->boolean('status')->nullable();
+            $table->tinyInteger('status')->nullable();
             $table->timestamps();
         });
     }
