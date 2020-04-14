@@ -33,7 +33,7 @@
                     <h3>{{$message->sender->name}} 
                     <span class="chat_date"> {{$message->created_at}}</span></h3>
                     <p>{{$message->message}}</p>  
-                    @if($message->status==NULL || $message->status==2 ) <i class="fa fa-envelope envelopeicon"></i> 
+                    @if($message->status==NULL) <i class="fa fa-envelope envelopeicon"></i> 
                     @else
                     <a href="{{route('changeStatus',['id' => $message->id])}}">
                       <i class="fa fa-envelope-open envelopeicon"></i></a>
