@@ -96,23 +96,14 @@
 </div>
 
 </div>
-<script>
-$(document).ready(function() {
-  $("#myCarousel*").swiperight(function() {
-    $(this).carousel('prev');
-  });
-  $("#myCarousel*").swipeleft(function() {
-    $(this).carousel('next');
-  });
-});
-
-</script>
 
     @endforeach
 
     </div>
 </div>
 </div>
+@include('errormessage')
+
 {{--{!! $items->render() !!}--}}
 
 <script type="text/javascript">
@@ -144,7 +135,16 @@ $(document).on("click", '.btn-addtocart', function(e) {
 
            success:function(data){
 
+            if(data.message===undefined)
+            {
+
               $("#countcart").text(data.countCart);
+            }
+            else
+            {
+              $('#messaga').text(data.message)
+              $('#errormessage').modal();
+            }
               
            }
 

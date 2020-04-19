@@ -146,6 +146,7 @@ $totalprice=0
       <div class="totals-value" id="cart-total">{{$totalprice+10}}</div>
     </div>
   </div>
+  @include('errormessage')
   @include('addaddress')
 
   <a  @auth data-toggle="modal" data-target="#addaddress" @else href=" login" @endauth >
@@ -192,7 +193,6 @@ $totalprice=0
             success:function(data){
               $("#cart-subtotal").text(data.totalprice);
               $("#cart-total").text(data.totalprice+10);
-
               $("#quantity"+id).text(data.quantity); 
               $("#totalprice"+id).text(data.item_total_price)             
               $("#countcart").text(data.countCart);
@@ -222,12 +222,21 @@ $totalprice=0
            datatype:'json',
 
            success:function(data){
+
+            if(data.message===undefined){
+
               $("#quantity"+id).text(data.quantity);
-              $("#cart-total").text(data.totalprice+10);
-              
+              $("#cart-total").text(data.totalprice+10);    
               $("#totalprice"+id).text(data.item_total_price);   
               $("#countcart").text(data.countCart);
               $("#cart-subtotal").text(data.totalprice);
+
+            }
+            else
+            {
+              $('#messaga').text(data.message)
+              $('#errormessage').modal();
+            }
 
     
            }

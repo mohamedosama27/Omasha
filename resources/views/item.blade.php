@@ -182,6 +182,7 @@ img {
 			</div>
 		</div>
 	</div>
+  @include('errormessage')
 
   <script type="text/javascript">
 
@@ -210,8 +211,16 @@ $(document).on("click", '.btn-addtocart', function(e) {
        
        success:function(data){
 
-          $("#countcart").text(data.countCart);
-          
+        if(data.message===undefined)
+            {
+
+              $("#countcart").text(data.countCart);
+            }
+            else
+            {
+              $('#messaga').text(data.message)
+              $('#errormessage').modal();
+            }          
        }
 
     });

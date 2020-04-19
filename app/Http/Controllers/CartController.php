@@ -38,15 +38,25 @@ class CartController extends Controller
     public function AddToCart(Request $request)
     {
         $id=$request['name'];
-    $number_of_items = Session::has('number_of_items') ? Session::get('number_of_items') : 0;
-    $selcteditems = Session::has('selcteditems') ? Session::get('selcteditems') : array();
-    $found=false;
+        $number_of_items = Session::has('number_of_items') ? Session::get('number_of_items') : 0;
+        $selcteditems = Session::has('selcteditems') ? Session::get('selcteditems') : array();
+        $found=false;
+        $item = \App\item::find($id);
+
     foreach($selcteditems as $selcteditem)
     {
         if($selcteditem->item->id == $id)
         {
-            $selcteditem->Quantity+=1;
-            $found=true;
+            if($item->quantity<$selcteditem->Quantity+1)
+            {
+                $message='No enough items available';
+                return response()->json(['message'=>$message]);
+            }
+            else
+            {
+                $selcteditem->Quantity+=1;
+                $found=true;
+            }
         }
     }
     if($found==false)
@@ -95,10 +105,16 @@ class CartController extends Controller
         $selcteditems = Session::get('selcteditems'); 
         $number_of_items = Session::has('number_of_items') ? Session::get('number_of_items') : 0;
         $totalprice=0;
+        $item = \App\item::find($id);
+
         for($i=0;$i<sizeof($selcteditems);$i++)
         {
             if($selcteditems[$i]->item->id == $id)
             {
+                if($item->quantity<$selcteditems[$i]->Quantity+1){
+                    $message='No enough items available';
+                    return response()->json(['message'=>$message]);
+                }
                 $number_of_items+=1;
                 $selcteditems[$i]->Quantity+=1;
                 $quantity=$selcteditems[$i]->Quantity;
