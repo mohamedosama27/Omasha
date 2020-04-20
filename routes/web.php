@@ -167,4 +167,7 @@ Route::post('/usersearch','MessageController@search')->name('user.search')->midd
 
 
 Auth::routes();
+Route::get('auth/facebook', 'Auth\LoginController@redirectToFacebook');
+Route::get('auth/facebook/callback', 'Auth\LoginController@handleFacebookCallback'); 
+
 
