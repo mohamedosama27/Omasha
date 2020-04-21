@@ -175,6 +175,8 @@ $(document).on("click", '.btn-addtocart', function(e) {
         success:function(data)
         {
         $('#results').html(data.table_data);
+        $('.fa-spinner').hide();
+
         }
       })
       }

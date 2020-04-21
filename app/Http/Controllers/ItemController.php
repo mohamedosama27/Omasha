@@ -230,7 +230,7 @@ class ItemController extends Controller
       $query = $request->get('query');
       if($query != '')
       {
-       $data = \App\item::where('name', 'like', '%'.$query.'%')
+       $data = \App\item::where('name', 'ilike', '%'.$query.'%')
          ->orderBy('id', 'DESC')->get();
          
       }
