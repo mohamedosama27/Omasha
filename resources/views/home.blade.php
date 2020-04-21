@@ -109,7 +109,7 @@
 
 </div>
 <br>
-<i class="fa fa-4x fa-spinner fa-spin" style="margin-left:44%"></i>
+<i class="fa fa-lg fa-spinner fa-spin" style="margin-left:50%"></i>
 @include('errormessage')
 
 {{--{!! $items->render() !!}--}}
