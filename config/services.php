@@ -33,7 +33,7 @@ return [
     'facebook' => [
         'client_id' => '253310152513076',
         'client_secret' => '2251adbf54d8b30f45269e6e1dd22896',
-        'redirect' => 'https://aqueous-dawn-37150.herokuapp.com/',
+        'redirect' => 'https://aqueous-dawn-37150.herokuapp.com/auth/facebook/callback',
       ],
 
 ];

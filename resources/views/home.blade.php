@@ -11,7 +11,7 @@
 <br>
 
  
-  <div class="w3-card cardspace ">
+  <div class="cardspace ">
   <input type="text" name="search" id="search" class="form-control" placeholder="Search by name" />
   <input type="number" id="countitems" value="{{count($items)}}"hidden/>
 <div class="cardspace">
@@ -98,10 +98,18 @@
 </div>
 
     @endforeach
+    </section>
 
     </div>
+
 </div>
+
+<br>
+
+
 </div>
+<br>
+<i class="fa fa-4x fa-spinner fa-spin" style="margin-left:44%"></i>
 @include('errormessage')
 
 {{--{!! $items->render() !!}--}}
@@ -213,11 +221,16 @@ function fetchitems() {
                       $('.items').append(data.items);
                     $('.endless-pagination').data('next-page', data.next_page);
                     }
+                    
                 });
             }
         }, 350))
 
     }
+    else{
+      
+      $('.fa-spinner').hide();
+        }
 }
 
 
@@ -225,6 +238,6 @@ function fetchitems() {
 
 </script>
 
-</section>
+
 
 @endsection
