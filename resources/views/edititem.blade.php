@@ -35,18 +35,18 @@ form.addEventLisener('submit,function(e){
         <h1 style="color:lightskyblue;">New item</h1>
 
             <label for="exampleInputEmail1">Item Name</label>
-            <input @if($item->name) value="{{$item->name}}"@endif type="Text" class="form-control" id="text" Name="Name" placeholder="Item Name" required>
+            <input @if($item->name) value="{{$item->name}}"@endif type="Text" class="form-control" id="text" Name="name" placeholder="Item Name" required>
             <label for="exampleInputEmail1">Bar Code</label>
             <input @if($item->barcode) value="{{$item->barcode}}" @endif type="Text" class="form-control" id="text" Name="barcode" placeholder="Bar code" required>
 
             <label for="exampleInputEmail1">Description</label>
-            <input @if($item->description) value="{{$item->description}}"@endif type="Text" class="form-control" id="text" Name="Description" placeholder="Description">
+            <input @if($item->description) value="{{$item->description}}"@endif type="Text" class="form-control" id="text" Name="description" placeholder="Description">
 
             <label for="exampleInputEmail1">Price</label>
-            <input @if($item->price) value="{{$item->price}}"@endif type="Text" class="form-control" id="text" Name="Price" placeholder="EGP..." required>
+            <input @if($item->price) value="{{$item->price}}"@endif type="Text" class="form-control" id="text" Name="price" placeholder="EGP..." required>
 
             <label for="exampleInputEmail1">Quantity</label>
-            <input @if($item->quantity) value="{{$item->quantity}}"@endif type="Text" class="form-control" id="text" Name="Quantity" placeholder="Quantity" required>
+            <input @if($item->quantity) value="{{$item->quantity}}"@endif type="Text" class="form-control" id="text" Name="quantity" placeholder="Quantity" required>
             <label >Delete images</label>
 
             <table class="table">
@@ -81,8 +81,8 @@ form.addEventLisener('submit,function(e){
           
 
              <div class="form-group">
-                    <label for="sel1" Name="Category">Category</label>
-                    <select class="form-control" id="sel1" Name="Category">
+                    <label for="sel1" Name="category">Category</label>
+                    <select class="form-control" id="sel1" Name="category">
                     @foreach($categories as $category)
                         @if($category->id==$item->category_id)
                         <option value="{{$category->id}}" selected>{{$category->name}}</option>
@@ -95,9 +95,8 @@ form.addEventLisener('submit,function(e){
           
           
 
-            <input type="submit" name="submit" style="border:none; width:100%; background-color:#c1e2b3;">
-            <br><br>
-            <input type="reset" style="border:none; width:100%; background-color:#d43f3a;">
+            <button type="submit" class="w3-btn btn-block w3-round-xxlarge w3-blue" style="margin-bottom:10px;">EDIT</button>
+
 
             <br>
             <br>

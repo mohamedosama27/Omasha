@@ -87,16 +87,14 @@ form.addEventLisener('submit,function(e){
 
              <div class="form-group">
                     <label for="sel1" Name="Category">Category</label>
-                    <select class="form-control" id="sel1" Name="Category">
+                    <select class="form-control" id="sel1" Name="category">
                     <option value="" disabled selected>Choose your option</option>
                     @foreach($categories as $category)
                         <option value="{{$category->id}}">{{$category->name}}</option>
                     @endforeach
                     </select>
                     </div>
-            <input type="submit" name="submit" style="border:none; width:100%; background-color:#c1e2b3;">
-            <br><br>
-            <input type="reset" style="border:none; width:100%; background-color:#d43f3a;">
+                    <button type="submit" class="w3-btn btn-block w3-round-xxlarge w3-blue" style="margin-bottom:10px;">ADD</button>
 
             <br>
             <br>

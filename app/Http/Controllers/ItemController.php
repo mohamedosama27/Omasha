@@ -95,12 +95,12 @@ class ItemController extends Controller
     {
       $this->validation($request);
         $item = new  \App\item;
-        $item->name = $request['Name'];
-        $item->description=$request['Description'];
-        $item->quantity=$request['Quantity'];
-        $item->price=$request['Price'];
+        $item->name = $request['name'];
+        $item->description=$request['description'];
+        $item->quantity=$request['quantity'];
+        $item->price=$request['price'];
         $item->barcode=$request['barcode'];
-        $item->category_id=$request['Category'];
+        $item->category_id=$request['category'];
         $item->save();
     
         $item_id = $item->id;
@@ -169,7 +169,7 @@ class ItemController extends Controller
         $item->description=$request['description'];
         $item->quantity=$request['quantity'];
         $item->price=$request['price'];
-        $item->category_id=$request['Category'];
+        $item->category_id=$request['category'];
         $item->barcode=$request['barcode'];
         $item->save();
         $item_id = $item->id;
