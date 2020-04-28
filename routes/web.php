@@ -31,7 +31,7 @@ Route::post('/sendmessage', [
 ])->middleware('auth');
 
 
-Route::get('/', 'ItemController@index')->name('home');
+Route::get('/', 'ItemController@index');
 Route::get('/category/{id}', 'CategoryController@index')->name('category');
 
 Route::get('/ItemController/action', 'ItemController@action')->name('ItemController.action');
