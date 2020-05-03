@@ -232,7 +232,7 @@ class MessageController extends Controller
    
     public function changeStatus($id)
     {
-        $message = \App\message::find($id);
+        $message = \App\message::findorfail($id);
         $message->status=2;
         $message->save();
 

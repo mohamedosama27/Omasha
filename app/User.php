@@ -10,7 +10,7 @@ class User extends Authenticatable
 {
     public function favorites()
     {
-        return $this->hasMany(item::class);
+        return $this->belongsToMany(item::class);
     }
     public function orders()
     {

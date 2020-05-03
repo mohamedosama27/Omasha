@@ -38,28 +38,38 @@
       <span class="sr-only">Next</span>
     </a>
   </div>
-  @if($item->quantity == 0)
+  @if($item->quantity <= 0)
   <p style="color:red;">Available Soon</p>
   @else
   <p><a href="{{route('item.show',['id' => $item->id])}}">{{$item->name}}</a></p>
   @endif
   <b>${{$item->price}}</b><br>
-      @auth
+  @auth
         @if(Auth::user()->type == 1)
         <b>Quantity : {{$item->quantity}}</b><br>
 
-        <a href="{{route('item.delete',['id' => $item->id])}}"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a>
+        <a href="{{route('item.delete',['id' => $item->id])}}" onclick="return confirm('Are you sure to delete {{$item->name}}?')"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a>
         <a href="{{route('item.edit',['id' => $item->id])}}"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Edit</b></button></a>
 
 
         @else
-        <button type="button" class="btn btn-default btn-addtocart" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;"><b>Add to Cart</b></button>
+        
+        <button 
+        @if($item->quantity <= 0)
+        disabled
+        @endif type="button" class="btn btn-default btn-addtocart column1" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;" ><b>Add to cart</b></button>
 
         @endif
         @else
-        <button type="button" class="btn btn-default btn-addtocart" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;"><b>Add to Cart</b></button>
-      @endauth
+        <button  @if($item->quantity <= 0)
+        disabled
+        @endif
+         type="button" class="btn btn-default btn-addtocart column1" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;" ><b>Add to cart</b></button>
+          
+         @endauth
 
+           <button type="button" data-value="{{$item->id}}" class="btn btn-default btn-addToFavorite column" style="margin-bottom:10px;">
+           <i class="fa fa-heart"></i></button>
         <hr>
 </div>
 

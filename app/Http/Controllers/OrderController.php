@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Event\CreateOrder;
 use App\Http\Controllers\MessageController;
 use Nexmo\Laravel\Facade\Nexmo;
-
+use App\Http\Controllers\Auth;
 use Session;
 use DB;
 
@@ -23,6 +23,14 @@ class OrderController extends Controller
 
         ]);
        
+    }
+    public function show()
+    {
+        $order = \Auth::user()->orders()->get()->last();
+        return view('orderstatus',[
+            'order'=>$order,
+        ]);
+        
     }
     public function create(Request $request)
     {
@@ -54,18 +62,18 @@ class OrderController extends Controller
         Session::put('number_of_items',0 );
         Session::put('selcteditems',array());
         
-        $details = [
-            'title' => 'You have new order',
-            'order' => $order ,
-        ];
-        Nexmo::message()->send([
-            'to'   => '+201118221684',
-            'from' => '+201118221684',
-            'text' => 'You submit new order  http://aqueous-dawn-37150.herokuapp.com/chat/'.auth()->id()." .",
-        ]);
+        // $details = [
+        //     'title' => 'You have new order',
+        //     'order' => $order ,
+        // ];
+        // Nexmo::message()->send([
+        //     'to'   => '+201118221684',
+        //     'from' => '+201118221684',
+        //     'text' => 'You submit new order  http://aqueous-dawn-37150.herokuapp.com/chat/'.auth()->id()." .",
+        // ]);
         // \Mail::to('mohamed1705725@miuegypt.edu.eg')->send(new SendMail($details));
 
-             return redirect('home');
+             return redirect('orderstatus');
     }
     public function accept($id)
     {
@@ -82,6 +90,8 @@ class OrderController extends Controller
         $order = \App\order::findorfail($id);
         $order->status=0;
         $order->save();
+        $message=MessageController::createmessage('Something wrong in your order','0',$order->user->id);
+
         return redirect('vieworders');
 
 

@@ -36,6 +36,8 @@ Route::get('/category/{id}', 'CategoryController@index')->name('category');
 
 Route::get('/ItemController/action', 'ItemController@action')->name('ItemController.action');
 Route::post('/add-to-cart', 'CartController@AddToCart')->name('item.addToCart');
+Route::post('/addToFavorite', 'FavoriteController@addToFavorites')->name('addToFavorite');
+Route::get('/favorites', 'FavoriteController@show')->name('favorites')->middleware('auth');
 
 Route::post('/decrementItem', [
     'uses' => 'CartController@decrementItem',
@@ -131,6 +133,11 @@ Route::get('/removefromcart/{id}', [
     'as' => 'removefromcart'
 ]);
 
+Route::get('/removefromfavorites/{id}', [
+    'uses' => 'FavoriteController@remove',
+    'as' => 'removefromfavorites'
+]);
+
 
 
 Route::get('/vieworders',[
@@ -153,6 +160,10 @@ Route::put('/addAdmin', [
 Route::get('/addadminview', function () {
     return view('auth/addadmin');
 })->name('addadminview')->middleware('auth','ifAdmin');
+
+Route::get('/orderstatus', [
+    'uses' => 'OrderController@show',
+])->name('orderstatus')->middleware('auth');
 
 Route::get('/edituser/{id}', [
     'uses' => 'Auth\RegisterController@edit',

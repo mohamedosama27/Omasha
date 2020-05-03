@@ -53,6 +53,7 @@ $totalprice=0
 
 
 @foreach($items as $selecteditem)
+
   <div class="product row" >
     <div class="column1">
   <div id="myCarousel{{$loop->iteration}}" class="carousel slide div1" data-ride="carousel" data-interval="false" >
@@ -90,7 +91,8 @@ $totalprice=0
  </div>
  </div>
  <div class="column1">
- <h3>{{$selecteditem->item->name}}</h3>
+
+ <a href="{{route('item.show',['id' => $selecteditem->item->id])}}"><h3>{{$selecteditem->item->name}}</h3></a>
     <div class="product-details">
       
       <p class="product-description">{{$selecteditem->item->description}}</p>
@@ -119,7 +121,9 @@ $totalprice=0
       </button></a>
     </div>
     
-    <b class="totalprice">Total price : </b><div class="product-line-price" style="margin-left:10px;" id="totalprice{{$selecteditem->item->id}}">{{$selecteditem->item->price*$selecteditem->Quantity}}</div>
+    <b class="totalprice">Total price : </b>
+    <div class="product-line-price" style="margin-left:10px;" id="totalprice{{$selecteditem->item->id}}">
+    {{$selecteditem->item->price*$selecteditem->Quantity}}</div>
   
   </div>
   
@@ -143,7 +147,7 @@ $totalprice=0
    
     <div class="totals-item totals-item-total">
       <label>Total Price : </label>
-      <div class="totals-value" id="cart-total">{{$totalprice+10}}</div>
+      <div class="totals-value" id="cart-total" style="font-size:18px;">{{$totalprice+10}}</div>
     </div>
   </div>
   @include('errormessage')

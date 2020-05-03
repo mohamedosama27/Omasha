@@ -18,8 +18,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-
-
 <style>
 .w3-sidebar a {font-family: "Roboto", sans-serif}
 a{
@@ -136,6 +134,7 @@ body{
 
   
 </a>
+
  @auth 
 @if(Auth::user()->type == 1)
 <a href="javascript:void(0)"
@@ -170,36 +169,14 @@ body{
 </span><b>OMASHA</b></h2>
   </div>
   <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
-    <a href="{{route('home')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-home" style="margin-right:5px;"></i>Home</a>
+    <a href="{{route('home')}}" class="w3-bar-item w3-button w3-white">
+      <i class="fa fa-home" style="margin-right:5px;"></i>Home</a>
 
-    @auth
-    <a href="{{ route('user.edit',['id' => Auth::user()->id]) }}" class="w3-bar-item w3-button w3-white"><i class="fa fa-user" style="margin-right:5px;"></i>Edit profile</a>
-
-    <a href="{{route('logout')}}" onclick="event.preventDefault();
-                document.getElementById('logout-form').submit();"
-                    class="w3-bar-item w3-button w3-white"><i class="fa fa-sign-out" style="margin-right:5px;"></i>Logout</a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-   
-    @if(Auth::user()->type == 1)
-  
-    <a href="{{route('addadminview')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Admin</a>
-
-    <a href="{{route('item.create')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Item</a>
-    <a href="{{route('vieworders')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-list" style="margin-right:5px;"></i>View Orders</a>
-    <a href="{{route('category.edit')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-edit" style="margin-right:5px;"></i>Edit Categories</a>
-    <a data-toggle="modal" data-target="#addcategory" class="w3-bar-item w3-button w3-white"><i class="fa fa-plus" style="margin-right:5px;"></i>Add Category</a>
-    <!-- <a href="{{route('viewmails')}}" class="w3-bar-item w3-button w3-white"><i class="fa fa-envelope" style="margin-right:5px;"></i>View Mails</a>  -->
-
-@endif
-@else
-<a href="{{ Request::is('login') ? route('home') : route('login') }}"" class="w3-bar-item w3-button w3-white"><i class="fa fa-sign-in fa-lg " style="margin-right:5px;"></i>Login</a>
-
-@endauth
+    <a href="{{route('favorites')}}" class="w3-bar-item w3-button w3-white">
+    <i class="fa fa-gratipay" style="margin-right:5px;"></i>Favorites</a>
 
     <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
-    <i class='fa fa-product-hunt'></i> Products <i class="fa fa-caret-down"></i>
+    <i class='fa fa-product-hunt' style="margin-right:5px;"></i> Products <i class="fa fa-caret-down"></i>
     </a>
     <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
     @php( $categories = \App\category::all() )
@@ -208,6 +185,44 @@ body{
         
       @endforeach
     </div>
+    @auth
+    
+   
+  
+    @if(Auth::user()->type == 1)
+  
+    <a href="{{route('addadminview')}}" class="w3-bar-item w3-button w3-white">
+    <i class="fa fa-plus" style="margin-right:5px;"></i>Add Admin</a>
+
+    <a href="{{route('item.create')}}" class="w3-bar-item w3-button w3-white">
+    <i class="fa fa-plus" style="margin-right:5px;"></i>Add Item</a>
+    <a href="{{route('vieworders')}}" class="w3-bar-item w3-button w3-white">
+    <i class="fa fa-list" style="margin-right:5px;"></i>View Orders</a>
+    <a href="{{route('category.edit')}}" class="w3-bar-item w3-button w3-white">
+    <i class="fa fa-edit" style="margin-right:5px;"></i>Edit Categories</a>
+    <a data-toggle="modal" data-target="#addcategory" class="w3-bar-item w3-button w3-white">
+    <i class="fa fa-plus" style="margin-right:5px;"></i>Add Category</a>
+    @else
+    <a href="{{route('orderstatus')}}" class="w3-bar-item w3-button w3-white">
+    <i class="fa fa-first-order" style="margin-right:5px;"></i>
+
+Last Order</a>
+
+@endif
+<a href="{{ route('user.edit',['id' => Auth::user()->id]) }}" class="w3-bar-item w3-button w3-white">
+  <i class="fa fa-address-card" style="margin-right:5px;"></i>Edit profile</a>
+
+    <a href="{{route('logout')}}" onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();"
+                    class="w3-bar-item w3-button w3-white"><i class="fa fa-sign-out" style="margin-right:5px;"></i>Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+@else
+<a href="{{ Request::is('login') ? route('home') : route('login') }}"" class="w3-bar-item w3-button w3-white"><i class="fa fa-sign-in fa-lg " style="margin-right:5px;"></i>Login</a>
+
+@endauth
+
     <!-- <a href="#" class="w3-bar-item w3-button w3-white">
       <i class='fa fa-phone' style="margin-right:5px;">
     </i>Contact</a>

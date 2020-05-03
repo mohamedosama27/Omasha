@@ -41,14 +41,14 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         
-        $category = \App\category::find($id);
+        $category = \App\category::findorfail($id);
         $category->name=$request['name'];
         $category->save();
         return redirect('editcategory');
     }
     public function destroy($id)
     {
-        $category = \App\category::find($id);
+        $category = \App\category::findorfail($id);
 
         $category->delete();
         return redirect('editcategory');

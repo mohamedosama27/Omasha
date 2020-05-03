@@ -1,6 +1,28 @@
 @extends('bar')
 
 @section('content')
+<style>
+.EGP{
+  margin-left:5px;
+  font-size:12px;
+  display:inline;
+}
+.column {
+  float: left;
+  width: 25%;
+ 
+}
+.column1 {
+  float: left;
+  width: 75%;
+ 
+}
+.fa-heart{
+  margin-left:-3px;
+  font-size:18px;
+  color:red;
+  }
+</style>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -63,12 +85,12 @@
       <span class="sr-only">Next</span>
     </a>
   </div>
-  @if($item->quantity == 0)
+  @if($item->quantity <= 0)
   <p style="color:red;">Available Soon</p>
   @else
   <p><a href="{{route('item.show',['id' => $item->id])}}">{{$item->name}}</a></p>
   @endif
-  <b>${{$item->price}}</b><br>
+  <b>{{$item->price}}</b> <p class="EGP">EGP</p><br>
   
       @auth
         @if(Auth::user()->type == 1)
@@ -79,18 +101,24 @@
 
 
         @else
-        <button  
-        @if($item->quantity == 0)
+        
+        <button 
+        @if($item->quantity <= 0)
         disabled
-        @endif type="button" class="btn btn-default btn-addtocart" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;" ><b>Add to Cart</b></button>
+        @endif type="button" class="btn btn-default btn-addtocart column1" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;" ><b>Add to cart</b></button>
 
         @endif
         @else
-        <button  @if($item->quantity == 0)
+        <button  @if($item->quantity <= 0)
         disabled
         @endif
-         type="button" class="btn btn-default btn-addtocart" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;" ><b>Add to Cart</b></button>
-      @endauth
+         type="button" class="btn btn-default btn-addtocart column1" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;" ><b>Add to cart</b></button>
+          
+         @endauth
+
+           <button type="button" data-value="{{$item->id}}" class="btn btn-default btn-addToFavorite column" style="margin-bottom:10px;">
+           <i class="fa fa-heart"></i></button>
+
 
         <hr>
 </div>
@@ -126,7 +154,27 @@
         }
 
     });
+ $(document).on("click", '.btn-addToFavorite', function(e) { 
 
+e.preventDefault();
+
+    var id =  $(this).data('value');;
+ $.ajax({
+
+    type:'POST',
+
+    url:"{{ route('addToFavorite') }}",
+
+    data:{id:id},
+
+    success:function(data){
+
+      $('#messaga').text(data.message)
+      $('#errormessage').modal(); 
+         }
+
+ });
+});
     
 $(document).on("click", '.btn-addtocart', function(e) { 
 
@@ -157,9 +205,6 @@ $(document).on("click", '.btn-addtocart', function(e) {
            }
 
         });
-
-  
-
 	});
   $(document).ready(function(){
 

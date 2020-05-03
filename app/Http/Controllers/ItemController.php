@@ -56,15 +56,6 @@ class ItemController extends Controller
 
 
     }
-    public function showAll()
-    {
-        $items = \App\item::all();
-
-        return view('home',[
-            'items'=>$items ?? 'Doesnot exist'
-        ]);
-       
-    }
 
    
 
@@ -118,15 +109,10 @@ class ItemController extends Controller
              return redirect('home');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\item  $item
-     * @return \Illuminate\Http\Response
-     */
+   
     public function show($id)
     {
-        $item = \App\item::find($id);
+        $item = \App\item::findorfail($id);
 
         return view('item',[
             'item'=>$item,
@@ -134,15 +120,10 @@ class ItemController extends Controller
         
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\item  $item
-     * @return \Illuminate\Http\Response
-     */
+   
     public function edit($id)
     {
-        $item = \App\item::find($id);
+        $item = \App\item::findorfail($id);
 
         $categories = \App\category::all();
         return view('edititem',[
@@ -198,7 +179,7 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        $item = \App\item::find($id);
+        $item = \App\item::findorfail($id);
 
         $item->delete();
         return redirect('home');
@@ -230,7 +211,7 @@ class ItemController extends Controller
       $query = $request->get('query');
       if($query != '')
       {
-       $data = \App\item::where('name', 'ilike', '%'.$query.'%')
+       $data = \App\item::where('name', 'like', '%'.$query.'%')
          ->orderBy('id', 'DESC')->get();
          
       }
@@ -286,7 +267,7 @@ class ItemController extends Controller
       </a>
     </div> ';
     
-    if($item->quantity == 0){
+    if($item->quantity <= 0){
         $output .='<p style="color:red;">Available Soon</p>';
         }
         else{
@@ -300,16 +281,35 @@ class ItemController extends Controller
               $output .='<b>Quantity : '.$item->quantity.'</b><br>';
             $output .='<a href="'.route("item.delete",["id" => $item->id]).'"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a>
             <a  href="'.route("item.edit",["id" => $item->id]).'"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Edit</b></button></a>';
+          
           }
     
             else{
-              $output .=' <button type="button" class="btn btn-default btn-addtocart" data-value="'.$item->id.'" style="margin-bottom:10px;" style="color:black;"><b>Add to Cart</b></button>';
-          }
+              if($item->quantity <= 0){
+              $output .=' <button type="button" class="btn btn-default btn-addtocart column1" data-value="'.$item->id.'" style="margin-bottom:10px;" style="color:black;" disabled><b>Add to Cart</b></button>';
+              }
+              else{
+                $output .=' <button type="button" class="btn btn-default btn-addtocart column1" data-value="'.$item->id.'" style="margin-bottom:10px;" style="color:black;"  ><b>Add to Cart</b></button>';
+
+              }
+            }
+
       }
       else{
-          $output .=' <button type="button" class="btn btn-default btn-addtocart" data-value="'.$item->id.'" style="margin-bottom:10px;" style="color:black;"><b>Add to Cart</b></button>';
-      }  
-      $output .=' <hr>
+        if($item->quantity <= 0){
+
+          $output .=' <button type="button" class="btn btn-default btn-addtocart column1" data-value="'.$item->id.'" style="margin-bottom:10px;" style="color:black;" disabled ><b>Add to Cart</b></button>';
+        }
+        else{
+          $output .=' <button type="button" class="btn btn-default btn-addtocart column1" data-value="'.$item->id.'" style="margin-bottom:10px;" style="color:black;"  ><b>Add to Cart</b></button>';
+
+        }
+        
+        }  
+        $output.=' <button type="button" data-value="'.$item->id.'" class="btn btn-default btn-addToFavorite column" style="margin-bottom:10px;">
+        <i class="fa fa-heart"></i></button>';
+       
+      $output .='  <hr>
     </div>
     
     </div>

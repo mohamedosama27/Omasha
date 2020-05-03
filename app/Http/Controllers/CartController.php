@@ -11,6 +11,7 @@ class CartController extends Controller
     public function showCart()
     {   
         $selcteditems = Session::has('selcteditems') ? Session::get('selcteditems') : array();
+        // dd($selcteditems);
         return view('cart',[
             'items'=>$selcteditems ?? 'Doesnot exist'
         ]);
@@ -41,29 +42,33 @@ class CartController extends Controller
         $number_of_items = Session::has('number_of_items') ? Session::get('number_of_items') : 0;
         $selcteditems = Session::has('selcteditems') ? Session::get('selcteditems') : array();
         $found=false;
-        $item = \App\item::find($id);
-
-    foreach($selcteditems as $selcteditem)
-    {
-        if($selcteditem->item->id == $id)
-        {
-            if($item->quantity<$selcteditem->Quantity+1)
+        $item = \App\item::findorfail($id);
+        if($item->quantity<=0)
             {
                 $message='No enough items available';
                 return response()->json(['message'=>$message]);
             }
-            else
+        foreach($selcteditems as $selcteditem)
+        {
+            if($selcteditem->item->id == $id)
             {
-                $selcteditem->Quantity+=1;
-                $found=true;
+                if($item->quantity<$selcteditem->Quantity+1)
+                {
+                    $message='No enough items available';
+                    return response()->json(['message'=>$message]);
+                }
+                else
+                {
+                    $selcteditem->Quantity+=1;
+                    $found=true;
+                }
             }
         }
-    }
-    if($found==false)
-    {
-        $item = new cart($id);
-        array_push($selcteditems,$item);
-    }
+        if($found==false)
+        {
+            $item = new cart($id);
+            array_push($selcteditems,$item);
+        }
     
     $number_of_items++;
     Session::put('number_of_items',$number_of_items );
@@ -105,7 +110,7 @@ class CartController extends Controller
         $selcteditems = Session::get('selcteditems'); 
         $number_of_items = Session::has('number_of_items') ? Session::get('number_of_items') : 0;
         $totalprice=0;
-        $item = \App\item::find($id);
+        $item = \App\item::findorfail($id);
 
         for($i=0;$i<sizeof($selcteditems);$i++)
         {
