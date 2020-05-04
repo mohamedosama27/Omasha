@@ -138,13 +138,13 @@ border: 0;
     <div class="product-details">
       
       <p class="product-description">{{$item->description}}</p>
-      <b >Price : </b> {{$item->price}}<p class="EGP">EGP</p>
+      
+    </div><br><br>
+    <b >Price : </b> {{$item->price}}<p class="EGP">EGP</p>
       <a href="{{route('removefromfavorites',['id' => $item->id])}}">
     <button class="remove-product">
         Remove
       </button></a>
-    </div>
-    
     
     </div>
    

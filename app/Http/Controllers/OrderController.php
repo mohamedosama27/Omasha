@@ -29,10 +29,10 @@ class OrderController extends Controller
     }
     public function show()
     {
-        //retrieve client last order and passed to orderstatus
+        //retrieve client last order and passed to lastorder view
 
         $order = \Auth::user()->orders()->get()->last();
-        return view('orderstatus',[
+        return view('lastorder',[
             'order'=>$order,
         ]);
         
@@ -47,7 +47,8 @@ class OrderController extends Controller
         $order->address=$request['address'];
         $order->save();
         $totalprice=0;
-       
+        $totalcost=0;
+
         foreach($selcteditems as $selecteditem)
         {
             $item = \App\item::find($selecteditem->item->id);
@@ -55,6 +56,8 @@ class OrderController extends Controller
             $item->save();
 
             $totalprice+=$selecteditem->Quantity*$selecteditem->item->price;
+            $totalcost+=$selecteditem->Quantity*$selecteditem->item->cost;
+
             DB::table('item_order')->insert(
                 ['item_id' => $selecteditem->item->id,
                  'order_id' => $order->id,
@@ -62,7 +65,10 @@ class OrderController extends Controller
             );
        
         }
-        $order->total_price=$totalprice;
+        $order->total_price=$totalprice+10;
+        $order->total_cost=$totalcost;
+
+        
         $order->save();
         Session::put('number_of_items',0 );
         Session::put('selcteditems',array());
@@ -78,7 +84,7 @@ class OrderController extends Controller
         // ]);
         // \Mail::to('mohamed1705725@miuegypt.edu.eg')->send(new SendMail($details));
 
-             return redirect('orderstatus');
+             return redirect('lastorder');
     }
     public function accept($id)
     {

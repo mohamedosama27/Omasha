@@ -81,7 +81,7 @@ class MessageController extends Controller
                 <div class="chat_list">
                 <div class="chat_people">
                   <div class="chat_ib">
-                    <h3>'.$message->sender->name.' <span class="chat_date">'.$message->created_at.'</span></h3>
+                    <h3>'.$message->sender->name.' <span class="chat_date">'.$message->created_at->format('d-m-Y h:i A').'</span></h3>
                     <p>'.$message->message.'.</p>
                   
                     </div>

@@ -165,9 +165,9 @@ Route::get('/addadminview', function () {
     return view('auth/addadmin');
 })->name('addadminview')->middleware('auth','ifAdmin');
 
-Route::get('/orderstatus', [
+Route::get('/lastorder', [
     'uses' => 'OrderController@show',
-])->name('orderstatus')->middleware('auth');
+])->name('lastorder')->middleware('auth');
 
 Route::get('/edituser/{id}', [
     'uses' => 'Auth\RegisterController@edit',

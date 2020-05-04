@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->text('address');
             $table->text('total_price')->nullable();
+            $table->text('total_cost')->nullable();
             $table->text('status')->nullable();
             $table->timestamps();
         });

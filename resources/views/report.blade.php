@@ -59,11 +59,10 @@ a{
         @endforeach
                     
                 </ul>
-                </p>
+                </p><br>
        <b>Total price : </b>{{$totalprice}}<p class="EGP"> EGP</p><br>
         <b> Total cost : </b>{{$totalcost}}<p class="EGP"> EGP</p><br>
         <b>Total profit : </b>{{$totalprice - $totalcost}}<p class="EGP"> EGP</p><br>
-
         
 
          </div>

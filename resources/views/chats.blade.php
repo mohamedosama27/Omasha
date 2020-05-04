@@ -31,7 +31,7 @@
                 <div class="chat_people" >
                   <div class="chat_ib" >
                     <h3>{{$message->sender->name}} 
-                    <span class="chat_date"> {{$message->created_at}}</span></h3>
+                    <span class="chat_date"> {{$message->created_at->format('d-m-Y h:i A')}}</span></h3>
                     <p>{{$message->message}}</p>  
                     @if($message->status==NULL || $message->status==2 ) <i class="fa fa-envelope envelopeicon"></i> 
                     @else

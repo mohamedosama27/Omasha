@@ -205,8 +205,8 @@ body{
     <a href="{{route('report')}}" class="w3-bar-item w3-button w3-white">
     <i class="fa fa-clipboard" style="margin-right:5px;"></i>Report</a>
     @else
-    <a href="{{route('orderstatus')}}" class="w3-bar-item w3-button w3-white">
-    <i class="fas fa-first-order" style="margin-right:5px;"></i>Last Order</a>
+    <a href="{{route('lastorder')}}" class="w3-bar-item w3-button w3-white">
+    <i class="fa fa-first-order" style="margin-right:5px;"></i>Last Order</a>
 
 
 
