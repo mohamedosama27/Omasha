@@ -19,6 +19,7 @@ class CreateItemsTable extends Migration
             $table->text('barcode');
             $table->text('description');
             $table->text('price');
+            $table->text('cost');
             $table->Integer('quantity');
             $table->unsignedBigInteger('category_id')->nullable();
             $table->timestamps();

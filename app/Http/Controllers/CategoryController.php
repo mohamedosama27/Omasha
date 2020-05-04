@@ -8,7 +8,9 @@ class CategoryController extends Controller
 {
     protected $items_per_page = 10;
 
-    public function index(Request $request,$id) {
+    public function index(Request $request,$id) 
+    {
+        //show items has category_id with id chose
 
         $items = \App\item::where('category_id','=',$id)->paginate($this->items_per_page);
 
@@ -24,6 +26,8 @@ class CategoryController extends Controller
     }
     public function store(Request $request)
     {
+        //add new category in table categories
+
         $category = new  \App\category;
  
         $category->name = $request['name'];
@@ -32,6 +36,8 @@ class CategoryController extends Controller
     }
     public function edit()
     {
+        //retrieve all categories and pass to editcategories view
+
         $categories = \App\category::all();
 
         return view('editcategory',[
@@ -40,7 +46,8 @@ class CategoryController extends Controller
     }
     public function update(Request $request, $id)
     {
-        
+        //update name of category by passed id
+
         $category = \App\category::findorfail($id);
         $category->name=$request['name'];
         $category->save();
@@ -48,8 +55,9 @@ class CategoryController extends Controller
     }
     public function destroy($id)
     {
+        //delete category from table categories by passed id
+        
         $category = \App\category::findorfail($id);
-
         $category->delete();
         return redirect('editcategory');
 

@@ -56,21 +56,28 @@ form.addEventLisener('submit,function(e){
                                         <strong>{{ $message }}</strong>
                                     </span><br>
                                 @enderror  
-            <label for="exampleInputEmail1">Price</label>
+            <label>Price</label>
             <input type="Text" class="form-control" id="text" Name="price" placeholder="EGP..." value="{{ old('price') }}" required>
             @error('price')
                                      <span role="alert" style="color:red;">
                                         <strong>{{ $message }}</strong>
                                     </span><br>
                                 @enderror
-            <label for="exampleInputEmail1">Quantity</label>
+            <label>Cost</label>
+            <input type="Text" class="form-control" id="text" Name="cost" placeholder="EGP..." value="{{ old('cost') }}" required>
+            @error('cost')
+                                     <span role="alert" style="color:red;">
+                                        <strong>{{ $message }}</strong>
+                                    </span><br>
+                                @enderror
+            <label>Quantity</label>
             <input type="Text" class="form-control" id="text" Name="quantity" placeholder="Quantity" value="{{ old('quantity') }}" required>
             @error('quantity')
                                      <span role="alert" style="color:red;">
                                         <strong>{{ $message }}</strong>
                                     </span><br>
                                 @enderror
-            <label for="exampleInputEmail1">Choose images</label>
+            <label>Choose images</label>
             
             <div class="custom-file">
             <input type="file" class="custom-file-input" id="validatedCustomFile" Name="img[]"  accept="image/*" multiple>

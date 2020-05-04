@@ -97,7 +97,7 @@
         <b>Quantity : {{$item->quantity}}</b><br>
 
         <a href="{{route('item.delete',['id' => $item->id])}}" onclick="return confirm('Are you sure to delete {{$item->name}}?')"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a>
-        <a href="{{route('item.edit',['id' => $item->id])}}"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Edit</b></button></a>
+        <a href="{{route('item.edit',['id' => $item->id])}}"><button type="button" class="btn btn-default" style="margin-bottom:10px;color:black;"><b>Edit</b></button></a>
 
 
         @else
@@ -154,6 +154,11 @@
         }
 
     });
+    var numberofitems=$("#countitems").val();
+    if(numberofitems<10)
+    {
+       $('.fa-spinner').hide()
+    }
  $(document).on("click", '.btn-addToFavorite', function(e) { 
 
 e.preventDefault();

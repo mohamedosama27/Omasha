@@ -4,20 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Session;
-use App\cart;
+use App\ItemWithQuantity;
 
 class CartController extends Controller
 {
     public function showCart()
     {   
+        //show items added in cart stored in session
+
         $selcteditems = Session::has('selcteditems') ? Session::get('selcteditems') : array();
-        // dd($selcteditems);
         return view('cart',[
             'items'=>$selcteditems ?? 'Doesnot exist'
         ]);
     }
     public function removeItem($id)
     {
+        //remove item from cart array stored in session
+
         $selcteditems = Session::get('selcteditems'); 
         $number_of_items = Session::has('number_of_items') ? Session::get('number_of_items') : 0;
 
@@ -38,6 +41,10 @@ class CartController extends Controller
     }
     public function AddToCart(Request $request)
     {
+        /*
+            add item in cart array in not exist or increment quantity existing item in cart array 
+            and increment number of items in cart
+        */
         $id=$request['name'];
         $number_of_items = Session::has('number_of_items') ? Session::get('number_of_items') : 0;
         $selcteditems = Session::has('selcteditems') ? Session::get('selcteditems') : array();
@@ -66,7 +73,7 @@ class CartController extends Controller
         }
         if($found==false)
         {
-            $item = new cart($id);
+            $item = new ItemWithQuantity($id);
             array_push($selcteditems,$item);
         }
     
@@ -79,6 +86,10 @@ class CartController extends Controller
     }
     public function decrementItem(Request $request)
     {
+        /*
+           dencrement quantity existing item in cart array 
+            and dencrement number of items in cart
+        */
         $id=$request['id'];
         $selcteditems = Session::get('selcteditems'); 
         $number_of_items = Session::has('number_of_items') ? Session::get('number_of_items') : 0;
@@ -106,6 +117,10 @@ class CartController extends Controller
     }
     public function incrementItem(Request $request)
     {
+         /*
+           increment quantity existing item in cart array 
+            and increment number of items in cart
+        */
         $id=$request['id'];
         $selcteditems = Session::get('selcteditems'); 
         $number_of_items = Session::has('number_of_items') ? Session::get('number_of_items') : 0;

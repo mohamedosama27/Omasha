@@ -8,6 +8,7 @@ class FavoriteController extends Controller
 {
     function addToFavorites(Request $request)
     {
+        //add item_id with current user_id in table item_user
         if(\Auth::check())
         {
 
@@ -23,6 +24,7 @@ class FavoriteController extends Controller
     }
     function show()
     {
+        //show current user favorites
         $items = \Auth::user()->favorites()->get();
         return view('favorites',[
             'items'=>$items,
@@ -31,7 +33,7 @@ class FavoriteController extends Controller
 
     public function remove($id)
     {
-
+        //remove record from table item_user when item_id and current user_id
         \Auth::user()->favorites()->detach($id);
         return redirect('favorites');
 

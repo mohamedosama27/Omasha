@@ -202,11 +202,13 @@ body{
     <i class="fa fa-edit" style="margin-right:5px;"></i>Edit Categories</a>
     <a data-toggle="modal" data-target="#addcategory" class="w3-bar-item w3-button w3-white">
     <i class="fa fa-plus" style="margin-right:5px;"></i>Add Category</a>
+    <a href="{{route('report')}}" class="w3-bar-item w3-button w3-white">
+    <i class="fa fa-clipboard" style="margin-right:5px;"></i>Report</a>
     @else
     <a href="{{route('orderstatus')}}" class="w3-bar-item w3-button w3-white">
-    <i class="fa fa-first-order" style="margin-right:5px;"></i>
+    <i class="fas fa-first-order" style="margin-right:5px;"></i>Last Order</a>
 
-Last Order</a>
+
 
 @endif
 <a href="{{ route('user.edit',['id' => Auth::user()->id]) }}" class="w3-bar-item w3-button w3-white">

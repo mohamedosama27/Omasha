@@ -9,25 +9,27 @@ use Auth;
 
 class ItemController extends Controller
 {
-     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     protected $items_per_page = 10;
-   public function validation($request){
-    $request->validate([
-      'name' => ['required', 'string', 'max:255'],
-      'description' => ['required', 'string'],
-      'quantity' => ['required', 'numeric'],
-      'price' => ['required', 'numeric'],
-      'price' => ['required', 'numeric'],
-      'barcode' => ['required','string', 'max:255']
+   public function validation($request)
+   {
+      //validate data passed from add item view or edit item view
+
+      $request->validate([
+        'name' => ['required', 'string', 'max:255'],
+        'description' => ['required', 'string'],
+        'quantity' => ['required', 'numeric'],
+        'price' => ['required', 'numeric'],
+        'cost' => ['required', 'numeric'],
+        'barcode' => ['required','string', 'max:255']
 
   ]);
 
    }
     public function index(Request $request) {
+
+      //retieve 10 items from items table
+
       if(\App\item::count()>10){
 
         $items = \App\item::orderBy('id', 'DESC')->paginate($this->items_per_page);
@@ -53,20 +55,13 @@ class ItemController extends Controller
 
     public function fetchNextitemsSet($page) {
 
-
-
     }
 
    
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(Request $request)
     {
-      
+      //retieve all categories and passed to add item view
 
         $categories = \App\category::all();
 
@@ -76,20 +71,18 @@ class ItemController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
+      //create new item in items table and create images in images table 
+
       $this->validation($request);
         $item = new  \App\item;
         $item->name = $request['name'];
         $item->description=$request['description'];
         $item->quantity=$request['quantity'];
         $item->price=$request['price'];
+        $item->cost=$request['cost'];
         $item->barcode=$request['barcode'];
         $item->category_id=$request['category'];
         $item->save();
@@ -112,6 +105,8 @@ class ItemController extends Controller
    
     public function show($id)
     {
+      //retrieve show single item by id
+
         $item = \App\item::findorfail($id);
 
         return view('item',[
@@ -123,8 +118,9 @@ class ItemController extends Controller
    
     public function edit($id)
     {
-        $item = \App\item::findorfail($id);
+      //retieve all categories and item data to pass to edit item view
 
+        $item = \App\item::findorfail($id);
         $categories = \App\category::all();
         return view('edititem',[
             'item'=>$item,
@@ -133,23 +129,18 @@ class ItemController extends Controller
 
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\item  $item
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
-      $this->validation($request);
+      //update item with new data passed
 
-        
+      $this->validation($request);  
         $item = \App\item::find($id);
         $item->name = $request['name'];
         $item->description=$request['description'];
         $item->quantity=$request['quantity'];
         $item->price=$request['price'];
+        $item->cost=$request['cost'];
         $item->category_id=$request['category'];
         $item->barcode=$request['barcode'];
         $item->save();
@@ -171,22 +162,20 @@ class ItemController extends Controller
         return redirect('home');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\item  $item
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
-        $item = \App\item::findorfail($id);
+      //delete item with passed item
 
+        $item = \App\item::findorfail($id);
         $item->delete();
         return redirect('home');
 
     }
     public function deleteImage($id)
     {
+      //delete image from images table with passed id
+
         $image = \App\image::find($id);
         DB::table('images')->where('id', '=', $id)->delete();
         echo $image->name;
@@ -205,6 +194,8 @@ class ItemController extends Controller
     }
     function action(Request $request)
     {
+      //search for item in items table by item name
+
      if($request->ajax())
      {
       $output = '';

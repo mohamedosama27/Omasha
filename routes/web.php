@@ -78,6 +78,10 @@ Route::get('/deleteOrder/{id}', [
     'as' => 'order.delete'
 ])->middleware('auth','ifAdmin');
 
+Route::get('/report', [
+    'uses' => 'OrderController@report',
+    'as' => 'report'
+])->middleware('auth','ifAdmin');
 Route::get('/createitem',
 [
     'uses' => 'ItemController@create',

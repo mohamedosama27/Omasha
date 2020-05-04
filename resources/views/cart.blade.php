@@ -147,7 +147,7 @@ $totalprice=0
    
     <div class="totals-item totals-item-total">
       <label>Total Price : </label>
-      <div class="totals-value" id="cart-total" style="font-size:18px;">{{$totalprice+10}}</div>
+      <div class="totals-value" id="cart-total">{{$totalprice+10}}</div>
     </div>
   </div>
   @include('errormessage')

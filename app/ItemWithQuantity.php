@@ -3,7 +3,7 @@
 namespace App;
 
 
-class cart
+class ItemWithQuantity
 { 
     public $item;
     public $Quantity = 0;

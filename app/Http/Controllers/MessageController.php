@@ -7,23 +7,25 @@ use Illuminate\Http\Request;
 use DB;
 class MessageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function showAll()
     {
+      /*
+        show all chats sent to admin
+        
+      */
       $messages = \App\message::where('recivier_id','=','0')->get()->keyBy('sender_id');
 
         return view('chats',[
             'messages'=>$messages,
             
         ]);
-       
     }
     public function search(Request $request)
     {
+       /*
+          search by sender name in chats view
+       */
         $output = '';
        $query = $request['query'];
         if($query != '')
@@ -68,6 +70,9 @@ class MessageController extends Controller
     }
     public function getSenders()
     {
+      /*
+          get new senders in bar
+      */
         $messages = \App\message::where('recivier_id','=','0')
             ->Where('status','=',NULL)->get()->keyBy('sender_id');
             $output='';
@@ -88,13 +93,12 @@ class MessageController extends Controller
     }
   
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public static function createmessage($message,$sender,$recivier)
     {
+      /*
+        create new message in database
+     */
         $Newmessage = new  \App\message;
         $Newmessage->message = $message;
         $Newmessage->sender_id =$sender;
@@ -106,7 +110,9 @@ class MessageController extends Controller
     }
     public function create(Request $request)
     {
-     
+     /*
+        send new message from chat view
+     */
         if(auth()->user()->type==NULL)
         {
         $message = $this->createmessage($request['message'],auth()->id(),'0');
@@ -128,6 +134,9 @@ class MessageController extends Controller
     }
     public function getmessage(Request $request)
     {
+      /*
+        call this message every 3 seconds to check if user recieve any message
+      */
         if(auth()->user()->type==NULL){   
         $messages = \App\message::where('recivier_id','=',auth()->id())
         ->Where('status','=',NULL)->get();
@@ -153,19 +162,23 @@ class MessageController extends Controller
     }
     public function automatedmessage(Request $request)
     {
+      /*
+        send automated message to client after send first message to admin
+      */
         if(auth()->user()->type==NULL)
         {
-        $message = $this->createmessage("Thanks",'0',auth()->id());
-        $message->status=1;
-        $message->save();
-        
-        $output='
-      <div class="msg-left msg" style="margin-bottom:50px" >
-        Thanks
-      </div><br clear="all" />
-      ';
+          $message = $this->createmessage("Thanks",'0',auth()->id());
+          $message->status=1;
+          $message->save();
+          
+          $output='
+        <div class="msg-left msg" style="margin-bottom:50px" >
+          Thanks
+        </div><br clear="all" />
+        ';
         
         return response()->json(['output'=>$output]);
+
         }
         else{
             return response()->json(['output'=>'']);
@@ -173,14 +186,12 @@ class MessageController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
     public function countmessage(Request $request)
     {
+      /*
+        call method every 5 seconds to count messages not read
+      */
         if(auth()->user()->type!=1){   
             $messages = \App\message::where('recivier_id','=',auth()->id())
             ->Where('status','=',NULL)->count();
@@ -200,6 +211,9 @@ class MessageController extends Controller
 
     public function show($id)
     {
+      /*
+        show messages in chat
+      */
         if(auth()->user()->type==1 || auth()->user()->id == $id)
         {
            
@@ -232,6 +246,9 @@ class MessageController extends Controller
    
     public function changeStatus($id)
     {
+      /*
+        Change message status when marked as unread
+      */
         $message = \App\message::findorfail($id);
         $message->status=2;
         $message->save();

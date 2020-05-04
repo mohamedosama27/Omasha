@@ -34,18 +34,24 @@ form.addEventLisener('submit,function(e){
     @method('PUT')
         <h1 style="color:lightskyblue;">New item</h1>
 
-            <label for="exampleInputEmail1">Item Name</label>
+            <label  >Item Name</label>
             <input @if($item->name) value="{{$item->name}}"@endif type="Text" class="form-control" id="text" Name="name" placeholder="Item Name" required>
-            <label for="exampleInputEmail1">Bar Code</label>
+            <label  >Bar Code</label>
             <input @if($item->barcode) value="{{$item->barcode}}" @endif type="Text" class="form-control" id="text" Name="barcode" placeholder="Bar code" required>
 
-            <label for="exampleInputEmail1">Description</label>
+            <label  >Description</label>
             <input @if($item->description) value="{{$item->description}}"@endif type="Text" class="form-control" id="text" Name="description" placeholder="Description">
 
-            <label for="exampleInputEmail1">Price</label>
+            <label  >Price</label>
             <input @if($item->price) value="{{$item->price}}"@endif type="Text" class="form-control" id="text" Name="price" placeholder="EGP..." required>
-
-            <label for="exampleInputEmail1">Quantity</label>
+            <label  >Cost</label>
+            <input @if($item->cost) value="{{$item->price}}"@endif type="Text" class="form-control" id="text" Name="cost" placeholder="EGP..." value="{{ old('cost') }}" required>
+            @error('cost')
+                                     <span role="alert" style="color:red;">
+                                        <strong>{{ $message }}</strong>
+                                    </span><br>
+                                @enderror
+            <label  >Quantity</label>
             <input @if($item->quantity) value="{{$item->quantity}}"@endif type="Text" class="form-control" id="text" Name="quantity" placeholder="Quantity" required>
             <label >Delete images</label>
 
@@ -65,7 +71,7 @@ form.addEventLisener('submit,function(e){
        
             </tbody>
             </table>
-            <label for="exampleInputEmail1">Add images</label>
+            <label  >Add images</label>
 
             <div class="custom-file">
             <input type="file" class="custom-file-input" id="validatedCustomFile" Name="img[]"  accept="image/*" multiple>
