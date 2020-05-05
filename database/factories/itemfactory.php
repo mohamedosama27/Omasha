@@ -13,8 +13,9 @@ $factory->define(item::class, function (Faker $faker) {
         'barcode'=>$faker->word,
         'description'=>$faker->paragraph,
         'price'=>$faker->randomDigit,
+        'price'=>$faker->randomDigit,
         'quantity'=>$faker->randomDigit,
-        'category_id'=>$faker->randomDigit,
+        
 
     ];
 });
