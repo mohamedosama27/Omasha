@@ -94,15 +94,7 @@ img {
 
 
 
-/* 
-.add-to-cart, .like {
-  
-  padding: 0.8em 1.5em;
 
-  text-transform: UPPERCASE;
-  font-weight: bold;
- } */
-  
 
 
  .EGP{
@@ -172,10 +164,14 @@ img {
 						<div class="action">
             @auth
         @if(Auth::user()->type == 1)
-        <a href="{{route('item.delete',['id' => $item->id])}}" onclick="return confirm('Are you sure to delete {{$item->name}}?')"><button type="button" class="like btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a>
-        <a href="{{route('item.edit',['id' => $item->id])}}"><button type="button" class="like btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Edit</b></button></a>
+        
+        <a href="{{route('item.delete',['id' => $item->id])}}" onclick="return confirm('Are you sure to delete {{$item->name}}?')"><button type="button" class=" btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a>
+        <a href="{{route('item.edit',['id' => $item->id])}}">
+        <button type="button" class=" btn btn-default" style="margin-bottom:10px;color:black;"><b>Edit</b></button></a>
 
-
+        <a href="{{route('hideitem',['id' => $item->id])}}">
+        <button type="button" class="btn btn-default" style="margin-bottom:10px;color:black;">
+        <b>@if($item->hide == 1)unHide @else Hide @endif</b></button></a>
         @else
         <button type="button" class="btn btn-default btn-addtocart" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;"><b>Add to Cart</b></button>
         
@@ -183,7 +179,7 @@ img {
         @else
         <button type="button" class="add-to-cart btn btn-default btn-addtocart" data-value="{{$item->id}}" style="margin-bottom:10px;color:black;"><b>Add to Cart</b></button>
       @endauth						
-      	<button class="like btn btn-default btn-addToFavorite" data-value="{{$item->id}}" type="button" style="margin-bottom:10px;color:black;"><span class="fa fa-heart"></span></button>
+      	<button class=" btn btn-default btn-addToFavorite" data-value="{{$item->id}}" type="button" style="margin-bottom:10px;color:black;"><span class="fa fa-heart"></span></button>
             </div>
 
 					</div>

@@ -15,11 +15,11 @@
     @foreach($item->images as $image)
     @if ($loop->first)
     <div class="item active">
-        <img src='{{ URL::asset("images/{$image->name}")}}'>
+    <a href="{{route('item.show',['id' => $item->id])}}">  <img src={{ URL::asset("images/{$image->name}")}}></a>
       </div>    
      @else
       <div class="item">
-        <img height="150" width="110" src='{{ URL::asset("images/{$image->name}")}}'>
+      <a href="{{route('item.show',['id' => $item->id])}}">  <img src={{ URL::asset("images/{$image->name}")}}></a>
         
       </div>
       @endif
@@ -50,7 +50,9 @@
 
         <a href="{{route('item.delete',['id' => $item->id])}}" onclick="return confirm('Are you sure to delete {{$item->name}}?')"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a>
         <a href="{{route('item.edit',['id' => $item->id])}}"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Edit</b></button></a>
-
+        <a href="{{route('hideitem',['id' => $item->id])}}">
+        <button type="button" class="btn btn-default" style="margin-bottom:10px;color:black;">
+        <b>@if($item->hide == 1)unHide @else Hide @endif</b></button></a>
 
         @else
         

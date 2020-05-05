@@ -3,7 +3,7 @@
 namespace App;
 
 
-class ItemWithQuantity
+class selectedItem
 { 
     public $item;
     public $Quantity = 0;

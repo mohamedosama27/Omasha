@@ -31,8 +31,14 @@ class ItemController extends Controller
       //retieve 10 items from items table
 
       if(\App\item::count()>10){
-
+        if (Auth::user() && auth()->user()->type==1)
+        {
         $items = \App\item::orderBy('id', 'DESC')->paginate($this->items_per_page);
+        }
+        else{
+          $items = \App\item::where('hide','=',NULL)->orderBy('id', 'DESC')->paginate($this->items_per_page);
+
+        }
         if($request->ajax()) {
           return [
               'items' => view('ajax.index')->with(compact('items'))->render(),
@@ -45,7 +51,14 @@ class ItemController extends Controller
       
       }
       else{
-        $items = \App\item::orderBy('id', 'DESC')->get();
+        if (Auth::user() && auth()->user()->type==1)
+        {
+          $items = \App\item::orderBy('id', 'DESC')->get();
+        }
+        else{
+          $items = \App\item::where('hide','=',NULL)->orderBy('id', 'DESC')->get();
+
+        }
         return view('home')->with(compact('items'));
 
       }
@@ -202,8 +215,15 @@ class ItemController extends Controller
       $query = $request->get('query');
       if($query != '')
       {
-       $data = \App\item::where('name', 'like', '%'.$query.'%')
-         ->orderBy('id', 'DESC')->get();
+        if (Auth::user() && auth()->user()->type==1)
+        {
+          $data = \App\item::where('name', 'like', '%'.$query.'%')
+          ->orderBy('id', 'DESC')->get();        }
+        else{
+          $data = \App\item::where('hide','=',NULL)->where('name', 'like', '%'.$query.'%')
+          ->orderBy('id', 'DESC')->get();
+        }
+
          
       }
       
@@ -271,7 +291,19 @@ class ItemController extends Controller
             if(Auth::user()->type == 1){
               $output .='<b>Quantity : '.$item->quantity.'</b><br>';
             $output .='<a href="'.route("item.delete",["id" => $item->id]).'"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a>
-            <a  href="'.route("item.edit",["id" => $item->id]).'"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Edit</b></button></a>';
+            <a  href="'.route("item.edit",["id" => $item->id]).'"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Edit</b></button></a>
+            <a href="'.route("hideitem",["id" => $item->id]).'">
+            <button type="button" class="btn btn-default" style="margin-bottom:10px;color:black;">
+            <b>';
+            if($item->hide == 1)
+            {
+              $output .='unHide';
+            }
+            else {
+              $output .='Hide';
+
+            } 
+            $output .='</b></button></a>';
           
           }
     
@@ -324,6 +356,19 @@ class ItemController extends Controller
       echo json_encode($data);
      }
     }
+    public function hide($id)
+    {
+      $item = \App\item::findorfail($id);
+      if($item->hide!=1){
+        $item->hide=1;
+      }
+      else
+      {
+        $item->hide=NULL;
+      }
+      $item->save();
+      return redirect()->back();
 
+    }
 }
 

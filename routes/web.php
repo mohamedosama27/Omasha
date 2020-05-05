@@ -97,6 +97,12 @@ Route::get('/deleteitem/{id}',
     'uses' => 'ItemController@destroy',
     'as' => 'item.delete'
 ])->middleware('auth','ifAdmin');
+Route::get('/hideitem/{id}',
+[
+    'uses' => 'ItemController@hide',
+    'as' => 'hideitem'
+])->middleware('auth','ifAdmin');
+
 Route::get('/deleteimage/{id}',
 [
     'uses' => 'ItemController@deleteImage',

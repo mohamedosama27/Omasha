@@ -9,7 +9,7 @@ use Nexmo\Laravel\Facade\Nexmo;
 use App\Http\Controllers\Auth;
 use Session;
 use DB;
-use App\ItemWithQuantity;
+use App\selectedItem;
 
 
 class OrderController extends Controller
@@ -157,7 +157,7 @@ class OrderController extends Controller
                     }
                     if($found==false)
                     {   
-                         $x = new ItemWithQuantity($item->id);
+                         $x = new selectedItem($item->id);
                         $x->Quantity=$item->pivot->quantity;
                         array_push($sold_items,$x);
 

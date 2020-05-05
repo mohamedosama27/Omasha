@@ -21,6 +21,16 @@
   margin-left:-3px;
   font-size:18px;
   color:red;
+  
+  }
+  .actionIcons{
+    margin-left:-5px;
+    font-size:18px;
+
+
+  }
+  .actions{
+    width:22%;
   }
 </style>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -95,13 +105,26 @@
       @auth
         @if(Auth::user()->type == 1)
         <b>Quantity : {{$item->quantity}}</b><br>
+        <div class="btn-group btn-group-sm" role="group">
 
-        <a href="{{route('item.delete',['id' => $item->id])}}" onclick="return confirm('Are you sure to delete {{$item->name}}?')"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a>
-        <a href="{{route('item.edit',['id' => $item->id])}}"><button type="button" class="btn btn-default" style="margin-bottom:10px;color:black;"><b>Edit</b></button></a>
+        <a href="{{route('item.delete',['id' => $item->id])}}" onclick="return confirm('Are you sure to delete {{$item->name}}?')">
+        <button type="button" class="btn btn-default actions"><i class="fa fa-lg fa-trash actionIcons"></i></button></a>
+        <a href="{{route('item.edit',['id' => $item->id])}}">
+        <button type="button" class="btn btn-default actions" ><i class="fa fa-pencil actionIcons"></i></button></a>
+       
+      
+        <a href="{{route('hideitem',['id' => $item->id])}}">
+        <button type="button" class="btn btn-default actions" >
+        @if($item->hide == 1)<i class="fa fa-eye actionIcons" ></i>@else <i class="fa fa-eye-slash actionIcons" ></i> @endif</button></a>
+         <a>  <button type="button" data-value="{{$item->id}}" class=" btn-addToFavorite btn btn-default actions" >
+           <i class="fa fa-heart actionIcons" style="margin-left:-7px;"></i></button></a>
+</div>
+        
 
 
         @else
-        
+        <button type="button" data-value="{{$item->id}}" class=" btn-addToFavorite btn btn-default column" >
+           <i class="fa fa-heart"></i></button>
         <button 
         @if($item->quantity <= 0)
         disabled
@@ -113,11 +136,11 @@
         disabled
         @endif
          type="button" class="btn btn-default btn-addtocart column1" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;" ><b>Add to cart</b></button>
-          
+         <button type="button" data-value="{{$item->id}}" class=" btn-addToFavorite btn btn-default column" >
+           <i class="fa fa-heart"></i></button>
          @endauth
 
-           <button type="button" data-value="{{$item->id}}" class="btn btn-default btn-addToFavorite column" style="margin-bottom:10px;">
-           <i class="fa fa-heart"></i></button>
+          
 
 
         <hr>

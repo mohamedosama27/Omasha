@@ -290,8 +290,7 @@ function myAccFunc() {
     x.className = x.className.replace(" w3-show", "");
   }
 }
-// Click on the "Jeans" link on page load to open the accordion for demo purposes
-// document.getElementById("myBtn").click();
+
 // Open and close sidebar
 function w3_open() {
   document.getElementById("mySidebar").style.display = "block";
@@ -322,7 +321,7 @@ headers: {
 @auth
 countmessages();
 
-setInterval(countmessages, 5000);
+setInterval(countmessages, 2000);
 @endauth
 function countmessages() { 
 $.ajax({

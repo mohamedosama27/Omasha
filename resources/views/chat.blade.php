@@ -172,7 +172,7 @@ $.ajaxSetup({
     }
 
 });
-setInterval(getmessage, 5000);
+setInterval(getmessage, 2000);
 $(document).on("click", '.btn-send', function(e) { 
 
     e.preventDefault();

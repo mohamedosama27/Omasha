@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Session;
-use App\ItemWithQuantity;
+use App\selectedItem;
 
 class CartController extends Controller
 {
@@ -73,7 +73,7 @@ class CartController extends Controller
         }
         if($found==false)
         {
-            $item = new ItemWithQuantity($id);
+            $item = new selectedItem($id);
             array_push($selcteditems,$item);
         }
     
