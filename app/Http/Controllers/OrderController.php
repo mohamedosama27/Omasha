@@ -11,6 +11,8 @@ use Session;
 use DB;
 use App\selectedItem;
 use PDF;
+use Elibyy\TCPDF\Facades\TCPDF;
+
 
 
 class OrderController extends Controller
@@ -83,20 +85,11 @@ class OrderController extends Controller
         //     'from' => '+201118221684',
         //     'text' => 'You submit new order  http://aqueous-dawn-37150.herokuapp.com/chat/'.auth()->id()." .",
         // ]);
-        \Mail::to('mohamed1705725@miuegypt.edu.eg')->send(new SendMail($details));
+        // \Mail::to('mohamed1705725@miuegypt.edu.eg')->send(new SendMail($details));
 
              return redirect('lastorder');
     }
-    public function accept($id)
-    {
-        //update order status to 1 and send message to the client
 
-        $order = \App\order::findorfail($id);
-        $order->status=1;
-        $order->save();
-        $message=MessageController::createmessage('Your order accepted','0',$order->user->id);
-        return redirect('vieworders');
-    }
     public function reject($id)
     {
         //update order status to 0 and send message to the client
@@ -185,8 +178,34 @@ class OrderController extends Controller
         $pdf = PDF::loadView('reportPDF');
         
         return $pdf->download('disney.pdf');
-        return redirect()->back();
+        // return redirect()->back();
     }
+    public function accept($id)
+    {
+        //update order status to 1 and send message to the client
+
+        $order = \App\order::findorfail($id);
+        $order->status=1;
+        $order->save();
+        $message=MessageController::createmessage('Your order accepted','0',$order->user->id);
+
+
+        $view = \View::make('invoice', compact('order'));
+        $html = $view->render();
+        
+        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf::SetFont('aealarabiya', '', 18);
+
+        $pdf::SetTitle('Hello World');
+        $pdf::AddPage();
+        $pdf::writeHTML($html, true, false, true, false, '');
+        // $pdf::Output($order->user->phone.'.pdf','D');
+        $pdf::Output($order->user->phone.'.pdf', 'D');
+        // $this->showAll();
+        return redirect()->back();
+
+     }
+  
 
  
 }

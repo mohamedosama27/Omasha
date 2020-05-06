@@ -8,6 +8,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
 </head>
 <style>
 .total{
@@ -18,13 +19,13 @@
 <body>
 
 <div class="container">
-<p><b>Date : </b>Mohamed Osama</p>
-<p><b>Name : </b>Mohamed Osama</p>
-<p><b>Email : </b>Mohamed Osama</p>
-<p><b>Phone : </b>Mohamed Osama</p>
-<p><b>Address : </b>Mohamed Osama</p>
+<p><b>Date : </b>{{$order->created_at}}</p>
+<p><b>Name : </b>{{$order->user->name}}</p>
+<p><b>Email : </b>{{$order->user->email}}</p>
+<p><b>Phone : </b>{{$order->user->phone}}</p>
+<p><b>Address : </b>{{$order->address}}</p>
 
-  <table class="table table-striped">
+  <table class="table table-striped" border="1" cellspacing="0" cellpadding="1">
     <thead>
       <tr>
         <th>Name</th>
@@ -34,31 +35,37 @@
       </tr>
     </thead>
     <tbody>
+    @foreach($order->items as $item)
       <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-        <td>john@example.com</td>
-
+     
+       <td>{{$item->name}}</td>
+        <td >{{$item->price}}</td>
+        <td>{{$item->pivot->quantity}}</td>
+        <td>{{$item->price * $item->pivot->quantity}}</td>
       </tr>
+      @endforeach
+
     
     </tbody>
   </table>
+  <br>
+  <br>
+
   <div class="container total">
-  <table class="table">
+  <table class="table" border="1" cellspacing="0" cellpadding="1">
 
     <tbody>
       <tr>
         <td>Subtotal</td>
-        <td>Doe</td>
+        <td>{{$order->total_price - 10}}</td>
       </tr>
       <tr>
         <td>Delivery</td>
-        <td>Moe</td>
+        <td>10</td>
       </tr>
       <tr>
         <td>Total </td>
-        <td>Dooley</td>
+        <td>{{$order->total_price}}</td>
       </tr>
     </tbody>
   </table>

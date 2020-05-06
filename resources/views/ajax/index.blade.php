@@ -64,13 +64,13 @@
 </div>
         
         @else
-        <button type="button" data-value="{{$item->id}}" class="btn btn-default btn-addToFavorite column" style="margin-bottom:10px;">
-           <i class="fa fa-heart"></i></button>
+       
         <button 
         @if($item->quantity <= 0)
         disabled
         @endif type="button" class="btn btn-default btn-addtocart column1" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;" ><b>Add to cart</b></button>
-
+        <button type="button" data-value="{{$item->id}}" class="btn btn-default btn-addToFavorite column" style="margin-bottom:10px;">
+           <i class="fa fa-heart"></i></button>
         @endif
         @else
         <button  @if($item->quantity <= 0)
