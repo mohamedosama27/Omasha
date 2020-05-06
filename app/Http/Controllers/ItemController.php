@@ -205,7 +205,7 @@ class ItemController extends Controller
         return redirect()->back();
 
     }
-    function action(Request $request)
+    function search(Request $request)
     {
       //search for item in items table by item name
 
@@ -217,22 +217,26 @@ class ItemController extends Controller
       {
         if (Auth::user() && auth()->user()->type==1)
         {
-          $data = \App\item::where('name', 'like', '%'.$query.'%')
+          $items = \App\item::where('name', 'like', '%'.$query.'%')
           ->orderBy('id', 'DESC')->get();        }
         else{
-          $data = \App\item::where('hide','=',NULL)->where('name', 'like', '%'.$query.'%')
+          $items = \App\item::where('hide','=',NULL)->where('name', 'like', '%'.$query.'%')
           ->orderBy('id', 'DESC')->get();
         }
 
          
       }
+      else{
+        $items = \App\item::where('hide','=',NULL)->orderBy('id', 'DESC')->paginate($this->items_per_page);
+
+      }
       
     
    
-      $total_row = $data->count();
+      $total_row = $items->count();
       if($total_row > 0)
       {
-       foreach($data as $item)
+       foreach($items as $item)
        {
         $images=DB::table('images')->where('item_id', '=',$item->id)->get();
         
@@ -285,29 +289,34 @@ class ItemController extends Controller
           
         $output .='<p><a href="'.route("item.show",["id" => $item->id]).'">'.$item->name.'</a></p>';
         }
-        $output .='<b>$'.$item->price.'</b><br>';
+        $output .='<b>'.$item->price.'</b><p class="EGP">EGP</p><br>';
 
         if (Auth::check()) {
             if(Auth::user()->type == 1){
               $output .='<b>Quantity : '.$item->quantity.'</b><br>';
-            $output .='<a href="'.route("item.delete",["id" => $item->id]).'"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Delete</b></button></a>
-            <a  href="'.route("item.edit",["id" => $item->id]).'"><button type="button" class="btn btn-default" style="margin-bottom:10px;" style="color:black;"><b>Edit</b></button></a>
+            $output .='<a href="'.route("item.delete",["id" => $item->id]).'"><button type="button" class="btn btn-default actions" style="margin-bottom:10px;" style="color:black;">
+            <i class="fa fa-lg fa-trash actionIcons"></i></button></a>
+            <a  href="'.route("item.edit",["id" => $item->id]).'"><button type="button" class="btn btn-default actions" style="margin-bottom:10px;" style="color:black;">
+            <i class="fa fa-lg fa-pencil actionIcons"></i></button></a>
             <a href="'.route("hideitem",["id" => $item->id]).'">
-            <button type="button" class="btn btn-default" style="margin-bottom:10px;color:black;">
+            <button type="button" class="btn btn-default actions" style="margin-bottom:10px;color:black;">
             <b>';
             if($item->hide == 1)
             {
-              $output .='unHide';
+              $output .='<i class="fa fa-eye actionIcons" ></i>';
             }
             else {
-              $output .='Hide';
+              $output .='<i class="fa fa-eye-slash actionIcons" ></i>';
 
             } 
             $output .='</b></button></a>';
-          
+            $output.=' <button type="button" data-value="'.$item->id.'" class="btn btn-default btn-addToFavorite actions" style="margin-bottom:10px;">
+            <i class="fa fa-heart"></i></button>';
           }
     
             else{
+              $output.=' <button type="button" data-value="'.$item->id.'" class="btn btn-default btn-addToFavorite column" style="margin-bottom:10px;">
+              <i class="fa fa-heart"></i></button>';
               if($item->quantity <= 0){
               $output .=' <button type="button" class="btn btn-default btn-addtocart column1" data-value="'.$item->id.'" style="margin-bottom:10px;" style="color:black;" disabled><b>Add to Cart</b></button>';
               }
@@ -319,6 +328,8 @@ class ItemController extends Controller
 
       }
       else{
+        $output.=' <button type="button" data-value="'.$item->id.'" class="btn btn-default btn-addToFavorite column" style="margin-bottom:10px;">
+        <i class="fa fa-heart"></i></button>';
         if($item->quantity <= 0){
 
           $output .=' <button type="button" class="btn btn-default btn-addtocart column1" data-value="'.$item->id.'" style="margin-bottom:10px;" style="color:black;" disabled ><b>Add to Cart</b></button>';
@@ -329,8 +340,7 @@ class ItemController extends Controller
         }
         
         }  
-        $output.=' <button type="button" data-value="'.$item->id.'" class="btn btn-default btn-addToFavorite column" style="margin-bottom:10px;">
-        <i class="fa fa-heart"></i></button>';
+       
        
       $output .='  <hr>
     </div>
@@ -348,10 +358,26 @@ class ItemController extends Controller
        <h3 >No items with this name</h3>
        </div>       ';
       }
+      if($query != '')
+      {
       $data = array(
        'table_data'  => $output,
-       'total_data'  => $total_row
+       'total_data'  => $total_row,
+       
       );
+    }
+    else
+    {
+
+      $data = array(
+        'table_data'  => $output,
+        'total_data'  => $total_row,
+        'next_page' => url('/home?page='.($items->currentPage()+1)),
+        'numberofitems'=>count($items),
+        
+       );
+
+    }
 
       echo json_encode($data);
      }

@@ -167,13 +167,14 @@ class MessageController extends Controller
       */
         if(auth()->user()->type==NULL)
         {
-          $message = $this->createmessage("Thanks",'0',auth()->id());
+          $message = $this->createmessage("Thanks for contact us 
+          working hours from 10 am to 12 pm , admin will reply soon",'0',auth()->id());
           $message->status=1;
           $message->save();
           
           $output='
         <div class="msg-left msg" style="margin-bottom:50px" >
-          Thanks
+        Thanks for contact us working hours from 10 am to 12 pm , admin will reply soon
         </div><br clear="all" />
         ';
         

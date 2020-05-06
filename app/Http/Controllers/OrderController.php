@@ -82,7 +82,7 @@ class OrderController extends Controller
         //     'from' => '+201118221684',
         //     'text' => 'You submit new order  http://aqueous-dawn-37150.herokuapp.com/chat/'.auth()->id()." .",
         // ]);
-        // \Mail::to('mohamed1705725@miuegypt.edu.eg')->send(new SendMail($details));
+        \Mail::to('mohamed1705725@miuegypt.edu.eg')->send(new SendMail($details));
 
              return redirect('lastorder');
     }
@@ -132,7 +132,8 @@ class OrderController extends Controller
             $endDate = date('Y-m-30');
            
         }
-        $orders = \App\order::whereDate('created_at', '>=', $startDate)
+        $orders = \App\order::where('status','=','1')
+                                ->whereDate('created_at', '>=', $startDate)
                                 ->whereDate('created_at', '<=', $endDate)
                                 ->get();
             $sold_items = array();

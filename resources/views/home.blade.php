@@ -48,13 +48,13 @@
   <input type="number" id="countitems" value="{{count($items)}}"hidden/>
 <div class="cardspace">
 
-  <div class=" w3-grayscale" id="results">
+  <div>
   
 
 <section class="items endless-pagination" @if(count($items)>10) data-next-page="{{ $items->nextPageUrl() }}" @endif>
     @foreach($items as $item)
 
-<div class="w3-col l3 s6">
+<div class="w3-col l3 s6 ">
       <div class="w3-container div3">
       
   <div id="myCarousel{{$item->id}}" class="carousel slide" data-ride="carousel" data-interval="false" >
@@ -108,7 +108,8 @@
         <div class="btn-group btn-group-sm" role="group">
 
         <a href="{{route('item.delete',['id' => $item->id])}}" onclick="return confirm('Are you sure to delete {{$item->name}}?')">
-        <button type="button" class="btn btn-default actions"><i class="fa fa-lg fa-trash actionIcons"></i></button></a>
+        <button type="button" class="btn btn-default actions">
+        <i class="fa fa-lg fa-trash actionIcons"></i></button></a>
         <a href="{{route('item.edit',['id' => $item->id])}}">
         <button type="button" class="btn btn-default actions" ><i class="fa fa-pencil actionIcons"></i></button></a>
        
@@ -123,13 +124,13 @@
 
 
         @else
-        <button type="button" data-value="{{$item->id}}" class=" btn-addToFavorite btn btn-default column" >
-           <i class="fa fa-heart"></i></button>
+       
         <button 
         @if($item->quantity <= 0)
         disabled
         @endif type="button" class="btn btn-default btn-addtocart column1" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;" ><b>Add to cart</b></button>
-
+        <button type="button" data-value="{{$item->id}}" class=" btn-addToFavorite btn btn-default column" >
+           <i class="fa fa-heart"></i></button>
         @endif
         @else
         <button  @if($item->quantity <= 0)
@@ -236,34 +237,45 @@ $(document).on("click", '.btn-addtocart', function(e) {
 	});
   $(document).ready(function(){
 
-      fetch_customer_data();
+      //fetch_customer_data();
 
       function fetch_customer_data(query = '')
       {
       $.ajax({
-        url:"{{ route('ItemController.action') }}",
+        url:"{{ route('ItemController.search') }}",
         method:'GET',
         data:{query:query},
         dataType:'json',
         success:function(data)
         {
-        $('#results').html(data.table_data);
+      if(query != '')
+      {
+        $('.items').html(data.table_data);
         $('.fa-spinner').hide();
 
+      }
+      else
+      {
+        $('.fa-spinner').show();
+        $('.items').html(data.table_data);
+        
+        $('.endless-pagination').data('next-page', data.next_page);
+        $("#countitems").val(numberofitems+data.numberofitems);
+        if(data.numberofitems<10)
+    {
+       $('.fa-spinner').hide()
+    }
+      }
+     
         }
       })
       }
 
 $(document).on('keyup', '#search', function(){
  var query = $(this).val();
- if(query != '')
-      {
- fetch_customer_data(query);
-      }
-      else{
-        location.reload(true);
 
-              }
+ fetch_customer_data(query);
+ 
   
 });
 $(window).scroll(fetchitems);
@@ -273,7 +285,6 @@ function fetchitems() {
 
 
     var page = $('.endless-pagination').data('next-page');
-
     if(page !== null) {
 
         clearTimeout( $.data( this, "scrollCheck" ) );
@@ -285,16 +296,18 @@ function fetchitems() {
                 $.get(page, function(data){
                     
                     var numberofitems=$("#countitems").val();
+                    
                     if(numberofitems<=10)
                     {
-                      $('.items').html(data.items);
-                    $('.endless-pagination').data('next-page', data.next_page);
-                      $("#countitems").val(numberofitems+data.numberofitems);
 
+                      $('.items').html(data.items);
+                      $('.endless-pagination').data('next-page', data.next_page);
+                      $("#countitems").val(numberofitems+data.numberofitems);
+                      
                     }
                     else{
                       $('.items').append(data.items);
-                    $('.endless-pagination').data('next-page', data.next_page);
+                      $('.endless-pagination').data('next-page', data.next_page);
                     }
                     
                 });
