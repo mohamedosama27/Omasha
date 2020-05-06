@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth;
 use Session;
 use DB;
 use App\selectedItem;
+use PDF;
 
 
 class OrderController extends Controller
@@ -179,7 +180,13 @@ class OrderController extends Controller
             ]);
         
     }
-
+    public function downloadreport()
+    {
+        $pdf = PDF::loadView('reportPDF');
+        
+        return $pdf->download('disney.pdf');
+        return redirect()->back();
+    }
 
  
 }

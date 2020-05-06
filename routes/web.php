@@ -12,8 +12,8 @@
 */
 
 // Route::get('/', 'ItemController@showAll');
+Route::get('/downloadreport','OrderController@downloadreport')->name('downloadreport');
 Route::get('/index', 'ItemController@random')->name('index');
-
 Route::get('send-mail','MailSend@mailsend');
 Route::get('chat/{id}','MessageController@show')->name('chat')->middleware('auth');
 Route::get('changeStatus/{id}','MessageController@changeStatus')->name('changeStatus')->middleware('auth');
