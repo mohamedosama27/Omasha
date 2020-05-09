@@ -88,6 +88,9 @@ form.addEventLisener('submit,function(e){
              <div class="form-group">
                     <label for="sel1" Name="category">Category</label>
                     <select class="form-control" id="sel1" Name="category">
+                    @if($item->category_id) 
+                    <option value="" disabled selected>Choose your option</option>
+                    @endif
                     @foreach($categories as $category)
                         @if($category->id==$item->category_id)
                         <option value="{{$category->id}}" selected>{{$category->name}}</option>

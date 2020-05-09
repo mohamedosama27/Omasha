@@ -199,9 +199,8 @@ class OrderController extends Controller
         $pdf::SetTitle('Hello World');
         $pdf::AddPage();
         $pdf::writeHTML($html, true, false, true, false, '');
-        // $pdf::Output($order->user->phone.'.pdf','D');
-        $pdf::Output($order->user->phone.'.pdf', 'D');
-        // $this->showAll();
+        $pdf::Output($order->user->phone.'.pdf','D');
+   
         return redirect()->back();
 
      }

@@ -43,16 +43,14 @@
 <br>
 
  
-  <div class="cardspace ">
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
-  <!-- Indicators -->
+
   <ol class="carousel-indicators">
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
     <li data-target="#myCarousel" data-slide-to="1"></li>
     <li data-target="#myCarousel" data-slide-to="2"></li>
   </ol>
 
-  <!-- Wrapper for slides -->
   <div class="carousel-inner">
     <div class="item active">
       <img src={{ URL::asset("images/36245.jpg")}} width="100%">
@@ -67,7 +65,6 @@
     </div>
   </div>
 
-  <!-- Left and right controls -->
   <a class="left carousel-control" href="#myCarousel" data-slide="prev">
     <span class="glyphicon glyphicon-chevron-left"></span>
     <span class="sr-only">Previous</span>
@@ -94,7 +91,6 @@
   <div id="myCarousel{{$item->id}}" class="carousel slide" data-ride="carousel" data-interval="false" >
    
  
-    <!-- Wrapper for slides -->
     
     <div class="carousel-inner div1" >
     
@@ -119,7 +115,6 @@
    
     </div>
 
-    <!-- Left and right controls -->
     <a class="left carousel-control" href="#myCarousel{{$item->id}}" data-slide="prev">
       <span class="glyphicon glyphicon-chevron-left"></span>
       <span class="sr-only">Previous</span>
@@ -193,7 +188,6 @@
 <br>
 
 
-</div>
 <br>
 <i class="fa fa-lg fa-spinner fa-spin" style="margin-left:50%"></i>
 @include('errormessage')
@@ -217,58 +211,58 @@
     {
        $('.fa-spinner').hide()
     }
- $(document).on("click", '.btn-addToFavorite', function(e) { 
+  $(document).on("click", '.btn-addToFavorite', function(e) { 
 
-e.preventDefault();
+  e.preventDefault();
 
-    var id =  $(this).data('value');;
- $.ajax({
+      var id =  $(this).data('value');;
+  $.ajax({
 
-    type:'POST',
+      type:'POST',
 
-    url:"{{ route('addToFavorite') }}",
+      url:"{{ route('addToFavorite') }}",
 
-    data:{id:id},
+      data:{id:id},
 
-    success:function(data){
+      success:function(data){
 
-      $('#messaga').text(data.message)
-      $('#errormessage').modal(); 
-         }
+        $('#messaga').text(data.message)
+        $('#errormessage').modal(); 
+          }
 
- });
-});
-    
-$(document).on("click", '.btn-addtocart', function(e) { 
+  });
+  });
+      
+  $(document).on("click", '.btn-addtocart', function(e) { 
 
-       e.preventDefault();
+        e.preventDefault();
 
-           var str =  $(this).data('value');;
-        $.ajax({
+            var str =  $(this).data('value');;
+          $.ajax({
 
-           type:'POST',
+            type:'POST',
 
-           url:"{{ route('item.addToCart') }}",
+            url:"{{ route('item.addToCart') }}",
 
-           data:{name:str},
+            data:{name:str},
 
-           success:function(data){
+            success:function(data){
 
-            if(data.message===undefined)
-            {
+              if(data.message===undefined)
+              {
 
-              $("#countcart").text(data.countCart);
+                $("#countcart").text(data.countCart);
+              }
+              else
+              {
+                $('#messaga').text(data.message)
+                $('#errormessage').modal();
+              }
+                
             }
-            else
-            {
-              $('#messaga').text(data.message)
-              $('#errormessage').modal();
-            }
-              
-           }
 
-        });
-	});
+          });
+    });
   $(document).ready(function(){
 
       //fetch_customer_data();
