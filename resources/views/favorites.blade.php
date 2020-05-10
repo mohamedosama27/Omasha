@@ -155,7 +155,10 @@ border: 0;
   
   </div>
   @empty
-    <h1 style="margin-left:13%">No items</h1>
+  <div class="alert alert-dark"  style="text-align:center;margin-bottom:20px;" role="alert">
+<h1 style="display:center;">Empty</h1>
+</div>
+<br>
 
   @endforelse
   </div>

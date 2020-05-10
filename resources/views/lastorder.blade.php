@@ -20,7 +20,7 @@
     padding-left: 13% !important;
     padding-right: 13% !important;
 }
-
+/* 
 #progressbar {
     margin-bottom: 30px;
     overflow: hidden;
@@ -114,7 +114,7 @@
 
 .icon-content {
     padding-bottom: 20px
-}
+} */
 a{
     color:blue;
 }
@@ -150,7 +150,8 @@ a{
             <b>Address : </b>{{$order->address}}
             <br>
             <br>
-            <b>Status : </b>@if($order->status == 1) Shipped @else Wating for response @endif
+            <b>Status : </b>@if($order->status == 1) Shipped <i class="fa fa-truck  fa-flip-horizontal"></i>
+            @else Wating for response <i class="fa fa-hourglass icon"></i> @endif
         </div>
  <!-- Add class 'active' to progress -->
         <!-- <div class="row d-flex justify-content-center">

@@ -160,8 +160,8 @@ $totalprice=0
 
 </div>
 @else
-<div class="alert alert-dark" role="alert">
-<h1 style="margin-left:13%">No items in cart</h1>
+<div class="alert alert-dark"  style="text-align:center" role="alert">
+<h1>Empty</h1>
 </div>
 
 @endif
