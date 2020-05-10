@@ -10,7 +10,7 @@
 
 .card {
     z-index: 0;
-    background-color: #ECEFF1;
+    background-color: #f5f5f0;
     padding-bottom: 20px;
     border-radius: 10px
 }

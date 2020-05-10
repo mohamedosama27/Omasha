@@ -33,13 +33,23 @@
       </ul>
       </td>
       @if($order->status==NULL)
-      <td><a href="{{route('order.accept',['id' => $order->id])}}"><i class="fa fa-2x fa-check-circle" style="color:green;"></i></a></td>
-      <td><a href="{{route('order.reject',['id' => $order->id])}}"><i class="fa fa-2x fa-times-circle" style="color:red"></i></a></td>
+      <td><a id="accept" href="{{route('order.accept',['id' => $order->id])}}" target="_blank" class="acceptOrder">
+      <i class="fa fa-2x fa-check-circle" style="color:green;"></i></a></td>
+
+      <td><a href="{{route('order.reject',['id' => $order->id])}}">
+      <i class="fa fa-2x fa-times-circle" style="color:red"></i></a></td>
       @endif
-      <td><a href="{{route('order.delete',['id' => $order->id])}}"><i class="fa fa-2x fa-trash"></i></a></td>
+      <td><a href="{{route('order.delete',['id' => $order->id])}}">
+      <i class="fa fa-2x fa-trash"></i></a></td>
 
     </tr>
   @endforeach
   </tbody>
 </table>
+<script>
+// $(document).on("click", '.acceptOrder', function(e) { 
+// window.open(this.href, "_blank");
+// window.location.replace("{{route('vieworders')}}");
+// });
+</script>
     @endsection
