@@ -43,7 +43,7 @@
       <td><a href="{{route('order.invoice',['id' => $order->id])}}">
       <i class="fa fa-2x fa-print"></i></a></td>
 
-      <td><a href="{{route('order.delete',['id' => $order->id])}}">
+      <td><a href="{{route('order.delete',['id' => $order->id])}}" onclick="return confirm('Are you sure to delete {{$order->user->name}} order?')">
       <i class="fa fa-2x fa-trash"></i></a></td>
 
     </tr>
