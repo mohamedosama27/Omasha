@@ -23,7 +23,7 @@ Email : {{$order->user->email}}<br>
 Phone : {{$order->user->phone}}<br>
 Address : {{$order->address}}<br><br>
 
-  <table border="1" >
+  <table border="1" CELLPADDING=3 CELLSPACING=1>
     <thead>
       <tr>
         <th>Name</th>
@@ -44,6 +44,10 @@ Address : {{$order->address}}<br><br>
       </tr>
 
       @endforeach
+      <tr>
+      <td colspan="4"></td>
+
+      </tr>
       <tr>
       <td colspan="2"></td>
         <td>Subtotal</td>

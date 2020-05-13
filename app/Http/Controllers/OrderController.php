@@ -203,7 +203,7 @@ class OrderController extends Controller
         $html = $view->render();
         
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-        $pdf::SetFont('aefurat', '', 18);
+        $pdf::SetFont('dejavusans', '', 18);
 
         $pdf::SetTitle('Invoice');
         $pdf::AddPage();

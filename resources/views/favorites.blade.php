@@ -156,7 +156,7 @@ border: 0;
   </div>
   @empty
   <div class="alert alert-dark"  style="text-align:center;margin-bottom:20px;" role="alert">
-<h1 style="display:center;">Empty</h1>
+<h1 style="display:center;">You have no favorites</h1>
 </div>
 <br>
 
