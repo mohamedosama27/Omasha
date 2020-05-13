@@ -39,6 +39,10 @@
       <td><a href="{{route('order.reject',['id' => $order->id])}}">
       <i class="fa fa-2x fa-times-circle" style="color:red"></i></a></td>
       @endif
+     
+      <td><a href="{{route('order.invoice',['id' => $order->id])}}">
+      <i class="fa fa-2x fa-print"></i></a></td>
+
       <td><a href="{{route('order.delete',['id' => $order->id])}}">
       <i class="fa fa-2x fa-trash"></i></a></td>
 

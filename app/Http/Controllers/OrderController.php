@@ -188,22 +188,89 @@ class OrderController extends Controller
         $order->status=1;
         $order->save();
         $message=MessageController::createmessage('Your order accepted','0',$order->user->id);
+        return redirect()->back();
 
-
+     }
+     public function invoice($id)
+     {
+        $order = \App\order::findorfail($id);
         $view = \View::make('invoice', compact('order'));
         $html = $view->render();
         
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-        $pdf::SetFont('aealarabiya', '', 18);
+        $pdf::SetFont('aefurat', '', 18);
 
-        $pdf::SetTitle('Hello World');
+        $pdf::SetTitle('Invoice');
         $pdf::AddPage();
         $pdf::writeHTML($html, true, false, true, false, '');
         $pdf::Output($order->user->phone.'.pdf','D');
-   
-        return redirect()->back();
+
+
+        // parent::__construct( $orientation, $unit, $format, true, 'UTF-8', false );
+ 
+     
+        # Set the page margins: 72pt on each side, 36pt on top/bottom.
+    //     $pdf::SetMargins( 71, 36, 72, true );
+    //     $pdf::SetAutoPageBreak( true, 36 );
+         
+    //     # Set document meta-information
+    //     $pdf::SetCreator( PDF_CREATOR );
+    //     $pdf::SetAuthor( 'Chris Herborth (chrish@pobox.com)' );
+    //     //$pdf::SetTitle( 'Invoice for ' . $pdf::invoiceData['user'] );
+    //     $pdf::SetSubject( "A simple invoice example for 'Creating PDFs on 
+    // the fly with TCPDF' on IBM's developerWorks" );
+    //     $pdf::SetKeywords( 'PHP, sample, invoice, PDF, TCPDF' );
+     
+    //     //set image scale factor
+    //     $pdf::setImageScale(PDF_IMAGE_SCALE_RATIO); 
+         
+    //     //set some language-dependent strings
+    //     global $l;
+    //     $pdf::setLanguageArray($l);
+
+    //     $pdf::AddPage();
+    // $pdf::SetFont( 'aealarabiya', '', 11 );
+    // $pdf::SetY( 144, true );
+ 
+    // # Table parameters
+    // #
+    // # Column size, wide (description) column, table indent, row height.
+    // $col = 72;
+    // $wideCol = 3 * $col;
+    // $indent = ( $pdf::getPageWidth() - 2 * 72 - $wideCol - 3 * $col ) / 2;
+    // $line = 18;
+ 
+    // # Table header
+    // $pdf::SetFont( '', 'b' );
+    // $pdf::Cell( $indent );
+    // $pdf::Cell( $wideCol, $line, 'Item', 1, 0, 'L' );
+    // $pdf::Cell( $col, $line, 'Quantity', 1, 0, 'R' );
+    // $pdf::Cell( $col, $line, 'Price', 1, 0, 'R' );
+    // $pdf::Cell( $col, $line, 'Cost', 1, 0, 'R' );
+    // $pdf::Ln();
+ 
+    // # Table content rows
+    // $pdf::SetFont( '', '' );
+    // foreach( $order->items as $item ) {
+    //     $pdf::Cell( $indent );
+    //     $pdf::Cell( $wideCol, $line, $item->name, 1, 0, 'L' );
+    //     $pdf::Cell( $col, $line, $item->pivot->quantity, 1, 0, 'R' );
+    //     $pdf::Cell( $col, $line, $item->price, 1, 0, 'R' );
+    //     $pdf::Cell( $col, $line, $item->price, 1, 0, 'R' );
+    //     $pdf::Ln();
+    // }
+ 
+    // # Table Total row
+    // $pdf::SetFont( '', 'b' );
+    // $pdf::Cell( $indent );
+    // $pdf::Cell( $wideCol + $col * 2, $line, 'Total:', 1, 0, 'R' );
+    // $pdf::SetFont( '', '' );
+    // $pdf::Cell( $col, $line,$order->total_price, 1, 0, 'R' );
+
+    // $pdf::Output($order->user->phone.'.pdf','D');
 
      }
+
   
 
  

@@ -69,6 +69,12 @@ Route::get('/accept/{id}', [
     'uses' => 'OrderController@accept',
     'as' => 'order.accept'
 ])->middleware('auth','ifAdmin');
+
+Route::get('/invoice/{id}', [
+    'uses' => 'OrderController@invoice',
+    'as' => 'order.invoice'
+])->middleware('auth','ifAdmin');
+
 Route::get('/reject/{id}', [
     'uses' => 'OrderController@reject',
     'as' => 'order.reject'

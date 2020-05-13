@@ -37,14 +37,14 @@ a{
         <form method="GET" action="{{route('report')}}" enctype="multipart/form-data">
 
             <div class="form-group row">
-                <label class="col-lg-3 col-3 col-form-label">From</label>
-                <div class="col-lg-3 col-6">
+                <label class="col-lg-3  col-4  col-form-label">From</label>
+                <div class="col-lg-3 col-7">
                     <input class="form-control" name="from"type="date" value="{{$from}}">
                 </div>
             </div>  
             <div class="form-group row">
-                <label class="col-lg-3 col-3  col-form-label">To</label>
-                <div class="col-lg-3 col-6">
+                <label class="col-lg-3 col-4 col-xs-6  col-form-label">To</label>
+                <div class="col-lg-3 col-7">
                     <input class="form-control" name="to" type="date" value="{{$to}}" >
                 </div>
             </div>  

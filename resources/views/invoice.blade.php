@@ -12,65 +12,58 @@
 </head>
 <style>
 .total{
-    margin-left:60%;
-    width:40%;
+    margin-left:80%;
+    width:20%;
 }
 </style>
 <body>
+Date :{{$order->created_at}}<br>
+Name : {{$order->user->name}}<br>
+Email : {{$order->user->email}}<br>
+Phone : {{$order->user->phone}}<br>
+Address : {{$order->address}}<br><br>
 
-<div class="container">
-<p><b>Date : </b>{{$order->created_at}}</p>
-<p><b>Name : </b>{{$order->user->name}}</p>
-<p><b>Email : </b>{{$order->user->email}}</p>
-<p><b>Phone : </b>{{$order->user->phone}}</p>
-<p><b>Address : </b>{{$order->address}}</p>
-
-  <table class="table table-striped" border="1" cellspacing="0" cellpadding="1">
+  <table border="1" >
     <thead>
       <tr>
         <th>Name</th>
         <th>Price</th>
         <th>Quantity</th>
         <th>Total Price</th>
+
       </tr>
     </thead>
+
     <tbody>
     @foreach($order->items as $item)
-      <tr>
-     
+      <tr>  
        <td>{{$item->name}}</td>
         <td >{{$item->price}}</td>
         <td>{{$item->pivot->quantity}}</td>
         <td>{{$item->price * $item->pivot->quantity}}</td>
       </tr>
+
       @endforeach
-
-    
-    </tbody>
-  </table>
-  <br>
-  <br>
-
-  <div class="container total">
-  <table class="table" border="1" cellspacing="0" cellpadding="1">
-
-    <tbody>
       <tr>
+      <td colspan="2"></td>
         <td>Subtotal</td>
         <td>{{$order->total_price - 10}}</td>
       </tr>
       <tr>
+      <td colspan="2"></td>
+
         <td>Delivery</td>
         <td>10</td>
       </tr>
       <tr>
+        <td colspan="2"></td>
         <td>Total </td>
         <td>{{$order->total_price}}</td>
       </tr>
+
     </tbody>
   </table>
-  </div>
-</div>
+
 
 
 </body>
