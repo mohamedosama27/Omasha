@@ -133,6 +133,7 @@ class OrderController extends Controller
             $sold_items = array();
             $totalprice=0;
             $totalcost=0;
+            $totaldelivery=0;
 
             foreach($orders as $order)
             {
@@ -162,13 +163,17 @@ class OrderController extends Controller
 
                 }
                 $totalprice+=$order->total_price-10;
+                $totaldelivery+=10;
+
             }
             return view('report',[
                 'from' => $startDate,
                 'to' => $endDate,
                 'items' => $sold_items,
                 'totalprice' => $totalprice,
-                'totalcost' => $totalcost
+                'totalcost' => $totalcost,
+                'totaldelivery' => $totaldelivery
+
 
             ]);
         
