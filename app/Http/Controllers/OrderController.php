@@ -161,7 +161,7 @@ class OrderController extends Controller
                     $totalcost+=$item->cost*$item->pivot->quantity;
 
                 }
-                $totalprice+=$order->total_price;
+                $totalprice+=$order->total_price-10;
             }
             return view('report',[
                 'from' => $startDate,
