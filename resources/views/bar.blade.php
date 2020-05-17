@@ -195,7 +195,7 @@
     @endauth
 
     <li>     
-      <a href="#">
+      <a href="{{route('favorites')}}">
         <img class="favoriteicon" src={{ URL::asset("images/search.svg")}} >
      </a> </li>
 
@@ -223,10 +223,12 @@
 </a>  <span class="badge countCart" id='countcart'>{{Session::has('number_of_items') ? Session::get('number_of_items'): ''}}</span>
   </div>
 </li>
-<li>     
-      <a href="#"><img class="favoriteicon" src={{ URL::asset("images/favorite.svg")}} >
+    <li>     
+      <a href="{{route('favorites')}}">
+        <img class="favoriteicon" src={{ URL::asset("images/favorite.svg")}} >
      
-</a> </li>
+      </a>
+    </li>
 
 
         
