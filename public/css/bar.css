@@ -1,23 +1,121 @@
-.w3-sidebar a {font-family: "Roboto", sans-serif}
-a{
-  color:black;
+.raleway {
+    font-family: 'Raleway';
+    font-size: 18px;
 }
-.wrapper{
-position: relative;
+
+.actionicons {
+    margin-right: 5px;
 }
-.wrapper .countCart{
-position: absolute;
-top: -2px;
-right: -2px; 
+
+.toptext {
+    background-color: rgba(86, 156, 172, 0.87);
+    letter-spacing: 5px;
 }
-#countCart{
-  background-color:red;
+
+.icon-bar {
+    color: black;
 }
-body{
-  margin-top:70px;
+
+.navbar-toggle {
+    float: left;
+    margin-left: 5px;
 }
-@media screen and (min-width: 1245px) {
-  .w3-sidebar{
-    margin-left: -10px;
-  }
+
+.baricons {
+    float: right;
+    margin-top: 12px;
+    margin-right: 20px;
+    width: 35px;
+    height: 35px;
+}
+
+.favoriteicon {
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+}
+
+.locationicon {
+    float: left;
+    width: 35px;
+    height: 35px;
+}
+
+.wrapper {
+    position: relative;
+}
+
+.wrapper .countCart {
+    position: absolute;
+    top: 5px;
+    right: 6px;
+}
+
+.countCart,
+.countmessage {
+    background-color: red;
+}
+
+.wrapper .countmessage {
+    position: absolute;
+    top: 5px;
+    right: 63px;
+}
+
+.navbar {
+    position: relative;
+}
+
+.toplogo {
+    float: left;
+    width: 75px;
+    height: 55px;
+    position: absolute;
+    left: 50%;
+    margin-left: -50px !important;
+    /* 50% of your logo width */
+    display: block;
+    padding-bottom: 5px;
+}
+
+@media (min-width:768px) {
+    .toptext {
+        letter-spacing: 10px;
+    }
+    .wrapper .countmessage {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+    }
+    .toplogo {
+        width: 120px;
+        height: 120px;
+        left: 48%
+    }
+    .navbar {
+        padding-bottom: 10px;
+    }
+    .wrapper {
+        margin-top: 70px;
+    }
+    .wheretobuy {
+        margin-top: 70px;
+    }
+    .favoriteicon {
+        float: right;
+        margin: 0px;
+        margin-right: 10px;
+        width: 35px;
+        height: 35px;
+        margin-top: 67px;
+    }
+    .secondbar {
+        position: relative;
+        left: 30%;
+        width: 70%;
+    }
+    .login {
+        float: right;
+        margin-top: 77px;
+    }
 }

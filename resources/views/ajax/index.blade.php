@@ -28,15 +28,12 @@
    
     </div>
 
-    <!-- Left and right controls -->
-    <a class="left carousel-control" href="#myCarousel{{$item->id}}" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel{{$item->id}}" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right"></span>
-      <span class="sr-only">Next</span>
-    </a>
+    <a class="carousel-control-prev left carousel-control" href="#myCarousel{{$item->id}}" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+</a>
+<a class="carousel-control-next right carousel-control" href="#myCarousel{{$item->id}}" role="button" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+</a>
   </div>
   @if($item->quantity <= 0)
   <p style="color:red;">Available Soon</p>

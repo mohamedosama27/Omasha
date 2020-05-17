@@ -12,6 +12,10 @@
 */
 
 // Route::get('/', 'ItemController@showAll');
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name('welcome');
+
 Route::get('/downloadreport','OrderController@downloadreport')->name('downloadreport');
 Route::get('/index', 'ItemController@random')->name('index');
 Route::get('send-mail','MailSend@mailsend');
