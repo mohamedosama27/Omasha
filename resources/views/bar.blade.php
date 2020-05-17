@@ -46,10 +46,9 @@
       <div class="wrapper visible-xs">
       <a href="{{ Request::is('cart') ? route('home') : route('cart') }}">
       <img class="baricons" src={{ URL::asset("images/cart.svg")}} >
-      @if(session()->has('number_of_items'))
-      <span class="badge countCart" id='countcart'>
-        {{Session::get('number_of_items')}}</span>
-      @endif
+      
+      <span class="badge countCart" id='countcart'>@if(session()->has('number_of_items')){{Session::get('number_of_items')}}@endif</span>
+      
      
 
       </a> 
@@ -83,10 +82,10 @@
       </a> 
   </li>
   <li>
-    <a href="#">
+    <a href="{{route('favorites')}}">
       <div class="visible-xs">
             <span class="raleway">
-            FAVORITES</span>
+            WISHLIST</span>
       
         </div>
   </a>

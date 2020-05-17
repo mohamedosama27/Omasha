@@ -62,7 +62,7 @@ a{
                 </p><br>
        <b>Total price : </b>{{$totalprice}}<p class="EGP"> EGP</p><br>
         <b> Total cost : </b>{{$totalcost}}<p class="EGP"> EGP</p><br>
-        <b> Total delivery : </b>{{$totaldelivery}}<p class="EGP"> EGP</p><br>
+        <b> Total shipping : </b>{{$totaldelivery}}<p class="EGP"> EGP</p><br>
         <b>Total profit : </b>{{$totalprice - $totalcost}}<p class="EGP"> EGP</p><br>
         
 

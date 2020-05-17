@@ -1,170 +1,81 @@
 @extends('bar')
 
 @section('content')
-
-<link href="css/cart.css" rel="stylesheet" type="text/css" media="all" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-<meta name="csrf-token" content="{{ csrf_token() }}" />
-<style>
-
-.item{
-      text-align:center;
-      }
-     
-      .carousel img {
-        width:100%;
-        height: 100%!important;
-        display:inline-block  !important;
-      }
-
-/* Create two equal columns that floats next to each other */
-.column1 {
-  float: left;
-  width: 50%;
-  padding: 10px;
-}
-
-
-
-/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 600px) {
-  
-  .column1 {
-    width: 100%;
-  }
-}
-.product-details{
-  width: auto;
-}
-
-</style>
 @php
 $totalprice=0
 @endphp
 @if(Session::get('number_of_items')!=0)
-<br>
-<div class="w3-card cardspace">
-
-<div class="cardspace">
-<div class="shopping-cart">
-
-<br>
+<link href="css/cart.css" rel="stylesheet" type="text/css" media="all" />
 
 
-@foreach($items as $selecteditem)
 
-  <div class="product row" >
-    <div class="column1">
-  <div id="myCarousel{{$loop->iteration}}" class="carousel slide div1" data-ride="carousel" data-interval="false" >
-   
+ 
+    @foreach($items as $selecteditem)
+    <div class="row">
+        
+          <img class="col-xs-12 col-md-4" src="images\{{$selecteditem->item->images->first()->name}}" height="150" width="110">
+          <a href="{{route('item.show',['id' => $selecteditem->item->id])}}">
+            <p class="col-xs-12 col-md-3 text-center">{{$selecteditem->item->name}}</p>
+         </a>
+          <span class="col-xs-5 col-md-2">Price: {{$selecteditem->item->price}} <p class="EGP">EGP</p></span>
+          <div class="col-xs-3 col-md-2 quantityDiv">
 
-   <!-- Wrapper for slides -->
-   
-   <div class="carousel-inner div1" >
-  
-   @foreach($selecteditem->item->images as $image)
-   @if ($loop->first)
-   <div class="item active div1">
-       <img src="images\{{$image->name}}" height="150" width="110">
-     </div>    
-    @else
-     <div class="item div1">
-       <img height="150" width="110" src="images\{{$image->name}}">
+            <button type="button" class="btn-increment " data-value="{{$selecteditem->item->id}}"
+                 >
+            <i class="fa fa-plus-square"></i></button>
+
+
+            <p id="quantity{{$selecteditem->item->id}}" class="inline">{{$selecteditem->Quantity}}</p>
+
+
+            <button type="button" class="btn-decrement" data-value="{{$selecteditem->item->id}}"
+                >
+            <i class="fa fa-minus-square"></i>
+            </button>
+
+        </div>
+        <a href="{{route('removefromcart',['id' => $selecteditem->item->id])}}" 
+            class="col-xs-3 col-md-1 btn-danger">
+            Remove
+        </a>
+        <div class="col-xs-7 col-md-2 pull-right">
+            <b>Total price : </b>
+            <div class="inline"
+            id="totalprice{{$selecteditem->item->id}}">
+                {{$selecteditem->item->price*$selecteditem->Quantity}}</div>
+            
+            <p class="EGP">EGP</p>
+        </div>
        
-     </div>
-     @endif
-     @endforeach
-
-     
-   </div>
-
-   <!-- Left and right controls -->
-   <a class="carousel-control-prev left carousel-control" href="#myCarousel{{$loop->iteration}}" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-</a>
-<a class="carousel-control-next right carousel-control" href="#myCarousel{{$loop->iteration}}" role="button" data-slide="next">
-        <span class="carousel-control-next-icon"></span>
-</a>
-
- </div>
- </div>
- <div class="column1">
-
- <a href="{{route('item.show',['id' => $selecteditem->item->id])}}"><h3>{{$selecteditem->item->name}}</h3></a>
-    <div class="product-details">
-      
-      <p class="product-description">{{$selecteditem->item->description}}</p>
     </div>
-    
-    </div>
-    <div class="product-price">{{$selecteditem->item->price}}</div>
-    <div class="row product-quantity" >
+    @php $totalprice+=$selecteditem->item->price*$selecteditem->Quantity @endphp
 
-    <button type="button" class="btn-increment" data-value="{{$selecteditem->item->id}}" style="margin-bottom:10px;" style="color:black;">
-    <i class="fa fa-plus-square"></i></button>
-
-  
-      <p id="quantity{{$selecteditem->item->id}}">{{$selecteditem->Quantity}}</p>
-
-      <button type="button" class="btn-decrement" data-value="{{$selecteditem->item->id}}" style="margin-bottom:10px;" style="color:black;">
-      <i class="fa fa-minus-square"></i>
-      </button>
-  
-</div>
-    
-    <div class="product-removal">
-    <a href="{{route('removefromcart',['id' => $selecteditem->item->id])}}">
-    <button class="remove-product">
-        Remove
-      </button></a>
-    </div>
-    
-    <b class="totalprice">Total price : </b>
-    <div class="product-line-price" style="margin-left:10px;" id="totalprice{{$selecteditem->item->id}}">
-    {{$selecteditem->item->price*$selecteditem->Quantity}}</div>
-  
-  </div>
-  
-  @php $totalprice+=$selecteditem->item->price*$selecteditem->Quantity @endphp
-  @endforeach
-  </div>
-  </div>
-  </div>
-
-
-
-  <div class="totals cardspace">
-    <div class="totals-item">
+    @endforeach
+<div class="col-xs-8 pull-right w3-card">
+    <div class="price invoice">
       <label>Subtotal : </label>
-      <div class="totals-value" id="cart-subtotal">{{$totalprice}}</div>
+      <div class=" inline" id="cart-subtotal">{{$totalprice}}</div>
     </div>
-    <div class="totals-item">
-      <label>Delivery : </label>
-      <div class="totals-value" id="cart-tax">10</div>
+    <div class="price invoice">
+      <label>Shipping : </label>
+      <div class="totals-value inline" id="cart-tax">10</div>
     </div>
    
-    <div class="totals-item totals-item-total">
+    <div class="price invoice">
       <label>Total Price : </label>
-      <div class="totals-value" id="cart-total">{{$totalprice+10}}</div>
+      <div class="inline" id="cart-total">{{$totalprice+10}}</div>
     </div>
-  </div>
-  @include('errormessage')
+    @include('errormessage')
   @include('addaddress')
-
-  <a  @auth data-toggle="modal" data-target="#addaddress" @else href=" login" @endauth >
-  <button class="checkout">Checkout</button>
+    <a  @auth data-toggle="modal" data-target="#addaddress" @else href=" login" @endauth >
+  <button class="checkoutButton btn">Checkout</button>
 </div>
-<br>
-
 </div>
 @else
 <div class="alert alert-dark"  style="text-align:center" role="alert">
 <h1>Your cart is empty</h1>
 </div>
-
 @endif
-
 
 <script type="text/javascript">
 
@@ -251,5 +162,4 @@ $totalprice=0
  
 
 </script>
-
 @endsection
