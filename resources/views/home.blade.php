@@ -152,14 +152,14 @@
         disabled
         @endif type="button" class="btn btn-default btn-addtocart column1" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;" >
         Add to cart</button>
-        <button type="button" data-value="{{$item->id}}" class=" btn-addToFavorite btn btn-default column" >
+        <button type="button" data-value="{{$item->id}}" class=" btn-addToFavorite btn btn-default column text-center" >
            <i class="fa fa-heart"></i></button>
         @endif
         @else
         <button  @if($item->quantity <= 0)
         disabled
         @endif
-         type="button" class="btn btn-default btn-addtocart column1" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;" >
+         type="button" class="btn btn-default btn-addtocart column1 text-center" data-value="{{$item->id}}" style="margin-bottom:10px;" style="color:black;" >
          Add to cart</button>
          <button type="button" data-value="{{$item->id}}" class=" btn-addToFavorite btn btn-default column" >
            <i class="fa fa-heart"></i></button>
