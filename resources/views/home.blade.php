@@ -244,7 +244,7 @@
               if(data.message===undefined)
               {
 
-                $("#countcart").text(data.countCart);
+                $(".countCart").text(data.countCart);
               }
               else
               {

@@ -32,7 +32,7 @@ form.addEventLisener('submit,function(e){
     @csrf
     @method('PUT')
     
-        <h1>New item</h1>
+        <h1 class="text-center">New item</h1>
 
             <label>Item Name</label>
             <input type="Text" class="form-control" id="text" Name="name" placeholder="Item Name" value="{{ old('name') }}" required>

@@ -20,10 +20,10 @@ a{
 }
 .details{
     margin:10px;
-}
-*{
     font-size:20px;
+
 }
+
 .EGP{
   margin-left:5px;
   font-size:12px;

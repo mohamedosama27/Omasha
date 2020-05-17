@@ -31,7 +31,7 @@ form.addEventLisener('submit,function(e){
     <form method="POST" action="{{route('item.update',['id' => $item->id])}}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
-        <h1>Edit item</h1>
+        <h1 class="text-center">Edit item</h1>
 
             <label  >Item Name</label>
             <input @if($item->name) value="{{$item->name}}"@endif type="Text" class="form-control" id="text" Name="name" placeholder="Item Name" required>

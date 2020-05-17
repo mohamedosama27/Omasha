@@ -3,6 +3,11 @@
     font-size: 18px;
 }
 
+.notificationHeader {
+    font-size: 22px;
+    margin-top: 30px;
+}
+
 .actionicons {
     margin-right: 5px;
 }
@@ -13,7 +18,7 @@
 }
 
 .icon-bar {
-    color: black;
+    background-color: black;
 }
 
 .navbar-toggle {
@@ -78,7 +83,50 @@
     padding-bottom: 5px;
 }
 
+.chat_list {
+    margin: 0;
+    padding: 18px 16px 10px;
+}
+
+.chat_people {
+    overflow: hidden;
+    clear: both;
+}
+
+.chat_ib {
+    float: left;
+    padding: 0 0 0 15px;
+    width: 88%;
+    border-bottom: 1px solid #ddd;
+}
+
+.chat_ib h3 {
+    font-size: 20px;
+    color: #464646;
+    margin: 0 0 8px 0;
+}
+
+.chat_ib h3 span {
+    font-size: 13px;
+    float: right;
+}
+
+.chat_ib p {
+    font-size: 16px;
+    color: #989898;
+    margin: auto;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 90%;
+    text-overflow: ellipsis;
+}
+
 @media (min-width:768px) {
+    .baricons {
+        width: 25px;
+        height: 25px;
+    }
     .toptext {
         letter-spacing: 10px;
     }
@@ -105,14 +153,18 @@
         float: right;
         margin: 0px;
         margin-right: 10px;
-        width: 35px;
-        height: 35px;
+        width: 25px;
+        height: 25px;
         margin-top: 67px;
     }
     .secondbar {
         position: relative;
         left: 30%;
         width: 70%;
+    }
+    .secondBarForAuth {
+        left: 20%;
+        width: 80%;
     }
     .login {
         float: right;
