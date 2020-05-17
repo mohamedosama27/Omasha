@@ -317,10 +317,11 @@ class ItemController extends Controller
             else{
 
               if($item->quantity <= 0){
-              $output .=' <button type="button" class="btn btn-default btn-addtocart column1" data-value="'.$item->id.'" style="margin-bottom:10px;" style="color:black;" disabled><b>Add to Cart</b></button>';
+              $output .=' <button type="button" class="btn btn-default btn-addtocart column1" data-value="'.$item->id.'" style="margin-bottom:10px;" style="color:black;" disabled>
+              Add to Cart</button>';
               }
               else{
-                $output .=' <button type="button" class="btn btn-default btn-addtocart column1" data-value="'.$item->id.'" style="margin-bottom:10px;" style="color:black;"  ><b>Add to Cart</b></button>';
+                $output .=' <button type="button" class="btn btn-default btn-addtocart column1" data-value="'.$item->id.'" style="margin-bottom:10px;" style="color:black;"  >Add to Cart</button>';
 
               }
               $output.=' <button type="button" data-value="'.$item->id.'" class="btn btn-default btn-addToFavorite column" style="margin-bottom:10px;">
