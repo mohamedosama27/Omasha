@@ -15,7 +15,7 @@
     border-radius: 10px
 }
 
-a{
+.itemsLink{
     color:blue;
 }
 .details{
@@ -55,7 +55,7 @@ a{
                 <ul>
                 @foreach($items as $item)
         <li>{{$item ->Quantity}} of 
-          <a href="{{route('item.show',['id' => $item->item->id])}}">{{$item->item->name}}</a></li>
+          <a class="itemsLink" href="{{route('item.show',['id' => $item->item->id])}}">{{$item->item->name}}</a></li>
         @endforeach
                     
                 </ul>

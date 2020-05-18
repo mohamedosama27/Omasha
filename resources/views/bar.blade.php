@@ -40,7 +40,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="" href="{{route('home')}}">
+      <a  href="{{route('home')}}">
       <img  class="toplogo " src={{ URL::asset("images/Logo-1.png")}} ></a>
     
       <div class="wrapper visible-xs">
@@ -85,7 +85,7 @@
     <a href="{{route('favorites')}}">
       <div class="visible-xs">
             <span class="raleway">
-            WISHLIST</span>
+            WISH LIST</span>
       
         </div>
   </a>
@@ -135,10 +135,10 @@
 @endauth
 
   <li>
-      <a href="#" class="raleway visible-xs">NEW ARRIVALS</a>
+      <a href="{{route('newArrivals')}}" class="raleway visible-xs">NEW ARRIVALS</a>
 </li>
 <li>
-      <a href="#" class="raleway visible-xs">SHOP</a>
+      <a href="{{route('home')}}" class="raleway visible-xs">SHOP</a>
 </li>
 <li>
       <a href="#" class="raleway visible-xs">ABOUT</a>
@@ -151,7 +151,7 @@
           <ul class="dropdown-menu">
           @php( $categories = \App\category::all() )
     @foreach($categories as $category)
-    <li><a href="{{route('category',['id' => $category->id])}}" style="font-size:20px;">
+    <li><a href="{{route('category',['id' => $category->id])}}" class="raleway">
             {{$category->name}}</a></li>        
       @endforeach
           
@@ -227,22 +227,18 @@
         <img class="favoriteicon" src={{ URL::asset("images/favorite.svg")}} >
      
       </a>
-    </li>
-
-
-        
+    </li> 
       </ul>
       
-     
     </div><!-- /.navbar-collapse -->
     
     <div class="secondbar @auth secondBarForAuth @endauth hidden-xs">
       <ul class="nav navbar-nav ">
       <li>
-      <a href="#" class="raleway">NEW ARRIVALS</a>
+      <a href="{{route('newArrivals')}}" class="raleway">NEW ARRIVALS</a>
 </li>
 <li>
-      <a href="#" class="raleway">SHOP</a>
+      <a href="{{route('home')}}" class="raleway">SHOP</a>
 </li>
 <li>
       <a href="#" class="raleway">ABOUT</a>
@@ -254,7 +250,7 @@
           <ul class="dropdown-menu">
           @php( $categories = \App\category::all() )
     @foreach($categories as $category)
-    <li><a href="{{route('category',['id' => $category->id])}}" style="font-size:20px;">
+    <li><a class="raleway" href="{{route('category',['id' => $category->id])}}" >
             {{$category->name}}</a></li>        
       @endforeach
           </ul>

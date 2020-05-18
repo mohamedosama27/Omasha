@@ -1,6 +1,24 @@
 .raleway {
     font-family: 'Raleway';
-    font-size: 18px;
+}
+
+@font-face {
+    font-family: 'battalion';
+    src: url('/font/Battalion.ttf');
+}
+
+.battalion {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 60%;
+    font: inherit;
+    font-family: battalion;
+    vertical-align: baseline
+}
+
+.brandcolor {
+    background-color: rgba(86, 156, 172, 0.87);
 }
 
 .notificationHeader {

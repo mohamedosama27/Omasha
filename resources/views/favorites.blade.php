@@ -156,7 +156,7 @@ border: 0;
   </div>
   @empty
   <div class="alert alert-dark"  style="text-align:center;margin-bottom:20px;" role="alert">
-<h1 style="display:center;">You have no favorites</h1>
+<h1 style="display:center;font-size:26px;" class="battalion" >wish list is empty</h1>
 </div>
 <br>
 

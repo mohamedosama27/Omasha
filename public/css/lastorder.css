@@ -1,0 +1,30 @@
+.column1 {
+    width: 25%;
+}
+
+.card {
+    z-index: 0;
+    background-color: #faf8f8;
+    padding-bottom: 20px;
+    border-radius: 10px
+}
+
+.top {
+    padding-top: 40px;
+    padding-left: 13% !important;
+    padding-right: 13% !important;
+}
+
+.itemsLink {
+    color: blue;
+}
+
+.details {
+    margin: 10px;
+}
+
+.EGP {
+    margin-left: 5px;
+    font-size: 12px;
+    display: inline;
+}

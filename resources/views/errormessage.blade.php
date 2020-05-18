@@ -1,6 +1,6 @@
 
   <div class="modal fade" id="errormessage">
-  <div class="modal-dialog">
+  <div class="modal-dialog ">
     <div class="modal-content">
 
       <!-- Modal Header -->
@@ -10,12 +10,12 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <h4 id="messaga" style="text-align:center">Modal body..</h4>
+        <h4 id="messaga" style="text-align:center" class="battalion">Modal body..</h4>
       </div>
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn brandcolor" data-dismiss="modal" style="color:white;">OK</button>
       </div>
 
     </div>

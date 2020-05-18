@@ -18,6 +18,9 @@ Route::get('/welcome', function () {
 
 Route::get('/downloadreport','OrderController@downloadreport')->name('downloadreport');
 Route::get('/index', 'ItemController@random')->name('index');
+
+Route::get('/newArrivals', 'ItemController@newArrivals')->name('newArrivals');
+
 Route::get('send-mail','MailSend@mailsend');
 Route::get('chat/{id}','MessageController@show')->name('chat')->middleware('auth');
 Route::get('changeStatus/{id}','MessageController@changeStatus')->name('changeStatus')->middleware('auth');

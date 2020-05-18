@@ -98,7 +98,8 @@
       </div>    
      @else
       <div class="item">
-      <a href="{{route('item.show',['id' => $item->id])}}">  <img src={{ URL::asset("images/{$image->name}")}}></a>
+      <a href="{{route('item.show',['id' => $item->id])}}"> 
+         <img src={{ URL::asset("images/{$image->name}")}}></a>
         
       </div>
       
@@ -122,7 +123,7 @@
   @else
   <p><a href="{{route('item.show',['id' => $item->id])}}">{{$item->name}}</a></p>
   @endif
-  <b>{{$item->price}}</b> <p class="EGP">EGP</p><br>
+  <b >{{$item->price}}</b> <p class="EGP">EGP</p><br>
   
       @auth
         @if(Auth::user()->type == 1)

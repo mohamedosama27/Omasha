@@ -70,6 +70,15 @@ class ItemController extends Controller
 
     }
 
+    public function newArrivals()
+    {
+      $items = \App\item::orderBy('id', 'desc')->take(9)->get();
+
+      return view('home',[
+        'items'=>$items
+        ]);
+
+    }
    
 
     public function create(Request $request)

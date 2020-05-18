@@ -72,9 +72,9 @@ $totalprice=0
 </div>
 </div>
 @else
-<div class="alert alert-dark"  style="text-align:center" role="alert">
-<h1>Your cart is empty</h1>
-</div>
+
+<h1 style="margin-top:10%;font-size:26px;" class="battalion text-center" >Your cart is empty</h1>
+
 @endif
 
 <script type="text/javascript">

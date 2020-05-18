@@ -23,15 +23,7 @@
    color: black;
    
 }
-@media (min-width:992px){
-    .footer {
-        margin-left:300px;
-        width:80%;
 
-    }
-    
-  
-}
 .messageinput{
     margin:5px;
     width:85%;
