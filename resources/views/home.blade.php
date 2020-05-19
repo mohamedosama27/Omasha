@@ -49,7 +49,7 @@
 
   <div class="carousel-inner">
     <div class="item active">
-      <img src={{ URL::asset("images/36245.jpg")}} width="100%">
+      <img src={{ URL::asset("images/cover1.jpg")}} width="100%">
     </div>
 
     <div class="item">

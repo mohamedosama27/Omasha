@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="icon" type="image/png" href={{ URL::asset("images/icon.ico")}} >
+<link rel="icon" type="image/png" sizes="96x96" href={{ URL::asset("images/logo.ico")}} >
 <title>OMASHA</title>
 <meta charset="UTF-8">
 
