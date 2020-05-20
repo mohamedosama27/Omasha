@@ -15,6 +15,9 @@
 Route::get('/welcome', function () {
     return view('welcome');
 })->name('welcome');
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::get('/downloadreport','OrderController@downloadreport')->name('downloadreport');
 Route::get('/index', 'ItemController@random')->name('index');
@@ -38,7 +41,6 @@ Route::post('/sendmessage', [
 ])->middleware('auth');
 
 
-Route::get('/', 'ItemController@index');
 Route::get('/category/{id}', 'CategoryController@index')->name('category');
 
 Route::get('/ItemController/search', 'ItemController@search')->name('ItemController.search');
