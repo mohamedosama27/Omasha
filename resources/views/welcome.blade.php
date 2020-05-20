@@ -178,9 +178,8 @@
     <!-- START OMASHA CELEBRITIES SECTION -->
     <section class="celebritiesSection">
       <div class="container">
-      <!-- <h3 class="text-center raleway btnWeight">OMASHA X<span class="battalion"> celebrities</span></h3> -->
         <img class="center-block" src={{ URL::asset("images/Celebrities.png")}} width="300" height="150" >
-        <div class="row">
+        <div class="row ">
             <div class="col-sm-3 col-xs-4">
               <img src={{ URL::asset("images/AzizMarka.png")}}> 
               <p class="brandcolor text-center battalion">Aziz Marka</p>
@@ -210,7 +209,7 @@
             </div>
             <div class="col-sm-3 col-xs-4">
               <img src={{ URL::asset("images/ElMotaba3.png")}}>
-              <p class="brandcolor text-center battalion">Zap Tharwat</p>
+              <p class="brandcolor text-center battalion">ElMoraba3</p>
 
             </div>
 
@@ -232,5 +231,130 @@
     </section>
     <!-- START OMASHA CELEBRITIES SECTION  -->
 
+    <!-- START SHOP COLLECTION SECTION-->
+    <div class="container-fluid shopCollection">
+    <h3 class="ralway text-center">SHOP COLLECTION</h3>
+      <div class="row col-xs-offset-1 col-lg-offset-0">
+          <div class="imageDiv col-sm-2 col-xs-4">
+            <img src={{ URL::asset("images/Mashro3Leila.png")}}>
+            <p>MASHRO3 LEILA</p>
+          </div>
+
+          <div class="imageDiv col-sm-2 col-xs-4">
+            <img src={{ URL::asset("images/AhmedKamel.png")}}>
+            <p>AHMED KAMEL</p>
+          </div>
+
+          <div class="imageDiv col-sm-2 col-xs-4">
+            <img src={{ URL::asset("images/Englishquotes.png")}}>
+            <p>ENGLISH QUOTES</p>
+          </div>
+
+          <div class="imageDiv col-sm-2 col-xs-4">
+            <img src={{ URL::asset("images/RAP.png")}}>
+            <p>RAP</p>
+          </div>
+          
+          <div class="imageDiv col-sm-2 col-xs-4">
+            <img src={{ URL::asset("images/Horoscopes.png")}}>
+            <p>HOROSCOPES</p>
+          </div>
+
+          <div class="imageDiv col-sm-2 col-xs-4">
+            <img src={{ URL::asset("images/Socks.png")}}>
+            <p>SOCKS</p>
+          </div>
+
+          <div class="imageDiv col-sm-2 col-xs-4">
+            <img src={{ URL::asset("images/Sharmofers.png")}}>
+            <p>SHARMOFERS</p>
+          </div>
+          
+          <div class="imageDiv col-sm-2 col-xs-4">
+            <img src={{ URL::asset("images/Pinkfloyd.png")}}>
+            <p>PINK FLOYD</p>
+          </div>
+
+          <div class="imageDiv col-sm-2 col-xs-4">
+            <img src={{ URL::asset("images/Cairokeeee.png")}}>
+            <p>CAIROKEE</p>
+          </div>
+
+          <div class="imageDiv col-sm-2 col-xs-4">
+            <img src={{ URL::asset("images/Masaregbari.png")}}>
+            <p>MASAR EGBARI</p>
+          </div>
+
+          <div class="imageDiv col-sm-2 col-xs-4">
+            <img src={{ URL::asset("images/MixBands.png")}}>
+            <p>MIX BANDS</p>
+          </div>
+
+          <div class="imageDiv col-sm-2 col-xs-4">
+            <img src={{ URL::asset("images/Randomarabic.png")}}>
+            <p>RANDOM ARABIC</p>
+          </div>
+
+      </div>
+    </div>
+
+    <!-- END SHOP COLLECTION SECTION-->
+
+
+    <!-- START LOGO -->
+    <img class="slogo center-block" src={{ URL::asset("images/Slogan.png")}}>
+
+    <!-- END LOGO -->
+
+    <!-- START SUBSCRIBE -->
+<div class="subscribe text-center">
+  <h6 class="raleway">SUBSCRIBE FOR UPDATES ABOUT NEW ARIVALLS, EXCLUSIVE NEWS, AND SPECIAL SALES</h6>
+    <form class="form-inline" action="/action_page.php">
+        <input class="form-control"type="email" id="email">
+      <button type="submit" class="btn brandcolor raleway">SUBSCRIBE</button>
+    </form>
+</div>
+<!-- END SUBSCRIBE -->
+
+ <!-- START FOOTER SECTION-->
+<section class="footer brandcolor">
+  <div class="container-fluid">
+        <div class="row">
+          <div class=" col-lg-3 col-xs-12">
+            <div class="col-xs-6">
+              <img class="logo" src={{ URL::asset("images/Logo-1.png")}}>
+            </div>
+            <div class="col-xs-6">
+
+            <h5>FOLLOW US</h5>
+            <img class="socialIcon" src={{ URL::asset("images/fb.png")}}>
+            <img class="socialIcon" src={{ URL::asset("images/instagram.png")}}>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-xs-12">
+            <h5>CUSTOMER SERVICE</h5>
+            <p>GET IN TOUCH</p>
+            <p>CUSTOMIZE AN ORDER</p>
+            <p>SHIPPING FEES</p>
+          </div>
+
+          <div class="col-lg-3 col-xs-12">
+            <h5>CONTACT US</h5>
+            <p>omasha.eg@gmail.com</p>
+            <p>+2 011 292 2829 17</p>
+          </div>
+
+          <div class="col-lg-3 col-xs-12">
+            <h5>DISTRIBUTOR</h5>
+            <p>IINTRESTED IN BEING A DISTRIBUTOR?</p>
+          </div>
+
+         
+
+          
+        </div>
+  </div>
+</section>
 
 @endsection

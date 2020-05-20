@@ -1,254 +1,339 @@
-.shopnowBtn {
-    font-size: 8px;
-    padding: 2px 3px;
-    color: black;
-}
-
-.carousel-caption {
-    bottom: 0;
-    left: 70%;
-}
-
-.productImg {
-    border-style: solid;
-    border-color: rgba(86, 156, 172, 0.87);
-    height: 200px;
-}
-
-.productImg>img {
-    min-height: 80%;
-}
-
-.btnWeight {
-    font-weight: 900;
-}
-
-.addtowishlist {
-    font-weight: 1000;
-    margin-top: 3px;
-    font-size: 12px;
-}
-
-.product {
-    padding-bottom: 40px;
-}
-
-.topCarousel .carousel-indicators {
-    list-style: none;
-}
-
-.topCarousel .carousel-indicators li {
-    width: 20px;
-    height: 20px;
-    position: relative;
-    border: none;
-    opacity: 0.5;
-    bottom: 0px;
-}
-
-.topCarousel .carousel-indicators li.active {
-    width: 30px;
-    height: 30px;
-    position: relative;
-    border: none;
-    background: none;
-    opacity: 1;
-    bottom: 0px;
-}
-
-.topCarousel .carousel-indicators img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-}
-
-.favoritesSection .row {
-    margin-top: 300px;
-    margin-bottom: 100px;
-    height: 300px;
-}
-
-.favoritesSection .pattern {
-    width: 200px;
-    height: 100%;
-}
-
-.favoritesSection .col-xs-7 {
-    height: 100%;
-}
-
-.favoritesSection .col-xs-3 {
-    height: 100%;
-}
-
-.favoritesSection .first {
-    width: 48%;
-    height: 60%;
-}
-
-.favoritesSection .second {
-    width: 48%;
-    height: 60%;
-}
-
-.favoritesSection .fourth {
-    width: 99%;
-    margin-top: 5px;
-    height: 40%;
-}
-
-.favoritesSection .third {
-    width: 100%;
-    height: 100%;
-    margin-left: -25px;
-}
-
-.celebritiesSection .col-sm-3 {
-    width: 200px;
-    margin-left: 10px;
-    border-style: solid;
-    border-color: rgba(86, 156, 172, 0.87);
-    padding-left: 0px;
-    padding-right: 0px;
-    margin-bottom: 10px;
-}
-
-.celebritiesSection .col-sm-3 img {
-    width: 100%;
-    height: 200px;
-}
-
-.celebritiesSection .col-sm-3 p {
-    margin: 0;
-    line-height: 2em;
-    font-size: 12px;
-}
-
-.celebritiesSection,
-.favoritesSection .row {
-    background-image: url("/images/pattern2.png");
-    background-repeat: no-repeat;
-}
-
-.celebritiesSection {
-    margin-top: 60px;
-}
-
-@media (max-width:440px) {
-    .celebritiesSection .col-sm-3 {
-        width: 150px;
-    }
-    .celebritiesSection .col-sm-3 img {
-        height: 150px;
-    }
-}
-
-@media (min-width:900px) {
-    .craftsmanship .CraftsmanshipImg {
-        margin-left: 10%;
-        height: 350px;
-        width: 270px;
-        position: absolute;
-        bottom: -70px;
-        padding-right: 10px;
-    }
-    .celebritiesSection .row {
-        margin-left: 12%;
-    }
-}
-
-@media (min-width:768px) {
-    .celebritiesSection,
-    .favoritesSection .row {
-        background-size: 30% 100%;
-    }
-    .favoritesSection .row {
-        height: 500px;
-    }
-    .favoritesSection .first {
-        width: 49%;
-    }
-    .favoritesSection .second {
-        width: 49%;
-    }
-    .craftsmanship .pattern {
-        margin-top: -100px;
-        top: 0px;
-        height: 400px;
-    }
-    .craftsmanship .col-xs-9 {
-        margin-top: auto;
-    }
-    .craftsmanship {
-        margin-bottom: 70px;
-        margin-top: 80px;
-    }
-    .topCarousel .carousel-indicators li {
-        width: 30px;
-        height: 30px;
-    }
-    .topCarousel .carousel-indicators li.active {
-        width: 50px;
-        height: 50px;
-    }
     .shopnowBtn {
-        font-size: 18px;
-        padding: 5px 8px;
+        font-size: 8px;
+        padding: 2px 3px;
         color: black;
     }
+    
+    .subscribe {
+        margin-top: 80px;
+        margin-bottom: 80px;
+    }
+    
+    .subscribe .form-control,
+    .subscribe .btn {
+        border-radius: 0px;
+        height: 25px;
+    }
+    
+    .footer .socialIcon {
+        width: 30%;
+        max-height: 100px;
+    }
+    
+    .footer .logo {
+        width: 70%;
+        max-height: 160px;
+        border-right: 1px solid black;
+    }
+    
+    .footer .col-xs-12 {
+        max-height: 160px;
+    }
+    
+    .footer h5 {
+        line-height: 2em;
+        border-bottom: 1px solid black;
+    }
+    
+    .subscribe .btn {
+        margin-left: -4px;
+        padding: 1px 20px;
+    }
+    
+    .slogo {
+        margin-top: 80px;
+        width: 300px;
+    }
+    
+    .shopCollection {
+        margin-top: 60px;
+    }
+    
+    .shopCollection .imageDiv {
+        width: auto;
+        padding-left: 0px;
+        padding-right: 0px;
+        position: relative;
+        text-align: center;
+        color: white;
+    }
+    
+    .shopCollection .imageDiv p {
+        font-weight: 900;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .carousel-caption {
+        bottom: 0;
+        left: 70%;
+    }
+    
     .productImg {
         border-style: solid;
         border-color: rgba(86, 156, 172, 0.87);
+        height: 200px;
+    }
+    
+    .productImg>img {
+        min-height: 80%;
+    }
+    
+    .btnWeight {
+        font-weight: 900;
+    }
+    
+    .addtowishlist {
+        font-weight: 1000;
+        margin-top: 3px;
+        font-size: 12px;
+    }
+    
+    .product {
+        padding-bottom: 40px;
+    }
+    
+    .topCarousel .carousel-indicators {
+        list-style: none;
+    }
+    
+    .topCarousel .carousel-indicators li {
+        width: 20px;
+        height: 20px;
+        position: relative;
+        border: none;
+        opacity: 0.5;
+        bottom: 0px;
+    }
+    
+    .topCarousel .carousel-indicators li.active {
+        width: 30px;
+        height: 30px;
+        position: relative;
+        border: none;
+        background: none;
+        opacity: 1;
+        bottom: 0px;
+    }
+    
+    .topCarousel .carousel-indicators img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+    
+    .favoritesSection .row {
+        margin-top: 300px;
+        margin-bottom: 100px;
         height: 300px;
     }
-}
-
-@media only screen and (min-width:768px) and (max-width:1000px) {
-    .celebritiesSection .row {
-        margin-left: 5%;
+    
+    .favoritesSection .pattern {
+        width: 200px;
+        height: 100%;
     }
-    .craftsmanship .CraftsmanshipImg {
-        margin-left: 0px;
-        height: 350px;
-        width: 270px;
-        position: absolute;
-        bottom: -30px;
-        padding-right: 5px;
+    
+    .favoritesSection .col-xs-7 {
+        height: 100%;
     }
-}
-
-@media (max-width:768px) {
-    .craftsmanship .CraftsmanshipImg {
-        margin-left: 0px;
-        height: 350px;
+    
+    .favoritesSection .col-xs-3 {
+        height: 100%;
+    }
+    
+    .favoritesSection .first {
+        width: 48%;
+        height: 60%;
+    }
+    
+    .favoritesSection .second {
+        width: 48%;
+        height: 60%;
+    }
+    
+    .favoritesSection .fourth {
+        width: 99%;
+        margin-top: 5px;
+        height: 40%;
+    }
+    
+    .favoritesSection .third {
         width: 100%;
-        min-width: 250px;
-        padding-right: 5px;
-        position: absolute;
-        right: 0px;
+        height: 100%;
+        margin-left: -25px;
     }
-    .craftsmanship .img {
-        margin-top: -40%;
+    
+    .celebritiesSection .col-sm-3 {
+        width: 200px;
+        margin-left: 10px;
+        border-style: solid;
+        border-color: rgba(86, 156, 172, 0.87);
+        padding-left: 0px;
+        padding-right: 0px;
+        margin-bottom: 10px;
     }
-    .craftsmanship .col-xs-9 {
-        position: relative;
+    
+    .celebritiesSection .col-sm-3 img {
+        width: 100%;
+        height: 200px;
     }
-    .craftsmanship .col-xs-9 p {
-        padding-bottom: 160px;
+    
+    .celebritiesSection .col-sm-3 p {
+        margin: 0;
+        line-height: 2em;
+        font-size: 12px;
     }
+    
     .celebritiesSection,
     .favoritesSection .row {
-        background-size: 70% 100%;
+        background-image: url("/images/pattern2.png");
+        background-repeat: no-repeat;
     }
-}
-
-@media only screen and (min-width:490px) and (max-width:768px) {
-    .celebritiesSection .row {
-        margin-left: 5%;
+    
+    .celebritiesSection {
+        margin-top: 60px;
     }
-    .craftsmanship .img {
-        margin-top: -20%;
+    
+    @media (max-width:440px) {
+        .celebritiesSection .col-sm-3 {
+            width: 150px;
+        }
+        .celebritiesSection .col-sm-3 img {
+            height: 150px;
+        }
     }
-}
+    
+    @media (max-width:1200px) {}
+    
+    @media (min-width: 900px) {
+        .craftsmanship .CraftsmanshipImg {
+            margin-left: 10%;
+            height: 350px;
+            width: 270px;
+            position: absolute;
+            bottom: -70px;
+            padding-right: 10px;
+        }
+        .celebritiesSection .row {
+            margin-left: 12%;
+        }
+    }
+    
+    @media (min-width:768px) {
+        .subscribe .form-control {
+            width: 500px;
+        }
+        .shopCollection .imageDiv img {
+            width: 200px;
+            height: 200px;
+        }
+        .celebritiesSection,
+        .favoritesSection .row {
+            background-size: 30% 100%;
+        }
+        .favoritesSection .row {
+            height: 500px;
+        }
+        .favoritesSection .first {
+            width: 49%;
+        }
+        .favoritesSection .second {
+            width: 49%;
+        }
+        .craftsmanship .pattern {
+            margin-top: -100px;
+            top: 0px;
+            height: 400px;
+        }
+        .craftsmanship .col-xs-9 {
+            margin-top: auto;
+        }
+        .craftsmanship {
+            margin-bottom: 70px;
+            margin-top: 80px;
+        }
+        .topCarousel .carousel-indicators li {
+            width: 30px;
+            height: 30px;
+        }
+        .topCarousel .carousel-indicators li.active {
+            width: 50px;
+            height: 50px;
+        }
+        .shopnowBtn {
+            font-size: 18px;
+            padding: 5px 8px;
+            color: black;
+        }
+        .productImg {
+            border-style: solid;
+            border-color: rgba(86, 156, 172, 0.87);
+            height: 300px;
+        }
+    }
+    
+    @media only screen and (min-width:768px) and (max-width:1000px) {
+        .celebritiesSection .row {
+            margin-left: 5%;
+        }
+        .craftsmanship .CraftsmanshipImg {
+            margin-left: 0px;
+            height: 350px;
+            width: 270px;
+            position: absolute;
+            display: inline-block;
+            padding-right: 5px;
+        }
+    }
+    
+    @media (max-width:768px) {
+        .subscribe .form-control {
+            width: 200px;
+            display: inline-block;
+        }
+        .shopCollection .imageDiv img {
+            width: 140px;
+            height: 150px;
+        }
+        .craftsmanship .CraftsmanshipImg {
+            margin-left: 0px;
+            height: 350px;
+            width: 100%;
+            min-width: 250px;
+            padding-right: 5px;
+            position: absolute;
+            right: 0px;
+        }
+        .craftsmanship .img {
+            margin-top: -40%;
+        }
+        .craftsmanship .col-xs-9 {
+            position: relative;
+        }
+        .craftsmanship .col-xs-9 p {
+            padding-bottom: 160px;
+        }
+        .celebritiesSection,
+        .favoritesSection .row {
+            background-size: 70% 100%;
+        }
+    }
+    
+    @media only screen and (min-width:490px) and (max-width:768px) {
+        .celebritiesSection .row {
+            margin-left: 5%;
+        }
+        .craftsmanship .img {
+            margin-top: -20%;
+        }
+    }
+    
+    @media only screen and (min-width:300px) and (max-width:374px) {
+        .shopCollection .row {
+            margin-left: 2%;
+        }
+    }
