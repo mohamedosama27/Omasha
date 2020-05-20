@@ -15,6 +15,11 @@
         height: 25px;
     }
     
+    .subscribe .btn {
+        margin-left: -4px;
+        padding: 1px 12px;
+    }
+    
     .footer .socialIcon {
         width: 30%;
         max-height: 100px;
@@ -33,11 +38,6 @@
     .footer h5 {
         line-height: 2em;
         border-bottom: 1px solid black;
-    }
-    
-    .subscribe .btn {
-        margin-left: -4px;
-        padding: 1px 20px;
     }
     
     .slogo {
