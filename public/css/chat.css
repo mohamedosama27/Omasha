@@ -1,0 +1,100 @@
+.chat {
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.chatfooter {
+    height: 50px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    color: black;
+}
+
+.footer {
+    display: none;
+}
+
+.messageinput {
+    border-radius: 20px;
+    margin: 5px;
+    width: 85%;
+    display: inline;
+}
+
+.messagebutton {
+    background-color: blue;
+    border: none;
+    border-radius: 50%;
+}
+
+.sendicon {
+    color: white;
+}
+
+.msg-right {
+    z-index: -1;
+    background: #3BA1EE;
+    padding: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+    text-align: right;
+    color: #fff;
+    margin: 5px;
+    width: auto;
+    max-width: 70%;
+    float: right;
+    margin-right: 30px;
+    border-radius: 15px;
+}
+
+.msg-left {
+    z-index: -1;
+    background: #ddd;
+    padding: 5px;
+    padding-right: 10px;
+    margin: 5px;
+    width: auto;
+    max-width: 70%;
+    float: left;
+    margin-left: 30px;
+    border-radius: 15px;
+}
+
+.msg-left:before {
+    z-index: -1;
+    width: 0;
+    height: 0;
+    content: "";
+    top: 17px;
+    left: -16px;
+    position: relative;
+    border-style: solid;
+    border-width: 20px 0px 0px 20px;
+    border-color: #ddd transparent transparent transparent;
+}
+
+.msg-right:after {
+    z-index: -1;
+    width: 0;
+    height: 0;
+    content: "";
+    top: 16px;
+    left: 16px;
+    position: relative;
+    border-style: solid;
+    border-width: 20px 20px 00px 0px;
+    border-color: #3BA1EE transparent transparent transparent;
+}
+
+.time-right {
+    float: right;
+}
+
+@media (max-width:470px) {
+    .sendicon {
+        font-size: 20px;
+    }
+}

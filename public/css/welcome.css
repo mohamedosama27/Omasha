@@ -20,26 +20,6 @@
         padding: 1px 12px;
     }
     
-    .footer .socialIcon {
-        width: 30%;
-        max-height: 100px;
-    }
-    
-    .footer .logo {
-        width: 70%;
-        max-height: 160px;
-        border-right: 1px solid black;
-    }
-    
-    .footer .col-xs-12 {
-        max-height: 160px;
-    }
-    
-    .footer h5 {
-        line-height: 2em;
-        border-bottom: 1px solid black;
-    }
-    
     .slogo {
         margin-top: 80px;
         width: 300px;
@@ -126,10 +106,15 @@
         left: 0;
     }
     
-    .favoritesSection .row {
-        margin-top: 300px;
+    .favoritesSection .container-fluid {
+        margin-top: 50px;
         margin-bottom: 100px;
         height: 300px;
+        position: relative;
+    }
+    
+    .favoritesSection {
+        margin-top: 300px;
     }
     
     .favoritesSection .pattern {
@@ -137,34 +122,32 @@
         height: 100%;
     }
     
-    .favoritesSection .col-xs-7 {
-        height: 100%;
-    }
-    
-    .favoritesSection .col-xs-3 {
-        height: 100%;
-    }
-    
     .favoritesSection .first {
-        width: 48%;
-        height: 60%;
+        position: absolute;
+        width: 28%;
+        height: 58%;
     }
     
     .favoritesSection .second {
-        width: 48%;
-        height: 60%;
+        position: absolute;
+        width: 28%;
+        right: 41%;
+        height: 58%;
     }
     
     .favoritesSection .fourth {
-        width: 99%;
-        margin-top: 5px;
+        position: absolute;
+        width: 57%;
         height: 40%;
+        bottom: 0px;
     }
     
     .favoritesSection .third {
-        width: 100%;
+        position: absolute;
+        right: 0px;
+        width: 40%;
         height: 100%;
-        margin-left: -25px;
+        /* margin-left: -25px; */
     }
     
     .celebritiesSection .col-sm-3 {
@@ -189,7 +172,7 @@
     }
     
     .celebritiesSection,
-    .favoritesSection .row {
+    .favoritesSection {
         background-image: url("/images/pattern2.png");
         background-repeat: no-repeat;
     }
@@ -207,8 +190,6 @@
         }
     }
     
-    @media (max-width:1200px) {}
-    
     @media (min-width: 900px) {
         .craftsmanship .CraftsmanshipImg {
             margin-left: 10%;
@@ -224,6 +205,10 @@
     }
     
     @media (min-width:768px) {
+        .favoritesSection .container-fluid {
+            width: 70%;
+            height: 500px;
+        }
         .subscribe .form-control {
             width: 500px;
         }
@@ -232,17 +217,8 @@
             height: 200px;
         }
         .celebritiesSection,
-        .favoritesSection .row {
+        .favoritesSection {
             background-size: 30% 100%;
-        }
-        .favoritesSection .row {
-            height: 500px;
-        }
-        .favoritesSection .first {
-            width: 49%;
-        }
-        .favoritesSection .second {
-            width: 49%;
         }
         .craftsmanship .pattern {
             margin-top: -100px;
@@ -291,6 +267,9 @@
     }
     
     @media (max-width:768px) {
+        .titles {
+            font-size: 18px;
+        }
         .subscribe .form-control {
             width: 200px;
             display: inline-block;
@@ -318,7 +297,7 @@
             padding-bottom: 160px;
         }
         .celebritiesSection,
-        .favoritesSection .row {
+        .favoritesSection {
             background-size: 70% 100%;
         }
     }
@@ -335,5 +314,41 @@
     @media only screen and (min-width:300px) and (max-width:374px) {
         .shopCollection .row {
             margin-left: 2%;
+        }
+    }
+    
+    @media only screen and (min-width:300px) and (max-width:590px) {
+        .favoritesSection .first {
+            width: 27%;
+        }
+        .favoritesSection .second {
+            width: 28%;
+        }
+        .favoritesSection .fourth {
+            width: 54%;
+        }
+    }
+    
+    @media only screen and (min-width:360px) and (max-width:440px) {
+        .celebritiesSection .row {
+            margin-left: 5%;
+        }
+    }
+    
+    @media only screen and (min-width:530px) and (max-width:691px) {
+        .celebritiesSection .row {
+            margin-left: 15%;
+        }
+    }
+    
+    @media only screen and (min-width:430px) and (max-width:485px) {
+        .shopCollection .row {
+            margin-left: 15%;
+        }
+    }
+    
+    @media only screen and (min-width:570px) and (max-width:639px) {
+        .shopCollection .row {
+            margin-left: 15%;
         }
     }

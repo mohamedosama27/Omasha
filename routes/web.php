@@ -15,6 +15,17 @@
 Route::get('/welcome', function () {
     return view('welcome');
 })->name('welcome');
+
+Route::put('/createdistributor',
+['uses' => 'DistributorController@store',
+    'as' => 'distributor.store'
+]);
+
+Route::get('/distributor', function () {
+    return view('distributor_form');
+})->name('distributor_form');
+
+
 Route::get('/', function () {
     return view('welcome');
 });

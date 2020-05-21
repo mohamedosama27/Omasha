@@ -5,114 +5,8 @@
 
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-<style>
-.chat {
-    
-  margin: 0 auto;
-  padding: 0 20px;
-}
+<link rel="stylesheet" href="/css/chat.css">
 
-
-.footer {
-    height:50px;
-   position: fixed;
-   left: 0;
-   bottom: 0;
-   width: 100%;
-   background-color: white;
-   color: black;
-   
-}
-
-.messageinput{
-    margin:5px;
-    width:85%;
-    display:inline;
-}
-.messagebutton{
-    background-color: blue;
-    border:none;
-
-    border-radius: 50%;
-}
-.sendicon{
-    color:white;
-}
-
-.msg-right{
-    z-index:-1;
-    background:#3BA1EE;
-    padding:5px;
-    padding-right:10px;
-padding-left:10px;
-    text-align:right;
-    color:#fff;
-    margin:5px;
-    width:auto;
-     max-width:70%;
-         float:right;
-  margin-right: 30px;
-  border-radius: 15px;
-  
-  
-
-}
-.msg-left{
-    z-index:-1;
-    background:#ddd;
-    padding:5px;
-    padding-right:10px;
-    margin:5px;
-     width:auto;
-     max-width:70%;
-    float:left;
-  margin-left: 30px;
-  border-radius: 15px;
-
-}
-.msg-left:before {
-    z-index:-1;
-   width: 0;
-    height: 0;
-    content: "";
-    top:17px;
-    left: -16px;
-    position: relative;
-    border-style: solid;
-    border-width: 20px 0px 0px 20px;
-    border-color: #ddd transparent transparent transparent;
-   
-}
-.msg-right:after {
-    z-index:-1;
-   width: 0;
-    height: 0;
-    content: "";
-    top: 16px;
-    left: 16px;
-    position: relative;
-    border-style: solid;
-    border-width: 20px 20px 00px 0px;
-    border-color: #3BA1EE transparent transparent transparent;
-  
-   
-}
-.time-right{
-    float:right;
-}
-@media (max-width:470px){
-    .messageinput{
-    margin:5px;
-    width:75%;
-    display:inline;
-}
-.sendicon {
-    font-size: 20px;
-  }
-
-}
-
-</style>
 <div class=" chat">
 <input id="senderid" value="{{$sender_id}}" hidden/>
 <input type="number" id="countMessages" value="{{count($messages)}}" hidden/>
@@ -143,7 +37,7 @@ padding-left:10px;
 <br clear="all" />
 @endif
 @endforeach
-<div class="footer">
+<div class="chatfooter">
 
 <input class="form-control messageinput" id="message" autocomplete="off">
   <button type="button" class="messagebutton btn-send"> <i class="fa fa-paper-plane sendicon" ></i></button>

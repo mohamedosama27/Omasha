@@ -1,0 +1,36 @@
+.container .form-control,
+.container .btn {
+    border-radius: 0px;
+    margin-top: 20px;
+}
+
+.container .btn {
+    width: 80px;
+    padding: 1px 6px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.container form {
+    width: 70%;
+}
+
+.container p {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 70%;
+    line-height: 1.3em;
+    font-weight: 900;
+}
+
+.container {
+    background-color: rgb(249, 246, 250);
+    border: 3px solid rgb(163, 163, 163);
+    margin-bottom: 50px;
+}
+
+@media (min-width:768px) {
+    .container {
+        width: 50%;
+    }
+}

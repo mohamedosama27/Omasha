@@ -48,12 +48,12 @@
 <br>
   <!-- SHOP LATEST ARRIVALSl SECTION-->
 
-<h3 class="text-center raleway sectionsTitle" > SHOP LATEST ARRIVALS</h3>
+<h3 class="text-center raleway sectionsTitle titles" > SHOP LATEST ARRIVALS</h3>
 <div class="container">
     <div class="row">
         <div class="product col-xs-6 col-md-3">
             <div class="productImg">
-                    <img src={{ URL::asset("images/77742.png")}} width="100%">      
+                <img src={{ URL::asset("images/77742.png")}} width="100%">      
             </div>
             <p>Pink folyd</p>
             <p>15 EGP</p>
@@ -149,34 +149,34 @@
     <!-- END CRAFTSMANSHIP SECTION IN-->
 <br>
     <!--START OMASHA 'S FAVORITES --> 
+
+
 <section class="favoritesSection">
+
+<h3 class="ralway text-center titles">OMASHA’S FAVORITES</h3>
+
 
   <div class="container-fluid">
   
-    <div class="row">
-    <h3 class="ralway text-center">OMASHA’S FAVORITES</h3>
 
-      <div class="col-xs-7 col-xs-push-1">
         <img src={{ URL::asset("images/Fav2.png")}} class="first">  
         <img src={{ URL::asset("images/Fav1.png")}} class="second">  
+        <img src={{ URL::asset("images/Fav3.jpg")}} class="third">
         <img src={{ URL::asset("images/Fav4.jpg")}} class="fourth">  
 
-      </div>
-      <div class="col-xs-3 col-xs-push-1">
-         <img src={{ URL::asset("images/Fav3.jpg")}} class="third">
-      </div>
+ 
 
-    </div>
-    <div class="text-center">
+  </div>
+  <div class="text-center">
     <a class="btn brandcolor raleway btnWeight">VIEW ALL</a><br>
     </div>
-  </div>
 </section>
-   
     <!--END OMASHA 'S FAVORITES --> 
 
+
+
     <!-- START OMASHA CELEBRITIES SECTION -->
-    <section class="celebritiesSection">
+    <section class="celebritiesSection center-block">
       <div class="container">
         <img class="center-block" src={{ URL::asset("images/Celebrities.png")}} width="300" height="150" >
         <div class="row ">
@@ -233,7 +233,7 @@
 
     <!-- START SHOP COLLECTION SECTION-->
     <div class="container-fluid shopCollection">
-    <h3 class="ralway text-center">SHOP COLLECTION</h3>
+    <h3 class="ralway text-center titles">SHOP COLLECTION</h3>
       <div class="row col-xs-offset-1 col-lg-offset-0">
           <div class="imageDiv col-sm-2 col-xs-4">
             <img src={{ URL::asset("images/Mashro3Leila.png")}}>
@@ -316,45 +316,6 @@
 </div>
 <!-- END SUBSCRIBE -->
 
- <!-- START FOOTER SECTION-->
-<section class="footer brandcolor">
-  <div class="container-fluid">
-        <div class="row">
-          <div class=" col-lg-3 col-xs-12">
-            <div class="col-xs-6">
-              <img class="logo" src={{ URL::asset("images/Logo-1.png")}}>
-            </div>
-            <div class="col-xs-6">
 
-            <h5>FOLLOW US</h5>
-            <img class="socialIcon" src={{ URL::asset("images/fb.png")}}>
-            <img class="socialIcon" src={{ URL::asset("images/instagram.png")}}>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-xs-12">
-            <h5>CUSTOMER SERVICE</h5>
-            <p>GET IN TOUCH</p>
-            <p>CUSTOMIZE AN ORDER</p>
-            <p>SHIPPING FEES</p>
-          </div>
-
-          <div class="col-lg-3 col-xs-12">
-            <h5>CONTACT US</h5>
-            <p>omasha.eg@gmail.com</p>
-            <p>+2 011 292 2829 17</p>
-          </div>
-
-          <div class="col-lg-3 col-xs-12">
-            <h5>DISTRIBUTOR</h5>
-            <p>IINTRESTED IN BEING A DISTRIBUTOR?</p>
-          </div>
-
-         
-
-          
-        </div>
-  </div>
-</section>
 
 @endsection

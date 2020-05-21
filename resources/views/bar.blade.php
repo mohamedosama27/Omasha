@@ -42,7 +42,8 @@
       </button>
       <a  href="{{route('home')}}">
       <img  class="toplogo " src={{ URL::asset("images/Logo-1.png")}} ></a>
-    
+          
+     
       <div class="wrapper visible-xs">
       <a href="{{ Request::is('cart') ? route('home') : route('cart') }}">
       <img class="baricons" src={{ URL::asset("images/cart.svg")}} >
@@ -68,7 +69,9 @@
       </a>          
        <span class="badge countmessage"></span>
   </div>
-
+  <a href="{{route('favorites')}}" class="visible-xs">
+        <img class="baricons" src={{ URL::asset("images/favorite.svg")}} >
+     </a> 
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -81,7 +84,7 @@
       WHERE TO BUY</span></div>
       </a> 
   </li>
-  <li>
+  <!-- <li>
     <a href="{{route('favorites')}}">
       <div class="visible-xs">
             <span class="raleway">
@@ -89,7 +92,7 @@
       
         </div>
   </a>
-  </li>
+  </li> -->
   @auth
     
    
@@ -137,16 +140,29 @@
   <li>
       <a href="{{route('newArrivals')}}" class="raleway visible-xs">NEW ARRIVALS</a>
 </li>
-<li>
-      <a href="{{route('home')}}" class="raleway visible-xs">SHOP</a>
-</li>
+      <!-- <a href="{{route('home')}}" class="raleway visible-xs">SHOP</a> -->
+      <li class="dropdown visible-xs">
+          <a href="#" class="dropdown-toggle raleway" data-toggle="dropdown"
+          role="button" aria-haspopup="true" aria-expanded="false">PRODUCTS
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+ 
+          <li><a class="raleway" href="" >
+            Socks</a></li>     
+            <li><a class="raleway" href="" >
+            Wristbands</a></li>     
+            <li><a class="raleway" href="" >
+            View all</a></li>   
+          </ul>
+        </li>
+
 <li>
       <a href="#" class="raleway visible-xs">ABOUT</a>
 </li>
 <li class="dropdown visible-xs">
           <a href="#" class="dropdown-toggle raleway" data-toggle="dropdown"
           role="button" aria-haspopup="true" aria-expanded="false">
-          PRODUCTS
+          COLLECTION
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
           @php( $categories = \App\category::all() )
@@ -194,7 +210,7 @@
     @endauth
 
     <li>     
-      <a href="{{route('favorites')}}">
+      <a href="">
         <img class="favoriteicon" src={{ URL::asset("images/search.svg")}} >
      </a> </li>
 
@@ -237,15 +253,26 @@
       <li>
       <a href="{{route('newArrivals')}}" class="raleway">NEW ARRIVALS</a>
 </li>
-<li>
-      <a href="{{route('home')}}" class="raleway">SHOP</a>
-</li>
+<li class="dropdown">
+          <a href="#" class="dropdown-toggle raleway" data-toggle="dropdown"
+          role="button" aria-haspopup="true" aria-expanded="false">PRODUCTS
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+ 
+          <li><a class="raleway" href="" >
+            Socks</a></li>     
+            <li><a class="raleway" href="" >
+            Wristbands</a></li>     
+            <li><a class="raleway" href="" >
+            View all</a></li>   
+          </ul>
+        </li>
 <li>
       <a href="#" class="raleway">ABOUT</a>
 </li>
 <li class="dropdown">
           <a href="#" class="dropdown-toggle raleway" data-toggle="dropdown"
-          role="button" aria-haspopup="true" aria-expanded="false">PRODUCTS
+          role="button" aria-haspopup="true" aria-expanded="false">COLLECTION
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
           @php( $categories = \App\category::all() )
@@ -323,7 +350,50 @@
      </div>
   
 </nav>
+<body>
 @yield('content')
+
+</body>
+ <!-- START FOOTER SECTION-->
+ <section class="footer brandcolor">
+  <div class="container-fluid">
+        <div class="row">
+          <div class=" col-lg-3 col-xs-12">
+            <div class="col-xs-6">
+              <img class="logo" src={{ URL::asset("images/Logo-1.png")}}>
+            </div>
+            <div class="col-xs-6">
+
+            <h5>FOLLOW US</h5>
+            <img class="socialIcon" src={{ URL::asset("images/fb.png")}}>
+            <img class="socialIcon" src={{ URL::asset("images/instagram.png")}}>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-xs-12">
+            <h5>CUSTOMER SERVICE</h5>
+            <p>GET IN TOUCH</p>
+            <p>CUSTOMIZE AN ORDER</p>
+            <p>SHIPPING FEES</p>
+          </div>
+
+          <div class="col-lg-3 col-xs-12">
+            <h5>CONTACT US</h5>
+            <p>omasha.eg@gmail.com</p>
+            <p>+2 011 292 2829 17</p>
+          </div>
+
+          <div class="col-lg-3 col-xs-12">
+            <h5>DISTRIBUTOR</h5>
+            <p>IINTRESTED IN BEING A DISTRIBUTOR?</p>
+          </div>
+
+         
+
+          
+        </div>
+  </div>
+</section>
 
 <script>
   function senders_open() {

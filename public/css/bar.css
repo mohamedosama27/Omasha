@@ -48,8 +48,8 @@
     float: right;
     margin-top: 12px;
     margin-right: 20px;
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
 }
 
 .favoriteicon {
@@ -82,7 +82,7 @@
 .wrapper .countmessage {
     position: absolute;
     top: 5px;
-    right: 63px;
+    right: 50px;
 }
 
 .navbar {
@@ -188,4 +188,28 @@
         float: right;
         margin-top: 77px;
     }
+}
+
+.footer {
+    margin-top: 100px;
+}
+
+.footer .socialIcon {
+    width: 30%;
+    max-height: 100px;
+}
+
+.footer .logo {
+    width: 70%;
+    max-height: 160px;
+    border-right: 1px solid black;
+}
+
+.footer .col-xs-12 {
+    max-height: 160px;
+}
+
+.footer h5 {
+    line-height: 2em;
+    border-bottom: 1px solid black;
 }

@@ -18,6 +18,9 @@
     font-size: 28px;
 
   }
+  form button {
+    margin-bottom:20px;
+  }
 
 
 </style>
