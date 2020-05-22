@@ -36,11 +36,11 @@
   <!-- Controls -->
   <a class="left carousel-control" href="#carousel-example-generic"
    role="button" data-slide="prev">
-  <i class="fa fa-3x fa-angle-left" style="padding-top:80%"></i>
+  <i class="fa fa-3x fa-angle-left"></i>
 
   </a>
   <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-  <i class="fa fa-3x fa-angle-right" style="padding-top:80%"></i>
+  <i class="fa fa-3x fa-angle-right" ></i>
   </a>
 </div>
   <!-- End Top  Carousel -->
