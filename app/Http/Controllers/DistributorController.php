@@ -11,7 +11,7 @@ class DistributorController extends Controller
  
        $request->validate([
          'business_name' => ['required', 'string', 'max:255'],
-         'contact_name' => ['required', 'string'],
+         'contact_name' => ['required', 'string','max:255'],
          'email' => ['required', 'string', 'max:255'],
          'phone' => ['required', 'string', 'max:11','min:11'],
          'address' => ['required', 'string', 'max:255'],
@@ -21,20 +21,38 @@ class DistributorController extends Controller
         ]);
  
     }
+    public function showAll()
+    {
+
+        $distributors = \App\distributor::orderBy('id', 'DESC')->get();
+        return view('distributors',[
+            'distributors'=>$distributors,
+
+        ]);
+       
+    }
+    public function delete($id)
+    {
+
+        $distributor = \App\distributor::findorfail($id);
+        $distributor->delete();
+        return redirect('showDistributors');
+
+    }
     public function store(Request $request)
     {
 
         $this->validation($request);
 
-        $item = new  \App\distributor;
-        $item->business_name = $request['business_name'];
-        $item->contact_name=$request['contact_name'];
-        $item->email=$request['email'];
-        $item->phone=$request['phone'];
-        $item->address=$request['address'];
-        $item->city=$request['city'];
-        $item->social_media=$request['social_media'];
-        $item->save();
+        $distributor = new  \App\distributor;
+        $distributor->business_name = $request['business_name'];
+        $distributor->contact_name=$request['contact_name'];
+        $distributor->email=$request['email'];
+        $distributor->phone=$request['phone'];
+        $distributor->address=$request['address'];
+        $distributor->city=$request['city'];
+        $distributor->social_media=$request['social_media'];
+        $distributor->save();
         return redirect('home');
     }
 }

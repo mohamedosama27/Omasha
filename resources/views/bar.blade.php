@@ -77,7 +77,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li>  
-      <a href="#"><div class="wheretobuy">
+      <a href="{{route('location.showAll')}}"><div class="wheretobuy">
       <img class="locationicon hidden-xs" src={{ URL::asset("images/Location.svg")}} >
  
       <span class="raleway" >
@@ -105,7 +105,8 @@
           <ul class="dropdown-menu">
     
             <li><a href="{{route('addadminview')}}">
-            <i class="fa fa-plus actionicons"></i>Add Admin</a></li>    
+            <i class="fa fa-plus actionicons"></i>Add Admin</a></li> 
+
             
             <li><a href="{{route('item.create')}}">
             <i class="fa fa-plus actionicons"></i>Add Item</a></li>       
@@ -121,6 +122,9 @@
 
             <li><a href="{{route('report')}}">
             <i class="fa fa-clipboard actionicons"></i>Report</a></li>
+
+            <li><a href="{{route('distributor.showAll')}}">
+            <i class="fa fa-list actionicons"></i>Show Distributors</a></li>
           </ul>
     </li>
   
@@ -309,6 +313,9 @@
 
             <li><a href="{{route('report')}}">
             <i class="fa fa-clipboard actionicons"></i>Report</a></li>
+
+            <li><a href="{{route('distributor.showAll')}}">
+            <i class="fa fa-list actionicons"></i>Show Distributors</a></li>
           </ul>
     </li>
   
@@ -385,7 +392,7 @@
 
           <div class="col-lg-3 col-xs-12">
             <h5>DISTRIBUTOR</h5>
-            <p>IINTRESTED IN BEING A DISTRIBUTOR?</p>
+            <a href="{{route('distributor_form')}}">IINTRESTED IN BEING A DISTRIBUTOR?</a>
           </div>
 
          

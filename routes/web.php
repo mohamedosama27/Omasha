@@ -16,14 +16,48 @@ Route::get('/welcome', function () {
     return view('welcome');
 })->name('welcome');
 
+// start locations routes
+Route::put('/createlocation',
+['uses' => 'LocationController@store',
+    'as' => 'location.store'
+])->middleware('auth','ifAdmin');
+Route::get('/wheretobuy',
+['uses' => 'LocationController@showAll',
+    'as' => 'location.showAll'
+]);
+
+Route::get('/deleteLocation/{id}', [
+    'uses' => 'LocationController@destroy',
+    'as' => 'location.delete'
+])->middleware('auth','ifAdmin');
+
+Route::put('/updateLocation/{id}',
+[
+    'uses' => 'LocationController@update',
+    'as' => 'location.update'
+])->middleware('auth','ifAdmin');
+// end locations routes
+
+// start distributors routes
+
 Route::put('/createdistributor',
 ['uses' => 'DistributorController@store',
     'as' => 'distributor.store'
 ]);
+Route::get('/showDistributors',
+['uses' => 'DistributorController@showAll',
+    'as' => 'distributor.showAll'
+])->middleware('auth','ifAdmin');
+Route::get('/deleteDistributors/{id}',
+['uses' => 'DistributorController@delete',
+    'as' => 'distributor.delete'
+])->middleware('auth','ifAdmin');
 
 Route::get('/distributor', function () {
     return view('distributor_form');
 })->name('distributor_form');
+
+// end distributors routes
 
 
 Route::get('/', function () {
@@ -138,6 +172,9 @@ Route::get('/edititem/{id}', [
     'uses' => 'ItemController@edit',
     'as' => 'item.edit'
 ])->middleware('auth','ifAdmin');
+
+
+//start category routes
 Route::put('/createcategory',
 [
     'uses' => 'CategoryController@store',
@@ -151,11 +188,13 @@ Route::get('/deleteCategory/{id}', [
     'uses' => 'CategoryController@destroy',
     'as' => 'category.delete'
 ])->middleware('auth','ifAdmin');
+
 Route::put('/updateCategory/{id}',
 [
     'uses' => 'CategoryController@update',
     'as' => 'category.update'
 ])->middleware('auth','ifAdmin');
+//end category routes
 
 
 Route::get('/cart',

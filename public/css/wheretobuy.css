@@ -1,0 +1,26 @@
+.city {
+    width: 200px;
+    border-bottom: 2px solid black;
+    margin-bottom: 10px;
+}
+
+.city h3 {
+    font-weight: bold;
+}
+
+.address {
+    margin-bottom: 30px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+@media (max-width:768px) {
+    .city {
+        width: 150px;
+    }
+    .city h3 {
+        font-size: 18px;
+    }
+}

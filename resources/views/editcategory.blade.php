@@ -28,7 +28,8 @@
       </td>
       </form>
       <td>
-      <a href="{{route('category.delete',['id' => $category->id])}}"><button class="btn btn-primary">Delete</button></a>
+      <a href="{{route('category.delete',['id' => $category->id])}}">
+        <button class="btn btn-danger">Delete</button></a>
 </td>
       
     </tr>
