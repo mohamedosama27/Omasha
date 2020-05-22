@@ -29,6 +29,10 @@
         margin-top: 60px;
     }
     
+    .shopCollection .row {
+        text-align: center;
+    }
+    
     .shopCollection .imageDiv {
         width: auto;
         padding-left: 0px;
