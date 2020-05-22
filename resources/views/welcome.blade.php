@@ -234,63 +234,63 @@
     <!-- START SHOP COLLECTION SECTION-->
     <div class="container-fluid shopCollection">
     <h3 class="ralway text-center titles">SHOP COLLECTION</h3>
-      <div class="row col-xs-offset-1 col-lg-offset-0">
-          <div class="imageDiv col-sm-2 col-xs-4">
+      <div class="row center-block">
+          <div class="imageDiv ">
             <img src={{ URL::asset("images/Mashro3Leila.png")}}>
             <p>MASHRO3 LEILA</p>
           </div>
 
-          <div class="imageDiv col-sm-2 col-xs-4">
+          <div class="imageDiv ">
             <img src={{ URL::asset("images/AhmedKamel.png")}}>
             <p>AHMED KAMEL</p>
           </div>
 
-          <div class="imageDiv col-sm-2 col-xs-4">
+          <div class="imageDiv ">
             <img src={{ URL::asset("images/Englishquotes.png")}}>
             <p>ENGLISH QUOTES</p>
           </div>
 
-          <div class="imageDiv col-sm-2 col-xs-4">
+          <div class="imageDiv ">
             <img src={{ URL::asset("images/RAP.png")}}>
             <p>RAP</p>
           </div>
           
-          <div class="imageDiv col-sm-2 col-xs-4">
+          <div class="imageDiv ">
             <img src={{ URL::asset("images/Horoscopes.png")}}>
             <p>HOROSCOPES</p>
           </div>
 
-          <div class="imageDiv col-sm-2 col-xs-4">
+          <div class="imageDiv ">
             <img src={{ URL::asset("images/Socks.png")}}>
             <p>SOCKS</p>
           </div>
 
-          <div class="imageDiv col-sm-2 col-xs-4">
+          <div class="imageDiv ">
             <img src={{ URL::asset("images/Sharmofers.png")}}>
             <p>SHARMOFERS</p>
           </div>
           
-          <div class="imageDiv col-sm-2 col-xs-4">
+          <div class="imageDiv ">
             <img src={{ URL::asset("images/Pinkfloyd.png")}}>
             <p>PINK FLOYD</p>
           </div>
 
-          <div class="imageDiv col-sm-2 col-xs-4">
+          <div class="imageDiv ">
             <img src={{ URL::asset("images/Cairokeeee.png")}}>
             <p>CAIROKEE</p>
           </div>
 
-          <div class="imageDiv col-sm-2 col-xs-4">
+          <div class="imageDiv ">
             <img src={{ URL::asset("images/Masaregbari.png")}}>
             <p>MASAR EGBARI</p>
           </div>
 
-          <div class="imageDiv col-sm-2 col-xs-4">
+          <div class="imageDiv ">
             <img src={{ URL::asset("images/MixBands.png")}}>
             <p>MIX BANDS</p>
           </div>
 
-          <div class="imageDiv col-sm-2 col-xs-4">
+          <div class="imageDiv ">
             <img src={{ URL::asset("images/Randomarabic.png")}}>
             <p>RANDOM ARABIC</p>
           </div>

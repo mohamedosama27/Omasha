@@ -31,9 +31,11 @@
     
     .shopCollection .row {
         text-align: center;
+        display: inline-block;
     }
     
     .shopCollection .imageDiv {
+        display: inline-block;
         width: auto;
         padding-left: 0px;
         padding-right: 0px;
@@ -351,17 +353,16 @@
     
     @media only screen and (min-width:360px) and (max-width:440px) {
         .celebritiesSection .row {
-            margin-left: 5%;
+            margin-left: 4%;
         }
     }
     
     @media only screen and (min-width:530px) and (max-width:691px) {
         .celebritiesSection .row {
-            margin-left: 15%;
+            margin-left: 10%;
         }
     }
-    
-    @media only screen and (min-width:430px) and (max-width:485px) {
+    /* @media only screen and (min-width:430px) and (max-width:485px) {
         .shopCollection .row {
             margin-left: 15%;
         }
@@ -369,6 +370,6 @@
     
     @media only screen and (min-width:570px) and (max-width:639px) {
         .shopCollection .row {
-            margin-left: 15%;
+            margin-left: 10%;
         }
-    }
+    } */
