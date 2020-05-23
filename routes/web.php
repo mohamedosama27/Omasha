@@ -20,6 +20,21 @@ Route::get('/welcome', 'ItemController@welcome')->name('welcome');
 Route::get('/','ItemController@welcome')->name('welcome');
 
 
+//start subscriber routes
+
+Route::put('/createSubscriber','SubscriberController@store')->name('createSubscriber');
+Route::get('/subscribers','SubscriberController@showAll')
+        ->name('subscribers')
+        ->middleware('auth','ifAdmin');
+
+Route::get('/deleteSubscriber/{id}', [
+'uses' => 'SubscriberController@destroy',
+'as' => 'subscriber.delete'
+])->middleware('auth','ifAdmin');
+                
+//end  subscriber routes
+
+
 // start locations routes
 Route::put('/createlocation',
 ['uses' => 'LocationController@store',

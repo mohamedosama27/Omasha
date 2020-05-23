@@ -51,7 +51,8 @@ $totalprice=0
     @php $totalprice+=$selecteditem->item->price*$selecteditem->Quantity @endphp
 
     @endforeach
-<div class="col-xs-8 pull-right w3-card">
+    <hr>
+<div class="col-xs-8 pull-right">
     <div class="price invoice">
       <label>Subtotal : </label>
       <div class=" inline" id="cart-subtotal">{{$totalprice}}</div>

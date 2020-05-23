@@ -352,9 +352,19 @@
     <!-- START SUBSCRIBE -->
 <div class="subscribe text-center">
   <h6 class="raleway">SUBSCRIBE FOR UPDATES ABOUT NEW ARIVALLS, EXCLUSIVE NEWS, AND SPECIAL SALES</h6>
-    <form class="form-inline" action="/action_page.php">
-        <input class="form-control"type="email" id="email" placeholder="Enter your email">
+    <form method="POST" class="form-inline" action="{{route('createSubscriber')}}" >
+      @csrf
+      @method('PUT')
+    
+        <input class="form-control" type="email" name="email" placeholder="Enter your email">
       <button type="submit" class="btn brandcolor raleway">SUBSCRIBE</button>
+      @error('email')
+      <br>
+
+                                     <span role="alert" style="color:red;">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror 
     </form>
 </div>
 <!-- END SUBSCRIBE -->
