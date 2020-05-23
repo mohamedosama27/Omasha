@@ -54,7 +54,62 @@
         <div class="product col-xs-6 col-md-3">
             <div class="productImg">
                 <img src={{ URL::asset("images/77742.png")}} width="100%">      
+                <button class="btn center-block" data-toggle="modal" data-target="#myModal">Quick View</button>
+              </div>
+               <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content quickview">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+        <div id="carousel-example-generic1" class="carousel slide topCarousel" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-generic1" data-slide-to="0" class="active">
+      <img src={{ URL::asset("images/Logo-2.png")}} width="100%">      
+
+    </li>
+    <li data-target="#carousel-example-generic1" data-slide-to="1">
+      <img  src={{ URL::asset("images/Logo-2.png")}} width="100%">      
+
+    </li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+          <div class="item active" >
+          <img class="carouselImg" src={{ URL::asset("images/cover1.jpg")}} width="100%" >      
+         
+          </div>
+          <div class="item">
+          <img class="carouselImg" src={{ URL::asset("images/cover2.jpg")}} width="100%">      
+            <div class="carousel-caption">
+              ...
             </div>
+          </div>
+          ...
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic1"
+        role="button" data-slide="prev">
+        <i class="fa fa-3x fa-angle-left"></i>
+
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic1" role="button" data-slide="next">
+        <i class="fa fa-3x fa-angle-right" ></i>
+        </a>
+      </div>      
+      </div>
+
+      </div>
+      
+    </div>
+  </div>
             <p>Pink folyd</p>
             <p>15 EGP</p>
             <a class="btn brandcolor raleway btnWeight">Add To Cart</a><br>

@@ -58,9 +58,37 @@
     }
     
     .productImg {
+        position: relative;
         border-style: solid;
         border-color: rgba(86, 156, 172, 0.87);
         height: 200px;
+    }
+    
+    .quickview {
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    .quickview .modal-header {
+        border: none;
+    }
+    
+    .quickview .modal-header button {
+        color: white;
+        opacity: 1;
+    }
+    
+    .productImg .btn {
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        padding: 10px;
+        font-weight: bold;
+        background: rgba(214, 214, 194, 0.3);
+    }
+    
+    .productImg img {
+        height: 194px;
     }
     
     .productImg>img {
