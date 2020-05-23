@@ -26,6 +26,14 @@ class ItemController extends Controller
   ]);
 
    }
+   public function welcome(){
+    $items = \App\item::orderBy('id', 'desc')->take(4)->get();
+    return view('welcome',[
+      'items'=>$items
+      ]);
+
+
+   }
     public function index(Request $request) {
 
       //retieve 10 items from items table

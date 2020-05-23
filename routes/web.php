@@ -12,9 +12,13 @@
 */
 
 // Route::get('/', 'ItemController@showAll');
-Route::get('/welcome', function () {
-    return view('welcome');
-})->name('welcome');
+
+// Route::get('/welcome', function () {
+//     return view('welcome');
+// })->name('welcome');
+Route::get('/welcome', 'ItemController@welcome')->name('welcome');
+Route::get('/','ItemController@welcome')->name('welcome');
+
 
 // start locations routes
 Route::put('/createlocation',
@@ -60,9 +64,6 @@ Route::get('/distributor', function () {
 // end distributors routes
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::get('/downloadreport','OrderController@downloadreport')->name('downloadreport');
 Route::get('/index', 'ItemController@random')->name('index');

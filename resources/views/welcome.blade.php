@@ -2,8 +2,9 @@
 
 @section('content')
 <link rel="stylesheet" href="/css/welcome.css">
+
   <!-- Top  Carousel -->
-<div id="carousel-example-generic" class="carousel slide topCarousel" data-ride="carousel">
+<div id="carousel-example-generic" class="carousel slide topCarousel mainCarousel" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
     <li data-target="#carousel-example-generic" data-slide-to="0" class="active">
@@ -51,13 +52,16 @@
 <h3 class="text-center raleway sectionsTitle titles" > SHOP LATEST ARRIVALS</h3>
 <div class="container">
     <div class="row">
+    @foreach($items as $item)
+
         <div class="product col-xs-6 col-md-3">
+
             <div class="productImg">
-                <img src={{ URL::asset("images/77742.png")}} width="100%">      
-                <button class="btn center-block" data-toggle="modal" data-target="#myModal">Quick View</button>
+                <img src="images\{{$item->images->first()->name}}" width="100%">      
+                <button class="btn center-block" data-toggle="modal" data-target="#myModal{{$item->id}}">Quick View</button>
               </div>
                <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
+  <div class="modal fade" id="myModal{{$item->id}}" role="dialog">
     <div class="modal-dialog modal-lg">
     
       <!-- Modal content-->
@@ -66,41 +70,54 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-        <div id="carousel-example-generic1" class="carousel slide topCarousel" data-ride="carousel">
+        <div id="carousel{{$item->id}}" class="carousel topCarousel" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
-    <li data-target="#carousel-example-generic1" data-slide-to="0" class="active">
+  @foreach($item->images as $image)
+  @if ($loop->first)
+
+    <li data-target="#carousel{{$item->id}}" data-slide-to="0" class="active">
       <img src={{ URL::asset("images/Logo-2.png")}} width="100%">      
 
     </li>
-    <li data-target="#carousel-example-generic1" data-slide-to="1">
+    @else
+
+    <li data-target="#carousel{{$item->id}}" data-slide-to="1">
       <img  src={{ URL::asset("images/Logo-2.png")}} width="100%">      
 
     </li>
+    @endif
+  @endforeach
   </ol>
 
   <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
-          <div class="item active" >
-          <img class="carouselImg" src={{ URL::asset("images/cover1.jpg")}} width="100%" >      
-         
-          </div>
-          <div class="item">
-          <img class="carouselImg" src={{ URL::asset("images/cover2.jpg")}} width="100%">      
-            <div class="carousel-caption">
-              ...
-            </div>
-          </div>
+        @foreach($item->images as $image)
+
+    @if ($loop->first)
+    <div class="item active" >
+    <a href="{{route('item.show',['id' => $item->id])}}"> <img src={{ URL::asset("images/{$image->name}")}}></a>
+      </div>    
+    @else
+      <div class="item">
+      <a href="{{route('item.show',['id' => $item->id])}}"> 
+        <img src={{ URL::asset("images/{$image->name}")}}></a>
+        
+      </div>
+  
+
+  @endif
+  @endforeach
           ...
         </div>
 
         <!-- Controls -->
-        <a class="left carousel-control" href="#carousel-example-generic1"
+        <a class="left carousel-control" href="#carousel{{$item->id}}"
         role="button" data-slide="prev">
         <i class="fa fa-3x fa-angle-left"></i>
 
         </a>
-        <a class="right carousel-control" href="#carousel-example-generic1" role="button" data-slide="next">
+        <a class="right carousel-control" href="#carousel{{$item->id}}" role="button" data-slide="next">
         <i class="fa fa-3x fa-angle-right" ></i>
         </a>
       </div>      
@@ -110,43 +127,14 @@
       
     </div>
   </div>
-            <p>Pink folyd</p>
-            <p>15 EGP</p>
-            <a class="btn brandcolor raleway btnWeight">Add To Cart</a><br>
-            <a class="raleway addtowishlist">Add To Wishlist</a>
+            <p>{{$item->name}}</p>
+            <p>{{$item->price}} EGP</p>
+            <button class="btn brandcolor raleway btnWeight btn-addtocart" data-value="{{$item->id}}">
+              Add To Cart</button><br>
+            <a data-value="{{$item->id}}"  class="btn-addToFavorite raleway addtowishlist">Add To Wishlist</a>
 
         </div>
-        <div class="product col-xs-6 col-md-3">
-            <div class="productImg">
-                    <img src={{ URL::asset("images/77742.png")}} width="100%">      
-            </div>
-            <p>Pink folyd</p>
-            <p>15 EGP</p>
-            <a class="btn brandcolor raleway btnWeight">Add To Cart</a><br>
-            <a class="raleway addtowishlist">Add To Wishlist</a>
-
-        </div>
-        <div class="product col-xs-6 col-md-3">
-            <div class="productImg">
-                    <img src={{ URL::asset("images/77742.png")}} width="100%">      
-            </div>
-            <p>Pink folyd</p>
-            <p>15 EGP</p>
-            <a class="btn brandcolor raleway btnWeight">Add To Cart</a><br>
-            <a class="raleway addtowishlist">Add To Wishlist</a>
-
-        </div>
-        <div class="product col-xs-6 col-md-3">
-            <div class="productImg">
-                    <img src={{ URL::asset("images/77742.png")}} width="100%">      
-            </div>
-            <p>Pink folyd</p>
-            <p>15 EGP</p>
-            <a class="btn brandcolor raleway btnWeight">Add To Cart</a><br>
-            <a class="raleway addtowishlist">Add To Wishlist</a>
-            
-
-        </div>
+       @endforeach
     </div>
 </div>
   <!-- END SHOP LATEST ARRIVALSl SECTION IN SM , MD , LG-->
@@ -372,5 +360,8 @@
 <!-- END SUBSCRIBE -->
 
 
+@include('errormessage')
+
+<script src="{{ asset('js/cart_favorite.js')}}"></script>
 
 @endsection
