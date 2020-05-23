@@ -121,7 +121,7 @@ Route::post('/incrementItem', [
 
 
 Route::get('/home', [
-    'uses' => 'ItemController@index',
+    'uses' => 'ItemController@welcome',
     'as' => 'home'
 ]);
 Route::put('/update/{id}',

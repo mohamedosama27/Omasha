@@ -17,7 +17,7 @@ $(document).on("click", '.btn-addToFavorite', function(e) {
 
         type: 'POST',
 
-        url: "addToFavorite",
+        url: url('addToFavorite'),
 
         data: { id: id },
 

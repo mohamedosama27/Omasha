@@ -160,7 +160,7 @@ img {
 						<p class="product-description">{{$item->description}}</p>
 						<h4 class="price">current price: <span>{{$item->price}} <p class="EGP">EGP</p></span></h4>
 					
-					
+				
 						<div class="action">
             @auth
         @if(Auth::user()->type == 1)
