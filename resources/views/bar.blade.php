@@ -125,6 +125,9 @@
 
             <li><a href="{{route('distributor.showAll')}}">
             <i class="fa fa-list actionicons"></i>Show Distributors</a></li>
+
+            <li><a href="{{route('subscribers')}}">
+            <i class="fa fa-users actionicons"></i>Show Subscribers</a></li>
           </ul>
     </li>
   
@@ -316,6 +319,9 @@
 
             <li><a href="{{route('distributor.showAll')}}">
             <i class="fa fa-list actionicons"></i>Show Distributors</a></li>
+
+            <li><a href="{{route('subscribers')}}">
+            <i class="fa fa-users actionicons"></i>Show Subscribers</a></li>
           </ul>
     </li>
   
