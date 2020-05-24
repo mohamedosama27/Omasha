@@ -27,13 +27,37 @@ class ItemController extends Controller
 
    }
    public function welcome(){
-    $items = \App\item::orderBy('id', 'desc')->take(4)->get();
-    return view('welcome',[
+
+      if (Auth::user() && auth()->user()->type==1)
+      {
+      $items = \App\item::orderBy('id', 'DESC')->take(4)->get();
+      }
+      else{
+        $items = \App\item::where('hide','=',NULL)->orderBy('id', 'DESC')->take(4)->get();
+
+      }
+      return view('welcome',[
+        'items'=>$items
+        ]);
+  
+
+   }
+   public function shop(){
+
+    if (Auth::user() && auth()->user()->type==1)
+    {
+    $items = \App\item::orderBy('id', 'DESC')->paginate($this->items_per_page);
+    }
+    else{
+      $items = \App\item::where('hide','=',NULL)->orderBy('id', 'DESC')->paginate($this->items_per_page);
+
+    }
+    return view('shop',[
       'items'=>$items
       ]);
 
 
-   }
+ }
     public function index(Request $request) {
 
       //retieve 10 items from items table

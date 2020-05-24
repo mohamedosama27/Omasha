@@ -11,9 +11,16 @@ class FavoriteController extends Controller
         //add item_id with current user_id in table item_user
         if(\Auth::check())
         {
+           
+            try {
+        
+                \Auth::user()->favorites()->attach($request->id);
+                return response()->json(['message'=>'Added Successfully']);
 
-        \Auth::user()->favorites()->attach($request->id);
-        return response()->json(['message'=>'Added Successfully']);
+            } catch (\Illuminate\Database\QueryException $e) {
+                return response()->json(['message'=>'Already Added']);
+            }
+        
 
         }
         else{

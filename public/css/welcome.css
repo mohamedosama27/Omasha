@@ -64,6 +64,13 @@
         height: 200px;
     }
     
+    .product p {
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
     .quickview {
         height: 100%;
         background-color: rgba(255, 255, 255, 0.3);
@@ -248,6 +255,9 @@
     }
     
     @media (min-width:768px) {
+        .favoritestitle {
+            padding-top: 100px;
+        }
         .favoritesSection .container-fluid {
             width: 70%;
             height: 500px;
@@ -330,7 +340,7 @@
             display: inline-block;
         }
         .shopCollection .imageDiv img {
-            width: 140px;
+            width: 135px;
             height: 150px;
         }
         .craftsmanship .CraftsmanshipImg {

@@ -196,7 +196,7 @@
 
 <section class="favoritesSection">
 
-<h3 class="ralway text-center titles">OMASHA’S FAVORITES</h3>
+<h3 class="ralway text-center titles favoritestitle">OMASHA’S FAVORITES</h3>
 
 
   <div class="container-fluid">
@@ -352,11 +352,9 @@
     <!-- START SUBSCRIBE -->
 <div class="subscribe text-center">
   <h6 class="raleway">SUBSCRIBE FOR UPDATES ABOUT NEW ARIVALLS, EXCLUSIVE NEWS, AND SPECIAL SALES</h6>
-    <form method="POST" class="form-inline" action="{{route('createSubscriber')}}" >
-      @csrf
-      @method('PUT')
-    
-        <input class="form-control" type="email" name="email" placeholder="Enter your email">
+    <form id="subscribe" class="form-inline" >
+   
+        <input class="form-control" type="email" name="email" id="email" placeholder="Enter your email">
       <button type="submit" class="btn brandcolor raleway">SUBSCRIBE</button>
       @error('email')
       <br>
@@ -374,4 +372,26 @@
 
 <script src="{{ asset('js/cart_favorite.js')}}"></script>
 
+<script type="text/javascript">
+
+$('#subscribe').on('submit',function(event){
+    event.preventDefault();
+
+    email = $('#email').val();
+
+    $.ajax({
+      url: "{{route('createSubscriber')}}",
+      type:"POST",
+      data:{       
+        email:email,
+      },
+      success:function(response){
+        $("#email").val('');
+        $('#messaga').text(response.success)
+        $('#errormessage').modal();
+
+      },
+     });
+    });
+  </script>
 @endsection

@@ -6,23 +6,30 @@ use Illuminate\Http\Request;
 
 class SubscriberController extends Controller
 {
-    public function validation($request)
-    {
-       //validate data passed from add item view or edit item view
  
-       $request->validate([
-        'email' => ['required', 'string', 'email', 'max:255', 'unique:subscribers'],
-        ]);
- 
-    }
     public function store(Request $request)
     {
-        $this->validation($request);
+         $request->validate([
+            'email' => ['required', 'string', 'email', 'max:255'],
+            ]);
 
+       try {
+        
         $subscriber = new  \App\subscriber;
         $subscriber->email = $request['email'];
         $subscriber->save();
-        return redirect('welcome');
+        return response()->json(['success'=>'Added Successfully']);
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            return response()->json(['success'=>"Already Added"]);
+        }
+    
+
+       
+       
+            
+           
+
     }
     public function showAll(Request $request)
     {

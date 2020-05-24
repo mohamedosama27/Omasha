@@ -21,8 +21,10 @@ Route::get('/','ItemController@welcome')->name('welcome');
 
 
 //start subscriber routes
+Route::get('/shop','ItemController@shop')->name('shop');
 
-Route::put('/createSubscriber','SubscriberController@store')->name('createSubscriber');
+Route::post('/createSubscriber','SubscriberController@store')->name('createSubscriber');
+
 Route::get('/subscribers','SubscriberController@showAll')
         ->name('subscribers')
         ->middleware('auth','ifAdmin');
