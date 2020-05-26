@@ -21,8 +21,11 @@
   max-width:85%;
 
 }
+#search{
+  width:80%;
+}
 </style>
-<input type="text" name="search" id="search" class="form-control" placeholder="Search by name"/>
+<input type="text" name="search" id="search" class="form-control center-block" placeholder="Search by name"/>
 <div id="result">
 @foreach($messages as $message)
 <a class="chatlink" href="{{route('chat',['id' => $message->sender->id])}}">

@@ -57,7 +57,8 @@
         <div class="product col-xs-6 col-md-3">
 
             <div class="productImg">
-                <img src="images\{{$item->images->first()->name}}" width="100%">      
+           
+                <img src={{ URL::asset("images/{$item->images->first()->name}")}} width="100%">      
                 <button class="btn center-block" data-toggle="modal" data-target="#myModal{{$item->id}}">Quick View</button>
               </div>
                <!-- Modal -->

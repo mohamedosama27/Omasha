@@ -85,6 +85,9 @@ border: 0;
     font-size: 12px;
     border-radius: 3px;
 }
+.fa-angle-left , .fa-angle-right{
+margin-top:50%;
+}
 </style>
 
 <br>
@@ -124,12 +127,12 @@ border: 0;
 
    <!-- Left and right controls -->
    <a class="left carousel-control" href="#myCarousel{{$loop->iteration}}" data-slide="prev">
-     <span class="glyphicon glyphicon-chevron-left"></span>
-     <span class="sr-only">Previous</span>
+   <i class="fa fa-3x fa-angle-left"></i>
+
    </a>
    <a class="right carousel-control" href="#myCarousel{{$loop->iteration}}" data-slide="next">
-     <span class="glyphicon glyphicon-chevron-right"></span>
-     <span class="sr-only">Next</span>
+   <i class="fa fa-3x fa-angle-right"></i>
+
    </a>
  </div>
  </div>

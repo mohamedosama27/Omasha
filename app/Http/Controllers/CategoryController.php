@@ -14,14 +14,14 @@ class CategoryController extends Controller
 
         $items = \App\item::where('category_id','=',$id)->paginate($this->items_per_page);
 
-        if($request->ajax()) {
-            return [
-                'items' => view('ajax.index')->with(compact('items'))->render(),
-                'next_page' => $items->nextPageUrl()
-            ];
-        }
+        // if($request->ajax()) {
+        //     return [
+        //         'items' => view('ajax.index')->with(compact('items'))->render(),
+        //         'next_page' => $items->nextPageUrl()
+        //     ];
+        // }
 
-        return view('home')->with(compact('items'));
+        return view('shop')->with(compact('items'));
 
     }
     public function store(Request $request)
@@ -32,7 +32,7 @@ class CategoryController extends Controller
  
         $category->name = $request['name'];
         $category->save();
-        return redirect('home');
+        return redirect()->back();
     }
     public function edit()
     {

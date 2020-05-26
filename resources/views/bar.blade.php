@@ -145,7 +145,7 @@
 @endauth
 
   <li>
-      <a href="{{route('newArrivals')}}" class="raleway visible-xs">NEW ARRIVALS</a>
+      <a href="{{route('shop')}}" class="raleway visible-xs">SHOP</a>
 </li>
       <!-- <a href="{{route('home')}}" class="raleway visible-xs">SHOP</a> -->
       <li class="dropdown visible-xs">
@@ -158,7 +158,7 @@
             Socks</a></li>     
             <li><a class="raleway" href="" >
             Wristbands</a></li>     
-            <li><a class="raleway" href="" >
+            <li><a class="raleway" href="{{route('shop')}}" >
             View all</a></li>   
           </ul>
         </li>
@@ -258,7 +258,7 @@
     <div class="secondbar @auth secondBarForAuth @endauth hidden-xs">
       <ul class="nav navbar-nav ">
       <li>
-      <a href="{{route('newArrivals')}}" class="raleway">NEW ARRIVALS</a>
+      <a href="{{route('shop')}}" class="raleway">SHOP</a>
 </li>
 <li class="dropdown">
           <a href="#" class="dropdown-toggle raleway" data-toggle="dropdown"
@@ -270,7 +270,7 @@
             Socks</a></li>     
             <li><a class="raleway" href="" >
             Wristbands</a></li>     
-            <li><a class="raleway" href="" >
+            <li><a class="raleway" href="{{route('shop')}}" >
             View all</a></li>   
           </ul>
         </li>

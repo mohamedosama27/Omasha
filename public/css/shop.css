@@ -138,3 +138,12 @@
     color: white;
     background-color: rgba(86, 156, 172) !Important;
 }
+
+.actionIcons {
+    color: white;
+}
+
+#search {
+    width: 90%;
+    margin-bottom: 20px;
+}
