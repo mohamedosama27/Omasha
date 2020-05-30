@@ -2,8 +2,8 @@
 
 @section('content')
 <link rel="stylesheet" href="/css/shop.css">
-<input type="text" name="search" id="search" class="form-control center-block" 
-placeholder="Search by quote"/>
+<!-- <input type="text" name="search" id="search" class="form-control center-block" 
+placeholder="Search by quote"/> -->
 
 <div class="container">
     <div class="row">
@@ -187,7 +187,7 @@ $.ajax({
 $(document).on('keyup', '#search', function(){
 
     var query = $('#search').val();
-    alert(query);
+    //alert(query);
 });
     </script>
 @endsection
