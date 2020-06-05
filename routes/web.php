@@ -106,7 +106,7 @@ Route::post('/sendmessage', [
 
 Route::get('/category/{id}', 'CategoryController@index')->name('category');
 
-Route::get('/ItemController/search', 'ItemController@search')->name('ItemController.search');
+Route::post('/ItemController/search', 'ItemController@search')->name('ItemController.search');
 Route::post('/add-to-cart', 'CartController@AddToCart')->name('item.addToCart');
 Route::post('/addToFavorite', 'FavoriteController@addToFavorites')->name('addToFavorite');
 Route::get('/favorites', 'FavoriteController@show')->name('favorites')->middleware('auth');

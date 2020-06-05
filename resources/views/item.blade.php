@@ -240,6 +240,8 @@ $(document).on("click", '.btn-addtocart', function(e) {
             {
 
               $("#countcart").text(data.countCart);
+              $('#messaga').text("Added Sucessfully")
+                $('#errormessage').modal();
             }
             else
             {

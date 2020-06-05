@@ -21,14 +21,40 @@
 
 
   </head>
-  @auth
-    @if(Auth::user()->type == 1)
+@auth
+@if(Auth::user()->type == 1)
 @include('addcategory')
 @endif
 @endauth
+<body>
+
+<!-- Start Search Modal -->
+<div class="modal fade" id="searchModel" role="dialog">
+  <div class="modal-dialog modal-lg">
+  
+    <div class="modal-content">
+    
+
+
+        <button type="button" class="close" data-dismiss="modal">
+        &times;
+        </button>
+        <img  src={{ URL::asset("images/search.svg")}} >
+        <input class="form-control" id="searchInput" type="text" placeholder="Search"/>
+        <div class="searchResult">
+      
+        </div>
+
+    </div>
+    
+  </div>
+</div>
+<!-- End Search Modal -->
+
   <div class="toptext text-center">&nbsp; FREE  DELIVERY  ON ORDERS  ABOVE 100  EGP &nbsp;</div>
   <nav class="navbar">
   <div class="container-fluid">
+    
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header ">
   
@@ -40,6 +66,9 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+
+     
+     
       <a  href="{{route('home')}}">
       <img  class="toplogo " src={{ URL::asset("images/Logo-1.png")}} ></a>
           
@@ -55,6 +84,7 @@
       </a> 
   </div>
   <div class="wrapper visible-xs">
+ 
       @auth 
     @if(Auth::user()->type == 1)
     <a href="javascript:void(0)"
@@ -72,6 +102,9 @@
   <a href="{{route('favorites')}}" class="visible-xs">
         <img class="baricons" src={{ URL::asset("images/favorite.svg")}} >
      </a> 
+      <a data-toggle="modal" data-target="#searchModel">
+        <img class="searchlogo visible-xs" src={{ URL::asset("images/search.svg")}} >
+      </a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -84,19 +117,9 @@
       WHERE TO BUY</span></div>
       </a> 
   </li>
-  <!-- <li>
-    <a href="{{route('favorites')}}">
-      <div class="visible-xs">
-            <span class="raleway">
-            WISH LIST</span>
-      
-        </div>
-  </a>
-  </li> -->
+
   @auth
-    
-   
-  
+
     @if(Auth::user()->type == 1)
     <li class="dropdown visible-xs">
           <a href="#" class="dropdown-toggle raleway" data-toggle="dropdown"
@@ -217,7 +240,8 @@
     @endauth
 
     <li>     
-      <a href="">
+    <a data-toggle="modal" data-target="#searchModel">
+
         <img class="favoriteicon" src={{ URL::asset("images/search.svg")}} >
      </a> </li>
 
@@ -363,10 +387,10 @@
      </div>
   
 </nav>
-<body>
+
 @yield('content')
 
-</body>
+
  <!-- START FOOTER SECTION-->
  <section class="footer brandcolor">
   <div class="container-fluid">
@@ -406,10 +430,29 @@
           
         </div>
   </div>
+  
 </section>
-
+</body>
 <script>
-  function senders_open() {
+ $('#searchInput').keyup(function(){ 
+        var query = $(this).val();
+        
+       
+         var _token = $('input[name="_token"]').val();
+         $.ajax({
+          url:"{{ route('ItemController.search') }}",
+          method:"POST",
+          data:{query:query, _token:_token},
+          success:function(data){
+
+          $('.searchResult').html(data.result)
+           
+          }
+         });
+        
+    });
+
+function senders_open() {
   document.getElementById("senders").style.display = "block";
   getSenders();
 }

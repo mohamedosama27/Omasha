@@ -252,10 +252,13 @@ class ItemController extends Controller
 
      if($request->ajax())
      {
+      $query = $request['query'];
+      
       $output = '';
-      $query = $request->get('query');
+      
       if($query != '')
       {
+     
         if (Auth::user() && auth()->user()->type==1)
         {
           $items = \App\item::where('name', 'like', '%'.$query.'%')
@@ -266,11 +269,7 @@ class ItemController extends Controller
         }
 
          
-      }
-      else{
-        $items = \App\item::where('hide','=',NULL)->orderBy('id', 'DESC')->paginate($this->items_per_page);
-
-      }
+     
       
     
    
@@ -279,151 +278,16 @@ class ItemController extends Controller
       {
        foreach($items as $item)
        {
-        $images=DB::table('images')->where('item_id', '=',$item->id)->get();
         
-        $output .= '<div class="w3-col l3 s6">
-        <div class="w3-container div3">
-        
-         <div id="myCarousel'.$item->id.'" class="carousel slide" data-ride="carousel" data-interval="false" >
-     
-  
-     
-      
-      <div class="carousel-inner div1" >';
-     
-      foreach($images as $index => $image){
-        $url=asset('images/'.$image->name);
-      if ($index == 0) {
-        
-        $output .='
-        <div class="item active">
-        
-        <a href="'.route("item.show",["id" => $item->id]).'"> <img src="'.$url.'"></a>
-        </div> ';
-      }   
-       else{
-       $output .='<div class="item">
-       <a href="'.route("item.show",["id" => $item->id]).'">  <img height="150" width="110" src="'.$url.'"></a>
-          
-        </div>';
-    }
-    }
-       
-     
-    $output .='</div>
-
-    <a class="carousel-control-prev left carousel-control" href="#myCarousel'.$item->id.'" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-</a>
-<a class="carousel-control-next right carousel-control" href="#myCarousel'.$item->id.'" role="button" data-slide="next">
-        <span class="carousel-control-next-icon"></span>
-</a>
-
-  
-
-    </div> ';
-    
-    if($item->quantity <= 0){
-        $output .='<p style="color:red;">Available Soon</p>';
-        }
-        else{
-          
-        $output .='<p><a href="'.route("item.show",["id" => $item->id]).'">'.$item->name.'</a></p>';
-        }
-        $output .='<b>'.$item->price.'</b><p class="EGP">EGP</p><br>';
-
-        if (Auth::check()) {
-            if(Auth::user()->type == 1){
-              $output .='<b>Quantity : '.$item->quantity.'</b><br>';
-            $output .='<a href="'.route("item.delete",["id" => $item->id]).'"><button type="button" class="btn btn-default actions" style="margin-bottom:10px;" style="color:black;">
-            <i class="fa fa-lg fa-trash actionIcons"></i></button></a>
-            <a  href="'.route("item.edit",["id" => $item->id]).'"><button type="button" class="btn btn-default actions" style="margin-bottom:10px;" style="color:black;">
-            <i class="fa fa-lg fa-pencil actionIcons"></i></button></a>
-            <a href="'.route("hideitem",["id" => $item->id]).'">
-            <button type="button" class="btn btn-default actions" style="margin-bottom:10px;color:black;">
-            <b>';
-            if($item->hide == 1)
-            {
-              $output .='<i class="fa fa-eye actionIcons" ></i>';
-            }
-            else {
-              $output .='<i class="fa fa-eye-slash actionIcons" ></i>';
-
-            } 
-            $output .='</b></button></a>';
-            $output.=' <button type="button" data-value="'.$item->id.'" class="btn btn-default btn-addToFavorite actions" style="margin-bottom:10px;">
-            <i class="fa fa-heart"></i></button>';
-          }
-    
-            else{
-
-              if($item->quantity <= 0){
-              $output .=' <button type="button" class="btn btn-default btn-addtocart column1" data-value="'.$item->id.'" style="margin-bottom:10px;" style="color:black;" disabled>
-              Add to Cart</button>';
-              }
-              else{
-                $output .=' <button type="button" class="btn btn-default btn-addtocart column1" data-value="'.$item->id.'" style="margin-bottom:10px;" style="color:black;"  >Add to Cart</button>';
-
-              }
-              $output.=' <button type="button" data-value="'.$item->id.'" class="btn btn-default btn-addToFavorite column" style="margin-bottom:10px;">
-              <i class="fa fa-heart"></i></button>';
-            }
-
-      }
-      else{
-
-        if($item->quantity <= 0){
-
-          $output .=' <button type="button" class="btn btn-default btn-addtocart column1" data-value="'.$item->id.'" style="margin-bottom:10px;" style="color:black;" disabled ><b>Add to Cart</b></button>';
-        }
-        else{
-          $output .=' <button type="button" class="btn btn-default btn-addtocart column1" data-value="'.$item->id.'" style="margin-bottom:10px;" style="color:black;"  ><b>Add to Cart</b></button>';
-
-        }
-        $output.=' <button type="button" data-value="'.$item->id.'" class="btn btn-default btn-addToFavorite column" style="margin-bottom:10px;">
-        <i class="fa fa-heart"></i></button>';
-        
-        }  
-       
-       
-      $output .='  <hr>
-    </div>
-    
-    </div>
-    
-    ';
-    
+         $output.='<a href="'.route("item.show",["id" => $item->id]).'"><p>'.$item->name.'</p></a>';
        }
       }
-      else
-      {
-       $output = '
-       <div class="alert alert-dark">
-       <h3 >No items with this name</h3>
-       </div>       ';
+      else{
+        $output.='<p>Sorry, nothing found</p>';
       }
-      if($query != '')
-      {
-      $data = array(
-       'table_data'  => $output,
-       'total_data'  => $total_row,
-       
-      );
     }
-    else
-    {
-
-      $data = array(
-        'table_data'  => $output,
-        'total_data'  => $total_row,
-        'next_page' => url('/home?page='.($items->currentPage()+1)),
-        'numberofitems'=>count($items),
-        
-       );
-
-    }
-
-      echo json_encode($data);
+      return response()->json(['result'=>$output]);
+    
      }
     }
     public function hide($id)
