@@ -39,7 +39,7 @@
         <button type="button" class="close" data-dismiss="modal">
         &times;
         </button>
-        <img  src={{ URL::asset("images/search.svg")}} >
+        <img  src={{ URL::asset("images/search.png")}} >
         <input class="form-control" id="searchInput" type="text" placeholder="Search"/>
         <div class="searchResult">
       
@@ -103,7 +103,7 @@
         <img class="baricons" src={{ URL::asset("images/favorite.svg")}} >
      </a> 
       <a data-toggle="modal" data-target="#searchModel">
-        <img class="searchlogo visible-xs" src={{ URL::asset("images/search.svg")}} >
+        <img class="searchlogo visible-xs" src={{ URL::asset("images/search.png")}} >
       </a>
     </div>
 
@@ -242,7 +242,7 @@
     <li>     
     <a data-toggle="modal" data-target="#searchModel">
 
-        <img class="favoriteicon" src={{ URL::asset("images/search.svg")}} >
+        <img class="favoriteicon" src={{ URL::asset("images/search.png")}} >
      </a> </li>
 
 
