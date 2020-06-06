@@ -2,11 +2,6 @@
     font-family: 'Raleway';
 }
 
-@font-face {
-    font-family: 'battalion';
-    src: url('/font/Battalion.ttf');
-}
-
 .searchlogo {
     margin-top: 12px;
     width: 25px !important;
@@ -65,6 +60,11 @@
     display: inline-block;
     width: 80%;
     border: 0px;
+}
+
+@font-face {
+    font-family: 'battalion';
+    src: url('/font/Battalion.ttf');
 }
 
 .battalion {
