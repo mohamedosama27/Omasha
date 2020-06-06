@@ -6,89 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <meta name="csrf-token" content="{{ csrf_token() }}" />
-<style>
-    .div1{
-    height:150px;
-     width:auto;
-   }
-     .product  {
-    text-align: center;
-  }
-    .product img {
-    width: 100px;
-  }
-    .product:after {
-    content: '';
-    display: table;
-    clear: both;
-  }
+<link rel="stylesheet" href="/css/favorites.css">
 
-  .product-details {
-    line-height: 1.4em;
-    
-    float: left;
-  }
-  .cardspace{
-       margin:10px;
-   }
-   .EGP{
-  margin-left:5px;
-  font-size:12px;
-  display:inline;
-}
-.item{
-      text-align:center;
-      }
-     
-      .carousel img {
-        width:100%;
-        height: 100%!important;
-        display:inline-block  !important;
-      }
-
-/* Create two equal columns that floats next to each other */
-.column1 {
-  float: left;
-  width: 50%;
-  padding: 10px;
-}
-
-.product-description {
-    
-    line-height: 1.4em;
-  }
-
-/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 600px) {
-
-    .product-details {
-    line-height: 1.4em;
-    
-    float: left;
-  }
-  
-  .column1 {
-    width: 100%;
-  }
-}
-.product-details{
-  width: auto;
-}
-.remove-product{
-display:inline;
-margin-left:10%;
-border: 0;
-    padding: 4px 8px;
-    background-color: #c66;
-    color: #fff;
-    font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium";
-    font-size: 12px;
-    border-radius: 3px;
-}
-.fa-angle-left , .fa-angle-right{
-margin-top:50%;
-}
-</style>
 
 <br>
 <div class="w3-card cardspace">
@@ -137,19 +56,22 @@ margin-top:50%;
  </div>
  </div>
  <div class="column1">
- <a href="{{route('item.show',['id' => $item->id])}}"><h3>{{$item->name}}</h3></a>
+ <a href="{{route('item.show',['id' => $item->id])}}"><h5>{{$item->name}}</h5></a>
     <div class="product-details">
       
-      <p class="product-description">{{$item->description}}</p>
+      
       
     </div><br><br>
-    <b >Price : </b> {{$item->price}}<p class="EGP">EGP</p>
+    <button class="btn brandcolor raleway btnWeight btn-addtocart" data-value="{{$item->id}}">
+              Add To Cart</button>
       <a href="{{route('removefromfavorites',['id' => $item->id])}}">
     <button class="remove-product">
         Remove
       </button></a>
     
     </div>
+    <div class="pull-right price"><b >Price : </b> {{$item->price}}<p class="EGP">EGP</p></div>
+
    
     
     
@@ -157,6 +79,7 @@ margin-top:50%;
     
   
   </div>
+  <hr>
   @empty
   <div class="alert alert-dark"  style="text-align:center;margin-bottom:20px;" role="alert">
 <h1 style="display:center;font-size:26px;" class="battalion" >wish list is empty</h1>
@@ -170,6 +93,50 @@ margin-top:50%;
 
 
 </div>
+@include('errormessage')
+<script type="text/javascript">
 
+
+    $.ajaxSetup({
+
+        headers: {
+
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+        }
+
+    });
+
+  $(document).on("click", '.btn-addtocart', function(e) { 
+
+        e.preventDefault();
+
+            var str =  $(this).data('value');;
+          $.ajax({
+
+            type:'POST',
+
+            url:"{{ route('item.addToCart') }}",
+
+            data:{name:str},
+
+            success:function(data){
+
+              if (data.message === undefined) {
+
+                $(".countCart").text(data.countCart);
+                $('#messaga').text("Added Sucessfully")
+                $('#errormessage').modal();
+                } else {
+                $('#messaga').text(data.message)
+                $('#errormessage').modal();
+                }
+                                
+            }
+
+          });
+    });
+
+    </script>
 
 @endsection

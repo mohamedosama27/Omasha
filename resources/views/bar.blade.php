@@ -112,7 +112,8 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li>  
-      <a href="{{route('location.showAll')}}"><div class="wheretobuy">
+      <a href="{{route('location.showAll')}}">
+        <div class="wheretobuy">
       <img class="locationicon hidden-xs" src={{ URL::asset("images/Location.svg")}} >
  
       <span class="raleway" >
@@ -169,19 +170,18 @@
 
 @endauth
 
-  <li>
+<li>
       <a href="{{route('shop')}}" class="raleway visible-xs">SHOP</a>
 </li>
-      <!-- <a href="{{route('home')}}" class="raleway visible-xs">SHOP</a> -->
-      <li class="dropdown visible-xs">
+   <li class="dropdown visible-xs">
           <a href="#" class="dropdown-toggle raleway" data-toggle="dropdown"
           role="button" aria-haspopup="true" aria-expanded="false">PRODUCTS
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
  
-          <li><a class="raleway" href="" >
+          <li><a class="raleway" href="{{route('ItemController.product',['num' => 0])}}"  >
             Socks</a></li>     
-            <li><a class="raleway" href="" >
+            <li><a class="raleway" href="{{route('ItemController.product',['num' => 1])}}" >
             Wristbands</a></li>     
             <li><a class="raleway" href="{{route('shop')}}" >
             View all</a></li>   
@@ -242,7 +242,7 @@
     @endauth
 
     <li>     
-    <a data-toggle="modal" data-target="#searchModel">
+    <a data-toggle="modal" data-target="#searchModel" class="iconsLink">
 
         <img class="favoriteicon" src={{ URL::asset("images/search.png")}} >
      </a> </li>
@@ -266,13 +266,16 @@
            </a>
         </div>
     </li>
-        <li>      <div class="wrapper">
-      <a href="{{ Request::is('cart') ? route('home') : route('cart') }}"><img class="baricons" src={{ URL::asset("images/cart.svg")}} >
-</a>  <span class="badge countCart" id='countcart'>{{Session::has('number_of_items') ? Session::get('number_of_items'): ''}}</span>
-  </div>
-</li>
+        <li>    
+          <div class="wrapper">
+            <a href="{{ Request::is('cart') ? route('home') : route('cart') }}">
+              <img class="baricons" src={{ URL::asset("images/cart.svg")}} >
+            </a>
+              <span class="badge countCart" id='countcart'>{{Session::has('number_of_items') ? Session::get('number_of_items'): ''}}</span>
+          </div>
+        </li>
     <li>     
-      <a href="{{route('favorites')}}">
+      <a href="{{route('favorites')}}" class="iconsLink">
         <img class="favoriteicon" src={{ URL::asset("images/favorite.svg")}} >
      
       </a>
@@ -292,9 +295,9 @@
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
  
-          <li><a class="raleway" href="" >
+          <li><a class="raleway" href="{{route('ItemController.product',['num' => 0])}}" >
             Socks</a></li>     
-            <li><a class="raleway" href="" >
+            <li><a class="raleway" href="{{route('ItemController.product',['num' => 1])}}" >
             Wristbands</a></li>     
             <li><a class="raleway" href="{{route('shop')}}" >
             View all</a></li>   

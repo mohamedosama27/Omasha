@@ -97,12 +97,11 @@
 
     @if ($loop->first)
     <div class="item active" >
-    <a href="{{route('item.show',['id' => $item->id])}}"> <img src={{ URL::asset("images/{$image->name}")}}></a>
+    <img src={{ URL::asset("images/{$image->name}")}}>
       </div>    
     @else
       <div class="item">
-      <a href="{{route('item.show',['id' => $item->id])}}"> 
-        <img src={{ URL::asset("images/{$image->name}")}}></a>
+        <img src={{ URL::asset("images/{$image->name}")}}>
         
       </div>
   
@@ -128,7 +127,9 @@
       
     </div>
   </div>
-            <p>{{$item->name}}</p>
+  <a href="{{route('item.show',['id' => $item->id])}}"> 
+  <p>{{$item->name}}</p>
+</a>
             <p>{{$item->price}} EGP</p>
             <button class="btn brandcolor raleway btnWeight btn-addtocart" data-value="{{$item->id}}">
               Add To Cart</button><br>

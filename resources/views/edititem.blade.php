@@ -85,7 +85,7 @@ form.addEventLisener('submit,function(e){
             </script>
           
 
-             <div class="form-group">
+            <div class="form-group">
                     <label for="sel1" Name="category">Category</label>
                     <select class="form-control" id="sel1" Name="category">
                     @if($item->category_id) 
@@ -99,7 +99,16 @@ form.addEventLisener('submit,function(e){
                         @endif
                     @endforeach
                     </select>
-                    </div>
+            </div>
+
+            <div class="form-group">
+                    <label for="sel1" Name="Category">Product type</label>
+                    <select class="form-control" id="sel1" Name="product">
+                    <option value="" disabled selected>Choose your option</option>
+                        <option value="0">Socks</option>
+                        <option value="1">Wristbands</option>
+                    </select>
+            </div>
           
           
 

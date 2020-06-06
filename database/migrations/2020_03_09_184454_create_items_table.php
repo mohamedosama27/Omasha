@@ -21,6 +21,7 @@ class CreateItemsTable extends Migration
             $table->text('price');
             $table->text('cost');
             $table->tinyInteger('hide')->nullable();
+            $table->tinyInteger('product');
             $table->Integer('quantity');
             $table->unsignedBigInteger('category_id')->nullable();
             $table->timestamps();

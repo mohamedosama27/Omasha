@@ -21,9 +21,18 @@ class ItemController extends Controller
         'quantity' => ['required', 'numeric'],
         'price' => ['required', 'numeric'],
         'cost' => ['required', 'numeric'],
+        'product' => ['required', 'numeric'],
         'barcode' => ['required','string', 'max:255']
 
   ]);
+
+   }
+   public function product($num) 
+   {
+       //show items has product with num choosen
+
+       $items = \App\item::where('product','=',$num)->paginate($this->items_per_page);
+       return view('shop')->with(compact('items'));
 
    }
    public function welcome(){
@@ -58,50 +67,7 @@ class ItemController extends Controller
 
 
  }
-    public function index(Request $request) {
-
-      //retieve 10 items from items table
-
-      if(\App\item::count()>10){
-        if (Auth::user() && auth()->user()->type==1)
-        {
-        $items = \App\item::orderBy('id', 'DESC')->paginate($this->items_per_page);
-        }
-        else{
-          $items = \App\item::where('hide','=',NULL)->orderBy('id', 'DESC')->paginate($this->items_per_page);
-
-        }
-        if($request->ajax()) {
-          return [
-              'items' => view('ajax.index')->with(compact('items'))->render(),
-              'next_page' => $items->nextPageUrl(),
-              'numberofitems'=>count($items)
-          ];
-      }
-      
-        return view('home')->with(compact('items'));
-      
-      }
-      else{
-        if (Auth::user() && auth()->user()->type==1)
-        {
-          $items = \App\item::orderBy('id', 'DESC')->get();
-        }
-        else{
-          $items = \App\item::where('hide','=',NULL)->orderBy('id', 'DESC')->get();
-
-        }
-        return view('home')->with(compact('items'));
-
-      }
-        
-
-    }
-
-    public function fetchNextitemsSet($page) {
-
-    }
-
+   
     public function newArrivals()
     {
       $items = \App\item::orderBy('id', 'desc')->take(9)->get();
@@ -113,7 +79,7 @@ class ItemController extends Controller
     }
    
 
-    public function create(Request $request)
+    public function create()
     {
       //retieve all categories and passed to add item view
 
@@ -129,7 +95,6 @@ class ItemController extends Controller
     public function store(Request $request)
     {
       //create new item in items table and create images in images table 
-
       $this->validation($request);
         $item = new  \App\item;
         $item->name = $request['name'];
@@ -139,6 +104,7 @@ class ItemController extends Controller
         $item->cost=$request['cost'];
         $item->barcode=$request['barcode'];
         $item->category_id=$request['category'];
+        $item->product=$request['product'];
         $item->save();
     
         $item_id = $item->id;
@@ -197,18 +163,16 @@ class ItemController extends Controller
         $item->cost=$request['cost'];
         $item->category_id=$request['category'];
         $item->barcode=$request['barcode'];
+        $item->product=$request['product'];
         $item->save();
         $item_id = $item->id;
         if($files = $request->file('img')){
             foreach ($files as $file){
              $name = rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
              $file->move("images", $name);
-            
              $image = new \App\image;
-     
              $image->name = $name;
-             $image->item_id=$item_id;
-     
+             $image->item_id=$item_id;   
              $image->save();
            }
         }
@@ -223,7 +187,7 @@ class ItemController extends Controller
 
         $item = \App\item::findorfail($id);
         $item->delete();
-        return redirect('home');
+        return redirect()->back();
 
     }
     public function deleteImage($id)

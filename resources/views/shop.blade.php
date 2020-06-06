@@ -2,8 +2,6 @@
 
 @section('content')
 <link rel="stylesheet" href="/css/shop.css">
-<!-- <input type="text" name="search" id="search" class="form-control center-block" 
-placeholder="Search by quote"/> -->
 
 <div class="container">
     <div class="row">
@@ -52,13 +50,11 @@ placeholder="Search by quote"/> -->
 
     @if ($loop->first)
     <div class="item active" >
-    <a href="{{route('item.show',['id' => $item->id])}}"> 
-    <img src={{ URL::asset("images/{$image->name}")}}></a>
+    <img src={{ URL::asset("images/{$image->name}")}}>
       </div>    
     @else
       <div class="item">
-      <a href="{{route('item.show',['id' => $item->id])}}"> 
-        <img src={{ URL::asset("images/{$image->name}")}}></a>
+        <img src={{ URL::asset("images/{$image->name}")}}>
         
       </div>
   
@@ -84,7 +80,9 @@ placeholder="Search by quote"/> -->
       
     </div>
   </div>
-            <p>{{$item->name}}</p>
+  <a href="{{route('item.show',['id' => $item->id])}}"> 
+         <p>{{$item->name}}</p>
+  </a>
             <p>{{$item->price}} EGP</p>
             @if(Auth::check() && Auth::user()->type == 1)
 
@@ -107,7 +105,8 @@ placeholder="Search by quote"/> -->
             <button class="btn brandcolor raleway btnWeight btn-addtocart" data-value="{{$item->id}}">
               Add To Cart</button><br>
             @endif
-            <a data-value="{{$item->id}}"  class="btn-addToFavorite raleway addtowishlist">Add To Wishlist</a>
+            <a data-value="{{$item->id}}"  class="btn-addToFavorite raleway addtowishlist">
+              Add To Wishlist</a>
 
         </div>
        @endforeach
@@ -184,11 +183,6 @@ $.ajax({
           });
     });
 
-$(document).on('keyup', '#search', function(){
-
-    var query = $('#search').val();
-    //alert(query);
-});
     </script>
 @endsection
 
