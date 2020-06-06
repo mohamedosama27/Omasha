@@ -21,6 +21,68 @@
 
 
   </head>
+  <style>
+    .searchlogo {
+    margin-top: 12px;
+    width: 25px !important;
+    height: 25px;
+}
+
+.searchResult {
+    position: absolute;
+    background-color: white;
+    margin-top: 10px;
+    margin-left: 30px;
+    min-width: 60%;
+    max-width: 80%;
+}
+
+.searchResult p {
+    font-size: 18px;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-top: 5px;
+    border-top: 1px solid black;
+}
+
+#searchModel .modal-dialog {
+    margin: 0;
+    width: 100%;
+}
+
+#searchModel .close .fa {
+    color: black;
+    margin-top: 10px;
+}
+
+#searchModel .close {
+    opacity: 1;
+    font-weight: 100;
+    font-size: 30px;
+    margin-top: 5px;
+}
+
+#searchModel .modal-content img {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+
+#searchModel .modal-content {
+    padding: 10px;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+#searchModel .modal-content input {
+    margin-top: 5px;
+    display: inline-block;
+    width: 80%;
+    border: 0px;
+}
+
+    </style>
 @auth
 @if(Auth::user()->type == 1)
 @include('addcategory')
