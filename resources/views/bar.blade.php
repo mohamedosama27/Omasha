@@ -407,8 +407,13 @@
             <div class="col-xs-6">
 
             <h5>FOLLOW US</h5>
-            <img class="socialIcon" src={{ URL::asset("images/fb.png")}}>
-            <img class="socialIcon" src={{ URL::asset("images/instagram.png")}}>
+            <a href="https://www.facebook.com/omashaa09">
+              <img class="socialIcon" src={{ URL::asset("images/fb.png")}}>
+            </a>
+            
+            <a href="hhttps://www.instagram.com/omasha.eg/">
+              <img class="socialIcon" src={{ URL::asset("images/instagram.png")}}>
+            </a>
             </div>
           </div>
 

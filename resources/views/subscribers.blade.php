@@ -26,12 +26,7 @@
     <td>{{$subscriber->email}}</td>
 
       <th scope="row">
-      <!-- <td><a id="accept" href="" target="_blank" class="acceptOrder">
-      <i class="fa fa-2x fa-check-circle" style="color:green;"></i></a></td>
-
-      <td><a href="">
-      <i class="fa fa-2x fa-times-circle" style="color:red"></i></a></td> -->
-     
+      
       <td><a href="{{route('subscriber.delete',['id' => $subscriber->id])}}" onclick="return confirm('Are you sure to delete?')">
       <i class="fa fa-2x fa-trash"></i></a></td>
 

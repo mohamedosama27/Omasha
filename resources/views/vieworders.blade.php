@@ -50,10 +50,5 @@
   @endforeach
   </tbody>
 </table>
-<script>
-// $(document).on("click", '.acceptOrder', function(e) { 
-// window.open(this.href, "_blank");
-// window.location.replace("{{route('vieworders')}}");
-// });
-</script>
+
     @endsection
