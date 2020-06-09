@@ -51,11 +51,12 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        // dd($data);
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed', 'max:255'],
-            'phone' => ['required', 'numeric', 'min:11','max:11'],
+            'phone' => ['required', 'string', 'size:11'],
         ]);
     }
 
@@ -80,7 +81,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'phone' => ['required', 'string', 'min:11','max:11'],
+            'phone' => ['required', 'string', 'size:11'],
         ]);
 
         $User = new  \App\User;
@@ -110,7 +111,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255',
             'unique:users,email,'.$id       ],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'phone' => ['required', 'string', 'min:11','max:11'],
+            'phone' => ['required', 'string', 'size:11'],
         ]);
         $User = \App\User::find($id);
         $User->name = $request['name'];
