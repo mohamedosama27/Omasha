@@ -213,7 +213,7 @@
 
   </div>
   <div class="text-center">
-    <a class="btn brandcolor raleway btnWeight">VIEW ALL</a><br>
+    <a class="btn brandcolor raleway btnWeight" href="{{route('shop')}}">VIEW ALL</a><br>
     </div>
 </section>
     <!--END OMASHA 'S FAVORITES --> 
