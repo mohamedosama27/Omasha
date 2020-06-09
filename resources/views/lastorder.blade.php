@@ -2,6 +2,7 @@
 
 @section('content')
 <link rel="stylesheet" href="/css/lastorder.css">
+@if( !empty($order) )
 
 <div class="container px-1 px-md-4 py-5 mx-auto">
     <div class="card">
@@ -31,32 +32,11 @@
             <b>Status : </b>@if($order->status == 1) Shipped <i class="fa fa-truck  fa-flip-horizontal"></i>
             @else Wating for response <i class="fa fa-hourglass icon"></i> @endif
         </div>
- <!-- Add class 'active' to progress -->
-        <!-- <div class="row d-flex justify-content-center">
-            <div class="col-12">
-                <ul id="progressbar" class="text-center">
-                    <li class="active step0"></li>
-                    
-                    <li class="step0 @if($order->status == 1) active @endif"></li>
-                </ul>
-            </div>
-        </div>
-        <div class="row justify-content-between top ">
-            <div class="row d-flex icon-content column1"> 
-            <i class="fa fa-4x fa-hourglass icon"></i>
-                <div class="d-flex flex-column">
-                    <p class="font-weight-bold">Wating</p>
-                </div>
-            </div>
-            <div class="row d-flex icon-content column1"> 
-            <i class="fa fa-4x fa-truck icon fa-flip-horizontal"></i>
 
-                <div class="d-flex flex-column">
-                    <p class="font-weight-bold">Shipped</p>
-                </div>
-            </div>
-          
-        </div> -->
+
     </div>
 </div>
+@else
+        <h2 class="battalion text-center" style="margin-top:10%;font-size:26px;">You didn't order yet</h2>
+@endif
 @endsection

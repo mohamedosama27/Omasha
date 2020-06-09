@@ -74,7 +74,7 @@ $totalprice=0
 </div>
 @else
 
-<h1 style="margin-top:10%;font-size:26px;" class="battalion text-center" >Your cart is empty</h1>
+<h2 style="margin-top:10%;font-size:26px;" class="battalion text-center" >Your cart is empty</h2>
 
 @endif
 
