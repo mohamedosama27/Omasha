@@ -48,6 +48,7 @@ $totalprice=0
         </div>
        
     </div>
+    <hr>
     @php $totalprice+=$selecteditem->item->price*$selecteditem->Quantity @endphp
 
     @endforeach
