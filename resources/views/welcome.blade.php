@@ -2,6 +2,7 @@
 
 @section('content')
 <link rel="stylesheet" href="/css/welcome.css">
+<link rel="stylesheet" href="/css/item_design.css">
 
   <!-- Top  Carousel -->
 <div id="carousel-example-generic" class="carousel slide topCarousel mainCarousel" data-ride="carousel">

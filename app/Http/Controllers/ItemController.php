@@ -30,8 +30,19 @@ class ItemController extends Controller
    public function product($num) 
    {
        //show items has product with num choosen
-
-       $items = \App\item::where('product','=',$num)->paginate($this->items_per_page);
+       if (Auth::user() && auth()->user()->type==1)
+       {
+       $items = \App\item::orderBy('id', 'DESC')
+                      ->where('product','=',$num)
+                      ->paginate($this->items_per_page);
+       }
+       else{
+         $items = \App\item::where('hide','=',NULL)
+                  ->orderBy('id', 'DESC')
+                  ->where('product','=',$num)
+                  ->paginate($this->items_per_page);
+          
+       }
        return view('shop')->with(compact('items'));
 
    }
@@ -67,17 +78,7 @@ class ItemController extends Controller
 
 
  }
-   
-    public function newArrivals()
-    {
-      $items = \App\item::orderBy('id', 'desc')->take(9)->get();
-
-      return view('home',[
-        'items'=>$items
-        ]);
-
-    }
-   
+ 
 
     public function create()
     {

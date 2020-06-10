@@ -52,7 +52,7 @@ $totalprice=0
 
     @endforeach
     <hr>
-<div class="col-xs-8 pull-right">
+<div class="col-xs-8  col-sm-5  col-md-4 pull-right">
     <div class="price invoice">
       <label>Subtotal : </label>
       <div class=" inline" id="cart-subtotal">{{$totalprice}}</div>

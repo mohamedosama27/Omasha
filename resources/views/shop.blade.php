@@ -2,6 +2,7 @@
 
 @section('content')
 <link rel="stylesheet" href="/css/shop.css">
+<link rel="stylesheet" href="/css/item_design.css">
 
 <div class="container">
     <div class="row">

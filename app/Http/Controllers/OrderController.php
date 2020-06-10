@@ -44,9 +44,10 @@ class OrderController extends Controller
     {
         /* create new record in orders table and add items in cart array stored in session
            to item_order table after click on checkout */
-           $request->validate([
+        $request->validate([
             'address' => ['required', 'string', 'max:64000'],
             ]);
+            
         $selcteditems = Session::has('selcteditems') ? Session::get('selcteditems') : array();
         $order = new  \App\order;
         $order->user_id = auth()->id();

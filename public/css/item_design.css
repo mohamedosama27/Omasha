@@ -40,6 +40,12 @@
     background: rgba(214, 214, 194, 0.3);
 }
 
+.addtowishlist {
+    font-weight: 1000;
+    margin-top: 3px;
+    font-size: 12px;
+}
+
 .product .item img {
     width: 100%;
     height: 100%;
@@ -55,12 +61,6 @@
 
 .btnWeight {
     font-weight: 900;
-}
-
-.addtowishlist {
-    font-weight: 1000;
-    margin-top: 3px;
-    font-size: 12px;
 }
 
 .product {
