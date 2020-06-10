@@ -5,8 +5,9 @@
     label {
         margin:5px;
     }
-    input{
+    .form-control{
         margin:10px;
+        width:90%;
     }
 .custom-file-input{
     background-color:white;
@@ -34,7 +35,7 @@ form.addEventLisener('submit,function(e){
     @csrf
     @method('PUT')
     
-        <h1 class="text-center">New item</h1>
+        <h2 class="text-center">New item</h2>
 
             <label>Item Name</label>
             <input type="Text" class="form-control" Name="name" placeholder="Item Name" value="{{ old('name') }}" required>
@@ -94,8 +95,8 @@ form.addEventLisener('submit,function(e){
           
 
              <div class="form-group">
-                    <label for="sel1" Name="Category">Category</label>
-                    <select class="form-control" id="sel1" Name="category">
+                    <label  Name="Category">Category</label>
+                    <select class="form-control"  Name="category">
                     <option value="" disabled selected>Choose your option</option>
                     @foreach($categories as $category)
                         <option value="{{$category->id}}">{{$category->name}}</option>
@@ -103,8 +104,8 @@ form.addEventLisener('submit,function(e){
                     </select>
                     </div>
                     <div class="form-group">
-                    <label for="sel1" Name="Category">Product type</label>
-                    <select class="form-control" id="sel1" Name="product">
+                    <label  Name="Category">Product type</label>
+                    <select class="form-control"  Name="product">
                     <option value="" disabled selected>Choose your option</option>
                         <option value="0">Socks</option>
                         <option value="1">Wristbands</option>

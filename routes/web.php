@@ -36,16 +36,41 @@ Route::get('/deleteSubscriber/{id}', [
                 
 //end  subscriber routes
 
+//start contacts routes
+Route::get('/manage_contacts',
+['uses' => 'ContactController@showAll',
+    'as' => 'contact.showAll'
+]);
+Route::put('/createcontact',
+['uses' => 'ContactController@store',
+    'as' => 'contact.store'
+])->middleware('auth','ifAdmin');
+
+Route::get('/deleteContact/{id}', [
+    'uses' => 'ContactController@destroy',
+    'as' => 'contact.delete'
+])->middleware('auth','ifAdmin');
+
+Route::put('/updateContact/{id}',
+[
+    'uses' => 'ContactController@update',
+    'as' => 'contact.update'
+])->middleware('auth','ifAdmin');
+//end contacts routes
+
 
 // start locations routes
 Route::put('/createlocation',
 ['uses' => 'LocationController@store',
     'as' => 'location.store'
 ])->middleware('auth','ifAdmin');
+
 Route::get('/wheretobuy',
 ['uses' => 'LocationController@showAll',
     'as' => 'location.showAll'
 ]);
+
+
 
 Route::get('/deleteLocation/{id}', [
     'uses' => 'LocationController@destroy',

@@ -153,7 +153,12 @@
             <i class="fa fa-list actionicons"></i>Show Distributors</a></li>
 
             <li><a href="{{route('subscribers')}}">
-            <i class="fa fa-users actionicons"></i>Show Subscribers</a></li>
+            <i class="fa fa-users actionicons"></i>Show Subscribers</a>
+            </li>
+
+            <li><a href="{{route('contact.showAll')}}">
+            <i class="fa fa-phone actionicons"></i>Manage Contacts</a>
+            </li>
           </ul>
     </li>
   
@@ -326,29 +331,49 @@
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
     
-            <li><a href="{{route('addadminview')}}">
-            <i class="fa fa-plus actionicons"></i>Add Admin</a></li>    
+            <li>
+              <a href="{{route('addadminview')}}">
+              <i class="fa fa-plus actionicons"></i>Add Admin</a>
+            </li>    
             
-            <li><a href="{{route('item.create')}}">
-            <i class="fa fa-plus actionicons"></i>Add Item</a></li>       
+            <li>
+              <a href="{{route('item.create')}}">
+            <i class="fa fa-plus actionicons"></i>Add Item</a>
+            </li>       
 
             <li><a href="{{route('vieworders')}}">
-            <i class="fa fa-list actionicons"></i>View Orders</a></li>
+            <i class="fa fa-list actionicons"></i>View Orders</a>
+            </li>
 
             <li><a href="{{route('category.edit')}}">
-            <i class="fa fa-edit actionicons"></i>Edit Categories</a></li>
+            <i class="fa fa-edit actionicons"></i>Edit Categories</a>
+            </li>
 
-            <li><a data-toggle="modal" data-target="#addcategory">
-            <i class="fa fa-plus actionicons"></i>Add Category</a></li>
+            <li>
+              <a data-toggle="modal" data-target="#addcategory">
+              <i class="fa fa-plus actionicons"></i>Add Category</a>
+            </li>
 
-            <li><a href="{{route('report')}}">
-            <i class="fa fa-clipboard actionicons"></i>Report</a></li>
+            <li>
+              <a href="{{route('report')}}">
+              <i class="fa fa-clipboard actionicons"></i>Report</a>
+            </li>
 
-            <li><a href="{{route('distributor.showAll')}}">
-            <i class="fa fa-list actionicons"></i>Show Distributors</a></li>
+            <li>
+              <a href="{{route('distributor.showAll')}}">
+              <i class="fa fa-list actionicons"></i>Show Distributors</a>
+            </li>
 
-            <li><a href="{{route('subscribers')}}">
-            <i class="fa fa-users actionicons"></i>Show Subscribers</a></li>
+            <li>
+              <a href="{{route('subscribers')}}">
+              <i class="fa fa-users actionicons"></i>Show Subscribers</a>
+            </li>
+
+            <li>
+              <a href="{{route('contact.showAll')}}">
+              <i class="fa fa-phone actionicons"></i>Manage Contacts</a>
+            </li>
+
           </ul>
     </li>
   
@@ -370,8 +395,9 @@
 @endauth
 
 </ul>
-      </div>
-  </div><!-- /.container-fluid -->
+    </div>
+  </div>
+
 </nav>
 
 <nav class="w3-sidebar w3-bar-block w3-white w3-top" style="z-index:3;width:250px;display:none;" id="senders">
@@ -424,13 +450,16 @@
 
           <div class="col-lg-3 col-xs-12">
             <h5>CONTACT US</h5>
-            <p>omasha.eg@gmail.com</p>
-            <p>+2 011 292 2829 17</p>
+          @php( $contacts = \App\contact::all() )
+            @foreach($contacts as $contact)
+            <p>{{$contact->contact}}</p>
+            @endforeach
           </div>
 
           <div class="col-lg-3 col-xs-12">
             <h5>DISTRIBUTOR</h5>
-            <a href="{{route('distributor_form')}}">IINTRESTED IN BEING A DISTRIBUTOR?</a>
+            <a href="{{route('distributor_form')}}" style="text-decoration:underline;">
+               IINTRESTED IN BEING A DISTRIBUTOR?</a>
           </div>
 
          
