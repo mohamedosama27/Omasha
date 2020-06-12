@@ -1,22 +1,14 @@
 @extends('bar')
 @section('content')
 
-<style>
-    .cardspace{
-        margin:10px;
-    }
-    .margintop{
-        margin-top:10px;
-    }
-    .formicon {
-    font-size: 20px;
-  }
-</style>
-<br>
-<div class="w3-card cardspace">
+<link rel="stylesheet" href="/css/login.css">
 
-<div class="cardspace">
+
+
+<div class="form center-block">
+<p class="text-center raleway formheader" >LOGIN</p>
   <br>
+  
     <form method="POST" action="{{ route('login') }}">
     @csrf
 
@@ -45,17 +37,22 @@
     <br>
 
 
-<a href="register" class="margintop" style="float:right;margin-bottom:10px;">Create Account</a>
+<a href="reset" class="forget-password-link pull-right"><u>Forget password?</u></a>
 
-  <button type="submit" class="w3-btn btn-block w3-round-xxlarge w3-light-blue" style="margin-bottom:10px;">Login</button>
+  <button type="submit" class= "brandcolor btn btn-block w3-round-xxlarge " style="margin-bottom:10px;">Login</button>
 <br>
-</form>
+<div class="text-center create-account-div">
+First visit?
+<a href="register" class="create-account-link"><u>Create an account</u></a>
 </div>
+</form>
+
 </div>
 <!-- <a class="btn btn-lg btn-primary btn-block" href="{{ url('auth/facebook') }}">
  <strong>Login With Facebook</strong>
  </a> -->
 
+ <!-- <a href="{{ url('/auth/redirect/google') }}" class="btn btn-primary"><i class="fa fa-google"></i> Google</a> -->
 
 
 @endsection

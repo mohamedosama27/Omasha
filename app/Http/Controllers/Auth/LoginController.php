@@ -34,6 +34,11 @@ class LoginController extends Controller
      *
      * @return void
      */
+    public function redirect($provider)
+    {
+        return Socialite::driver($provider)->redirect();
+    }
+
     public function __construct()
     {
         

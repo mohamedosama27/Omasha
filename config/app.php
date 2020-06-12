@@ -178,6 +178,9 @@ return [
         // Barryvdh\DomPDF\ServiceProvider::class,
         Elibyy\TCPDF\ServiceProvider::class,
 
+        Laravel\Socialite\SocialiteServiceProvider::class,
+
+
 
 
     ],
@@ -235,6 +238,8 @@ return [
         // 'PDF' => Barryvdh\DomPDF\Facade::class,
         'PDF' => Elibyy\TCPDF\Facades\TCPDF::class,
 
-    ],
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        
+        ],
 
 ];

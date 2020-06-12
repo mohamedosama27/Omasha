@@ -193,9 +193,9 @@
           </ul>
         </li>
 
-<li>
+<!-- <li>
       <a href="#" class="raleway visible-xs">ABOUT</a>
-</li>
+</li> -->
 <li class="dropdown visible-xs">
           <a href="#" class="dropdown-toggle raleway" data-toggle="dropdown"
           role="button" aria-haspopup="true" aria-expanded="false">
@@ -306,9 +306,9 @@
             View all</a></li>   
           </ul>
         </li>
-<li>
+<!-- <li>
       <a href="#" class="raleway">ABOUT</a>
-</li>
+</li> -->
 <li class="dropdown">
           <a href="#" class="dropdown-toggle raleway" data-toggle="dropdown"
           role="button" aria-haspopup="true" aria-expanded="false">COLLECTION
@@ -435,7 +435,7 @@
               <img class="socialIcon" src={{ URL::asset("images/fb.png")}}>
             </a>
             
-            <a href="hhttps://www.instagram.com/omasha.eg/">
+            <a href="https://www.instagram.com/omasha.eg/">
               <img class="socialIcon" src={{ URL::asset("images/instagram.png")}}>
             </a>
             </div>
@@ -445,7 +445,6 @@
             <h5>CUSTOMER SERVICE</h5>
             <p>GET IN TOUCH</p>
             <p>CUSTOMIZE AN ORDER</p>
-            <p>SHIPPING FEES</p>
           </div>
 
           <div class="col-lg-3 col-xs-12">
@@ -456,10 +455,10 @@
             @endforeach
           </div>
 
-          <div class="col-lg-3 col-xs-12">
+          <div class="col-lg-3 col-xs-12 distributor-div">
             <h5>DISTRIBUTOR</h5>
-            <a href="{{route('distributor_form')}}" style="text-decoration:underline;">
-               IINTRESTED IN BEING A DISTRIBUTOR?</a>
+            <a href="{{route('distributor_form')}}">
+              <u> INTRESTED IN BEING A DISTRIBUTOR?</u></a>
           </div>
 
          

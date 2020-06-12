@@ -53,7 +53,7 @@ class RegisterController extends Controller
     {
         // dd($data);
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'alpha', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed', 'max:255'],
             'phone' => ['required', 'string', 'size:11'],
@@ -78,7 +78,7 @@ class RegisterController extends Controller
     protected function createAdmin(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'alpha', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'phone' => ['required', 'string', 'size:11'],
@@ -107,7 +107,7 @@ class RegisterController extends Controller
     public function update(Request $request,$id)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'alpha', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255',
             'unique:users,email,'.$id       ],
             'password' => ['required', 'string', 'min:8', 'confirmed'],

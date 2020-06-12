@@ -36,4 +36,10 @@ return [
         'redirect' => 'https://aqueous-dawn-37150.herokuapp.com/auth/facebook/callback',
       ],
 
+      'google' => [
+        'client_id' => 'xxxx',
+        'client_secret' => 'xxx',
+        'redirect' => 'http://127.0.0.1:8000/callback/google',
+      ], 
+
 ];

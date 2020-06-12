@@ -76,7 +76,7 @@
 <br>
 <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-phone-square formicon"></i></span>
-      <input class="form-control @error('phone') is-invalid @enderror" type="text" placeholder="Phone Number" name="phone" required>
+      <input class="form-control @error('phone') is-invalid @enderror" type="text" placeholder="Phone Number" value="{{ old('phone') }}" name="phone" required>
 </div>
 
    @error('phone')

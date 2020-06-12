@@ -11,19 +11,22 @@
 |
 */
 
-// Route::get('/', 'ItemController@showAll');
 
-// Route::get('/welcome', function () {
-//     return view('welcome');
-// })->name('welcome');
+Route::get('/auth/redirect/{provider}', 'Auth\LoginController@redirect');
+
 Route::get('/welcome', 'ItemController@welcome')->name('welcome');
 Route::get('/','ItemController@welcome')->name('welcome');
 
+Route::get('/reset', function () {
+    return view('auth/passwords/email');
+})->name('reset_password');
 
 //start subscriber routes
 Route::get('/shop','ItemController@shop')->name('shop');
 
 Route::post('/createSubscriber','SubscriberController@store')->name('createSubscriber');
+
+Route::post('/send-mails','SubscriberController@send_mails')->name('send-mails');
 
 Route::get('/subscribers','SubscriberController@showAll')
         ->name('subscribers')

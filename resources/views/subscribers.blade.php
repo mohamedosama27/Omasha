@@ -2,12 +2,21 @@
 
 @section('content')
 <style>
-    .distributorInfo{
-        max-width:60%;
-        word-break: break-all;
+  .send-mails-button{
+    width:40%;
+    font-size:16px;
+    font-weight:bold;
+    color:white;
+    margin-right:10px;
+  }
 
-    }
-    </style>
+</style>
+<br>
+<button type="button" class="btn brandcolor pull-right send-mails-button" data-toggle="modal"
+        data-target="#send_mails">Send mails</button>
+        @include('errormessage')
+        @include('send-mails')
+
 <table class="table" style="margin-top:100px;">
   <thead>
     <tr>
@@ -34,7 +43,5 @@
   @endforeach
   </tbody>
 </table>
-<script>
 
-</script>
     @endsection

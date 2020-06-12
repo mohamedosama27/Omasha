@@ -12,15 +12,19 @@ class SendMail extends Mailable
     use Queueable, SerializesModels;
   
     public $details;
+    public $file;
+
    
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct($details,$file)
     {
         $this->details = $details;
+        $this->file = $file;
+
     }
    
     /**
@@ -31,6 +35,7 @@ class SendMail extends Mailable
      public function build()
     {
         return $this->subject('Mail from omasha')
-                    ->markdown('emails.send_order_to_admin');
+                    ->markdown($this->file);
+
     }
 }

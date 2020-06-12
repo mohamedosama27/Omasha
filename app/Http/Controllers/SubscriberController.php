@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \App\Mail\SendMail;
 
 class SubscriberController extends Controller
 {
@@ -26,7 +27,7 @@ class SubscriberController extends Controller
 
     }
 
-    public function showAll(Request $request)
+    public function showAll()
     {
         $subscribers = \App\subscriber::all();
         return view('subscribers',[
@@ -39,6 +40,18 @@ class SubscriberController extends Controller
         $subscriber = \App\subscriber::findorfail($id);
         $subscriber->delete();
         return redirect()->back();
+    }
+
+    public function send_mails(Request $request)
+    {
+        $subscribers = \App\subscriber::all();
+        foreach($subscribers as $subscriber)
+        {
+            \Mail::to($subscriber->email)->send(new SendMail($request['message'],'emails.send_to_subscribers'));
+            //return redirect()->back();
+            return response()->json(['success'=>'Sent Successfully']);
+
+        }
     }
 
 }
