@@ -20,8 +20,8 @@
 .messageinput {
     border-radius: 20px;
     margin: 5px;
-    width: 85%;
-    display: inline;
+    width: 80%;
+    display: inline-block;
 }
 
 .messagebutton {
