@@ -76,27 +76,16 @@ form.addEventLisener('submit,function(e){
             <input type="file" class="custom-file-input" id="validatedCustomFile" Name="img[]"  accept="image/*" multiple>
             <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
             </div>
-            <script>
-             $('.custom-file input').change(function (e) {
-                var files = [];
-               
-                $(this).next('.custom-file-label').html("you choose : "+ $(this)[0].files.length+" images");
-            });
-            </script>
+        
           
 
             <div class="form-group">
                     <label for="sel1" Name="category">Category</label>
                     <select class="form-control" id="sel1" Name="category">
-                    @if($item->category_id) 
                     <option value="" disabled selected>Choose your option</option>
-                    @endif
-                    @foreach($categories as $category)
-                        @if($category->id==$item->category_id)
-                        <option value="{{$category->id}}" selected>{{$category->name}}</option>
-                        @else
-                        <option value="{{$category->id}}">{{$category->name}}</option>
-                        @endif
+                    
+                    @foreach($categories as $category)                
+                        <option value="{{$category->id}}">{{$category->name}}</option>  
                     @endforeach
                     </select>
             </div>

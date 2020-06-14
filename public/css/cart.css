@@ -35,6 +35,7 @@ button {
     color: white;
     background-color: rgba(86, 156, 172, 0.87);
     width: 100%;
+    margin-bottom: 20px;
 }
 
 .w3-card {

@@ -31,7 +31,7 @@ class MessageController extends Controller
         if($query != '')
       {
        $data = \App\message::where('recivier_id','=','0')->whereHas('sender', function($q)use ($query) {
-        $q->where('name','ilike','%'.$query.'%');
+        $q->where('name','like','%'.$query.'%');
         })->get()->keyBy('sender_id');
 
       }

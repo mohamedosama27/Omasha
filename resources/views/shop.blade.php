@@ -87,6 +87,7 @@
             <p>{{$item->price}} EGP</p>
             @if(Auth::check() && Auth::user()->type == 1)
 
+            <p><b>Quantity : </b>{{$item->quantity}}</p>
             <a href="{{route('item.delete',['id' => $item->id])}}" 
             onclick="return confirm('Are you sure to delete {{$item->name}}?')">
         <button type="button" class="btn btn-default  brandcolor">
