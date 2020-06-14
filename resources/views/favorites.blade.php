@@ -2,10 +2,18 @@
 
 @section('content')
 <link rel="stylesheet" href="/css/item_design.css">
-
+<style>
+  .remove-product {
+    font-size: 15px;
+    padding: 5px 8px;
+}
+.btn-addtocart{
+padding: 6px 5px;
+}
+  </style>
 <div class="container">
     <div class="row">
-    @foreach($items as $item)
+    @forelse($items as $item)
 
         <div class="product col-xs-6 col-md-3">
 
@@ -95,7 +103,11 @@
   
 
         </div>
-       @endforeach
+        @empty
+  <div class="alert alert-dark"  style="text-align:center;margin-bottom:20px;" role="alert">
+<h1 style="display:center;font-size:26px;" class="battalion" >wish list is empty</h1>
+</div>
+       @endforelse
     </div>
 </div>
 
