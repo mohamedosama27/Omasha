@@ -5,12 +5,12 @@
 <style>
   @media (max-width:450px) {
   .remove-product {
-    font-size: 15px;
-    padding: 5px 5px;
+    font-size: 13px;
+    padding: 4px 3px;
 }
 .btn-addtocart{
-padding: 6px 5px;
-font-size:14px;
+padding: 5px 5px;
+font-size:12px;
 }
   }
   </style>
