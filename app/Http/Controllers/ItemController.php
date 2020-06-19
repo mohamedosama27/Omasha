@@ -50,14 +50,19 @@ class ItemController extends Controller
 
       if (Auth::user() && auth()->user()->type==1)
       {
-      $items = \App\item::orderBy('id', 'DESC')->take(4)->get();
+      $newArrivals = \App\item::orderBy('id', 'DESC')->take(4)->get();
+      $items = \App\item::orderBy('id', 'DESC')->get()->slice(4, 8);
+
       }
       else{
-        $items = \App\item::where('hide','=',NULL)->orderBy('id', 'DESC')->take(4)->get();
+        $newArrivals = \App\item::where('hide','=',NULL)->orderBy('id', 'DESC')->take(4)->get();
+        $items = \App\item::where('hide','=',NULL)->orderBy('id', 'DESC')->get()->slice(4, 8);
 
       }
       return view('welcome',[
+        'newArrivals'=>$newArrivals,
         'items'=>$items
+
         ]);
   
 
@@ -226,10 +231,10 @@ class ItemController extends Controller
      
         if (Auth::user() && auth()->user()->type==1)
         {
-          $items = \App\item::where('name', 'ilike', '%'.$query.'%')
+          $items = \App\item::where('name', 'like', '%'.$query.'%')
           ->orderBy('id', 'DESC')->get();        }
         else{
-          $items = \App\item::where('hide','=',NULL)->where('name', 'ilike', '%'.$query.'%')
+          $items = \App\item::where('hide','=',NULL)->where('name', 'like', '%'.$query.'%')
           ->orderBy('id', 'DESC')->get();
         }
 

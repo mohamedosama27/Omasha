@@ -222,6 +222,8 @@ e.preventDefault();
 
       $('#messaga').text(data.message)
       $('#errormessage').modal(); 
+      $(".countfavorites").text(data.countFavorites);
+
          }
 
  });

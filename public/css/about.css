@@ -1,0 +1,33 @@
+.pattern1 {
+    right: 0;
+}
+
+.pattern {
+    margin-top: -200px;
+    height: 400px;
+    position: absolute;
+    z-index: -1;
+}
+
+.about-paragraph {
+    max-width: 70%;
+    text-align: center;
+}
+
+.about-images {
+    max-width: 500px;
+    max-height: 300px;
+}
+
+@media (max-width:768px) {
+    .pattern {
+        margin-top: -400px;
+    }
+    .about-paragraph {
+        max-width: 90%;
+    }
+    .about-images {
+        max-width: 90%;
+        max-height: 300px;
+    }
+}

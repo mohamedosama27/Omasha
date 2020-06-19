@@ -21,6 +21,31 @@ Route::get('/reset', function () {
     return view('auth/passwords/email');
 })->name('reset_password');
 
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+//start customize order
+
+Route::put('/createCustomizeOrder',
+['uses' => 'CustomizeOrderController@store',
+    'as' => 'customize.store'
+]);
+Route::get('/showCustoizeOrders',
+['uses' => 'CustomizeOrderController@showAll',
+    'as' => 'customize.showAll'
+])->middleware('auth','ifAdmin');
+
+Route::get('/deleteCustomizeOrder/{id}',
+['uses' => 'CustomizeOrderController@delete',
+    'as' => 'customize.delete'
+])->middleware('auth','ifAdmin');
+
+Route::get('/customize_order', function () {
+    return view('customize_order_form');
+})->name('customize_order_form');
+//end customize order
+
 //start subscriber routes
 Route::get('/shop','ItemController@shop')->name('shop');
 
@@ -97,6 +122,7 @@ Route::get('/showDistributors',
 ['uses' => 'DistributorController@showAll',
     'as' => 'distributor.showAll'
 ])->middleware('auth','ifAdmin');
+
 Route::get('/deleteDistributors/{id}',
 ['uses' => 'DistributorController@delete',
     'as' => 'distributor.delete'

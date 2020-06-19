@@ -108,7 +108,8 @@
               Add To Cart</button><br>
             @endif
             <a data-value="{{$item->id}}"  class="btn-addToFavorite raleway addtowishlist">
-              Add To Wishlist</a>
+              Add To Wishlist <img  src={{ URL::asset("images/favorite.svg")}} 
+              width="12" height="12" ></a>
 
         </div>
        @endforeach
@@ -150,6 +151,8 @@ $.ajax({
 
         $('#messaga').text(data.message)
         $('#errormessage').modal();
+        $(".countfavorites").text(data.countFavorites);
+
     }
 
 });

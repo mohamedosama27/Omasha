@@ -41,7 +41,7 @@
         <button type="button" class="close" data-dismiss="modal">
         &times;
         </button>
-        <img  src={{ URL::asset("images/search.png")}} >
+        <img  src={{ URL::asset("images/search.svg")}} >
         <input class="form-control" id="searchInput" type="text" placeholder="Search"/>
         <div class="searchResult">
       
@@ -80,12 +80,19 @@
       <img class="baricons" src={{ URL::asset("images/cart.svg")}} >
       
       <span class="badge countCart" id='countcart'>@if(session()->has('number_of_items')){{Session::get('number_of_items')}}@endif</span>
-      
-     
 
       </a> 
   </div>
   <div class="wrapper visible-xs">
+
+  <a href="{{route('favorites')}}" class="visible-xs">
+        <img class="baricons" src={{ URL::asset("images/favorite.svg")}} >
+        <span class="badge countfavorites" >@auth @php( $x = Auth::user()->favorites()->count()){{$x}}@endauth</span>
+
+     </a> 
+     </div>
+
+     <div class="wrapper visible-xs">
  
       @auth 
     @if(Auth::user()->type == 1)
@@ -101,11 +108,8 @@
       </a>          
        <span class="badge countmessage"></span>
   </div>
-  <a href="{{route('favorites')}}" class="visible-xs">
-        <img class="baricons" src={{ URL::asset("images/favorite.svg")}} >
-     </a> 
       <a data-toggle="modal" data-target="#searchModel">
-        <img class="searchlogo visible-xs" src={{ URL::asset("images/search.png")}} >
+        <img class="searchlogo visible-xs" src={{ URL::asset("images/search.svg")}} >
       </a>
     </div>
 
@@ -159,6 +163,10 @@
             <li><a href="{{route('contact.showAll')}}">
             <i class="fa fa-phone actionicons"></i>Manage Contacts</a>
             </li>
+
+            <li><a href="{{route('customize.showAll')}}">
+              <i class="fa fa-list actionicons"></i>Show customize orders</a>
+            </li>
           </ul>
     </li>
   
@@ -193,9 +201,9 @@
           </ul>
         </li>
 
-<!-- <li>
+<li>
       <a href="#" class="raleway visible-xs">ABOUT</a>
-</li> -->
+</li>
 <li class="dropdown visible-xs">
           <a href="#" class="dropdown-toggle raleway" data-toggle="dropdown"
           role="button" aria-haspopup="true" aria-expanded="false">
@@ -230,7 +238,7 @@
      
   <ul class="nav navbar-nav navbar-right hidden-xs">
   @auth
-
+  
     <li class=" login raleway ">
         <a href="{{route('logout')}}" onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">Log out</a>
@@ -245,10 +253,11 @@
     @endauth
 
     <li>     
-    <a data-toggle="modal" data-target="#searchModel" class="iconsLink">
+      <a data-toggle="modal" data-target="#searchModel" class="iconsLink">
 
-        <img class="favoriteicon" src={{ URL::asset("images/search.png")}} >
-     </a> </li>
+          <img class="favoriteicon" src={{ URL::asset("images/search.svg")}} >
+      </a> 
+    </li>
 
 
 
@@ -277,11 +286,15 @@
               <span class="badge countCart" id='countcart'>{{Session::has('number_of_items') ? Session::get('number_of_items'): ''}}</span>
           </div>
         </li>
-    <li>     
-      <a href="{{route('favorites')}}" class="iconsLink">
-        <img class="favoriteicon" src={{ URL::asset("images/favorite.svg")}} >
+    <li>    
+    <div class="wrapper">
+    <a href="{{route('favorites')}}" class="iconsLink">
+        <img class="baricons" src={{ URL::asset("images/favorite.svg")}} >
      
       </a>
+              <span class="badge countfavorites" >@auth @php( $x = Auth::user()->favorites()->count()){{$x}}@endauth</span>
+          </div> 
+     
     </li> 
       </ul>
       
@@ -306,9 +319,9 @@
             View all</a></li>   
           </ul>
         </li>
-<!-- <li>
-      <a href="#" class="raleway">ABOUT</a>
-</li> -->
+<li>
+      <a href="{{route('about')}}" class="raleway">ABOUT</a>
+</li>
 <li class="dropdown">
           <a href="#" class="dropdown-toggle raleway" data-toggle="dropdown"
           role="button" aria-haspopup="true" aria-expanded="false">COLLECTION
@@ -373,7 +386,10 @@
               <a href="{{route('contact.showAll')}}">
               <i class="fa fa-phone actionicons"></i>Manage Contacts</a>
             </li>
-
+            <li>
+              <a href="{{route('customize.showAll')}}">
+              <i class="fa fa-list actionicons"></i>Show customize orders</a>
+            </li>
           </ul>
     </li>
   
@@ -444,7 +460,9 @@
           <div class="col-lg-3 col-xs-12">
             <h5>CUSTOMER SERVICE</h5>
             <p>GET IN TOUCH</p>
-            <p>CUSTOMIZE AN ORDER</p>
+            <a href="{{route('customize_order_form')}}">
+              <p><u>CUSTOMIZE AN ORDER</u></p>
+            </a>
           </div>
 
           <div class="col-lg-3 col-xs-12">

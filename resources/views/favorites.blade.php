@@ -3,13 +3,14 @@
 @section('content')
 <link rel="stylesheet" href="/css/item_design.css">
 <style>
-  @media (max-width:325px) {
+  @media (max-width:450px) {
   .remove-product {
     font-size: 15px;
     padding: 5px 5px;
 }
 .btn-addtocart{
 padding: 6px 5px;
+font-size:14px;
 }
   }
   </style>

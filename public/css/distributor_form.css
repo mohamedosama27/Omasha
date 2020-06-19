@@ -4,6 +4,15 @@
     margin-top: 20px;
 }
 
+.form-header {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    letter-spacing: 15px;
+    font-size: 24px;
+    font-weight: 400;
+}
+
 .container .btn {
     width: 80px;
     padding: 1px 6px;

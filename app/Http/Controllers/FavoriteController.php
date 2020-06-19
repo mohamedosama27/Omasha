@@ -15,7 +15,8 @@ class FavoriteController extends Controller
             try {
         
                 \Auth::user()->favorites()->attach($request->id);
-                return response()->json(['message'=>'Added Successfully']);
+                return response()->json(['message'=>'Added Successfully',
+                'countFavorites'=>\Auth::user()->favorites()->count()]);
 
             } catch (\Illuminate\Database\QueryException $e) {
                 return response()->json(['message'=>'Already Added']);

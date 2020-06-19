@@ -52,49 +52,105 @@
         transform: translate(-50%, -50%);
     }
     
-    .favoritesSection .container-fluid {
-        margin-top: 50px;
-        margin-bottom: 100px;
-        height: 300px;
-        position: relative;
+    .celebritiesSection .celebritiesDiv {
+        display: table;
+        max-width: 90%;
+        /* text-align: center;
+        display: inline-block; */
+    }
+    /* Start donate section */
+    
+    .donate .donate-title {
+        height: 200px;
+        width: 500px;
     }
     
-    .favoritesSection {
-        margin-top: 300px;
+    .donate p {
+        font-weight: bold;
+        margin: 0;
     }
     
-    .favoritesSection .pattern {
-        width: 200px;
-        height: 100%;
+    .donate .description {
+        font-weight: lighter;
+    }
+    
+    .donate .first-item .description {
+        max-width: 59%;
+    }
+    
+    .donate .first-item .item-img {
+        height: 240px;
+        width: 40%;
+        position: absolute;
+        right: 10px;
+        margin-top: -30px;
+    }
+    
+    .donate .second-item .item-img {
+        height: 240px;
+        width: 40%;
+        position: absolute;
+        margin-top: -50px;
+        padding-left: 10px;
+    }
+    
+    .donate .second-item .content {
+        width: 58%;
+        float: right;
+    }
+    
+    .donate .second-item {
+        overflow: auto;
+        padding-top: 20px;
+        background-color: white;
+        padding-right: 5px;
+    }
+    
+    .donate .first-item {
+        background-color: white;
+        padding-left: 5px;
+        max-width: 90%;
+    }
+    
+    .donate {
+        margin-bottom: 50px;
+    }
+    /* End donate section */
+    /* Start favorites Section */
+    
+    .favoritesSection .images img {
+        object-fit: initial;
+    }
+    
+    .favoritesSection figure {
+        margin: 0;
+        display: inline;
+    }
+    
+    .favoritesSection img {
+        padding: 5px;
     }
     
     .favoritesSection .first {
-        position: absolute;
-        width: 28%;
-        height: 58%;
+        width: 24%;
+        height: 50%;
     }
     
     .favoritesSection .second {
-        position: absolute;
-        width: 28%;
-        right: 41%;
-        height: 58%;
-    }
-    
-    .favoritesSection .fourth {
-        position: absolute;
-        width: 57%;
-        height: 40%;
-        bottom: 0px;
+        width: 25%;
+        height: 50%;
     }
     
     .favoritesSection .third {
-        position: absolute;
-        right: 0px;
-        width: 40%;
+        width: 50%;
         height: 100%;
-        /* margin-left: -25px; */
     }
+    
+    .favoritesSection .fourth {
+        width: 50%;
+        height: 50%;
+    }
+    /* End favorites Section */
     
     .celebritiesSection .col-sm-3 {
         width: 200px;
@@ -113,8 +169,8 @@
     
     .celebritiesSection .col-sm-3 p {
         margin: 0;
-        line-height: 2em;
-        font-size: 12px;
+        line-height: 3em;
+        font-size: 9px;
     }
     
     .celebritiesSection,
@@ -145,18 +201,29 @@
             bottom: -70px;
             padding-right: 10px;
         }
-        .celebritiesSection .row {
-            margin-left: 12%;
-        }
     }
     
     @media (min-width:768px) {
-        .favoritestitle {
-            padding-top: 100px;
+        /* Start donate section */
+        .donate .first-item .item-img {
+            height: 400px;
+            width: 30%;
+            margin-top: -175px;
         }
-        .favoritesSection .container-fluid {
-            width: 70%;
+        .donate .second-item .item-img {
+            height: 400px;
+            width: 30%;
+            margin-top: -85px;
+            padding-left: 10px;
+        }
+        .donate {
+            margin-bottom: 200px;
+        }
+        /* End donate section */
+        .favoritesSection .images {
             height: 500px;
+            overflow: hidden;
+            max-width: 70%;
         }
         .subscribe .form-control {
             width: 500px;
@@ -189,9 +256,6 @@
     }
     
     @media only screen and (min-width:768px) and (max-width:1000px) {
-        .celebritiesSection .row {
-            margin-left: 5%;
-        }
         .craftsmanship .CraftsmanshipImg {
             margin-left: 0px;
             height: 350px;
@@ -203,6 +267,29 @@
     }
     
     @media (max-width:768px) {
+        /* Start donate section */
+        .donate .donate-title {
+            height: 100px;
+            width: 70%;
+        }
+        /* End donate section */
+        .favoritesSection .images {
+            height: 250px;
+            width: 90%;
+        }
+        .favoritesSection img {
+            padding: 2px;
+        }
+        .craftsmanship p {
+            margin-left: 15px;
+        }
+        .craftsmanship h3 {
+            margin-left: 15px;
+            margin-top: 25px;
+        }
+        .favoritesSection .second {
+            max-width: 24%;
+        }
         .mainCarousel .item {
             height: 250px;
         }
@@ -224,13 +311,9 @@
             height: 150px;
         }
         .craftsmanship .CraftsmanshipImg {
-            margin-left: 0px;
             height: 350px;
             width: 100%;
             min-width: 250px;
-            padding-right: 5px;
-            position: absolute;
-            right: 0px;
         }
         .craftsmanship .img {
             margin-top: -40%;
@@ -248,11 +331,14 @@
     }
     
     @media only screen and (min-width:490px) and (max-width:768px) {
-        .celebritiesSection .row {
-            margin-left: 5%;
-        }
         .craftsmanship .img {
             margin-top: -20%;
+        }
+    }
+    
+    @media (max-width:718px) {
+        .celebritiesSection {
+            background-size: contain;
         }
     }
     
@@ -262,21 +348,15 @@
         }
     }
     
-    @media only screen and (min-width:300px) and (max-width:590px) {
-        .favoritesSection .first {
-            width: 27%;
-        }
-        .favoritesSection .second {
-            width: 28%;
-        }
-        .favoritesSection .fourth {
-            width: 54%;
+    @media only screen and (min-width:300px) and (max-width:370px) {
+        .celebritiesSection .celebritiesDiv {
+            max-width: 100%;
         }
     }
     
-    @media only screen and (min-width:360px) and (max-width:440px) {
-        .celebritiesSection .row {
-            margin-left: 4%;
+    @media only screen and (min-width:400px) and (max-width:440px) {
+        .celebritiesSection .celebritiesDiv {
+            max-width: 80%;
         }
     }
     

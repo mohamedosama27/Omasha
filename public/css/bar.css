@@ -134,15 +134,22 @@
     right: 6px;
 }
 
+.wrapper .countfavorites {
+    position: absolute;
+    top: 5px;
+    right: 50px;
+}
+
 .countCart,
-.countmessage {
+.countmessage,
+.countfavorites {
     background-color: red;
 }
 
 .wrapper .countmessage {
     position: absolute;
     top: 5px;
-    right: 50px;
+    right: 100px;
 }
 
 .navbar {
@@ -151,11 +158,11 @@
 
 .toplogo {
     float: left;
-    width: 75px;
+    /* width: 75px; */
     height: 55px;
     position: absolute;
-    left: 50%;
-    margin-left: -50px !important;
+    left: 40%;
+    /* margin-left: -50px !important; */
     display: block;
     padding-bottom: 5px;
 }
@@ -200,6 +207,9 @@
 }
 
 @media (min-width:768px) {
+    .wrapper .countfavorites {
+        right: 10px;
+    }
     .toptext {
         letter-spacing: 10px;
     }
@@ -211,7 +221,7 @@
     .toplogo {
         width: 120px;
         height: 120px;
-        left: 48%
+        left: 43%
     }
     .navbar {
         padding-bottom: 10px;
@@ -234,11 +244,11 @@
     }
     .secondbar {
         position: relative;
-        left: 35%;
+        left: 30%;
         width: 70%;
     }
     .secondBarForAuth {
-        left: 28%;
+        left: 25%;
         width: 80%;
     }
     .login {
