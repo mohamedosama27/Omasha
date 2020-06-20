@@ -72,7 +72,7 @@
     }
     
     .donate .first-item .item-img {
-        height: 240px;
+        height: 225px;
         width: 40%;
         position: absolute;
         right: 10px;
@@ -80,7 +80,7 @@
     }
     
     .donate .second-item .item-img {
-        height: 240px;
+        height: 225px;
         width: 40%;
         position: absolute;
         margin-top: -50px;
@@ -102,7 +102,7 @@
     .donate .first-item {
         background-color: white;
         padding-left: 5px;
-        max-width: 90%;
+        /* max-width: 90%; */
     }
     
     .donate {
@@ -210,7 +210,7 @@
         }
         /* End donate section */
         .favoritesSection .images {
-            height: 500px;
+            height: 400px;
             overflow: hidden;
             max-width: 70%;
         }
@@ -267,7 +267,7 @@
         }
         /* End donate section */
         .favoritesSection .images {
-            height: 250px;
+            height: 200px;
             width: 90%;
         }
         .favoritesSection img {
