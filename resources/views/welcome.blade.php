@@ -150,7 +150,6 @@
     <div class="container-fluid">
 <section class="craftsmanship hidden-xs">
   <div class="col-xs-9 brandcolor">
-    <div class="row">
       <img src={{ URL::asset("images/Craftsmanship.png")}} class="col-md-4 col-xs-9 CraftsmanshipImg" >  
       <div class="col-sm-6 col-sm-push-6 col-xs-9 raleway">   
         <h3>CRAFTSMANSHIP</h3>
@@ -162,7 +161,6 @@
             sans from Egypt, Italy, Spain, and Dubai.
         </p>
       </div> 
-    </div>
   </div>
   <img src={{ URL::asset("images/pattern1.png")}} class="col-xs-2 pull-right pattern" >  
 
