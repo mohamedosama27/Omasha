@@ -4,7 +4,6 @@
 <link rel="icon" type="image/png" sizes="96x96" href={{ URL::asset("images/logo.ico")}} >
 <title>OMASHA</title>
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="viewport" content= "width=device-width, user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
