@@ -28,7 +28,7 @@
 @endif
 @endauth
 <body>
-
+<div class="wrapper body"> 
 <!-- Start Search Modal -->
 <div class="modal fade" id="searchModel" role="dialog">
   <div class="modal-dialog modal-lg">
@@ -485,6 +485,7 @@
   </div>
   
 </section>
+</div>
 </body>
 <script>
  $('#searchInput').keyup(function(){ 
