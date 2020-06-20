@@ -29,7 +29,7 @@
         margin-top: 60px;
     }
     
-    .shopCollection .row {
+    .shopCollection {
         text-align: center;
         display: inline-block;
     }
@@ -50,13 +50,6 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-    }
-    
-    .celebritiesSection .celebritiesDiv {
-        display: table;
-        max-width: 90%;
-        /* text-align: center;
-        display: inline-block; */
     }
     /* Start donate section */
     
@@ -152,22 +145,27 @@
     }
     /* End favorites Section */
     
-    .celebritiesSection .col-sm-3 {
-        width: 200px;
+    .celebritiesSection {
+        text-align: center;
+    }
+    
+    .celebritiesSection .img-div {
         margin-left: 10px;
         border-style: solid;
         border-color: rgba(86, 156, 172, 0.87);
         padding-left: 0px;
         padding-right: 0px;
         margin-bottom: 10px;
+        display: inline-block;
+        text-align: center;
     }
     
-    .celebritiesSection .col-sm-3 img {
-        width: 100%;
+    .celebritiesSection .img-div img {
+        width: 200px;
         height: 200px;
     }
     
-    .celebritiesSection .col-sm-3 p {
+    .celebritiesSection p {
         margin: 0;
         line-height: 3em;
         font-size: 9px;
@@ -181,15 +179,6 @@
     
     .celebritiesSection {
         margin-top: 60px;
-    }
-    
-    @media (max-width:440px) {
-        .celebritiesSection .col-sm-3 {
-            width: 150px;
-        }
-        .celebritiesSection .col-sm-3 img {
-            height: 150px;
-        }
     }
     
     @media (min-width: 900px) {
@@ -267,6 +256,10 @@
     }
     
     @media (max-width:768px) {
+        .celebritiesSection .img-div img {
+            width: 135px;
+            height: 150px;
+        }
         /* Start donate section */
         .donate .donate-title {
             height: 100px;
@@ -341,38 +334,3 @@
             background-size: contain;
         }
     }
-    
-    @media only screen and (min-width:300px) and (max-width:374px) {
-        .shopCollection .row {
-            margin-left: 2%;
-        }
-    }
-    
-    @media only screen and (min-width:300px) and (max-width:370px) {
-        .celebritiesSection .celebritiesDiv {
-            max-width: 100%;
-        }
-    }
-    
-    @media only screen and (min-width:400px) and (max-width:440px) {
-        .celebritiesSection .celebritiesDiv {
-            max-width: 80%;
-        }
-    }
-    
-    @media only screen and (min-width:530px) and (max-width:691px) {
-        .celebritiesSection .row {
-            margin-left: 10%;
-        }
-    }
-    /* @media only screen and (min-width:430px) and (max-width:485px) {
-        .shopCollection .row {
-            margin-left: 15%;
-        }
-    }
-    
-    @media only screen and (min-width:570px) and (max-width:639px) {
-        .shopCollection .row {
-            margin-left: 10%;
-        }
-    } */

@@ -370,51 +370,51 @@
 </div>
 <!-- End Items -->
 <!-- START OMASHA CELEBRITIES SECTION -->
-    <section class="celebritiesSection">
+    <div class="celebritiesSection">
     <img class="center-block" src={{ URL::asset("images/Celebrities.png")}} width="300" height="150" >
 
       <!-- <div class="container center-block"> -->
         <div class="celebritiesDiv center-block">
-            <div class="col-sm-3 col-xs-4">
+            <div class="img-div">
               <img src={{ URL::asset("images/AzizMarka.png")}}> 
               <p class="brandcolor text-center battalion">Aziz Marka</p>
             </div>
-            <div class="col-sm-3 col-xs-4">
+            <div class="img-div">
               <img src={{ URL::asset("images/ZapTharwat.png")}}>
               <p class="brandcolor text-center battalion">Zap Tharwat</p>
 
             </div>
 
-            <div class="col-sm-3 col-xs-4">
+            <div class="img-div">
               <img src={{ URL::asset("images/SaraSabry.png")}}> 
               <p class="brandcolor text-center battalion">Sara Sabry</p>
             
             </div>
 
-            <div class="col-sm-3 col-xs-4">
+            <div class="img-div">
               <img src={{ URL::asset("images/Pablo.png")}}>
               <p class="brandcolor text-center battalion">Pablo</p>
             </div>
             <div class="visible-lg">
               <br clear="all" >
             </div>
-            <div class="col-sm-3 col-xs-4">
+            <div class="img-div">
               <img src={{ URL::asset("images/Cairokee.png")}}> 
               <p class="brandcolor text-center battalion">Cairokee</p>
             </div>
-            <div class="col-sm-3 col-xs-4">
+            <div class="img-div">
               <img src={{ URL::asset("images/ElMotaba3.png")}}>
               <p class="brandcolor text-center battalion">ElMoraba3</p>
 
             </div>
 
-            <div class="col-sm-3   col-xs-4">
+            <div class="img-div">
               <img src={{ URL::asset("images/MasarEgbari.png")}}> 
               <p class="brandcolor text-center battalion">Masar Egbari</p>
             
             </div>
 
-            <div class="col-sm-3   col-xs-4">
+            <div class="img-div">
               <img src={{ URL::asset("images/Mashro3leila.png")}}>
               <p class="brandcolor text-center battalion">Mashro3 leila</p>
             </div>
@@ -423,14 +423,14 @@
         </div>
 </div>
       
-    </section>
+</div>
     <br clear="all" >
     <!-- START OMASHA CELEBRITIES SECTION  -->
 
     <!-- START SHOP COLLECTION SECTION-->
     <div class="container-fluid shopCollection">
     <h3 class="raleway text-center titles">SHOP COLLECTION</h3>
-      <div class="row center-block">
+      <div class="center-block">
           <div class="imageDiv ">
             <img src={{ URL::asset("images/Mashro3Leila.png")}}>
             <p>MASHRO3 LEILA</p>
