@@ -14,9 +14,9 @@
   <script src="/js/bootstrap.min.js"></script>
   <script src="/js/html5shiv.min.js"></script>
   <script src="/js/Respond.js"></script>
-  <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
   <link rel="stylesheet" href="/css/bar.css">
   <link rel="stylesheet" href="/css/w3schools.css">
+  <link rel="stylesheet" href="/css/font_awesome.css">
 
 
   </head>
