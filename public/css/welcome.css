@@ -276,15 +276,15 @@
           height: 100px;
       }
       .favoritesSection .first {
-          margin-top: -100px;
+          margin-top: -104px;
       }
       .favoritesSection .second {
           display: inline-block;
           width: 200px;
-          height: 200px;
+          height: 204px;
       }
       .favoritesSection .third {
-          margin-top: -118px;
+          margin-top: -122px;
       }
       .favoritesSection {
           background-size: 200px 200px;
