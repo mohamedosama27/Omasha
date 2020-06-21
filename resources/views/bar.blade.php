@@ -51,7 +51,7 @@
 </div>
 <!-- End Search Modal -->
 
-  <div class="toptext text-center">&nbsp; FREE  DELIVERY  ON ORDERS  ABOVE 100  EGP &nbsp;</div>
+  <div class="toptext brandcolor text-center">&nbsp; FREE  DELIVERY  ON ORDERS  ABOVE 100  EGP &nbsp;</div>
   <nav class="navbar">
   <div class="container-fluid">
     

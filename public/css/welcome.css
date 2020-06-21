@@ -112,6 +112,7 @@
   /* Start favorites Section */
   
   .favoritesSection .images {
+      margin-bottom: 10px;
       height: 400px;
       width: 620px;
   }
