@@ -53,11 +53,6 @@
   }
   /* Start donate section */
   
-  .donate .donate-title {
-      height: 200px;
-      width: 500px;
-  }
-  
   .donate p {
       font-weight: bold;
       margin: 0;
@@ -68,7 +63,7 @@
   }
   
   .donate .first-item .description {
-      max-width: 59%;
+      max-width: 58%;
   }
   
   .donate .first-item .item-img {
@@ -111,6 +106,11 @@
   /* End donate section */
   /* Start favorites Section */
   
+  .donate .donate-title {
+      height: 180px;
+      width: 400px;
+  }
+  
   .favoritesSection .images {
       margin-bottom: 10px;
       height: 400px;
@@ -134,7 +134,7 @@
   }
   
   .favoritesSection .third {
-      margin-top: -220px;
+      margin-top: -218px;
   }
   /* End favorites Section */
   
@@ -145,7 +145,7 @@
   .celebritiesSection .img-div {
       margin-left: 10px;
       border-style: solid;
-      border-color: rgba(86, 156, 172, 0.87);
+      border-color: #27BECE;
       padding-left: 0px;
       padding-right: 0px;
       margin-bottom: 10px;
@@ -186,30 +186,43 @@
   }
   
   @media (min-width:768px) {
+      .celebrities-title {
+          width: 400px;
+          height: 200px;
+      }
       .favoritesSection {
           background-size: 200px 400px;
       }
       /* Start donate section */
       .donate .first-item {
-          padding: 10px;
+          padding: 20px;
           padding-left: 30px;
       }
       .donate .second-item {
-          padding: 10px;
+          padding: 20px;
+          margin-bottom: 30px;
+          margin-top: 30px;
       }
       .donate .first-item .item-img {
-          height: 300px;
-          width: 200px;
-          margin-top: -120px;
+          height: 400px;
+          width: 350px;
+          margin-top: -150px;
       }
       .donate .second-item .item-img {
-          height: 300px;
-          width: 200px;
-          margin-top: -80px;
+          height: 400px;
+          width: 350px;
+          margin-top: -110px;
           padding-left: 10px;
       }
       .donate {
           margin-bottom: 200px;
+      }
+      .donate p {
+          margin: 5px;
+      }
+      .donate .first-item .description,
+      .donate .second-item .content {
+          max-width: 50%;
       }
       /* End donate section */
       .subscribe .form-control {
@@ -282,7 +295,7 @@
           height: 200px;
       }
       .favoritesSection .third {
-          margin-top: -120px;
+          margin-top: -118px;
       }
       .favoritesSection {
           background-size: 200px 200px;

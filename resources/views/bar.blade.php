@@ -212,7 +212,7 @@
           </ul>
         </li>
      <li>
-        <a href="#" class="raleway visible-xs">ABOUT</a>
+        <a href="{{route('about')}}" class="raleway visible-xs">ABOUT</a>
       </li>
     @auth
     <li>
@@ -330,11 +330,10 @@
       @endforeach
           </ul>
         </li>
+      <li>
+        <a href="{{route('about')}}" class="raleway">ABOUT</a>
+      </li>
         @auth
-
-<li>
-      <a href="{{route('about')}}" class="raleway">ABOUT</a>
-</li>
     @if(Auth::user()->type == 1)
     <li class="dropdown">
           <a href="#" class="dropdown-toggle raleway" data-toggle="dropdown"

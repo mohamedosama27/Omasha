@@ -378,7 +378,7 @@
 <!-- End Items -->
 <!-- START OMASHA CELEBRITIES SECTION -->
     <div class="celebritiesSection">
-    <img class="center-block" src={{ URL::asset("images/Celebrities.png")}} width="270" height="100" >
+    <img class="center-block celebrities-title" src={{ URL::asset("images/Celebrities.png")}} width="270" height="100" >
 
       <!-- <div class="container center-block"> -->
         <div class="celebritiesDiv center-block">
