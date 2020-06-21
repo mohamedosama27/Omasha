@@ -343,3 +343,9 @@
           background-size: contain;
       }
   }
+  
+  @media (max-width:325px) {
+      .favoritesSection .second {
+          width: 180px;
+      }
+  }
