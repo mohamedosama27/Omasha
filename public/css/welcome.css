@@ -124,17 +124,17 @@
   }
   
   .favoritesSection .first {
-      margin-top: -200px;
+      margin-top: -204px;
   }
   
   .favoritesSection .second {
       display: inline-block;
       width: 400px;
-      height: 400px;
+      height: 404px;
   }
   
   .favoritesSection .third {
-      margin-top: -218px;
+      margin-top: -224px;
   }
   /* End favorites Section */
   
@@ -172,17 +172,6 @@
   
   .celebritiesSection {
       margin-top: 60px;
-  }
-  
-  @media (min-width: 900px) {
-      .craftsmanship .CraftsmanshipImg {
-          margin-left: 10%;
-          height: 350px;
-          width: 270px;
-          position: absolute;
-          bottom: -70px;
-          padding-right: 10px;
-      }
   }
   
   @media (min-width:768px) {
@@ -343,6 +332,20 @@
       }
       .celebritiesSection {
           background-size: 70% 100%;
+      }
+  }
+  
+  @media (min-width: 900px) {
+      .donate .second-item .content {
+          max-width: 58%;
+      }
+      .craftsmanship .CraftsmanshipImg {
+          margin-left: 10%;
+          height: 350px;
+          width: 270px;
+          position: absolute;
+          bottom: -70px;
+          padding-right: 10px;
       }
   }
   

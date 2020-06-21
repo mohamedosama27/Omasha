@@ -238,7 +238,7 @@
   
   <img class="donate-title" src={{ URL::asset("images/donate_title.png")}} />
   <div class="first-item">
-    <img class="item-img" src={{ URL::asset("images/Dogs.jpeg")}} />
+    <img class="item-img" src={{ URL::asset("images/dogs-2.jpg")}} />
 
     <p class="raleway">Dogs before dudes</p>
     <p class="raleway">15 LE</p>
