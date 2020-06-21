@@ -157,14 +157,11 @@
 }
 
 .toplogo {
-    float: left;
-    /* width: 75px; */
-    height: 55px;
+    width: 60px;
+    height: 50px;
     position: absolute;
     left: 40%;
-    /* margin-left: -50px !important; */
     display: block;
-    padding-bottom: 5px;
 }
 
 .chat_list {

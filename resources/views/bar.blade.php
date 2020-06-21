@@ -73,14 +73,12 @@
       <img  class="toplogo " src={{ URL::asset("images/Logo-1.png")}} ></a>
           
      
-      <div class="wrapper visible-xs">
+    <div class="wrapper visible-xs">
       <a href="{{ Request::is('cart') ? route('home') : route('cart') }}">
       <img class="baricons" src={{ URL::asset("images/cart.svg")}} >
-      
       <span class="badge countCart" id='countcart'>@if(session()->has('number_of_items')){{Session::get('number_of_items')}}@endif</span>
-
       </a> 
-  </div>
+    </div>
   <div class="wrapper visible-xs">
 
   <a href="{{route('favorites')}}" class="visible-xs">
@@ -199,9 +197,6 @@
           </ul>
         </li>
 
-<li>
-      <a href="#" class="raleway visible-xs">ABOUT</a>
-</li>
 <li class="dropdown visible-xs">
           <a href="#" class="dropdown-toggle raleway" data-toggle="dropdown"
           role="button" aria-haspopup="true" aria-expanded="false">
@@ -216,6 +211,9 @@
           
           </ul>
         </li>
+     <li>
+        <a href="#" class="raleway visible-xs">ABOUT</a>
+      </li>
     @auth
     <li>
         <a href="{{ route('user.edit',['id' => Auth::user()->id]) }}" class=" visible-xs raleway">
@@ -231,9 +229,10 @@
       <a href="{{ Request::is('login') ? route('home') : route('login') }}">Log in</a> 
     </li>
     @endauth
+    
       </ul>
     
-     
+ 
   <ul class="nav navbar-nav navbar-right hidden-xs">
   @auth
   
@@ -276,14 +275,7 @@
            </a>
         </div>
     </li>
-        <li>    
-          <div class="wrapper">
-            <a href="{{ Request::is('cart') ? route('home') : route('cart') }}">
-              <img class="baricons" src={{ URL::asset("images/cart.svg")}} >
-            </a>
-              <span class="badge countCart" id='countcart'>{{Session::has('number_of_items') ? Session::get('number_of_items'): ''}}</span>
-          </div>
-        </li>
+       
     <li>    
     <div class="wrapper">
     <a href="{{route('favorites')}}" class="iconsLink">
@@ -294,6 +286,14 @@
           </div> 
      
     </li> 
+    <li>    
+          <div class="wrapper">
+            <a href="{{ Request::is('cart') ? route('home') : route('cart') }}">
+              <img class="baricons" src={{ URL::asset("images/cart.svg")}} >
+            </a>
+              <span class="badge countCart" id='countcart'>{{Session::has('number_of_items') ? Session::get('number_of_items'): ''}}</span>
+          </div>
+        </li>
       </ul>
       
     </div><!-- /.navbar-collapse -->
@@ -317,9 +317,7 @@
             View all</a></li>   
           </ul>
         </li>
-<li>
-      <a href="{{route('about')}}" class="raleway">ABOUT</a>
-</li>
+
 <li class="dropdown">
           <a href="#" class="dropdown-toggle raleway" data-toggle="dropdown"
           role="button" aria-haspopup="true" aria-expanded="false">COLLECTION
@@ -334,7 +332,9 @@
         </li>
         @auth
 
-  
+<li>
+      <a href="{{route('about')}}" class="raleway">ABOUT</a>
+</li>
     @if(Auth::user()->type == 1)
     <li class="dropdown">
           <a href="#" class="dropdown-toggle raleway" data-toggle="dropdown"

@@ -203,7 +203,7 @@
 
     <h3 class="text-center raleway titles favoritestitle" > OMASHA 'S FAVORITES</h3>
 
-  <div class="container-fluid favoritesSection">
+  <!-- <div class="container-fluid favoritesSection">
 <div class="images center-block">
         <img src={{ URL::asset("images/Fav2.png")}} class="first">  
 
@@ -215,6 +215,15 @@
  
 </div>
  
+    </div> -->
+    <div class="favoritesSection">
+      <div class="images center-block">
+        <img src={{ URL::asset("images/Square_2.png")}} class="first">  
+        <img src={{ URL::asset("images/Square_1.jpeg")}} class="second">  
+        <img src={{ URL::asset("images/Fav1.png")}} class="third"> 
+      </div>
+      <!-- <img src={{ URL::asset("images/Fav1.png")}} class="second">  
+      <img src={{ URL::asset("images/Fav1.jpg")}} class="third"> -->
     </div>
     <div class="text-center">
     <a class="btn brandcolor raleway btnWeight" href="{{route('shop')}}">VIEW ALL</a><br>
@@ -369,7 +378,7 @@
 <!-- End Items -->
 <!-- START OMASHA CELEBRITIES SECTION -->
     <div class="celebritiesSection">
-    <img class="center-block" src={{ URL::asset("images/Celebrities.png")}} width="300" height="150" >
+    <img class="center-block" src={{ URL::asset("images/Celebrities.png")}} width="270" height="100" >
 
       <!-- <div class="container center-block"> -->
         <div class="celebritiesDiv center-block">

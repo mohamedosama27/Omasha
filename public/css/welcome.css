@@ -111,37 +111,29 @@
   /* End donate section */
   /* Start favorites Section */
   
-  .favoritesSection .images img {
-      object-fit: initial;
+  .favoritesSection .images {
+      height: 400px;
+      width: 620px;
   }
   
-  .favoritesSection figure {
-      margin: 0;
-      display: inline;
-  }
-  
-  .favoritesSection img {
-      padding: 5px;
+  .favoritesSection .first,
+  .favoritesSection .third {
+      width: 200px;
+      height: 200px;
   }
   
   .favoritesSection .first {
-      width: 24%;
-      height: 50%;
+      margin-top: -200px;
   }
   
   .favoritesSection .second {
-      width: 25%;
-      height: 50%;
+      display: inline-block;
+      width: 400px;
+      height: 400px;
   }
   
   .favoritesSection .third {
-      width: 50%;
-      height: 100%;
-  }
-  
-  .favoritesSection .fourth {
-      width: 50%;
-      height: 50%;
+      margin-top: -220px;
   }
   /* End favorites Section */
   
@@ -193,27 +185,32 @@
   }
   
   @media (min-width:768px) {
+      .favoritesSection {
+          background-size: 200px 400px;
+      }
       /* Start donate section */
+      .donate .first-item {
+          padding: 10px;
+          padding-left: 30px;
+      }
+      .donate .second-item {
+          padding: 10px;
+      }
       .donate .first-item .item-img {
-          height: 400px;
-          width: 30%;
-          margin-top: -175px;
+          height: 300px;
+          width: 200px;
+          margin-top: -120px;
       }
       .donate .second-item .item-img {
-          height: 400px;
-          width: 30%;
-          margin-top: -85px;
+          height: 300px;
+          width: 200px;
+          margin-top: -80px;
           padding-left: 10px;
       }
       .donate {
           margin-bottom: 200px;
       }
       /* End donate section */
-      .favoritesSection .images {
-          height: 400px;
-          overflow: hidden;
-          max-width: 70%;
-      }
       .subscribe .form-control {
           width: 500px;
       }
@@ -221,8 +218,7 @@
           width: 200px;
           height: 200px;
       }
-      .celebritiesSection,
-      .favoritesSection {
+      .celebritiesSection {
           background-size: 30% 100%;
       }
       .craftsmanship .pattern {
@@ -258,7 +254,7 @@
   @media (max-width:768px) {
       .celebritiesSection .img-div img {
           width: 135px;
-          height: 150px;
+          height: 135px;
       }
       /* Start donate section */
       .donate .donate-title {
@@ -266,21 +262,36 @@
           width: 70%;
       }
       /* End donate section */
+      /* Start favorites Section */
       .favoritesSection .images {
           height: 200px;
-          width: 95%;
+          width: 305px;
       }
-      .favoritesSection img {
-          padding: 2px;
+      .favoritesSection .first,
+      .favoritesSection .third {
+          width: 100px;
+          height: 100px;
       }
+      .favoritesSection .first {
+          margin-top: -100px;
+      }
+      .favoritesSection .second {
+          display: inline-block;
+          width: 200px;
+          height: 200px;
+      }
+      .favoritesSection .third {
+          margin-top: -120px;
+      }
+      .favoritesSection {
+          background-size: 200px 200px;
+      }
+      /* End favorites Section */
       .craftsmanship .row {
           margin: 0px;
       }
       .craftsmanship h3 {
           margin-top: 25px;
-      }
-      .favoritesSection .second {
-          max-width: 24%;
       }
       .mainCarousel .item {
           height: 250px;
@@ -316,8 +327,7 @@
       .craftsmanship .col-xs-9 p {
           padding-bottom: 160px;
       }
-      .celebritiesSection,
-      .favoritesSection {
+      .celebritiesSection {
           background-size: 70% 100%;
       }
   }

@@ -231,10 +231,10 @@ class ItemController extends Controller
      
         if (Auth::user() && auth()->user()->type==1)
         {
-          $items = \App\item::where('name', 'like', '%'.$query.'%')
+          $items = \App\item::where('name', 'ilike', '%'.$query.'%')
           ->orderBy('id', 'DESC')->get();        }
         else{
-          $items = \App\item::where('hide','=',NULL)->where('name', 'like', '%'.$query.'%')
+          $items = \App\item::where('hide','=',NULL)->where('name', 'ilike', '%'.$query.'%')
           ->orderBy('id', 'DESC')->get();
         }
 
