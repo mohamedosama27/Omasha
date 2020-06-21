@@ -22,9 +22,9 @@
   <div class="carousel-inner" role="listbox">
     <div class="item active" >
     <img class="carouselImg" src={{ URL::asset("images/cover1.jpg")}} width="100%" >      
-    <div class="carousel-caption">
+    <!-- <div class="carousel-caption">
         <a class="btn  shopnowBtn brandcolor raleway">SHOP NOW</a>
-      </div>
+      </div> -->
     </div>
     <div class="item">
     <img class="carouselImg" src={{ URL::asset("images/cover2.jpg")}} width="100%">      
