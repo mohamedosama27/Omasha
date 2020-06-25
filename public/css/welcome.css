@@ -68,7 +68,7 @@
   
   .donate .first-item .item-img {
       height: 225px;
-      width: 40%;
+      width: 150px;
       position: absolute;
       right: 10px;
       margin-top: -30px;
@@ -76,7 +76,7 @@
   
   .donate .second-item .item-img {
       height: 225px;
-      width: 40%;
+      width: 150px;
       position: absolute;
       margin-top: -50px;
       padding-left: 10px;
@@ -107,7 +107,7 @@
   /* Start favorites Section */
   
   .donate .donate-title {
-      height: 180px;
+      height: 140px;
       width: 400px;
   }
   
@@ -177,7 +177,7 @@
   @media (min-width:768px) {
       .celebrities-title {
           width: 400px;
-          height: 200px;
+          height: 160px;
       }
       .favoritesSection {
           background-size: 200px 400px;
@@ -189,12 +189,12 @@
       }
       .donate .second-item {
           padding: 20px;
-          margin-bottom: 30px;
+          margin-bottom: 62px;
           margin-top: 30px;
       }
       .donate .first-item .item-img {
           height: 400px;
-          width: 350px;
+          width: 320px;
           margin-top: -150px;
       }
       .donate .second-item .item-img {
@@ -364,5 +364,11 @@
   @media (max-width:325px) {
       .favoritesSection .second {
           width: 180px;
+      }
+      .donate .first-item .item-img {
+          width: 130px;
+      }
+      .donate .second-item .item-img {
+          width: 130px;
       }
   }

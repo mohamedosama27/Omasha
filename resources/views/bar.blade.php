@@ -16,7 +16,6 @@
   <script src="/js/Respond.js"></script>
   <link rel="stylesheet" href="/css/bar.css">
   <link rel="stylesheet" href="/css/w3schools.css">
-  <link rel="stylesheet" href="/css/font_awesome.css">
 
 
   </head>
