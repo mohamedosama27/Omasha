@@ -60,10 +60,10 @@
                     
                 </ul>
                 </p><br>
-       <b>Total price : </b>{{$totalprice}}<p class="EGP"> EGP</p><br>
-        <b> Total cost : </b>{{$totalcost}}<p class="EGP"> EGP</p><br>
-        <b> Total shipping : </b>{{$totaldelivery}}<p class="EGP"> EGP</p><br>
-        <b>Total profit : </b>{{$totalprice - $totalcost}}<p class="EGP"> EGP</p><br>
+       <b>Total price : </b>{{$totalprice}}<p class="EGP"> LE</p><br>
+        <b> Total cost : </b>{{$totalcost}}<p class="EGP"> LE</p><br>
+        <b> Total shipping : </b>{{$totaldelivery}}<p class="EGP"> LE</p><br>
+        <b>Total profit : </b>{{$totalprice - $totalcost}}<p class="EGP"> LE</p><br>
         
 
          </div>

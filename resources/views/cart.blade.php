@@ -17,7 +17,7 @@ $totalprice=0
           <a href="{{route('item.show',['id' => $selecteditem->item->id])}}">
             <p class="col-xs-12 col-md-3 text-center">{{$selecteditem->item->name}}</p>
          </a>
-          <span class="col-xs-4 col-md-2"> {{$selecteditem->item->price}} <p class="EGP">EGP</p></span>
+          <span class="col-xs-4 col-md-2"> {{$selecteditem->item->price}} <p class="EGP">LE</p></span>
           <div class="col-xs-3 col-md-2 quantityDiv">
 
             <button type="button" class="btn-increment " data-value="{{$selecteditem->item->id}}"
@@ -44,7 +44,7 @@ $totalprice=0
             id="totalprice{{$selecteditem->item->id}}">
                 {{$selecteditem->item->price*$selecteditem->Quantity}}</div>
             
-            <p class="EGP">EGP</p>
+            <p class="EGP">LE</p>
         </div>
        
     </div>

@@ -84,7 +84,7 @@
   <a href="{{route('item.show',['id' => $item->id])}}"> 
          <p>{{$item->name}}</p>
   </a>
-            <p>{{$item->price}} EGP</p>
+            <p>{{$item->price}} LE</p>
             @if(Auth::check() && Auth::user()->type == 1)
 
             <p><b>Quantity : </b>{{$item->quantity}}</p>

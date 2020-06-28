@@ -22,7 +22,8 @@ class ItemController extends Controller
         'price' => ['required', 'numeric'],
         'cost' => ['required', 'numeric'],
         'product' => ['required', 'numeric'],
-        'barcode' => ['required','string', 'max:255']
+        'barcode' => ['required','string', 'max:255'],
+        'img' => ['required']
 
   ]);
 
@@ -52,16 +53,20 @@ class ItemController extends Controller
       {
       $newArrivals = \App\item::orderBy('id', 'DESC')->take(4)->get();
       $items = \App\item::orderBy('id', 'DESC')->get()->slice(4, 8);
-
+      $donation = \App\item::where('description', 'like', '%Donation%')
+      ->orderBy('id', 'DESC')->get(); 
       }
       else{
         $newArrivals = \App\item::where('hide','=',NULL)->orderBy('id', 'DESC')->take(4)->get();
         $items = \App\item::where('hide','=',NULL)->orderBy('id', 'DESC')->get()->slice(4, 8);
-
+        $donation = \App\item::where('hide','=',NULL)
+              ->where('description', 'like', '%Donation%')
+              ->orderBy('id', 'DESC')->get(); 
       }
       return view('welcome',[
         'newArrivals'=>$newArrivals,
-        'items'=>$items
+        'items'=>$items,
+        'donation'=>$donation
 
         ]);
   
@@ -216,6 +221,7 @@ class ItemController extends Controller
         return redirect()->back();
 
     }
+    
     function search(Request $request)
     {
       //search for item in items table by item name

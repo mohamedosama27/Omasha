@@ -26,7 +26,7 @@ button {
 }
 
 .price:after {
-    content: ' EGP';
+    content: ' LE';
     font-size: 11px;
 }
 

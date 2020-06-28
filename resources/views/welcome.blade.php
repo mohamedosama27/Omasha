@@ -131,7 +131,7 @@
   <a href="{{route('item.show',['id' => $item->id])}}"> 
   <p>{{$item->name}}</p>
 </a>
-            <p>{{$item->price}} EGP</p>
+            <p>{{$item->price}} LE</p>
             <button class="btn brandcolor raleway btnWeight btn-addtocart" data-value="{{$item->id}}">
               Add To Cart</button><br>
             <a data-value="{{$item->id}}"  class="btn-addToFavorite raleway addtowishlist">
@@ -234,18 +234,19 @@
 
 <br>
     <!-- START DONATE SECTION -->
+@if(count($donation) == 2)
 <div class="donate brandcolor">
   
   <img class="donate-title" src={{ URL::asset("images/donate_title.png")}} />
   <div class="first-item">
     <img class="item-img" src={{ URL::asset("images/dogs-2.jpg")}} />
 
-    <p class="raleway">Dogs before dudes</p>
-    <p class="raleway">15 LE</p>
-    <p class="description raleway">Donation towards APF Animal protection foundation ( Dog shelter),</p>
-    <button class="btn brandcolor raleway btnWeight btn-addtocart" >
+    <p>{{$donation[0]->name}}</p>
+    <p class="raleway">{{$donation[0]->price}} LE</p>
+    <p class="description raleway">{{$donation[0]->description}}</p>
+     <button class="btn brandcolor raleway btnWeight btn-addtocart" data-value="{{$donation[0]->id}}">
               Add To Cart</button><br>
-            <a class="btn-addToFavorite raleway addtowishlist">
+            <a class="btn-addToFavorite raleway addtowishlist"  data-value="{{$donation[0]->id}}">
               Add To Wishlist <img  src={{ URL::asset("images/favorite.svg")}} 
               width="12" height="12" >
             </a>
@@ -257,17 +258,16 @@
   <div class="second-item ">
     <img class="item-img" src={{ URL::asset("images/Cancer.JPG")}} />
     <div class="content">
-        <p class="raleway">We see can in CANCER</p>
-        <p class="raleway">15 LE</p>
+        <p class="raleway">{{$donation[1]->name}}</p>
+        <p class="raleway">{{$donation[1]->price}} LE</p>
 
-        <p class="raleway description">Donation towards 57357 children’s
-          Cancer Hospital</p>
+        <p class="raleway description">{{$donation[1]->description}}</p>
 
-        <button class="btn brandcolor raleway btnWeight btn-addtocart" >
+        <button class="btn brandcolor raleway btnWeight btn-addtocart"  data-value="{{$donation[1]->id}}">
                   Add To Cart</button>
                   <br clear="all">
 
-                <a class="btn-addToFavorite raleway addtowishlist">
+                <a class="btn-addToFavorite raleway addtowishlist"  data-value="{{$donation[1]->id}}">
                   Add To Wishlist <img  src={{ URL::asset("images/favorite.svg")}} 
                   width="12" height="12" >
                 </a>
@@ -279,7 +279,7 @@
   <br>
 
 </div>
-
+@endif
     <!-- END DONATE SECTION -->
 
 <!-- Start Items -->
@@ -363,7 +363,7 @@
   <a href="{{route('item.show',['id' => $item->id])}}"> 
   <p>{{$item->name}}</p>
 </a>
-            <p>{{$item->price}} EGP</p>
+            <p>{{$item->price}} LE</p>
             <button class="btn brandcolor raleway btnWeight btn-addtocart" data-value="{{$item->id}}">
               Add To Cart</button><br>
             <a data-value="{{$item->id}}"  class="btn-addToFavorite raleway addtowishlist">

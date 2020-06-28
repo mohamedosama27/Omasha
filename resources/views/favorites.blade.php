@@ -94,7 +94,7 @@ font-size:12px;
   <a href="{{route('item.show',['id' => $item->id])}}"> 
          <p>{{$item->name}}</p>
   </a>
-    <p>{{$item->price}} EGP</p>
+    <p>{{$item->price}} LE</p>
     <button class="btn brandcolor raleway btnWeight btn-addtocart" data-value="{{$item->id}}">
             Add To Cart</button>
         

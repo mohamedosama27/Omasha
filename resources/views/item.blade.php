@@ -158,7 +158,7 @@ img {
 						<h3 class="product-title">{{$item->name}}</h3>
 						
 						<p class="product-description">{{$item->description}}</p>
-						<h4 class="price">current price: <span>{{$item->price}} <p class="EGP">EGP</p></span></h4>
+						<h4 class="price">current price: <span>{{$item->price}} <p class="EGP">LE</p></span></h4>
 					
 				
 						<div class="action">
