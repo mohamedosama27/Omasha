@@ -46,12 +46,13 @@ class OrderController extends Controller
            to item_order table after click on checkout */
         $request->validate([
             'address' => ['required', 'string', 'max:64000'],
+            'city' => ['required']
             ]);
-            
+        $fee = \App\fee::findorfail($request['city']);
         $selcteditems = Session::has('selcteditems') ? Session::get('selcteditems') : array();
         $order = new  \App\order;
         $order->user_id = auth()->id();
-        $order->address=$request['address'];
+        $order->address = $fee['name'] ." - " .$request['address'];
         $order->save();
         $totalprice=0;
         $totalcost=0;
@@ -72,8 +73,8 @@ class OrderController extends Controller
             );
        
         }
-        $order->total_price=$totalprice+10;
-        $order->total_cost=$totalcost;
+        $order->total_price = $totalprice+$fee['value'];
+        $order->total_cost = $totalcost;
 
         
         $order->save();

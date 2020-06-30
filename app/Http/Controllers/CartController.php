@@ -13,8 +13,11 @@ class CartController extends Controller
         //show items added in cart stored in session
 
         $selcteditems = Session::has('selcteditems') ? Session::get('selcteditems') : array();
+        $fees = \App\fee::all();
+
         return view('cart',[
-            'items'=>$selcteditems ?? 'Doesnot exist'
+            'items'=>$selcteditems ?? 'Doesnot exist',
+            'fees' => $fees
         ]);
     }
     public function removeItem($id)

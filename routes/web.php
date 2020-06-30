@@ -97,9 +97,6 @@ Route::get('/wheretobuy',
 ['uses' => 'LocationController@showAll',
     'as' => 'location.showAll'
 ]);
-
-
-
 Route::get('/deleteLocation/{id}', [
     'uses' => 'LocationController@destroy',
     'as' => 'location.delete'
@@ -111,6 +108,29 @@ Route::put('/updateLocation/{id}',
     'as' => 'location.update'
 ])->middleware('auth','ifAdmin');
 // end locations routes
+
+
+// start fees routes
+Route::put('/createfee',
+['uses' => 'FeeController@store',
+    'as' => 'fee.store'
+])->middleware('auth','ifAdmin');
+
+Route::get('/manage_fees',
+['uses' => 'FeeController@showAll',
+    'as' => 'fee.showAll'
+]);
+Route::get('/deletefee/{id}', [
+    'uses' => 'FeeController@destroy',
+    'as' => 'fee.delete'
+])->middleware('auth','ifAdmin');
+
+Route::put('/updateFee/{id}',
+[
+    'uses' => 'FeeController@update',
+    'as' => 'fee.update'
+])->middleware('auth','ifAdmin');
+// end fees routes
 
 // start distributors routes
 

@@ -162,6 +162,9 @@
             <li><a href="{{route('customize.showAll')}}">
               <i class="fa fa-list actionicons"></i>Show customize orders</a>
             </li>
+            <li><a href="{{route('fee.showAll')}}">
+            <i class="fa fa-truck actionicons"></i>Manage fees</a>
+            </li>
           </ul>
     </li>
   
@@ -385,6 +388,9 @@
             <li>
               <a href="{{route('customize.showAll')}}">
               <i class="fa fa-list actionicons"></i>Show customize orders</a>
+            </li>
+            <li><a href="{{route('fee.showAll')}}">
+            <i class="fa fa-truck actionicons"></i>Manage fees</a>
             </li>
           </ul>
     </li>

@@ -12,8 +12,9 @@ $totalprice=0
  
     @foreach($items as $selecteditem)
     <div class="row">
-        
-          <img class="col-xs-12 col-md-4" src="images\{{$selecteditem->item->images->first()->name}}" height="150" width="110">
+        <div class="col-xs-12 col-md-4 text-center">
+          <img src="images\{{$selecteditem->item->images->first()->name}}" height="150" >
+          </div>
           <a href="{{route('item.show',['id' => $selecteditem->item->id])}}">
             <p class="col-xs-12 col-md-3 text-center">{{$selecteditem->item->name}}</p>
          </a>
@@ -38,7 +39,7 @@ $totalprice=0
             class="col-xs-3 col-md-1 btn-danger">
             Remove
         </a>
-        <div class="col-xs-7 col-md-2 pull-right">
+        <div class="col-xs-7 col-md-2 pull-right raleway">
             <b>Total price : </b>
             <div class="inline"
             id="totalprice{{$selecteditem->item->id}}">
@@ -55,22 +56,14 @@ $totalprice=0
     <hr>
 <div class="col-xs-8  col-sm-5  col-md-4 pull-right">
     <div class="price invoice">
-      <label>Subtotal : </label>
+      <label class="raleway">Subtotal : </label>
       <div class=" inline" id="cart-subtotal">{{$totalprice}}</div>
     </div>
-    <div class="price invoice">
-      <label>Shipping : </label>
-      <div class="totals-value inline" id="cart-tax">10</div>
-    </div>
    
-    <div class="price invoice">
-      <label>Total Price : </label>
-      <div class="inline" id="cart-total">{{$totalprice+10}}</div>
-    </div>
     @include('errormessage')
   @include('addaddress')
     <a  @auth data-toggle="modal" data-target="#addaddress" @else href=" login" @endauth >
-  <button class="checkoutButton btn">Checkout</button>
+  <button class="checkoutButton btn brandcolor">Add Address</button>
 </div>
 </div>
 @else
@@ -81,8 +74,6 @@ $totalprice=0
 
 <script type="text/javascript">
 
-   
-
     $.ajaxSetup({
 
         headers: {
@@ -91,6 +82,10 @@ $totalprice=0
 
         }
 
+    });
+    $('#city').change(function () {
+      var city_fee = $('#city option:selected').data('value');
+      $("#cart-tax").text(city_fee); 
     });
     $(document).on("click", '.btn-decrement', function(e) { 
 
