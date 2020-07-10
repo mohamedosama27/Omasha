@@ -19,11 +19,17 @@
           <select class="form-control"  Name="city" id="city">
                     <option value="" disabled selected>Choose city</option>
                     @foreach($fees as $fee)
-                      <!-- <label id = "{{$fee->id}}" hidden>{{$fee->value}}" </label> -->
                         <option value="{{$fee->id}}" data-value="{{$fee->value}}">{{$fee->name}}</option>
                     @endforeach
                     </select>
 
+          <br clear="all"/>
+          <select class="form-control"  Name="zone" >
+                    <option value="" disabled selected>Choose zone</option>
+                    @foreach($zones as $zone)
+                        <option value="{{$zone->name}}">{{$zone->name}}</option>
+                    @endforeach
+                    </select>
           <br clear="all"/>
 
           <div class="price invoice pull-right">

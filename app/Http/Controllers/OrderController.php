@@ -52,7 +52,7 @@ class OrderController extends Controller
         $selcteditems = Session::has('selcteditems') ? Session::get('selcteditems') : array();
         $order = new  \App\order;
         $order->user_id = auth()->id();
-        $order->address = $fee['name'] ." - " .$request['address'];
+        $order->address =$request['address']." - ".$request['zone']." - " . $fee['name'];
         $order->save();
         $totalprice=0;
         $totalcost=0;
@@ -178,8 +178,6 @@ class OrderController extends Controller
                 'totalprice' => $totalprice,
                 'totalcost' => $totalcost,
                 'totaldelivery' => $totaldelivery
-
-
             ]);
         
     }

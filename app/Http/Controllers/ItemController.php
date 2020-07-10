@@ -63,10 +63,12 @@ class ItemController extends Controller
               ->where('description', 'like', '%Donation%')
               ->orderBy('id', 'DESC')->get(); 
       }
+      $home_images = \App\home_image::orderBy('id', 'DESC')->get();
       return view('welcome',[
         'newArrivals'=>$newArrivals,
         'items'=>$items,
-        'donation'=>$donation
+        'donation'=>$donation,
+        'home_images'=>$home_images,
 
         ]);
   

@@ -14,10 +14,13 @@ class CartController extends Controller
 
         $selcteditems = Session::has('selcteditems') ? Session::get('selcteditems') : array();
         $fees = \App\fee::all();
+        $zones = \App\zone::all();
 
         return view('cart',[
             'items'=>$selcteditems ?? 'Doesnot exist',
-            'fees' => $fees
+            'fees' => $fees,
+            'zones' => $zones
+
         ]);
     }
     public function removeItem($id)

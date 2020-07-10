@@ -16,6 +16,7 @@ $factory->define(item::class, function (Faker $faker) {
         'price'=>$x+5,
         'cost'=>$x,
         'quantity'=>$x+3,
+	'product' => '0',
         
 
     ];

@@ -5,34 +5,46 @@
 <link rel="stylesheet" href="/css/item_design.css">
 
   <!-- Top  Carousel -->
+  @if(count($home_images)>0)
 <div id="carousel-example-generic" class="carousel slide topCarousel mainCarousel" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
+  @foreach($home_images as $home_image)
+  @if ($loop->first)
     <li data-target="#carousel-example-generic" data-slide-to="0" class="active">
       <img src={{ URL::asset("images/Logo-2.png")}} width="100%">      
 
     </li>
+    @else
     <li data-target="#carousel-example-generic" data-slide-to="1">
       <img  src={{ URL::asset("images/Logo-2.png")}} width="100%">      
 
     </li>
+    @endif
+  @endforeach
   </ol>
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
+  @foreach($home_images as $home_image)
+  @if ($loop->first)
+
     <div class="item active" >
-    <img class="carouselImg" src={{ URL::asset("images/cover1.jpg")}} width="100%" >      
+    <img class="carouselImg" src={{ URL::asset("images/{$home_image->name}")}} width="100%" >      
     <!-- <div class="carousel-caption">
         <a class="btn  shopnowBtn brandcolor raleway">SHOP NOW</a>
       </div> -->
     </div>
+    @else
+  
     <div class="item">
-    <img class="carouselImg" src={{ URL::asset("images/cover2.jpg")}} width="100%">      
+    <img class="carouselImg" src={{ URL::asset("images/{$home_image->name}")}} width="100%">      
       <div class="carousel-caption">
         ...
       </div>
     </div>
-    ...
+    @endif
+  @endforeach
   </div>
 
   <!-- Controls -->
@@ -45,6 +57,7 @@
   <i class="fa fa-3x fa-angle-right" ></i>
   </a>
 </div>
+@endif
   <!-- End Top  Carousel -->
 
 <br>

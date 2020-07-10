@@ -49,8 +49,10 @@
   </div>
 </div>
 <!-- End Search Modal -->
-
-  <div class="toptext brandcolor text-center">&nbsp; FREE  DELIVERY  ON ORDERS  ABOVE 100  EGP &nbsp;</div>
+@php( $home_top_titles = \App\home_top_title::all() )
+    @foreach($home_top_titles as $home_top_title)
+  <div class="toptext brandcolor text-center">&nbsp; {{$home_top_title->content}} &nbsp;</div>
+  @endforeach
   <nav class="navbar">
   <div class="container-fluid">
     
@@ -165,6 +167,14 @@
             <li><a href="{{route('fee.showAll')}}">
             <i class="fa fa-truck actionicons"></i>Manage fees</a>
             </li>
+            <li><a href="{{route('Zone.showAll')}}">
+            <i class="fa fa-map-marker actionicons"></i>Manage zones</a>
+            </li>
+
+            <li><a href="{{route('home.images.showAll')}}">
+            <i class="fa fa-edit actionicons"></i>Edit home page </a>
+            </li>
+
           </ul>
     </li>
   
@@ -391,6 +401,12 @@
             </li>
             <li><a href="{{route('fee.showAll')}}">
             <i class="fa fa-truck actionicons"></i>Manage fees</a>
+            </li>
+            <li><a href="{{route('Zone.showAll')}}">
+            <i class="fa fa-map-marker actionicons"></i>Manage zones</a>
+            </li>
+            <li><a href="{{route('home.images.showAll')}}">
+            <i class="fa fa-edit actionicons"></i>Edit home page </a>
             </li>
           </ul>
     </li>

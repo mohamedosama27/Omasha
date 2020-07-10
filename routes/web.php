@@ -132,6 +132,65 @@ Route::put('/updateFee/{id}',
 ])->middleware('auth','ifAdmin');
 // end fees routes
 
+// start Zone routes
+Route::put('/createZone',
+['uses' => 'ZoneController@store',
+    'as' => 'Zone.store'
+])->middleware('auth','ifAdmin');
+
+Route::get('/manage_Zones',
+['uses' => 'ZoneController@showAll',
+    'as' => 'Zone.showAll'
+]);
+Route::get('/deleteZone/{id}', [
+    'uses' => 'ZoneController@destroy',
+    'as' => 'Zone.delete'
+])->middleware('auth','ifAdmin');
+
+Route::put('/updateZone/{id}',
+[
+    'uses' => 'ZoneController@update',
+    'as' => 'Zone.update'
+])->middleware('auth','ifAdmin');
+// end Zones routes
+
+
+// start home titles routes
+Route::put('/create_home_top_title',
+['uses' => 'HomeController@store_title',
+    'as' => 'home.titles.store'
+])->middleware('auth','ifAdmin');
+
+Route::get('/delete_home_top_title/{id}', [
+    'uses' => 'HomeController@destroy_title',
+    'as' => 'home.titles.delete'
+])->middleware('auth','ifAdmin');
+
+Route::put('/update_home_top_title/{id}',
+[
+    'uses' => 'HomeController@update_title',
+    'as' => 'home.titles.update'
+])->middleware('auth','ifAdmin');
+// end Homes routes
+
+
+// start Home images routes
+Route::put('/create_home_images',
+['uses' => 'HomeController@store_image',
+    'as' => 'home.images.store'
+])->middleware('auth','ifAdmin');
+
+Route::get('/manage_home',
+['uses' => 'HomeController@showAll',
+    'as' => 'home.images.showAll'
+]);
+Route::get('/delete_home_images/{id}', [
+    'uses' => 'HomeController@destroy_image',
+    'as' => 'home.images.delete'
+])->middleware('auth','ifAdmin');
+
+// end home images routes
+
 // start distributors routes
 
 Route::put('/createdistributor',
