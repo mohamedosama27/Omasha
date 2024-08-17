@@ -174,7 +174,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Collective\Html\HtmlServiceProvider::class,
         // Barryvdh\DomPDF\ServiceProvider::class,
         Elibyy\TCPDF\ServiceProvider::class,
 
@@ -239,7 +238,7 @@ return [
         'PDF' => Elibyy\TCPDF\Facades\TCPDF::class,
 
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-        
+
         ],
 
 ];
