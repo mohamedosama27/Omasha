@@ -3,37 +3,215 @@
       padding: 2px 3px;
       color: black;
   }
-  
+
   .subscribe {
       margin-top: 80px;
       margin-bottom: 80px;
   }
-  
+
   .subscribe .form-control,
   .subscribe .btn {
       border-radius: 0px;
       height: 25px;
   }
-  
+
   .subscribe .btn {
       margin-left: -4px;
       padding: 1px 12px;
   }
-  
+
   .slogo {
-      margin-top: 80px;
+      margin-top: 40px;
       width: 300px;
   }
-  
+
+  .curtains-section {
+      padding: 50px 5px;
+      /* text-align: center; */
+  }
+
+  .curtains-section h2 {
+      margin-bottom: 50px;
+      font-size: 2rem;
+      font-weight: bold;
+  }
+
+  .curtain-categories {
+      display: flex;
+      overflow: hidden;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+      scroll-behavior: smooth;
+      /* width: 1410px; */
+      /* gap: 30px; */
+  }
+
+  .curtain-item {
+      flex: 0 0 30%;
+      position: relative;
+      width: 450px;
+      max-width: 450px;
+      height: 630px;
+      overflow: hidden;
+      margin-right: 10px;
+      margin-left: 10px;
+  }
+
+  .curtain-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      display: block;
+      transition: transform 0.3s ease;
+      border-radius: 8px;
+  }
+
+  .curtain-item .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      /* background-color: rgba(0, 0, 0, 0.5); */
+      /* Dark overlay */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+  }
+
+  .slide-left,
+  .slide-right {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      border-radius: 50%;
+      padding: 10px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+  }
+
+  .slide-left {
+      left: 0;
+  }
+
+  .slide-right {
+      right: 0;
+  }
+
+  .slide-left:hover,
+  .slide-right:hover {
+      background-color: #337ab7;
+      /* Slightly lighter black on hover */
+  }
+
+  .curtain-item .category-name {
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      font-size: 1.75rem;
+      font-weight: bold;
+      margin-bottom: 25px;
+      opacity: 1;
+  }
+
+  .curtain-item .view-button {
+      background-color: rgba(125, 217, 90, 255);
+      color: white;
+      padding: 15px 30px;
+      text-decoration: none;
+      font-size: 0.95em;
+      letter-spacing: 1px;
+      display: inline-block;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: 30px;
+  }
+
+  .slider-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+  }
+
+  .curtain-item:hover img {
+      transform: scale(1.1);
+      /* Slight zoom effect on hover */
+  }
+
+  .curtain-item:hover .overlay {
+      opacity: 1;
+  }
+
+  .curtain-item:hover .view-button {
+      opacity: 1;
+  }
+
+  @media (max-width:768px) {
+
+      .slide-left,
+      .slide-right {
+          display: none;
+      }
+
+      .curtain-item {
+          width: 290px;
+          height: 435px;
+          margin-right: 5px;
+          margin-left: 5px;
+      }
+
+      .curtain-item {
+        flex: 0 0 80%;
+        max-width: 300px;
+        text-align: center;
+    }
+
+      .curtains-section {
+          padding: 25px 10px;
+          /* text-align: center; */
+      }
+
+      .curtain-categories {
+          width: 100%;
+          overflow-x: auto;
+          scroll-behavior: smooth;
+          -webkit-overflow-scrolling: touch;
+          /* Smooth scrolling on iOS devices */
+      }
+
+      .slider-container {
+        justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 850px) {
+    .curtain-item .category-name {
+        font-size: 1.5rem;
+    }
+  }
+
   .shopCollection {
       margin-top: 60px;
   }
-  
+
   .shopCollection {
       text-align: center;
       display: inline-block;
   }
-  
+
   .shopCollection .imageDiv {
       display: inline-block;
       width: auto;
@@ -43,7 +221,7 @@
       text-align: center;
       color: white;
   }
-  
+
   .shopCollection .imageDiv p {
       font-weight: 900;
       position: absolute;
@@ -51,21 +229,22 @@
       left: 50%;
       transform: translate(-50%, -50%);
   }
+
   /* Start donate section */
-  
+
   .donate p {
       font-weight: bold;
       margin: 0;
   }
-  
+
   .donate .description {
       font-weight: lighter;
   }
-  
+
   .donate .first-item .description {
       max-width: 58%;
   }
-  
+
   .donate .first-item .item-img {
       height: 225px;
       width: 150px;
@@ -73,7 +252,7 @@
       right: 10px;
       margin-top: -30px;
   }
-  
+
   .donate .second-item .item-img {
       height: 225px;
       width: 150px;
@@ -81,67 +260,69 @@
       margin-top: -50px;
       padding-left: 10px;
   }
-  
+
   .donate .second-item .content {
       width: 58%;
       float: right;
   }
-  
+
   .donate .second-item {
       overflow: auto;
       padding-top: 20px;
       background-color: white;
       padding-right: 5px;
   }
-  
+
   .donate .first-item {
       background-color: white;
       padding-left: 5px;
       /* max-width: 90%; */
   }
-  
+
   .donate {
       margin-bottom: 50px;
   }
+
   /* End donate section */
   /* Start favorites Section */
-  
+
   .donate .donate-title {
       height: 140px;
       width: 400px;
   }
-  
+
   .favoritesSection .images {
       margin-bottom: 10px;
       height: 400px;
       width: 620px;
   }
-  
+
   .favoritesSection .first,
   .favoritesSection .third {
       width: 200px;
       height: 200px;
   }
-  
+
   .favoritesSection .first {
       margin-top: -204px;
   }
-  
+
   .favoritesSection .second {
       display: inline-block;
       width: 400px;
       height: 404px;
   }
-  
+
   .favoritesSection .third {
       margin-top: -224px;
   }
+
   /* End favorites Section */
-  
+
   .celebritiesSection {
       text-align: center;
   }
-  
+
   .celebritiesSection .img-div {
       margin-left: 10px;
       border-style: solid;
@@ -152,97 +333,119 @@
       display: inline-block;
       text-align: center;
   }
-  
+
   .celebritiesSection .img-div img {
       width: 200px;
       height: 200px;
   }
-  
+
   .celebritiesSection p {
       margin: 0;
       line-height: 3em;
       font-size: 9px;
   }
-  
+
   .celebritiesSection,
   .favoritesSection {
       background-image: url("/images/pattern2.png");
       background-repeat: no-repeat;
   }
-  
+
   .celebritiesSection {
       margin-top: 60px;
   }
-  
+
+  .carouselArrow {
+      position: absolute;
+      top: 275px;
+      left: 0;
+      right: 0;
+  }
+
   @media (min-width:768px) {
       .celebrities-title {
           width: 400px;
           height: 160px;
       }
+
       .favoritesSection {
           background-size: 200px 400px;
       }
+
       /* Start donate section */
       .donate .first-item {
           padding: 20px;
           padding-left: 30px;
       }
+
       .donate .second-item {
           padding: 20px;
           margin-bottom: 62px;
           margin-top: 30px;
       }
+
       .donate .first-item .item-img {
           height: 400px;
           width: 320px;
           margin-top: -150px;
       }
+
       .donate .second-item .item-img {
           height: 400px;
           width: 350px;
           margin-top: -110px;
           padding-left: 10px;
       }
+
       .donate {
           margin-bottom: 200px;
       }
+
       .donate p {
           margin: 5px;
       }
+
       .donate .first-item .description,
       .donate .second-item .content {
           max-width: 50%;
       }
+
       /* End donate section */
       .subscribe .form-control {
           width: 500px;
       }
+
       .shopCollection .imageDiv img {
           width: 200px;
           height: 200px;
       }
+
       .celebritiesSection {
           background-size: 30% 100%;
       }
+
       .craftsmanship .pattern {
           margin-top: -100px;
           top: 0px;
           height: 400px;
       }
+
       .craftsmanship .col-xs-9 {
           margin-top: auto;
       }
+
       .craftsmanship {
           margin-bottom: 70px;
           margin-top: 80px;
       }
+
       .shopnowBtn {
           font-size: 18px;
           padding: 5px 8px;
           color: black;
       }
   }
-  
+
   @media only screen and (min-width:768px) and (max-width:1000px) {
       .craftsmanship .CraftsmanshipImg {
           margin-left: 0px;
@@ -253,92 +456,113 @@
           padding-right: 5px;
       }
   }
-  
+
   @media (max-width:768px) {
       .celebritiesSection .img-div img {
           width: 135px;
           height: 135px;
       }
+
       /* Start donate section */
       .donate .donate-title {
           height: 100px;
           width: 70%;
       }
+
       /* End donate section */
       /* Start favorites Section */
       .favoritesSection .images {
           height: 200px;
           width: 305px;
       }
+
       .favoritesSection .first,
       .favoritesSection .third {
           width: 100px;
           height: 100px;
       }
+
       .favoritesSection .first {
           margin-top: -104px;
       }
+
       .favoritesSection .second {
           display: inline-block;
           width: 200px;
           height: 204px;
       }
+
       .favoritesSection .third {
           margin-top: -122px;
       }
+
       .favoritesSection {
           background-size: 200px 200px;
       }
+
       /* End favorites Section */
       .craftsmanship .row {
           margin: 0px;
       }
+
       .craftsmanship h3 {
           margin-top: 25px;
       }
+
       .mainCarousel .item {
           height: 250px;
       }
+
       .mainCarousel .item img {
           position: absolute;
           top: 0;
           left: 0;
           min-height: 250px;
       }
+
       .titles {
           font-size: 18px;
+          font-weight: bold;
       }
+
       .subscribe .form-control {
           width: 200px;
           display: inline-block;
       }
+
       .shopCollection .imageDiv img {
           width: 135px;
           height: 150px;
       }
+
       .craftsmanship .CraftsmanshipImg {
           height: 350px;
           width: 100%;
           min-width: 250px;
       }
+
       .craftsmanship .img {
           margin-top: -40%;
       }
+
       .craftsmanship .col-xs-9 {
           position: relative;
       }
+
       .craftsmanship .col-xs-9 p {
           padding-bottom: 160px;
       }
+
       .celebritiesSection {
           background-size: 70% 100%;
       }
   }
-  
+
   @media (min-width: 900px) {
       .donate .second-item .content {
           max-width: 58%;
       }
+
       .craftsmanship .CraftsmanshipImg {
           margin-left: 10%;
           height: 350px;
@@ -348,26 +572,28 @@
           padding-right: 10px;
       }
   }
-  
+
   @media only screen and (min-width:490px) and (max-width:768px) {
       .craftsmanship .img {
           margin-top: -20%;
       }
   }
-  
+
   @media (max-width:718px) {
       .celebritiesSection {
           background-size: contain;
       }
   }
-  
+
   @media (max-width:325px) {
       .favoritesSection .second {
           width: 180px;
       }
+
       .donate .first-item .item-img {
           width: 130px;
       }
+
       .donate .second-item .item-img {
           width: 130px;
       }

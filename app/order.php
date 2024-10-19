@@ -8,7 +8,7 @@ class order extends Model
 {
     public function items()
     {
-        return $this->belongsToMany(item::class)->withPivot('quantity');;
+        return $this->belongsToMany(item::class)->withPivot('quantity', 'style', 'size', 'note', 'color', 'price');;
     }
     public function user()
     {

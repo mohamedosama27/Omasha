@@ -18,7 +18,7 @@
     max-width: 150px;
 
   }
-  
+
 
 }
 @media screen and (max-width: 320px) {
@@ -36,36 +36,36 @@
   height:170px;
 
 }
-    
-    
-    
+
+
+
       .div3
       {
         display: table;
-        
+
       }
-     
-  
-    
+
+
+
       .cardspace{
           margin:10px;
       }
-    
+
       .item{
       text-align:center;
       }
-     
+
       .carousel img {
         height: 170px!important;
         display:inline-block  !important;
       }
-   
+
       .div3
       {
         max-height:220px;
-        
+
       }
-      p 
+      p
       {
        color:black;
        height :20px;

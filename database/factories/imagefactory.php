@@ -12,9 +12,9 @@ $factory->define(image::class, function (Faker $faker) {
     $item=item::all()->random(1);
         // get random index from array $arrX
     $randIndex = array_rand($images);
-    
+
     // output the value for the random index
-     
+
     return [
         'name'=>$images[$randIndex],
         'item_id' => $item[0]->id,

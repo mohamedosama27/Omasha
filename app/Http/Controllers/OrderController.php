@@ -12,6 +12,7 @@ use DB;
 use App\selectedItem;
 use PDF;
 use Elibyy\TCPDF\Facades\TCPDF;
+use Illuminate\Support\Facades\Mail;
 
 
 
@@ -22,77 +23,88 @@ class OrderController extends Controller
         //retrieve all orders by admin and passed to vieworders
 
         $orders = \App\order::orderBy('id', 'DESC')->get();
-        $items=DB::table('item_order')->get();
-        return view('vieworders',[
-            'orders'=>$orders,
-            'items'=>$items,
-
+        $items = DB::table('item_order')->get();
+        return view('vieworders', [
+            'orders' => $orders,
+            'items' => $items,
         ]);
-       
+
     }
     public function show()
     {
         //retrieve client last order and passed to lastorder view
 
         $order = \Auth::user()->orders()->get()->last();
-        return view('lastorder',[
-            'order'=>$order,
+        return view('lastorder', [
+            'order' => $order,
         ]);
-        
+
     }
     public function create(Request $request)
     {
         /* create new record in orders table and add items in cart array stored in session
            to item_order table after click on checkout */
+
         $request->validate([
             'address' => ['required', 'string', 'max:64000'],
             'city' => ['required']
-            ]);
-        $fee = \App\fee::findorfail($request['city']);
+        ]);
+        $fee = \App\fee::findorfail($request['governorate']);
         $selcteditems = Session::has('selcteditems') ? Session::get('selcteditems') : array();
-        $order = new  \App\order;
+        $order = new \App\order;
         $order->user_id = auth()->id();
-        $order->address =$request['address']." - ".$request['zone']." - " . $fee['name'];
+        $order->address = $request['address'] . " - " . $request['city'] . " - " . $fee['name'];
         $order->save();
-        $totalprice=0;
-        $totalcost=0;
+        $totalprice = 0;
+        $totalcost = 0;
 
-        foreach($selcteditems as $selecteditem)
-        {
+        foreach ($selcteditems as $selecteditem) {
             $item = \App\item::find($selecteditem->item->id);
-            $item->quantity-=$selecteditem->Quantity;
+            $item->quantity -= $selecteditem->Quantity;
             $item->save();
 
-            $totalprice+=$selecteditem->Quantity*$selecteditem->item->price;
-            $totalcost+=$selecteditem->Quantity*$selecteditem->item->cost;
+            $totalprice += $selecteditem->Quantity * $selecteditem->price;
+            $totalcost += $selecteditem->Quantity * $selecteditem->item->cost;
 
             DB::table('item_order')->insert(
-                ['item_id' => $selecteditem->item->id,
-                 'order_id' => $order->id,
-                'quantity' =>$selecteditem->Quantity]
+                [
+                    'item_id' => $selecteditem->item->id,
+                    'order_id' => $order->id,
+                    'quantity' => $selecteditem->Quantity,
+                    'size' => $selecteditem->size,
+                    'style' => $selecteditem->style,
+                    'style_ar' => $selecteditem->style_ar,
+                    'color' => $selecteditem->color,
+                    'color_ar' => $selecteditem->color_ar,
+                    'note' => $selecteditem->note,
+                    'price' => $selecteditem->price
+                ]
             );
-       
+
         }
-        $order->total_price = $totalprice+$fee['value'];
+        $order->total_price = $totalprice + $fee['value'];
         $order->total_cost = $totalcost;
 
-        
+
         $order->save();
-        Session::put('number_of_items',0 );
-        Session::put('selcteditems',array());
-        
+        Session::put('number_of_items', 0);
+        Session::put('selcteditems', array());
+
         // $details = [
         //     'title' => 'You have new order',
         //     'order' => $order ,
         // ];
-        // Nexmo::message()->send([
-        //     'to'   => '+201118221684',
-        //     'from' => '+201118221684',
-        //     'text' => 'You submit new order  http://aqueous-dawn-37150.herokuapp.com/chat/'.auth()->id()." .",
-        // ]);
-        // \Mail::to('mohamed1705725@miuegypt.edu.eg')->send(new SendMail($details));
+        // $file = 'emails.send_order_to_admin';
+        // \Mail::to('saher.seada10@gmail.com')->send(new SendMail($details));
 
-             return redirect('lastorder');
+        // $details = [
+        //     'title' => 'Test Email Title',
+        //     'body' => 'This is the body of the test email.'
+        // ];
+
+        // Mail::to('saher.seada10@gmail.com')->send(new SendMail($details));
+
+        return redirect('lastorder');
     }
 
     public function reject($id)
@@ -100,9 +112,9 @@ class OrderController extends Controller
         //update order status to 0 and send message to the client
 
         $order = \App\order::findorfail($id);
-        $order->status=0;
+        $order->status = 0;
         $order->save();
-        $message=MessageController::createmessage('Something wrong in your order','0',$order->user->id);
+        $message = MessageController::createmessage('Something wrong in your order', '0', $order->user->id);
         return redirect('vieworders');
     }
     public function destroy($id)
@@ -124,67 +136,60 @@ class OrderController extends Controller
             $startDate = date('Y-m-d', strtotime($request->from));
             $endDate = date('Y-m-d', strtotime($request->to));
 
-        }
-        else
-        {
+        } else {
             $startDate = date('Y-m-01');
             $endDate = date('Y-m-30');
-           
+
         }
-        $orders = \App\order::where('status','=','1')
-                                ->whereDate('created_at', '>=', $startDate)
-                                ->whereDate('created_at', '<=', $endDate)
-                                ->get();
-            $sold_items = array();
-            $totalprice=0;
-            $totalcost=0;
-            $totaldelivery=0;
+        $orders = \App\order::where('status', '=', '1')
+            ->whereDate('created_at', '>=', $startDate)
+            ->whereDate('created_at', '<=', $endDate)
+            ->get();
+        $sold_items = array();
+        $totalprice = 0;
+        $totalcost = 0;
+        $totaldelivery = 0;
 
-            foreach($orders as $order)
-            {
+        foreach ($orders as $order) {
 
-                foreach($order->items()->get() as $item)
-                {
-     
-                    $found=false;
+            foreach ($order->items()->get() as $item) {
 
-                    foreach($sold_items as $sold_item)
-                    {
-                        if($sold_item->item->id == $item->id)
-                        {
-                            $sold_item->Quantity += $item->pivot->quantity;
-                            $found = true;
-                        }
+                $found = false;
+
+                foreach ($sold_items as $sold_item) {
+                    if ($sold_item->item->id == $item->id) {
+                        $sold_item->Quantity += $item->pivot->quantity;
+                        $found = true;
                     }
-                    if($found==false)
-                    {   
-                         $x = new selectedItem($item->id);
-                        $x->Quantity=$item->pivot->quantity;
-                        array_push($sold_items,$x);
-
-                    }
-                    
-                    $totalcost+=$item->cost*$item->pivot->quantity;
+                }
+                if ($found == false) {
+                    $x = new selectedItem($item->id);
+                    $x->Quantity = $item->pivot->quantity;
+                    array_push($sold_items, $x);
 
                 }
-                $totalprice+=$order->total_price-10;
-                $totaldelivery+=10;
+
+                $totalcost += $item->cost * $item->pivot->quantity;
 
             }
-            return view('report',[
-                'from' => $startDate,
-                'to' => $endDate,
-                'items' => $sold_items,
-                'totalprice' => $totalprice,
-                'totalcost' => $totalcost,
-                'totaldelivery' => $totaldelivery
-            ]);
-        
+            $totalprice += $order->total_price - 10;
+            $totaldelivery += 10;
+
+        }
+        return view('report', [
+            'from' => $startDate,
+            'to' => $endDate,
+            'items' => $sold_items,
+            'totalprice' => $totalprice,
+            'totalcost' => $totalcost,
+            'totaldelivery' => $totaldelivery
+        ]);
+
     }
     public function downloadreport()
     {
         $pdf = PDF::loadView('reportPDF');
-        
+
         return $pdf->download('disney.pdf');
         // return redirect()->back();
     }
@@ -193,93 +198,93 @@ class OrderController extends Controller
         //update order status to 1 and send message to the client
 
         $order = \App\order::findorfail($id);
-        $order->status=1;
+        $order->status = 1;
         $order->save();
-        $message=MessageController::createmessage('Your order accepted','0',$order->user->id);
+        $message = MessageController::createmessage('Your order accepted', '0', $order->user->id);
         return redirect()->back();
 
-     }
-     public function invoice($id)
-     {
+    }
+    public function invoice($id)
+    {
         $order = \App\order::findorfail($id);
         $view = \View::make('invoice', compact('order'));
         $html = $view->render();
-        
+
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf::SetFont('dejavusans', '', 18);
 
         $pdf::SetTitle('Invoice');
         $pdf::AddPage();
         $pdf::writeHTML($html, true, false, true, false, '');
-        $pdf::Output($order->user->phone.'.pdf','D');
+        $pdf::Output($order->user->phone . '.pdf', 'D');
 
 
         // parent::__construct( $orientation, $unit, $format, true, 'UTF-8', false );
- 
-     
+
+
         # Set the page margins: 72pt on each side, 36pt on top/bottom.
-    //     $pdf::SetMargins( 71, 36, 72, true );
-    //     $pdf::SetAutoPageBreak( true, 36 );
-         
-    //     # Set document meta-information
-    //     $pdf::SetCreator( PDF_CREATOR );
-    //     $pdf::SetAuthor( 'Chris Herborth (chrish@pobox.com)' );
-    //     //$pdf::SetTitle( 'Invoice for ' . $pdf::invoiceData['user'] );
-    //     $pdf::SetSubject( "A simple invoice example for 'Creating PDFs on 
-    // the fly with TCPDF' on IBM's developerWorks" );
-    //     $pdf::SetKeywords( 'PHP, sample, invoice, PDF, TCPDF' );
-     
-    //     //set image scale factor
-    //     $pdf::setImageScale(PDF_IMAGE_SCALE_RATIO); 
-         
-    //     //set some language-dependent strings
-    //     global $l;
-    //     $pdf::setLanguageArray($l);
+        //     $pdf::SetMargins( 71, 36, 72, true );
+        //     $pdf::SetAutoPageBreak( true, 36 );
 
-    //     $pdf::AddPage();
-    // $pdf::SetFont( 'aealarabiya', '', 11 );
-    // $pdf::SetY( 144, true );
- 
-    // # Table parameters
-    // #
-    // # Column size, wide (description) column, table indent, row height.
-    // $col = 72;
-    // $wideCol = 3 * $col;
-    // $indent = ( $pdf::getPageWidth() - 2 * 72 - $wideCol - 3 * $col ) / 2;
-    // $line = 18;
- 
-    // # Table header
-    // $pdf::SetFont( '', 'b' );
-    // $pdf::Cell( $indent );
-    // $pdf::Cell( $wideCol, $line, 'Item', 1, 0, 'L' );
-    // $pdf::Cell( $col, $line, 'Quantity', 1, 0, 'R' );
-    // $pdf::Cell( $col, $line, 'Price', 1, 0, 'R' );
-    // $pdf::Cell( $col, $line, 'Cost', 1, 0, 'R' );
-    // $pdf::Ln();
- 
-    // # Table content rows
-    // $pdf::SetFont( '', '' );
-    // foreach( $order->items as $item ) {
-    //     $pdf::Cell( $indent );
-    //     $pdf::Cell( $wideCol, $line, $item->name, 1, 0, 'L' );
-    //     $pdf::Cell( $col, $line, $item->pivot->quantity, 1, 0, 'R' );
-    //     $pdf::Cell( $col, $line, $item->price, 1, 0, 'R' );
-    //     $pdf::Cell( $col, $line, $item->price, 1, 0, 'R' );
-    //     $pdf::Ln();
-    // }
- 
-    // # Table Total row
-    // $pdf::SetFont( '', 'b' );
-    // $pdf::Cell( $indent );
-    // $pdf::Cell( $wideCol + $col * 2, $line, 'Total:', 1, 0, 'R' );
-    // $pdf::SetFont( '', '' );
-    // $pdf::Cell( $col, $line,$order->total_price, 1, 0, 'R' );
+        //     # Set document meta-information
+        //     $pdf::SetCreator( PDF_CREATOR );
+        //     $pdf::SetAuthor( 'Chris Herborth (chrish@pobox.com)' );
+        //     //$pdf::SetTitle( 'Invoice for ' . $pdf::invoiceData['user'] );
+        //     $pdf::SetSubject( "A simple invoice example for 'Creating PDFs on
+        // the fly with TCPDF' on IBM's developerWorks" );
+        //     $pdf::SetKeywords( 'PHP, sample, invoice, PDF, TCPDF' );
 
-    // $pdf::Output($order->user->phone.'.pdf','D');
+        //     //set image scale factor
+        //     $pdf::setImageScale(PDF_IMAGE_SCALE_RATIO);
 
-     }
+        //     //set some language-dependent strings
+        //     global $l;
+        //     $pdf::setLanguageArray($l);
 
-  
+        //     $pdf::AddPage();
+        // $pdf::SetFont( 'aealarabiya', '', 11 );
+        // $pdf::SetY( 144, true );
 
- 
+        // # Table parameters
+        // #
+        // # Column size, wide (description) column, table indent, row height.
+        // $col = 72;
+        // $wideCol = 3 * $col;
+        // $indent = ( $pdf::getPageWidth() - 2 * 72 - $wideCol - 3 * $col ) / 2;
+        // $line = 18;
+
+        // # Table header
+        // $pdf::SetFont( '', 'b' );
+        // $pdf::Cell( $indent );
+        // $pdf::Cell( $wideCol, $line, 'Item', 1, 0, 'L' );
+        // $pdf::Cell( $col, $line, 'Quantity', 1, 0, 'R' );
+        // $pdf::Cell( $col, $line, 'Price', 1, 0, 'R' );
+        // $pdf::Cell( $col, $line, 'Cost', 1, 0, 'R' );
+        // $pdf::Ln();
+
+        // # Table content rows
+        // $pdf::SetFont( '', '' );
+        // foreach( $order->items as $item ) {
+        //     $pdf::Cell( $indent );
+        //     $pdf::Cell( $wideCol, $line, $item->name, 1, 0, 'L' );
+        //     $pdf::Cell( $col, $line, $item->pivot->quantity, 1, 0, 'R' );
+        //     $pdf::Cell( $col, $line, $item->price, 1, 0, 'R' );
+        //     $pdf::Cell( $col, $line, $item->price, 1, 0, 'R' );
+        //     $pdf::Ln();
+        // }
+
+        // # Table Total row
+        // $pdf::SetFont( '', 'b' );
+        // $pdf::Cell( $indent );
+        // $pdf::Cell( $wideCol + $col * 2, $line, 'Total:', 1, 0, 'R' );
+        // $pdf::SetFont( '', '' );
+        // $pdf::Cell( $col, $line,$order->total_price, 1, 0, 'R' );
+
+        // $pdf::Output($order->user->phone.'.pdf','D');
+
+    }
+
+
+
+
 }

@@ -8,7 +8,7 @@ class CategoryController extends Controller
 {
     protected $items_per_page = 10;
 
-    public function index($id) 
+    public function index($id)
     {
         //show items has category_id with id chose
 
@@ -21,8 +21,13 @@ class CategoryController extends Controller
         //add new category in table categories
 
         $category = new  \App\category;
- 
+
         $category->name = $request['name'];
+        $category->name_ar = $request['name_ar'];
+        $category->is_child = $request['is_child_category'] ? true : false;
+        if ($category->is_child) {
+            $category->parent_category_id = $request['parent_category'];
+        }
         $category->save();
         return redirect()->back();
     }
@@ -30,10 +35,12 @@ class CategoryController extends Controller
     {
         //retrieve all categories and pass to editcategories view
 
-        $categories = \App\category::all();
+        $parentCategories = \App\category::where('is_child', false)->get();
+        $childCategories = \App\category::where('is_child', true)->get();
 
         return view('editcategory',[
-            'categories'=>$categories
+            'parentCategories'=>$parentCategories,
+            'childCategories'=> $childCategories
         ]);
     }
     public function update(Request $request, $id)
@@ -42,13 +49,17 @@ class CategoryController extends Controller
 
         $category = \App\category::findorfail($id);
         $category->name=$request['name'];
+        $category->name_ar = $request['name_ar'];
+        if ($category->is_child) {
+            $category->parent_category_id = $request['parent_category_id'];
+        }
         $category->save();
         return redirect('editcategory');
     }
     public function destroy($id)
     {
         //delete category from table categories by passed id
-        
+
         $category = \App\category::findorfail($id);
         $category->delete();
         return redirect('editcategory');

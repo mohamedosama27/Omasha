@@ -17,6 +17,18 @@ Route::get('/auth/redirect/{provider}', 'Auth\LoginController@redirect');
 Route::get('/welcome', 'ItemController@welcome')->name('welcome');
 Route::get('/','ItemController@welcome')->name('welcome');
 
+Route::get('lang/{locale}', function ($locale) {
+    if (! in_array($locale, ['en', 'ar'])) {
+        abort(400); // Invalid language
+    }
+
+    session(['locale' => $locale]);
+    app()->setLocale($locale);
+
+    return redirect()->back(); // Redirect back to the previous page
+})->name('switch.language');
+
+
 Route::get('/reset', function () {
     return view('auth/passwords/email');
 })->name('reset_password');
@@ -61,7 +73,7 @@ Route::get('/deleteSubscriber/{id}', [
 'uses' => 'SubscriberController@destroy',
 'as' => 'subscriber.delete'
 ])->middleware('auth','ifAdmin');
-                
+
 //end  subscriber routes
 
 //start contacts routes
@@ -238,7 +250,7 @@ Route::post('/sendmessage', [
 
 
 Route::get('/category/{id}', 'CategoryController@index')->name('category');
-Route::get('/product/{num}', 'ItemController@product')->name('ItemController.product');
+Route::get('/product/{category_name}', 'ItemController@product')->name('ItemController.product');
 Route::post('/ItemController/search', 'ItemController@search')->name('ItemController.search');
 Route::post('/add-to-cart', 'CartController@AddToCart')->name('item.addToCart');
 Route::post('/addToFavorite', 'FavoriteController@addToFavorites')->name('addToFavorite');
@@ -252,6 +264,12 @@ Route::post('/incrementItem', [
     'uses' => 'CartController@incrementItem',
     'as' => 'incrementItem'
 ]);
+
+Route::get('/payments/verify/{payment?}', [
+    'uses' => 'CheckoutController@makePayment',
+    'as' => 'verify-payment'
+]);
+// Route::get('/payments/verify/{payment?}',[FrontController::class,'payment_verify'])->name('verify-payment');
 
 
 
@@ -298,11 +316,11 @@ Route::get('/createitem',
     'uses' => 'ItemController@create',
     'as' => 'item.create'
 ])->middleware('auth','ifAdmin');
-Route::put('/checkout',
+Route::post('/checkout',
 [
     'uses' => 'OrderController@create',
-    'as' => 'checkout'
-])->middleware('auth');
+    'as' => 'checkout.order'
+]);
 Route::get('/deleteitem/{id}',
 [
     'uses' => 'ItemController@destroy',
@@ -347,6 +365,35 @@ Route::put('/updateCategory/{id}',
 ])->middleware('auth','ifAdmin');
 //end category routes
 
+//start promode routes
+Route::put('/createpromocode',
+[
+    'uses' => 'PromoCodeController@store',
+    'as' => 'promocode.store'
+])->middleware('auth','ifAdmin');
+
+Route::get('/editpromocode', [
+    'uses' => 'PromoCodeController@edit',
+    'as' => 'promocode.edit'
+])->middleware('auth','ifAdmin');
+
+Route::get('/deletePromocode/{id}', [
+    'uses' => 'PromoCodeController@destroy',
+    'as' => 'promocode.delete'
+])->middleware('auth','ifAdmin');
+
+Route::put('/updatePromocode/{id}',
+[
+    'uses' => 'PromoCodeController@update',
+    'as' => 'promocode.update'
+])->middleware('auth','ifAdmin');
+
+Route::post('/applyPromocode',
+[
+    'uses' => 'PromoCodeController@apply',
+    'as' => 'promocode.apply'
+]);
+//end promocode routes
 
 Route::get('/cart',
 [
@@ -364,6 +411,11 @@ Route::get('/removefromfavorites/{id}', [
     'as' => 'removefromfavorites'
 ]);
 
+Route::get('/checkout',
+[
+    'uses' => 'CheckoutController@index',
+    'as' => 'checkout'
+]);
 
 
 Route::get('/vieworders',[
@@ -407,6 +459,6 @@ Route::post('/usersearch','MessageController@search')->name('user.search')->midd
 
 Auth::routes();
 Route::get('auth/facebook', 'Auth\LoginController@redirectToFacebook');
-Route::get('auth/facebook/callback', 'Auth\LoginController@handleFacebookCallback'); 
+Route::get('auth/facebook/callback', 'Auth\LoginController@handleFacebookCallback');
 
 
