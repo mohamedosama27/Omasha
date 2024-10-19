@@ -7,7 +7,8 @@
 }
 
 .raleway {
-    font-family: 'Raleway';
+    /* font-family: 'Raleway'; */
+    font-family: 'Roboto', sans-serif;
 }
 
 .searchlogo {
@@ -87,7 +88,9 @@
 
 .brandcolor {
     /* background-color: rgb(137, 190, 255); */
-    background-color: #27BECE;
+    /* background-color: #27BECE; */
+    background-color: rgba(125, 217, 90, 255) !important;
+    color: white !important;
     /* background-color: rgba(86, 156, 172, 0.87); */
 }
 
@@ -101,11 +104,19 @@
 }
 
 .toptext {
-    letter-spacing: 5px;
+    /* letter-spacing: 5px; */
+}
+
+.bg-light {
+    background-color: #f8f9fa !important;
 }
 
 .icon-bar {
     background-color: black;
+}
+
+.h-100 {
+    height: 100%;
 }
 
 .navbar-toggle {
@@ -116,9 +127,110 @@
 .baricons {
     float: right;
     margin-top: 12px;
-    margin-right: 20px;
+    margin-right: 15px;
     width: 25px;
     height: 25px;
+}
+
+@media (max-width:767px) {
+    .baricons {
+        float: right;
+        margin-top: 27px;
+        margin-right: 9px;
+    }
+
+    .navbar-icon {
+        float: left;
+        margin-top: 20px;
+        margin-left: 9px;
+        width: 25px;
+        height: 25px;
+    }
+
+    .navbar-collapse {
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        min-width: 60%;
+        height: 85%;
+        padding-top: 40px;
+    }
+
+    .navbar-nav > li {
+        width: 100%; /* Ensure each list item takes up the full width */
+    }
+
+    .divider {
+        border-top: 1px solid #ccc; /* Adjust the color to match your design */
+        margin: 20px 0; /* Add some space around the divider */
+    }
+
+    .navbar-nav .dropdown-menu {
+        position: static; /* Keep the dropdown in normal document flow */
+        width: 70%; /* Make sure the dropdown takes the full width of the parent */
+    }
+
+    /* Align all nav items vertically */
+    .navbar-collapse .navbar-nav {
+        display: flex;
+        flex-direction: column; /* Stack items vertically */
+    }
+
+    /* Fix any misalignment issues with the dropdown toggle and caret */
+    .dropdown-toggle {
+        width: 100%; /* Make sure the dropdown toggle takes up full width */
+    }
+
+    .dropdown-menu {
+        position: static;
+        width: auto;
+    }
+
+    .mobile-margin {
+        margin-top: 1.5rem !important;
+    }
+
+    .dropdown:hover .dropdown-menu {
+        display: none;
+    }
+
+    .dropdown-menu {
+        display: none;
+    }
+
+    .dropdown.show .dropdown-menu {
+        display: block;
+    }
+}
+
+.sliding-text {
+    font-size: 1.25rem;
+    font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+}
+
+@media (max-width:767px) {
+    .sliding-text {
+        font-size: 1rem;
+    }
+}
+
+.sliding-text span {
+    display: inline-block;
+    /* padding-left: 100%; */
+    animation: move-text 5s linear infinite;
+}
+
+@keyframes move-text {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
 }
 
 .favoriteicon {
@@ -139,14 +251,14 @@
 
 .wrapper .countCart {
     position: absolute;
-    top: 5px;
-    right: 6px;
+    top: 22px;
+    right: 5px;
 }
 
 .wrapper .countfavorites {
     position: absolute;
-    top: 5px;
-    right: 50px;
+    top: 22px;
+    right: 40px;
 }
 
 .countCart,
@@ -162,15 +274,65 @@
 }
 
 .navbar {
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.card-header {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.card-header:first-child {
+    border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+}
+
+.card-header+.list-group .list-group-item:first-child {
+    border-top: 0;
 }
 
 .toplogo {
-    width: 55px;
-    height: 50px;
+    width: 140px;
+    height: 75px;
     position: absolute;
-    left: 40%;
+    left: 32%;
     display: block;
+}
+
+.footer-flex {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+@media (max-width: 767px) {
+    .footer-flex {
+        flex-direction: column;
+    }
+
+    .footer-margin {
+        margin-bottom: 4rem;
+    }
+
+    .badge {
+        padding: 1px 3px;
+        font-size: 10px;
+        font-weight: bold;
+    }
+
+    .navbar {
+        top: 22.5px;
+    }
+
+    .sliding-text {
+        position: sticky;
+        z-index: 1000;
+        top: 0;
+        background-color: white;
+    }
 }
 
 .chat_list {
@@ -213,28 +375,69 @@
 }
 
 @media (min-width:768px) {
+    .mobile-language {
+        display: none !important;
+    }
+
     .wrapper .countfavorites {
-        right: 10px;
+        right: 8px;
+        top: 5px;
     }
+
+    .wrapper .countCart {
+        top: 5px;
+        right: 6px;
+    }
+
     .toptext {
-        letter-spacing: 10px;
+        /* letter-spacing: 5px; */
+        /* margin-top: 20px; */
+        /* height: 35px; */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border-bottom: 1.5px solid white;
     }
+
+    .toptext p {
+        font-size: 16px;
+        margin-top: 5px;
+        color: white;
+        /* white-space: nowrap; */
+        /* position: relative; */
+        /* animation: move-text 10s linear infinite; */
+    }
+
+    /* @keyframes move-text {
+        0% {
+            left: 60%;
+        }
+        100% {
+            left: -60%;
+        }
+    } */
     .wrapper .countmessage {
         position: absolute;
         top: 5px;
         right: 10px;
     }
+
     .toplogo {
-        width: 120px;
-        height: 120px;
-        left: 43%
+        width: 200px;
+        height: 110px;
+        left: 42%;
+        margin-top: 8px;
     }
+
     .wrapper {
         margin-top: 70px;
     }
+
     .wheretobuy {
         margin-top: 70px;
     }
+
     .favoriteicon {
         float: right;
         margin: 0px;
@@ -242,26 +445,34 @@
         width: 25px;
         height: 25px;
     }
+
     .iconsLink {
         margin-top: 67px;
+        cursor: pointer;
     }
+
     .secondbar {
+        display: flex;
+        justify-content: center;
         position: relative;
-        left: 30%;
-        width: 70%;
+        /* margin-top: 10px; */
     }
+
     .secondBarForAuth {
-        left: 25%;
-        width: 80%;
+        width: 100%;
     }
+
     .login {
         float: right;
-        margin-top: 77px;
+        margin-top: 12px;
+        margin-right: 30px;
     }
 }
 
 .footer {
     margin-top: 100px;
+    padding-bottom: 50px;
+    padding-top: 20px;
 }
 
 .footer .socialIcon {
@@ -270,9 +481,10 @@
 }
 
 .footer .logo {
-    width: 70%;
-    max-height: 160px;
-    border-right: 1px solid black;
+    /* width: 70%; */
+    height: 100px;
+    padding: 10px;
+    text-align: center;
 }
 
 .footer .col-xs-12 {

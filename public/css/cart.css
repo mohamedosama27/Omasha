@@ -3,13 +3,13 @@
     color: blue;
 }
 
-button {
+/* button {
     padding: 0;
     border: none;
     background: none;
     outline: none;
     display: inline-block;
-}
+} */
 
 .inline {
     display: inline-block;
@@ -21,9 +21,10 @@ button {
     display: inline;
 }
 
+/*
 .row {
     margin: 3px;
-}
+} */
 
 .price:after {
     content: ' LE';
@@ -45,6 +46,82 @@ button {
     font-size: 18px;
 }
 
-.footer {
+/* .footer {
     margin-top: 278px;
+} */
+
+.ml-10 {
+    margin-left: 100px;
+}
+
+.cart-item {
+    height: auto;
+    /* width: 100%; */
+}
+
+.w-100 {
+    width: 100% !important;
+}
+
+
+
+.large-font {
+    font-size: 18px;
+}
+
+.product-description {
+    width: 250px;
+}
+
+.price-area {
+    width: 150px;
+}
+
+.item-image {
+    height: 150px;
+    width: 150px;
+}
+
+.small-font {
+    font-size: 0.875rem; /* You can adjust the size as needed */
+    line-height: 1.5;
+}
+
+.extra-details {
+    min-height: 65px;
+}
+
+/* .update-quantity {
+    text-align: center;
+} */
+
+@media (max-width: 768px) {
+    .large-font {
+        font-size: 14px;
+    }
+
+    .product-description {
+        width: 150px;
+    }
+
+    .price-area {
+        width: 75px;
+    }
+
+    body {
+        font-size: 12px;
+    }
+
+    .order-summary {
+        margin-top: 40px;
+    }
+
+    .item-image {
+        height: 100px;
+        width: 100px;
+    }
+
+    .extra-details {
+        min-height: 20px;
+    }
 }

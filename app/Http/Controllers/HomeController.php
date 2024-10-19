@@ -31,7 +31,7 @@ class HomeController extends Controller
     }
     public function destroy_title($id)
     {
-        
+
         $home_top_title = \App\home_top_title::findorfail($id);
         $home_top_title->delete();
         return redirect('manage_home');
@@ -47,17 +47,17 @@ class HomeController extends Controller
         foreach ($files as $file){
           $name = rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
         $file->move("images", $name);
-         
+
         $home_image = new  \App\home_image;
         $home_image->name = $name;
         $home_image->save();
        }
-       
+
         return redirect('manage_home');
     }
     public function showAll()
     {
-      
+
 
         $home_images = \App\home_image::orderBy('id', 'DESC')->get();
         $home_top_titles = \App\home_top_title::orderBy('id', 'DESC')->get();
@@ -67,12 +67,12 @@ class HomeController extends Controller
             'home_top_titles'=>$home_top_titles,
 
         ]);
-       
+
     }
 
     public function destroy_image($id)
     {
-        
+
         $home_image = \App\home_image::findorfail($id);
         $home_image->delete();
         return redirect('manage_home');

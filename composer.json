@@ -15,7 +15,10 @@
         "laravel/legacy-factories": "^1.4",
         "laravel/socialite": "^5.0",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^4.0"
+        "laravel/ui": "^4.0",
+        "nafezly/payments": "dev-master",
+        "symfony/http-client": "^7.1",
+        "symfony/mailgun-mailer": "^7.1"
     },
     "require-dev": {
         "beyondcode/laravel-er-diagram-generator": "^3.0",

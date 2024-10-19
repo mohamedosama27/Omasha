@@ -1,0 +1,33 @@
+/* body {
+    direction: rtl;
+    text-align: right;
+} */
+
+/* .navbar {
+    float: right;
+} */
+
+.secondbar .navbar-nav>li {
+    float: right;
+}
+
+.secondbar .navbar-nav {
+    direction: rtl;
+}
+
+.nav>li>a {
+    font-size: 18px;
+}
+
+.reverse-flex {
+    flex-direction: row-reverse;
+}
+
+.text-align-right {
+    direction: rtl;
+    text-align: right;
+}
+
+.left-details {
+    padding-right: 35px;
+}

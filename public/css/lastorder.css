@@ -28,3 +28,13 @@
     font-size: 12px;
     display: inline;
 }
+
+table {
+    width: 100%;
+    border-collapse: separate; /* Important to use border-spacing */
+    border-spacing: 0 10px; /* Adds vertical space between rows */
+}
+
+table td {
+    padding: 10px; /* Adds padding inside the cells for more spacing */
+}
