@@ -174,8 +174,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        // Barryvdh\DomPDF\ServiceProvider::class,
-        Elibyy\TCPDF\ServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+        // Elibyy\TCPDF\ServiceProvider::class,
 
         Laravel\Socialite\SocialiteServiceProvider::class,
 
@@ -234,8 +234,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-        // 'PDF' => Barryvdh\DomPDF\Facade::class,
-        'PDF' => Elibyy\TCPDF\Facades\TCPDF::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+        // 'PDF' => Elibyy\TCPDF\Facades\TCPDF::class,
 
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 

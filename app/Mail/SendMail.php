@@ -14,13 +14,15 @@ class SendMail extends Mailable
     use Queueable, SerializesModels;
 
     public $details;
+    public $file;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($details)
+    public function __construct($details, $file)
     {
         $this->details = $details;
+        $this->file = $file;
     }
 
     /**
@@ -29,7 +31,7 @@ class SendMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Send Mail',
+            subject: $this->details['title'],
         );
     }
 
@@ -39,7 +41,10 @@ class SendMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.testEmail',
+            view: $this->file,
+            with: [
+                'order' => $this->details['order'],
+            ],
         );
     }
 

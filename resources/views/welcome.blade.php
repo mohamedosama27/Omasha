@@ -7,20 +7,6 @@
     <!-- Top  Carousel -->
     @if (count($home_images) > 0)
         <div id="carousel-example-generic" class="carousel slide topCarousel mainCarousel" data-ride="carousel">
-            <!-- Indicators -->
-            {{-- <ol class="carousel-indicators">
-                @foreach ($home_images as $home_image)
-                    @if ($loop->first)
-                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active">
-                            <img src={{ URL::asset('images/Logo-2.png') }} width="100%">
-                        </li>
-                    @else
-                        <li data-target="#carousel-example-generic" data-slide-to="1">
-                            <img src={{ URL::asset('images/Logo-2.png') }} width="100%">
-                        </li>
-                    @endif
-                @endforeach
-            </ol> --}}
 
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
@@ -28,9 +14,6 @@
                     @if ($loop->first)
                         <div class="item active">
                             <img class="carouselImg" src={{ URL::asset("images/{$home_image->name}") }} width="100%">
-                            <!-- <div class="carousel-caption">
-                                    <a class="btn  shopnowBtn brandcolor raleway">SHOP NOW</a>
-                                  </div> -->
                         </div>
                     @else
                         <div class="item">
@@ -38,18 +21,19 @@
                         </div>
                     @endif
                 @endforeach
+                @if (count($home_images) > 1)
+                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                        <i class="fa fa-3x fa-angle-left carouselArrow-left"></i>
+
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                        <i class="fa fa-3x fa-angle-right carouselArrow-right"></i>
+                    </a>
+                @endif
             </div>
 
             <!-- Controls -->
-            @if (count($home_images) > 1)
-                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                    <i class="fa fa-3x fa-angle-left carouselArrow"></i>
 
-                </a>
-                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                    <i class="fa fa-3x fa-angle-right carouselArrow"></i>
-                </a>
-            @endif
         </div>
     @endif
     <!-- End Top  Carousel -->
@@ -65,7 +49,8 @@
                     <div class="productImg mb-3">
 
                         <img src={{ URL::asset("images/{$item->images->first()->name}") }} width="100%">
-                        <button class="btn center-block" data-toggle="modal" data-target="#myModal{{ $item->id }}">{{ __('messages.quick_view') }}</button>
+                        <button class="btn center-block" data-toggle="modal"
+                            data-target="#myModal{{ $item->id }}">{{ __('messages.quick_view') }}</button>
                     </div>
                     <!-- Modal -->
                     <div class="modal fade" id="myModal{{ $item->id }}" role="dialog">
@@ -132,7 +117,7 @@
                         <a href="{{ route('item.show', ['id' => $item->id]) }}">
                             <p>{{ app()->getLocale() == 'ar' ? $item->name_ar : $item->name }}</p>
                         </a>
-                        <p class='ml-1'>{{ $item->price }}  {{ __('messages.egp') }}</p>
+                        <p class='ml-1'>{{ $item->price }} {{ __('messages.egp') }}</p>
                         {{-- <button class="btn brandcolor raleway btnWeight btn-addtocart mb-2"
                             data-value="{{ $item->id }}">
                             Add To Cart</button><br> --}}
@@ -161,7 +146,8 @@
     @foreach ($parent_categories as $parentCategory)
         @if ($parentCategory->children->count() > 2)
             <section class="curtains-section raleway">
-                <h3 class="text-center raleway titles mb-4">{{ strtoupper(app()->getLocale() == 'ar' ? $parentCategory->name_ar : $parentCategory->name) }}</h3>
+                <h3 class="text-center raleway titles mb-4">
+                    {{ strtoupper(app()->getLocale() == 'ar' ? $parentCategory->name_ar : $parentCategory->name) }}</h3>
                 <div class="slider-container">
                     <!-- Left Scroll Button -->
                     @if ($parentCategory->children->count() > 3)
@@ -173,7 +159,8 @@
                             <div class="curtain-item">
                                 <img src="{{ URL::asset('images/blackout.jpg') }}">
                                 <div class="overlay">
-                                    <span class="category-name">{{ app()->getLocale() == 'ar' ? $childCategory->name_ar : $childCategory->name }}</span>
+                                    <span
+                                        class="category-name">{{ app()->getLocale() == 'ar' ? $childCategory->name_ar : $childCategory->name }}</span>
                                     <a href="{{ route('ItemController.product', ['category_name' => $childCategory->name]) }}?num[]={{ $childCategory->id }}"
                                         class="view-button brandcolor">{{ __('messages.view') }}</a>
                                 </div>
@@ -249,37 +236,37 @@
             });
         });
 
-        $(document).on("click", '.btn-addtocart', function(e) {
+        // $(document).on("click", '.btn-addtocart', function(e) {
 
-            e.preventDefault();
+        //     e.preventDefault();
 
-            var str = $(this).data('value');;
-            $.ajax({
+        //     var str = $(this).data('value');;
+        //     $.ajax({
 
-                type: 'POST',
+        //         type: 'POST',
 
-                url: "{{ route('item.addToCart') }}",
+        //         url: "{{ route('item.addToCart') }}",
 
-                data: {
-                    name: str
-                },
+        //         data: {
+        //             name: str
+        //         },
 
-                success: function(data) {
+        //         success: function(data) {
 
-                    if (data.message === undefined) {
+        //             if (data.message === undefined) {
 
-                        $(".countCart").text(data.countCart);
-                        $('#messaga').text("Added Sucessfully")
-                        $('#errormessage').modal();
-                    } else {
-                        $('#messaga').text(data.message)
-                        $('#errormessage').modal();
-                    }
+        //                 $(".countCart").text(data.countCart);
+        //                 $('#messaga').text("Added Sucessfully")
+        //                 $('#errormessage').modal();
+        //             } else {
+        //                 $('#messaga').text(data.message)
+        //                 $('#errormessage').modal();
+        //             }
 
-                }
+        //         }
 
-            });
-        });
+        //     });
+        // });
 
 
         $('#subscribe').on('submit', function(event) {

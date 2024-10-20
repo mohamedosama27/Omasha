@@ -159,7 +159,7 @@ select {
 
 .flex-fill {
     flex: 1 1 auto !important;
-  }
+}
 
 button,
 html input[type="button"],
@@ -5487,6 +5487,22 @@ select[multiple].input-group-sm>.input-group-btn>.btn {
     overflow-y: auto;
 }
 
+.w-25 {
+    width: 25% !important;
+}
+
+.w-50 {
+    width: 50% !important;
+}
+
+.w-75 {
+    width: 75% !important;
+}
+
+.w-100 {
+    width: 100% !important;
+}
+
 @media (min-width: 768px) {
     .navbar-collapse {
         width: auto;
@@ -8168,11 +8184,11 @@ button.close {
     position: absolute;
     top: 35%;
     bottom: 0;
-    left: 0;
+    left: 1%;
     width: 5%;
     height: 2%;
     font-size: 18px;
-    color: #fff;
+    /* color: #fff; */
     text-align: center;
     /* text-shadow: 0 1px 2px rgba(0, 0, 0, .6); */
     background-color: rgba(0, 0, 0, 0);
@@ -8181,28 +8197,28 @@ button.close {
 }
 
 .carousel-control.left {
-    background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);
+    /* background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);
     background-image: -o-linear-gradient(left, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);
     background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, .5)), to(rgba(0, 0, 0, .0001)));
-    background-image: linear-gradient(to right, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);
+    background-image: linear-gradient(to right, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%); */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
     background-repeat: repeat-x;
 }
 
 .carousel-control.right {
-    right: 0;
+    right: 1%;
     left: auto;
-    background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%);
+    /* background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%);
     background-image: -o-linear-gradient(left, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%);
     background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, .0001)), to(rgba(0, 0, 0, .5)));
-    background-image: linear-gradient(to right, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%);
+    background-image: linear-gradient(to right, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%); */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
     background-repeat: repeat-x;
 }
 
 .carousel-control:hover,
 .carousel-control:focus {
-    color: #fff;
+    /* color: #fff; */
     text-decoration: none;
     filter: alpha(opacity=90);
     outline: 0;

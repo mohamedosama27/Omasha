@@ -424,6 +424,13 @@ Route::get('/vieworders',[
 ])->middleware('auth','ifAdmin');
 Route::get('/viewmails','MessageController@index')->name('viewmails')->middleware('auth','ifAdmin');
 Route::get('/Mail_us_Admin/reply','MessageController@store')->middleware('auth','ifAdmin');
+Route::get('/changestatus/{id}/{status}',
+[
+    'uses' => 'OrderController@changeStatus',
+    'as' => 'order.changestatus'
+])->middleware('auth','ifAdmin');
+
+Route::get('/order/{id}/pdf', 'OrderController@generatePDF')->name('order.pdf')->middleware('auth','ifAdmin');
 
 
 Route::put('/storeitem', [
@@ -439,9 +446,9 @@ Route::get('/addadminview', function () {
     return view('auth/addadmin');
 })->name('addadminview')->middleware('auth','ifAdmin');
 
-Route::get('/lastorder', [
+Route::get('/myorders', [
     'uses' => 'OrderController@show',
-])->name('lastorder')->middleware('auth');
+])->name('myorders')->middleware('auth');
 
 Route::get('/edituser/{id}', [
     'uses' => 'Auth\RegisterController@edit',

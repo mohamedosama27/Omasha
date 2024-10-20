@@ -48,16 +48,26 @@
             <form method="POST" class="form-inline" action="{{ route('home.titles.store') }}">
                 @csrf
                 @method('PUT')
-                <textarea class="form-control" name="content" placeholder="Enter text"></textarea>
+                <textarea class="form-control" name="content" placeholder="English" required></textarea>
+                <textarea class="form-control" name="content_ar" placeholder="Arabic" required></textarea>
                 <button type="submit" class="btn brandcolor raleway">Add</button>
             </form>
         @else
             @foreach ($home_top_titles as $home_top_title)
-                <form method="POST" class="form-inline"
+                <form method="POST"
                     action="{{ route('home.titles.update', ['id' => $home_top_title->id]) }}">
                     @csrf
                     @method('PUT')
-                    <textarea class="form-control" name="content"> {{ $home_top_title->content }}</textarea>
+                    <div class="form-group">
+                        <label for="content-en" class='mb-3'>English Content</label>
+                        <textarea id="content-en" class="form-control mb-3" name="content" required>{{ $home_top_title->content }}</textarea>
+                    </div>
+
+                    <!-- Label and Textarea for Arabic Content -->
+                    <div class="form-group mt-4">
+                        <label for="content-ar" class='mb-3'>Arabic Content</label>
+                        <textarea id="content-ar" class="form-control mb-3" name="content_ar" required>{{ $home_top_title->content_ar }}</textarea>
+                    </div>
                     <button type="submit" class="btn brandcolor raleway">Edit</button>
                     <a href="{{ route('home.titles.delete', ['id' => $home_top_title->id]) }}"
                         onclick="return confirm('Are you sure to delete {{ $home_top_title->content }}?')"

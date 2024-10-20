@@ -9,8 +9,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
-        "barryvdh/laravel-dompdf": "^2.0",
-        "elibyy/tcpdf-laravel": "^11.0",
+        "barryvdh/laravel-dompdf": "^2.2",
+        "elibyy/tcpdf-laravel": "^11.1",
         "laravel/framework": "^11.0",
         "laravel/legacy-factories": "^1.4",
         "laravel/socialite": "^5.0",

@@ -304,8 +304,14 @@
                     <label for="quantity">
                         <h5>{{ __('messages.quantity') }}</h5>
                     </label>
-                    <input type="number" id="quantity" name="quantity" value="1" min="1"
-                        class="form-control mt-1" style="width: 80px;">
+                    <div class='d-flex align-items-center mt-1'>
+                        <button class="btn btn-outline-secondary minus-btn" type="button" style="font-size: 10px;"><i
+                                class="fas fa-minus"></i></button>
+                        <input type="number" id="quantity" name="quantity" value="1" class="form-control ml-2 mr-2"
+                            style="width: 80px;" readonly>
+                        <button class="btn btn-outline-secondary plus-btn" style="font-size: 10px;" type="button"><i
+                                class="fas fa-plus"></i></button>
+                    </div>
                 </div>
 
                 <div class="mt-4">
@@ -416,6 +422,19 @@
     @include('errormessage')
 
     <script type="text/javascript">
+        document.querySelector('.minus-btn').addEventListener('click', function() {
+            let quantityInput = document.getElementById('quantity');
+            let currentValue = parseInt(quantityInput.value, 10);
+            if (currentValue > 1) { // Prevents going below 1
+                quantityInput.value = currentValue - 1;
+            }
+        });
+
+        document.querySelector('.plus-btn').addEventListener('click', function() {
+            let quantityInput = document.getElementById('quantity');
+            let currentValue = parseInt(quantityInput.value, 10);
+            quantityInput.value = currentValue + 1;
+        });
         $.ajaxSetup({
 
             headers: {
@@ -640,6 +659,10 @@
             var selectedColorEn = selectedColor.name;
             var selectedColorAr = selectedColor.name_ar;
 
+            var messages = {
+                'add_success': "{{ __('messages.add_success') }}",
+            };
+
             $.ajax({
 
                 type: 'POST',
@@ -661,7 +684,7 @@
                     if (data.message === undefined) {
 
                         $("#countcart").text(data.countCart);
-                        $('#messaga').text("Added Sucessfully")
+                        $('#messaga').text(messages['add_success'])
                         $('#errormessage').modal();
                     } else {
                         $('#messaga').text(data.message)

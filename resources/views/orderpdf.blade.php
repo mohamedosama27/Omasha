@@ -1,10 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Details</title>
     <style>
         body {
             font-family: 'Arial, sans-serif';
@@ -13,7 +10,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            margin-bottom: 35px;
         }
 
         th,
@@ -26,12 +23,6 @@
         h2,
         h4 {
             text-align: center;
-        }
-
-        .product-img {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
         }
 
         .logo {
@@ -51,7 +42,7 @@
 
 <body>
     <div class="logo">
-        <img src="{{ asset('images/Logo-2.jpeg') }}" alt="Logo">
+        <img src="{{ public_path('images/Logo-2.jpeg') }}" alt="Logo">
     </div>
     <h2>Order Details</h2>
     <h4>Order Date: {{ $order->created_at->format('d M, Y') }}</h4>
@@ -67,7 +58,6 @@
     <table>
         <thead>
             <tr>
-                <th>Product Image</th>
                 <th>Name</th>
                 <th>Color</th>
                 <th>Style</th>
@@ -81,10 +71,6 @@
         <tbody>
             @foreach ($order->items as $item)
                 <tr>
-                    <td>
-                        <img src="{{ asset('images/' . $item->images->first()->name) }}" alt="{{ $item->name }}"
-                            class="product-img">
-                    </td>
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->pivot->color }}</td>
                     <td>{{ $item->pivot->style ?? '-' }}</td>

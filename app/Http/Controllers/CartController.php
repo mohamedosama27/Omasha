@@ -28,14 +28,13 @@ class CartController extends Controller
         //remove item from cart array stored in session
 
         $selcteditems = Session::get('selcteditems');
-        $number_of_items = Session::has('number_of_items') ? Session::get('number_of_items') : 0;
 
         for ($i = 0; $i < sizeof($selcteditems); $i++) {
             if ($selcteditems[$i]->item->id == $id) {
-                $number_of_items -= $selcteditems[$i]->Quantity;
                 unset($selcteditems[$i]);
                 $selcteditems = array_values($selcteditems);
                 Session::put('selcteditems', $selcteditems);
+                $number_of_items = count($selcteditems);
                 Session::put('number_of_items', $number_of_items);
 
             }
@@ -64,29 +63,30 @@ class CartController extends Controller
         // \Log::info($productPrices);
         $styles = json_decode($item->styles);
         $price = $item->price;
+        $availableQuantity = $item->quantity;
         // \Log::info($styles);
 
         foreach ($productPrices as $productPrice) {
             if ($styles[$productPrice->style] == $style && $productPrice->size == $size) {
                 $price = $productPrice->price;
+                $availableQuantity = $productPrice->quantity;
                 break;
             }
         }
-        // if ($item->quantity <= 0) {
-        //     $message = 'No enough items available';
-        //     return response()->json(['message' => $message]);
-        // }
+        if ($availableQuantity < $quantity) {
+            $message = __('messages.not_enough_items');
+            return response()->json(['message' => $message]);
+        }
         foreach ($selcteditems as $selcteditem) {
             if ($selcteditem->item->id == $id && $selcteditem->size == $size && $selcteditem->note == $note && $selcteditem->style == $style && $selcteditem->color == $color) {
-                $selcteditem->Quantity += $quantity;
                 $found = true;
-                // if ($item->quantity < $selcteditem->Quantity + 1) {
-                //     $message = 'No enough items available';
-                //     return response()->json(['message' => $message]);
-                // } else {
-                //     $selcteditem->Quantity += 1;
-                //     $found = true;
-                // }
+                if ($availableQuantity < $selcteditem->Quantity + $quantity) {
+                    $message = __('messages.not_enough_items');
+                    return response()->json(['message' => $message]);
+                } else {
+                    $selcteditem->Quantity += $quantity;
+                    $found = true;
+                }
             }
         }
         if ($found == false) {
@@ -147,14 +147,24 @@ class CartController extends Controller
         $id = $request['id'];
         $selcteditems = Session::get('selcteditems');
         $totalprice = 0;
-        // $item = \App\item::findorfail($id);
+        $item = \App\item::findorfail($id);
+        $availableQuantity = $item->quantity;
+        $styles = json_decode($item->styles);
+        $sizes = json_decode($item->sizes);
+        $productPrices = json_decode($item->priceVariations);
 
         for ($i = 0; $i < sizeof($selcteditems); $i++) {
             if ($selcteditems[$i]->id == $id) {
-                // if ($item->quantity < $selcteditems[$i]->Quantity + 1) {
-                //     $message = 'No enough items available';
-                //     return response()->json(['message' => $message]);
-                // }
+                foreach ($productPrices as $productPrice) {
+                    if ($styles[$productPrice->style] == $selcteditems[$i]->style && $productPrice->size == $selcteditems[$i]->size) {
+                        $availableQuantity = $productPrice->quantity;
+                        break;
+                    }
+                }
+                if ($availableQuantity < $selcteditems[$i]->Quantity + 1) {
+                    $message = __('messages.not_enough_items');
+                    return response()->json(['message' => $message]);
+                }
                 $selcteditems[$i]->Quantity += 1;
                 $quantity = $selcteditems[$i]->Quantity;
                 $item_total_price = $quantity * $selcteditems[$i]->price;
