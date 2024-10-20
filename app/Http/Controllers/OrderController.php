@@ -149,7 +149,7 @@ class OrderController extends Controller
     public function generatePDF($id)
     {
         // Fetch order details using the provided ID
-        $order = \App\Order::find($id);
+        $order = \App\order::find($id);
 
         // Ensure the order exists
         if (!$order) {

@@ -47,34 +47,38 @@
 
     @php
         $home_top_title = \App\home_top_title::first();
-        if (app()->getLocale() == 'ar') {
-            $content = $home_top_title->content_ar;
-        } else {
-            $content = $home_top_title->content;
+        if ($home_top_title != null) {
+            if (app()->getLocale() == 'ar') {
+                $content = $home_top_title->content_ar;
+            } else {
+                $content = $home_top_title->content;
+            }
         }
     @endphp
 
-    <div class="sliding-text">
-        <span>{{ $content }} -</span>
-        <span>{{ $content }} -</span>
-        <span>{{ $content }} -</span>
-        <span>{{ $content }} -</span>
-        <span>{{ $content }} -</span>
-        <span>{{ $content }} -</span>
-        <span>{{ $content }} -</span>
-        <span>{{ $content }} -</span>
-        <span>{{ $content }} -</span>
-        <span>{{ $content }} -</span>
-        <span>{{ $content }} -</span>
-        <span>{{ $content }} -</span>
-        <span>{{ $content }} -</span>
-        <span>{{ $content }} -</span>
-        <span>{{ $content }} -</span>
-        <span>{{ $content }} -</span>
-        <span>{{ $content }} -</span>
-        <span>{{ $content }} -</span>
-        <span>{{ $content }} -</span>
-    </div>
+    @if ($home_top_title != null)
+        <div class="sliding-text">
+            <span>{{ $content }} -</span>
+            <span>{{ $content }} -</span>
+            <span>{{ $content }} -</span>
+            <span>{{ $content }} -</span>
+            <span>{{ $content }} -</span>
+            <span>{{ $content }} -</span>
+            <span>{{ $content }} -</span>
+            <span>{{ $content }} -</span>
+            <span>{{ $content }} -</span>
+            <span>{{ $content }} -</span>
+            <span>{{ $content }} -</span>
+            <span>{{ $content }} -</span>
+            <span>{{ $content }} -</span>
+            <span>{{ $content }} -</span>
+            <span>{{ $content }} -</span>
+            <span>{{ $content }} -</span>
+            <span>{{ $content }} -</span>
+            <span>{{ $content }} -</span>
+            <span>{{ $content }} -</span>
+        </div>
+    @endif
 
     @php($parent_categories = \App\category::where('is_child', false)->get())
     <nav class="navbar brandcolor">
