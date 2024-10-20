@@ -112,24 +112,6 @@
                             <h3>{{ __('messages.order_summary') }}</h3>
                         </div>
                         <div class="card-body">
-                            {{-- <div class="d-flex justify-content-between mb-3">
-                                <p>Subtotal:</p>
-                                <p>{{ number_format(6465, 2) }} EGP</p>
-                            </div> --}}
-                            {{-- <div class="d-flex justify-content-between mb-3">
-                                <p>Delivery Fees:</p>
-                                <p>{{ number_format(50, 2) }} EGP</p>
-                            </div>
-                            <div class="form-group">
-                                <label class="mb-3" for="governorate">Governorate</label>
-                                <select name="governorate" id="governorate" class="form-control">
-                                    <option value="cairo">Cairo</option>
-                                    <option value="alexandria">Alexandria</option>
-                                    <option value="giza">Giza</option>
-                                    <!-- Add more options as needed -->
-                                </select>
-                            </div> --}}
-                            {{-- <hr> --}}
                             <div class="d-flex justify-content-between font-weight-bold mt-3 mb-5 reverse-flex">
                                 @if (app()->getLocale() == 'en')
                                     <p class="large-font">{{ __('messages.subtotal') }}:</p>
@@ -148,61 +130,8 @@
             </div>
         </div>
 
-
-        {{-- @foreach ($items as $selecteditem)
-            <div class="row mt-5">
-                <div class="col-xs-12 col-md-4 text-center">
-                    <img src="images\{{ $selecteditem->item->images->first()->name }}" height="150">
-                </div>
-                <a href="{{ route('item.show', ['id' => $selecteditem->item->id]) }}">
-                    <p class="col-xs-12 col-md-3 text-center">{{ $selecteditem->item->name }}</p>
-                </a>
-                <span class="col-xs-4 col-md-2"> {{ $selecteditem->item->price }} <p class="EGP">LE</p></span>
-                <div class="col-xs-3 col-md-2 quantityDiv">
-
-                    <button type="button" class="btn-increment " data-value="{{ $selecteditem->item->id }}">
-                        <i class="fa fa-plus-square"></i></button>
-
-
-                    <p id="quantity{{ $selecteditem->item->id }}" class="inline">{{ $selecteditem->Quantity }}</p>
-
-
-                    <button type="button" class="btn-decrement" data-value="{{ $selecteditem->item->id }}">
-                        <i class="fa fa-minus-square"></i>
-                    </button>
-
-                </div>
-                <a href="{{ route('removefromcart', ['id' => $selecteditem->item->id]) }}"
-                    class="col-xs-3 col-md-1 btn-danger">
-                    Remove
-                </a>
-                <div class="col-xs-7 col-md-2 pull-right raleway">
-                    <b>Total price : </b>
-                    <div class="inline" id="totalprice{{ $selecteditem->item->id }}">
-                        {{ $selecteditem->item->price * $selecteditem->Quantity }}</div>
-
-                    <p class="EGP">LE</p>
-                </div>
-
-            </div>
-            <hr>
-            @php $totalprice+=$selecteditem->item->price*$selecteditem->Quantity @endphp
-        @endforeach
-        <hr>
-        <div class="col-xs-8  col-sm-5  col-md-4 pull-right">
-            <div class="price invoice">
-                <label class="raleway">Subtotal : </label>
-                <div class=" inline" id="cart-subtotal">{{ $totalprice }}</div>
-            </div>
-
-            @include('errormessage')
-            @include('addaddress')
-            <a @auth href="{{ route('checkout') }}" @else href=" login" @endauth>
-                <button class="checkoutButton btn brandcolor">Checkout</button>
-        </div>
-        </div> --}}
     @else
-        <h2 style="margin-top:10%;font-size:26px;" class="battalion text-center">Your cart is empty</h2>
+        <h2 style="margin-top:10%;font-size:26px;" class="battalion text-center">{{ __('messages.empty_cart') }}</h2>
     @endif
 
     <script type="text/javascript">

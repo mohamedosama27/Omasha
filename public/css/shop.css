@@ -11,3 +11,13 @@
 .actionIcons {
     color: white;
 }
+
+@media (max-width:768px) {
+    .carousel-inner {
+        max-height: 500px;
+    }
+
+    .carousel-inner>.item {
+        height: 500px;
+    }
+}

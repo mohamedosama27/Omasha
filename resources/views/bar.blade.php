@@ -45,26 +45,36 @@
     </div>
     <!-- End Search Modal -->
 
-    {{-- Top Banner --}}
-    {{-- @php($home_top_titles = \App\home_top_title::all())
-    @foreach ($home_top_titles as $home_top_title)
-    <div class="toptext brandcolor">
-        <p>&nbsp; {{ $home_top_title->content }} &nbsp;</p>
-    </div>
-    @endforeach --}}
+    @php
+        $home_top_title = \App\home_top_title::first();
+        if (app()->getLocale() == 'ar') {
+            $content = $home_top_title->content_ar;
+        } else {
+            $content = $home_top_title->content;
+        }
+    @endphp
 
-    @php($home_top_titles = \App\home_top_title::all())
-    @foreach ($home_top_titles as $home_top_title)
-        <div class="sliding-text">
-            <span>{{ $home_top_title->content }} -</span>
-            <span>{{ $home_top_title->content }} -</span>
-            <span>{{ $home_top_title->content }} -</span>
-            <span>{{ $home_top_title->content }} -</span>
-            <span>{{ $home_top_title->content }} -</span>
-        </div>
-        @break
-    @endforeach
-    {{-- End Top Banner --}}
+    <div class="sliding-text">
+        <span>{{ $content }} -</span>
+        <span>{{ $content }} -</span>
+        <span>{{ $content }} -</span>
+        <span>{{ $content }} -</span>
+        <span>{{ $content }} -</span>
+        <span>{{ $content }} -</span>
+        <span>{{ $content }} -</span>
+        <span>{{ $content }} -</span>
+        <span>{{ $content }} -</span>
+        <span>{{ $content }} -</span>
+        <span>{{ $content }} -</span>
+        <span>{{ $content }} -</span>
+        <span>{{ $content }} -</span>
+        <span>{{ $content }} -</span>
+        <span>{{ $content }} -</span>
+        <span>{{ $content }} -</span>
+        <span>{{ $content }} -</span>
+        <span>{{ $content }} -</span>
+        <span>{{ $content }} -</span>
+    </div>
 
     @php($parent_categories = \App\category::where('is_child', false)->get())
     <nav class="navbar brandcolor">
@@ -163,10 +173,6 @@
 
                         </ul>
                         </li>
-                        {{-- @else
-                    <li>
-                        <a href="{{ route('lastorder') }}" class="raleway visible-xs">LAST ORDER</a>
-                    </li> --}}
                         @endif
 
                     @endauth
@@ -204,6 +210,15 @@
                         </ul>
                     </li>
 
+                    @auth
+                        @if (Auth::user()->type != 1)
+                            <li>
+                                <a href="{{ route('myorders') }}"
+                                    class="raleway visible-xs">{{ __('messages.my_orders') }}</a>
+                            </li>
+                        @endif
+                    @endauth
+
                     {{-- <li class="dropdown visible-xs">
                         <a href="#" class="dropdown-toggle raleway" data-toggle="dropdown" role="button"
                             aria-haspopup="true" aria-expanded="false">
@@ -222,10 +237,11 @@
                         <a href="{{ route('about') }}" class="raleway visible-xs">{{ __('messages.about') }}</a>
                     </li> --}}
                     @auth
-                        {{-- <li>
-                        <a href="{{ route('user.edit', ['id' => Auth::user()->id]) }}" class=" visible-xs raleway">
-                            Edit profile</a>
-                    </li> --}}
+                        <li role="separator" class="divider"></li>
+                        <li>
+                            <a href="{{ route('user.edit', ['id' => Auth::user()->id]) }}" class=" visible-xs raleway">
+                                {{ __('messages.edit_profile') }}</a>
+                        </li>
                         <li class=" login raleway visible-xs">
                             <a href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
@@ -460,31 +476,19 @@
                                 <a href="{{ route('contact.showAll') }}">
                                     <i class="fa fa-phone actionicons"></i>Manage Contacts</a>
                             </li> --}}
-                                        {{-- <li>
-                                <a href="{{ route('customize.showAll') }}">
-                                    <i class="fa fa-list actionicons"></i>Show customize orders</a>
-                            </li> --}}
                                         <li><a href="{{ route('fee.showAll') }}">
                                                 <i class="fa fa-truck actionicons"></i>Manage fees</a>
                                         </li>
-                                        {{-- <li><a href="{{ route('Zone.showAll') }}">
-                                    <i class="fa fa-map-marker actionicons"></i>Manage zones</a>
-                            </li> --}}
                                         <li><a href="{{ route('home.images.showAll') }}">
                                                 <i class="fa fa-edit actionicons"></i>Edit home page </a>
                                         </li>
                                     </ul>
                                 </li>
-                                {{-- @else
-                    <li>
-                        <a href="{{ route('lastorder') }}" class="raleway  ">LAST ORDER</a>
-                    </li> --}}
+                            @else
+                                <li>
+                                    <a href="{{ route('myorders') }}" class="raleway">{{ __('messages.my_orders') }}</a>
+                                </li>
                             @endif
-                            {{-- <li>
-                        <a href="{{ route('user.edit', ['id' => Auth::user()->id]) }}" class="raleway  ">
-                            EDIT PROFILE</a>
-                    </li> --}}
-
                         @endauth
 
                     </ul>

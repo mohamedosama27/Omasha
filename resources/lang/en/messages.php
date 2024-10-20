@@ -22,7 +22,7 @@ return [
     'order_summary' => 'Order Summary',
     'subtotal' => 'Subtotal',
     'checkout' => 'Checkout',
-    'customer_details' => 'Customer Details',
+    'customer_details' => 'Shipping Details',
     'email' => 'Email',
     'first_name' => 'First Name',
     'last_name' => 'Last Name',
@@ -48,5 +48,18 @@ return [
     'view' => 'VIEW',
     'egp' => 'EGP',
     'search' => 'Search',
-    'reviews' => 'Reviews'
+    'reviews' => 'Reviews',
+    'empty_cart' => 'Your Cart is Empty',
+    'empty_wishlist' => 'Wishlist is Empty',
+    'my_orders' => 'MY ORDERS',
+    'no_orders' => 'No Orders Yet',
+    'all_orders' => 'All Orders',
+    'order_date' => 'Order Date',
+    'name' => 'Name',
+    'unit_price' => 'Unit Price',
+    'total_order_value' => 'Total Order Value',
+    'add_success' => 'Added Successfully',
+    'already_added' => 'Already Added',
+    'must_login' => 'You Must Login',
+    'not_enough_items' => 'Not Enough Items Available'
 ];

@@ -10,23 +10,29 @@ use App\Http\Controllers\Auth;
 use Session;
 use DB;
 use App\selectedItem;
-use PDF;
-use Elibyy\TCPDF\Facades\TCPDF;
+// use \PDF;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
+// use Barryvdh\DomPDF\Facade as PDF;
+// use Elibyy\TCPDF\Facades\TCPDF;
 use Illuminate\Support\Facades\Mail;
 
 
 
 class OrderController extends Controller
 {
-    public function showAll()
+    public function showAll(Request $request)
     {
         //retrieve all orders by admin and passed to vieworders
-
-        $orders = \App\order::orderBy('id', 'DESC')->get();
-        $items = DB::table('item_order')->get();
+        $status = $request->input('status');
+        if ($status != null) {
+            $orders = \App\order::when($status, function ($query, $status) {
+                return $query->where('status', $status);
+            })->orderBy('created_at', 'desc')->get();
+        } else {
+            $orders = \App\order::orderBy('id', 'DESC')->get();
+        }
         return view('vieworders', [
-            'orders' => $orders,
-            'items' => $items,
+            'orders' => $orders
         ]);
 
     }
@@ -34,9 +40,9 @@ class OrderController extends Controller
     {
         //retrieve client last order and passed to lastorder view
 
-        $order = \Auth::user()->orders()->get()->last();
+        $order = \Auth::user()->orders()->orderBy('created_at', 'desc')->get();
         return view('lastorder', [
-            'order' => $order,
+            'orders' => $order,
         ]);
 
     }
@@ -53,14 +59,33 @@ class OrderController extends Controller
         $selcteditems = Session::has('selcteditems') ? Session::get('selcteditems') : array();
         $order = new \App\order;
         $order->user_id = auth()->id();
+        $order->first_name = $request['first_name'];
+        $order->last_name = $request['last_name'];
+        $order->email = $request['email'];
+        $order->phone = $request['phone'];
         $order->address = $request['address'] . " - " . $request['city'] . " - " . $fee['name'];
+        $order->status = 'Placed';
         $order->save();
         $totalprice = 0;
         $totalcost = 0;
 
         foreach ($selcteditems as $selecteditem) {
             $item = \App\item::find($selecteditem->item->id);
-            $item->quantity -= $selecteditem->Quantity;
+            $size = $selecteditem->size;
+            $priceVariations = json_decode($item->priceVariations);
+            $styles = json_decode($item->styles);
+            if (count($priceVariations) > 0) {
+                $styleIndex = array_search($selecteditem->style, $styles);
+                foreach ($priceVariations as $priceVariation) {
+                    if ($priceVariation->style == $styleIndex && $priceVariation->size === $size) {
+                        $priceVariation->quantity -= $selecteditem->Quantity;
+                        break;
+                    }
+                }
+                $item->priceVariations = json_encode($priceVariations);
+            } else {
+                $item->quantity -= $selecteditem->Quantity;
+            }
             $item->save();
 
             $totalprice += $selecteditem->Quantity * $selecteditem->price;
@@ -90,21 +115,14 @@ class OrderController extends Controller
         Session::put('number_of_items', 0);
         Session::put('selcteditems', array());
 
-        // $details = [
-        //     'title' => 'You have new order',
-        //     'order' => $order ,
-        // ];
-        // $file = 'emails.send_order_to_admin';
-        // \Mail::to('saher.seada10@gmail.com')->send(new SendMail($details));
+        $details = [
+            'title' => 'Spot Fabrics Order Confirmed',
+            'order' => $order ,
+        ];
+        $file = 'emails.send_order_to_admin';
+        \Mail::to($order->email)->send(new SendMail($details, $file));
 
-        // $details = [
-        //     'title' => 'Test Email Title',
-        //     'body' => 'This is the body of the test email.'
-        // ];
-
-        // Mail::to('saher.seada10@gmail.com')->send(new SendMail($details));
-
-        return redirect('lastorder');
+        return redirect('myorders');
     }
 
     public function reject($id)
@@ -127,6 +145,24 @@ class OrderController extends Controller
         return redirect('vieworders');
 
     }
+
+    public function generatePDF($id)
+    {
+        // Fetch order details using the provided ID
+        $order = \App\Order::find($id);
+
+        // Ensure the order exists
+        if (!$order) {
+            return redirect()->back()->with('error', 'Order not found');
+        }
+
+        // Load a Blade view and pass the order data to it
+        $pdf = PDF::loadView('orderpdf', compact('order'));
+
+        // Return the PDF as a download or inline view
+        return $pdf->stream('order_' . $id . '.pdf');
+    }
+
     public function report(Request $request)
     {
         /* show in report view sold items , total price and total cost
@@ -185,6 +221,13 @@ class OrderController extends Controller
             'totaldelivery' => $totaldelivery
         ]);
 
+    }
+    public function changeStatus($id, $status)
+    {
+        $order = \App\order::find($id);
+        $order->status = $status;
+        $order->save();
+        return redirect()->back();
     }
     public function downloadreport()
     {

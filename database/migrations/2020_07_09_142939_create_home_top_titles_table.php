@@ -15,7 +15,8 @@ class CreateHomeTopTitlesTable extends Migration
     {
         Schema::create('home_top_titles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('content',65535);
+            $table->text('content');
+            $table->text('content_ar');
             $table->timestamps();
         });
     }

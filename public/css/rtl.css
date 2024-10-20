@@ -1,12 +1,3 @@
-/* body {
-    direction: rtl;
-    text-align: right;
-} */
-
-/* .navbar {
-    float: right;
-} */
-
 .secondbar .navbar-nav>li {
     float: right;
 }
@@ -25,6 +16,10 @@
 
 .text-align-right {
     direction: rtl;
+    text-align: right;
+}
+
+th {
     text-align: right;
 }
 

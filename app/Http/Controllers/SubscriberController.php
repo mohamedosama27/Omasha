@@ -7,22 +7,22 @@ use \App\Mail\SendMail;
 
 class SubscriberController extends Controller
 {
- 
+
     public function store(Request $request)
     {
         $request->validate([
             'email' => ['required', 'string', 'email', 'max:255'],
         ]);
-            
+
        try {
-        
+
             $subscriber = new  \App\subscriber;
             $subscriber->email = $request['email'];
             $subscriber->save();
-            return response()->json(['success'=>'Added Successfully']);
+            return response()->json(['success'=>__('messages.add_success')]);
 
         } catch (\Illuminate\Database\QueryException $e) {
-            return response()->json(['success'=>"Already Added"]);
+            return response()->json(['success'=>__('messages.already_added')]);
         }
 
     }
@@ -36,7 +36,7 @@ class SubscriberController extends Controller
     }
 
     public function destroy($id)
-    {        
+    {
         $subscriber = \App\subscriber::findorfail($id);
         $subscriber->delete();
         return redirect()->back();

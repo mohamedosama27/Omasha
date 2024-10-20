@@ -103,10 +103,6 @@
     margin-right: 5px;
 }
 
-.toptext {
-    /* letter-spacing: 5px; */
-}
-
 .bg-light {
     background-color: #f8f9fa !important;
 }
@@ -323,9 +319,9 @@
         font-weight: bold;
     }
 
-    .navbar {
+    /* .navbar {
         top: 22.5px;
-    }
+    } */
 
     .sliding-text {
         position: sticky;

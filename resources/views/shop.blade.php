@@ -167,36 +167,36 @@
             });
         });
 
-        $(document).on("click", '.btn-addtocart', function(e) {
+        // $(document).on("click", '.btn-addtocart', function(e) {
 
-            e.preventDefault();
+        //     e.preventDefault();
 
-            var str = $(this).data('value');;
-            $.ajax({
+        //     var str = $(this).data('value');;
+        //     $.ajax({
 
-                type: 'POST',
+        //         type: 'POST',
 
-                url: "{{ route('item.addToCart') }}",
+        //         url: "{{ route('item.addToCart') }}",
 
-                data: {
-                    name: str
-                },
+        //         data: {
+        //             name: str
+        //         },
 
-                success: function(data) {
+        //         success: function(data) {
 
-                    if (data.message === undefined) {
+        //             if (data.message === undefined) {
 
-                        $(".countCart").text(data.countCart);
-                        $('#messaga').text("Added Sucessfully")
-                        $('#errormessage').modal();
-                    } else {
-                        $('#messaga').text(data.message)
-                        $('#errormessage').modal();
-                    }
+        //                 $(".countCart").text(data.countCart);
+        //                 $('#messaga').text("Added Sucessfully")
+        //                 $('#errormessage').modal();
+        //             } else {
+        //                 $('#messaga').text(data.message)
+        //                 $('#errormessage').modal();
+        //             }
 
-                }
+        //         }
 
-            });
-        });
+        //     });
+        // });
     </script>
 @endsection

@@ -9,24 +9,24 @@ class FavoriteController extends Controller
     function addToFavorites(Request $request)
     {
         //add item_id with current user_id in table item_user
-        if(\Auth::check())
-        {
-           
+        if (\Auth::check()) {
+            if (\Auth::user()->favorites()->where('item_id', $request->id)->exists()) {
+                return response()->json([
+                    'message' => __('messages.already_added')
+                ]);
+            }
             try {
-        
                 \Auth::user()->favorites()->attach($request->id);
-                return response()->json(['message'=>'Added Successfully',
-                'countFavorites'=>\Auth::user()->favorites()->count()]);
+                return response()->json([
+                    'message' => __('messages.add_success'),
+                    'countFavorites' => \Auth::user()->favorites()->count()
+                ]);
 
             } catch (\Illuminate\Database\QueryException $e) {
-                return response()->json(['message'=>'Already Added']);
+                return response()->json(['message' => __('messages.already_added')]);
             }
-        
-
-        }
-        else{
-            return response()->json(['message'=>'You must log in']);
-
+        } else {
+            return response()->json(['message' => __('messages.must_login')]);
         }
 
     }
@@ -34,8 +34,8 @@ class FavoriteController extends Controller
     {
         //show current user favorites
         $items = \Auth::user()->favorites()->get();
-        return view('favorites',[
-            'items'=>$items,
+        return view('favorites', [
+            'items' => $items,
         ]);
     }
 

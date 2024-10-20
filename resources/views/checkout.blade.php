@@ -37,29 +37,10 @@
         <div class="row">
             <!-- Customer and Delivery Details Form -->
             <div class="col-md-7 text-align-right left-details">
-                <h3 class="mb-4"><strong>{{ __('messages.customer_details') }}</strong></h3>
-                <form method="POST" action="{{ route('checkout.order') }}" enctype="multipart/form-data">
+                <h3 class="mb-4"><strong>{{ __('messages.delivery_details') }}</strong></h3>
+                <form method="POST" id="checkout-form" action="{{ route('checkout.order') }}" enctype="multipart/form-data">
                     @csrf
                     <!-- Customer Details -->
-                    <div class="form-group">
-                        <label class="mb-2" for="email">{{ __('messages.email') }}</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="mb-2" for="first_name">{{ __('messages.first_name') }}</label>
-                        <input type="text" class="form-control" id="first_name" name="first_name" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="mb-2" for="last_name">{{ __('messages.last_name') }}</label>
-                        <input type="text" class="form-control" id="last_name" name="last_name" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="mb-2" for="phone">{{ __('messages.phone') }}</label>
-                        <input type="text" class="form-control" id="phone" name="phone" required>
-                    </div>
-
-                    <!-- Delivery Details -->
-                    <h3 class="mt-5 mb-4"><strong>{{ __('messages.delivery_details') }}</strong></h3>
                     <div class="form-group">
                         <label class="mb-2" for="address">{{ __('messages.address') }}</label>
                         <input type="text" class="form-control" id="address" name="address" required>
@@ -79,11 +60,24 @@
                         </select>
                     </div>
 
-                    <!-- Continue Button -->
-                    {{-- <a href="{{ route('checkout') }}"> --}}
-                    <button type='submit' name='submit'
-                        class="btn btn-primary mt-4 brandcolor">{{ __('messages.confirm_order') }}</button>
-                    {{-- </a> --}}
+                    <!-- Delivery Details -->
+                    <h3 class="mt-5 mb-4"><strong>{{ __('messages.customer_details') }}</strong></h3>
+                    <div class="form-group">
+                        <label class="mb-2" for="email">{{ __('messages.email') }}</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="mb-2" for="first_name">{{ __('messages.first_name') }}</label>
+                        <input type="text" class="form-control" id="first_name" name="first_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="mb-2" for="last_name">{{ __('messages.last_name') }}</label>
+                        <input type="text" class="form-control" id="last_name" name="last_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="mb-2" for="phone">{{ __('messages.phone') }}</label>
+                        <input type="text" class="form-control" id="phone" name="phone" required>
+                    </div>
                 </form>
             </div>
 
@@ -208,11 +202,19 @@
                         </div>
                     </div>
                 </div>
+                <div class='d-flex justify-content-center'>
+                    <button type='button' name='submit' onclick="submitForm()"
+                        class="btn btn-primary mt-5 brandcolor w-75">{{ __('messages.confirm_order') }}</button>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
+        function submitForm() {
+            document.getElementById('checkout-form').submit();
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const governorateDropdown = document.getElementById('governorate');
             const deliveryFeesElement = document.getElementById('delivery-fees');

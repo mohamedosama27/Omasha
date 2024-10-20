@@ -22,7 +22,7 @@ return [
     'order_summary' => 'ملخص الطلب',
     'subtotal' => 'المجموع الفرعي',
     'checkout' => 'إتمام الشراء',
-    'customer_details' => 'تفاصيل العميل',
+    'customer_details' => 'تفاصيل الشحن',
     'email' => 'البريد الالكتروني',
     'first_name' => 'الاسم الأول',
     'last_name' => 'الاسم الأخير',
@@ -48,5 +48,18 @@ return [
     'view' => 'رؤية',
     'egp' => 'ج.م',
     'search' => 'بحث',
-    'reviews' => 'المراجعات'
+    'reviews' => 'المراجعات',
+    'empty_cart' => 'السلة خالية',
+    'empty_wishlist' => 'قائمة الرغبات خالية',
+    'my_orders' => 'طلباتي',
+    'no_orders' => 'لا يوجد طلبات',
+    'all_orders' => 'كل الطلبات',
+    'order_date' => 'تاريخ الطلب',
+    'name' => 'الاسم',
+    'unit_price' => 'سعر الوحدة',
+    'total_order_value' => 'القيمة الإجمالية للطلب',
+    'add_success' => 'تمت الإضافة بنجاح',
+    'already_added' => 'تمت الإضافة مسبقاً',
+    'must_login' => 'يجب عليك تسجيل الدخول',
+    'not_enough_items' => 'لا يوجد منجات كافية'
 ];

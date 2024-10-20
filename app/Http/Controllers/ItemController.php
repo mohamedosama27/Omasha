@@ -334,6 +334,9 @@ class ItemController extends Controller
         //delete item with passed item
 
         $item = \App\item::findorfail($id);
+        foreach($item->images as $image) {
+            $this->deleteImage($image->id);
+        }
         $item->delete();
         return redirect()->back();
 
