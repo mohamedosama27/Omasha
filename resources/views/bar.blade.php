@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <link rel="icon" type="image/png" sizes="96x96" href={{ URL::asset('images/Logo-1.jpeg') }}>
+    <link rel="icon" type="image/png" sizes="96x96" href={{ URL::asset('images/Logo-on-Black.ico') }}>
     <title>Spot Fabrics</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -92,12 +92,12 @@
                 </button>
 
                 <a href="{{ route('home') }}">
-                    <img class="toplogo " src={{ URL::asset('images/Logo-1.jpeg') }}></a>
+                    <img class="toplogo " src={{ URL::asset('images/Logo-on-Black1.jpg') }}></a>
 
 
                 <div class="wrapper visible-xs">
                     <a href="{{ Request::is('cart') ? route('home') : route('cart') }}">
-                        <i class="fas fa-shopping-cart text-white baricons" style="font-size: 20px;"></i>
+                        <i class="fas fa-shopping-cart brandcolor baricons" style="font-size: 20px;"></i>
                         @if (session()->has('number_of_items'))
                             <span class="badge countCart" id='countcart'>
                                 {{ Session::get('number_of_items') }}
@@ -107,7 +107,7 @@
                 </div>
                 <div class="wrapper visible-xs">
                     <a href="{{ route('favorites') }}" class="visible-xs">
-                        <i class="fas fa-heart text-white baricons" style="font-size: 20px;"></i>
+                        <i class="fas fa-heart brandcolor baricons" style="font-size: 20px;"></i>
                         @auth
                             @if (Auth::user()->favorites()->count() > 0)
                                 <span class="badge countfavorites">
@@ -119,7 +119,7 @@
 
                     <a data-toggle="modal" data-target="#searchModel">
                         {{-- <img class="searchlogo visible-xs" src={{ URL::asset('images/search.svg') }}> --}}
-                        <i class="fas fa-search text-white baricons searchlogo visible-xs" style="font-size: 20px;"></i>
+                        <i class="fas fa-search brandcolor baricons searchlogo visible-xs" style="font-size: 20px;"></i>
                     </a>
                 </div>
 
@@ -157,10 +157,11 @@
                                                 <i class="fa fa-users actionicons"></i>Show Subscribers</a>
                                         </li> --}}
 
-                                        {{-- <li><a href="{{ route('contact.showAll') }}">
+                                        <li><a href="{{ route('contact.showAll') }}">
                                                 <i class="fa fa-phone actionicons"></i>Manage Contacts</a>
                                         </li>
 
+                                        {{--
                                         <li><a href="{{ route('customize.showAll') }}">
                                                 <i class="fa fa-list actionicons"></i>Show customize orders</a> --}}
                                 </li>
@@ -193,21 +194,26 @@
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu text-align-right ml-3">
                             @foreach ($parent_categories as $parentCategory)
-                                @php($childIds = $parentCategory->children->pluck('id')->toArray())
-                                <li class='mt-2'><a class="raleway"
-                                        href="{{ route('ItemController.product', ['category_name' => $parentCategory->name]) }}?num[]={{ implode('&num[]=', $childIds) }}">
-                                        {{ app()->getLocale() == 'ar' ? $parentCategory->name_ar : $parentCategory->name }}</a>
-                                </li>
-                                <li class='mt-2'><a class="raleway"
-                                        href="{{ route('ItemController.product', ['category_name' => $parentCategory->name]) }}?num[]={{ implode('&num[]=', $childIds) }}">
-                                        {{ app()->getLocale() == 'ar' ? $parentCategory->name_ar : $parentCategory->name }}</a>
-                                </li>
-                                @foreach ($parentCategory->children as $childCategory)
-                                    <li class="{{ app()->getLocale() == 'ar' ? 'mr-3' : 'ml-4' }}"><a class="raleway"
-                                            href="{{ route('ItemController.product', ['category_name' => $childCategory->name]) }}?num[]={{ $childCategory->id }}">
-                                            {{ app()->getLocale() == 'ar' ? $childCategory->name_ar : $childCategory->name }}</a>
+                                @php($childIds = array_merge([$parentCategory->id], $parentCategory->children->pluck('id')->toArray()))
+
+                                <div class="parent-category-dropdown">
+                                    <li class='mt-2 d-flex'><a class="raleway"
+                                            href="{{ route('ItemController.product', ['category_name' => $parentCategory->name]) }}?num[]={{ implode('&num[]=', $childIds) }}">
+                                            {{ app()->getLocale() == 'ar' ? $parentCategory->name_ar : $parentCategory->name }}</a>
+                                        @if (count($childIds) > 1)
+                                            <span class="caret mt-3" onclick="toggleDropdown(this)"></span>
+                                        @endif
                                     </li>
-                                @endforeach
+                                    <div class='child-category-dropdown'>
+                                        @foreach ($parentCategory->children as $childCategory)
+                                            <li class="{{ app()->getLocale() == 'ar' ? 'mr-3' : 'ml-4' }}"><a
+                                                    class="raleway"
+                                                    href="{{ route('ItemController.product', ['category_name' => $childCategory->name]) }}?num[]={{ $childCategory->id }}">
+                                                    {{ app()->getLocale() == 'ar' ? $childCategory->name_ar : $childCategory->name }}</a>
+                                            </li>
+                                        @endforeach
+                                    </div>
+                                </div>
                             @endforeach
                             <li class='mt-2'><a class="raleway" href="{{ route('shop') }}">
                                     {{ __('messages.view_all') }}</a></li>
@@ -223,23 +229,6 @@
                         @endif
                     @endauth
 
-                    {{-- <li class="dropdown visible-xs">
-                        <a href="#" class="dropdown-toggle raleway" data-toggle="dropdown" role="button"
-                            aria-haspopup="true" aria-expanded="false">
-                            COLLECTION
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            @php($categories = \App\category::all())
-                            @foreach ($categories as $category)
-                            <li><a href="{{ route('category', ['id' => $category->id]) }}" class="raleway">
-                                    {{ $category->name }}</a></li>
-                            @endforeach
-
-                        </ul>
-                    </li> --}}
-                    {{-- <li>
-                        <a href="{{ route('about') }}" class="raleway visible-xs">{{ __('messages.about') }}</a>
-                    </li> --}}
                     @auth
                         <li role="separator" class="divider"></li>
                         <li>
@@ -278,7 +267,7 @@
 
                     </ul>
 
-                    <ul class="nav navbar-nav navbar-left hidden-xs mb-3 mt-3 ml-3">
+                    <ul class="nav navbar-nav navbar-left hidden-xs mt-3 ml-3">
                         <li>
                             <div class="wrapper">
                                 <a href="{{ route('switch.language', ['locale' => 'en']) }}">English</a>
@@ -292,13 +281,13 @@
                         </li>
                     </ul>
 
-                    <ul class="nav navbar-nav navbar-right hidden-xs mb-3">
+                    <ul class="nav navbar-nav navbar-right hidden-xs">
                         @auth
                             <li class="dropdown raleway mr-4">
                                 <div class='wrapper d-flex justify-content-center'>
                                     <a href="#" class="dropdown-toggle raleway" data-toggle="dropdown" role="button"
                                         aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-user text-white baricons" style="font-size: 22px;"></i>
+                                        <i class="fas fa-user brandcolor baricons" style="font-size: 22px;"></i>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                             style="display: none;">
                                             @csrf
@@ -320,7 +309,7 @@
                                 <div class='wrapper'>
                                     <a href="{{ route('login') }}" class="raleway d-flex align-items-center">
                                         <span class='mt-3 mr-3'>{{ __('messages.sign_in') }}</span>
-                                        <i class="fas fa-user text-white baricons" style="font-size: 22px;"></i>
+                                        <i class="fas fa-user brandcolor baricons" style="font-size: 22px;"></i>
                                     </a>
                                 </div>
                             </li>
@@ -328,7 +317,7 @@
 
                         {{-- <li>
                         <a data-toggle="modal" data-target="#searchModel" class="iconsLink">
-                            <i class="fas fa-search text-white baricons" style="font-size: 22px;"></i>
+                            <i class="fas fa-search brandcolor baricons" style="font-size: 22px;"></i>
                             <img class="favoriteicon" src={{ URL::asset('images/search.svg') }}>
                         </a>
                     </li> --}}
@@ -339,8 +328,8 @@
                             <div class="wrapper">
                                 <a data-toggle="modal" data-target="#searchModel" class="iconsLink">
                                     {{-- <img class="baricons" src={{ URL::asset('images/chat.svg') }}> --}}
-                                    {{-- <i class="fas fa-comments text-white baricons" style="font-size: 22px;"></i> --}}
-                                    <i class="fas fa-search text-white baricons" style="font-size: 22px;"></i>
+                                    {{-- <i class="fas fa-comments brandcolor baricons" style="font-size: 22px;"></i> --}}
+                                    <i class="fas fa-search brandcolor baricons" style="font-size: 22px;"></i>
                                     {{-- <span class="badge countmessage"></span> --}}
                                 </a>
                             </div>
@@ -350,7 +339,7 @@
                             <div class="wrapper">
                                 <a href="{{ route('favorites') }}" class="iconsLink">
                                     {{-- <img class="baricons" src={{ URL::asset('images/favorite.svg') }}> --}}
-                                    <i class="fas fa-heart text-white baricons" style="font-size: 22px;"></i>
+                                    <i class="fas fa-heart brandcolor baricons" style="font-size: 22px;"></i>
                                     @auth
                                         @if (Auth::user()->favorites()->count() > 0)
                                             <span class="badge countfavorites">
@@ -366,7 +355,7 @@
                             <div class="wrapper">
                                 <a href="{{ Request::is('cart') ? route('home') : route('cart') }}">
                                     {{-- <img class="baricons" src={{ URL::asset('images/cart.svg') }}> --}}
-                                    <i class="fas fa-shopping-cart text-white baricons" style="font-size: 22px;"></i>
+                                    <i class="fas fa-shopping-cart brandcolor baricons" style="font-size: 22px;"></i>
                                     <span class="badge countCart"
                                         id='countcart'>{{ Session::has('number_of_items') ? Session::get('number_of_items') : '' }}</span>
                                 </a>
@@ -388,48 +377,34 @@
                             <a href="#" class="dropdown-toggle raleway" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">{{ __('messages.products') }}
                                 <span class="caret"></span></a>
-                            {{-- <ul class="dropdown-menu">
-                                <li><a class="raleway" href="{{ route('ItemController.product', ['num' => 0]) }}">
-                                        Curtains</a></li>
-                                <li><a class="raleway" href="{{ route('ItemController.product', ['num' => 1]) }}">
-                                        Cushions</a></li>
-                                <li><a class="raleway" href="{{ route('shop') }}">
-                                        View all</a></li>
-                            </ul> --}}
-                            <ul class="dropdown-menu text-align-right">
+                            <ul class="dropdown-menu text-align-right scrollable">
                                 @foreach ($parent_categories as $parentCategory)
-                                    @php($childIds = $parentCategory->children->pluck('id')->toArray())
-                                    <li class='mt-2'><a class="raleway"
-                                            href="{{ route('ItemController.product', ['category_name' => $parentCategory->name]) }}?num[]={{ implode('&num[]=', $childIds) }}">
-                                            {{ app()->getLocale() == 'ar' ? $parentCategory->name_ar : $parentCategory->name }}</a>
-                                    </li>
-                                    @foreach ($parentCategory->children as $childCategory)
-                                        <li class="{{ app()->getLocale() == 'ar' ? 'mr-3' : 'ml-4' }}"><a class="raleway"
-                                                href="{{ route('ItemController.product', ['category_name' => $childCategory->name]) }}?num[]={{ $childCategory->id }}">
-                                                {{ app()->getLocale() == 'ar' ? $childCategory->name_ar : $childCategory->name }}</a>
+                                    @php($childIds = array_merge([$parentCategory->id], $parentCategory->children->pluck('id')->toArray()))
+                                    <div class="parent-category-dropdown">
+                                        <li class='mt-2'><a class="raleway"
+                                                href="{{ route('ItemController.product', ['category_name' => $parentCategory->name]) }}?num[]={{ implode('&num[]=', $childIds) }}">
+                                                {{ app()->getLocale() == 'ar' ? $parentCategory->name_ar : $parentCategory->name }}
+                                                @if (count($childIds) > 1)
+                                                    <span class="caret"></span>
+                                                @endif
+                                            </a>
                                         </li>
-                                    @endforeach
+                                        <div class='child-category-dropdown'>
+                                            @foreach ($parentCategory->children as $childCategory)
+                                                <li class="{{ app()->getLocale() == 'ar' ? 'mr-3' : 'ml-4' }}"><a
+                                                        class="raleway"
+                                                        href="{{ route('ItemController.product', ['category_name' => $childCategory->name]) }}?num[]={{ $childCategory->id }}">
+                                                        {{ app()->getLocale() == 'ar' ? $childCategory->name_ar : $childCategory->name }}</a>
+                                                </li>
+                                            @endforeach
+                                        </div>
+                                    </div>
                                 @endforeach
                                 <li class='mt-2'><a class="raleway" href="{{ route('shop') }}">
                                         {{ __('messages.view_all') }}</a></li>
                             </ul>
                         </li>
 
-                        {{-- <li class="dropdown">
-                        <a href="#" class="dropdown-toggle raleway  " data-toggle="dropdown" role="button"
-                            aria-haspopup="true" aria-expanded="false">COLLECTION
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            @php($categories = \App\category::all())
-                            @foreach ($categories as $category)
-                            <li><a class="raleway" href="{{ route('category', ['id' => $category->id]) }}">
-                                    {{ $category->name }}</a></li>
-                            @endforeach
-                        </ul>
-                    </li> --}}
-                        {{-- <li>
-                            <a href="{{ route('about') }}" class="raleway  ">{{ __('messages.about') }}</a>
-                        </li> --}}
                         @auth
                             @if (Auth::user()->type == 1)
                                 <li class="dropdown">
@@ -476,10 +451,10 @@
                                     <i class="fa fa-users actionicons"></i>Show Subscribers</a>
                             </li> --}}
 
-                                        {{-- <li>
-                                <a href="{{ route('contact.showAll') }}">
-                                    <i class="fa fa-phone actionicons"></i>Manage Contacts</a>
-                            </li> --}}
+                                        <li>
+                                            <a href="{{ route('contact.showAll') }}">
+                                                <i class="fa fa-phone actionicons"></i>Manage Contacts</a>
+                                        </li>
                                         <li><a href="{{ route('fee.showAll') }}">
                                                 <i class="fa fa-truck actionicons"></i>Manage fees</a>
                                         </li>
@@ -526,21 +501,23 @@
         <section class="footer brandcolor">
             <div class="container-fluid">
                 <div class="row footer-flex">
-                    <div class=" col-lg-3 col-xs-12 footer-margin">
-                        <div class="col-xs-6 d-flex align-items-center justify-content-center">
-                            <img class="logo" src={{ URL::asset('images/Logo-1.jpeg') }}>
+                    <div class="footer-margin">
+                        <div class="col-xs-8 d-flex align-items-center footer-logo">
+                            <img class="logo" src={{ URL::asset('images/Logo-on-Black.jpg') }}>
                         </div>
-                        <div class="col-xs-6 text-align-right">
+                    </div>
 
-                            <h5>{{ __('messages.follow_us') }}</h5>
-                            <a href="https://www.facebook.com/spot.fabric/">
-                                <img class="socialIcon" src={{ URL::asset('images/fb.png') }}>
-                            </a>
+                    <div class="col-xs-2 text-align-right follow-us">
 
-                            <a href="https://www.instagram.com/spot.fabrics/">
-                                <img class="socialIcon mt-1" src={{ URL::asset('images/instagram.png') }}>
-                            </a>
-                        </div>
+                        <h5 class='mb-3'>{{ __('messages.follow_us') }}</h5>
+                        <a href="https://www.facebook.com/spot.fabric/" target="_blank" class="mr-3"
+                            style="color: black;">
+                            <img class="socialIcon" src={{ URL::asset('images/fbg.png') }}>
+                        </a>
+
+                        <a href="https://www.instagram.com/spot.fabrics/" target="_blank">
+                            <img class="socialIcon" src={{ URL::asset('images/igg.png') }}>
+                        </a>
                     </div>
 
                     {{-- <div class="col-lg-3 col-xs-12 footer-margin">
@@ -551,11 +528,12 @@
                     </a>
                     </div> --}}
 
-                    <div class="col-lg-3 col-xs-12 footer-margin text-align-right">
+                    <div class="col-lg-3 col-xs-2 footer-margin text-align-right"
+                        style="height: 100px; padding-left: 20px;">
                         <h5>{{ __('messages.contact_us') }}</h5>
                         @php($contacts = \App\contact::all())
                         @foreach ($contacts as $contact)
-                            <p>{{ $contact->contact }}</p>
+                            <p class='ml-3 mt-3'>{{ $contact->contact }}</p>
                         @endforeach
                     </div>
                 </div>
@@ -563,6 +541,34 @@
         </section>
     </body>
     <script>
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', function() {
+            let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (currentScroll > lastScrollTop) {
+                // Scrolling Down: Hide Navbar
+                navbar.style.top = "-160px";
+            } else {
+                // Scrolling Up: Show Navbar
+                navbar.style.top = "0";
+            }
+            lastScrollTop = currentScroll;
+        });
+
+        function toggleDropdown(caretElement) {
+            // Find the next sibling element (child-category-dropdown)
+            const dropdown = caretElement.parentElement.nextElementSibling;
+
+            // Toggle visibility
+            if (dropdown.style.display === "none" || dropdown.style.display === "") {
+                dropdown.style.display = "block"; // Show the dropdown
+            } else {
+                dropdown.style.display = "none"; // Hide the dropdown
+            }
+        }
+
         $(document).ready(function() {
             $('.dropdown-menu').on('click', function(e) {
                 e.stopPropagation();

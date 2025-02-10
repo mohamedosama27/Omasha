@@ -4641,8 +4641,8 @@ tbody.collapse.in {
 
 .caret {
     display: inline-block;
-    width: 0;
-    height: 0;
+    width: 10px;
+    height: 10px;
     margin-left: 2px;
     vertical-align: middle;
     border-top: 4px dashed;
@@ -4696,7 +4696,8 @@ tbody.collapse.in {
     visibility: hidden;
     transition: opacity 0.3s ease;
     font-size: 16px;
-    background-color: rgba(125, 217, 90, 255);
+    background-color: black;
+    color: #f6c20a !important;
 }
 
 .dropdown-menu.pull-right {
@@ -4717,7 +4718,7 @@ tbody.collapse.in {
     clear: both;
     font-weight: normal;
     line-height: 1.42857143;
-    color: white;
+    /* color: white; */
     white-space: nowrap;
     margin-bottom: 3px;
 }
@@ -5231,7 +5232,7 @@ select[multiple].input-group-sm>.input-group-btn>.btn {
     padding: 10px 28px;
     font-weight: bold;
     font-size: 16px;
-    color: white;
+    color: #f6c20a !important;
     /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); */
 }
 
@@ -8206,7 +8207,7 @@ button.close {
 }
 
 .carousel-control.right {
-    right: 1%;
+    right: 1.5%;
     left: auto;
     /* background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%);
     background-image: -o-linear-gradient(left, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%);

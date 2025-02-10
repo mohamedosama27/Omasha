@@ -19,10 +19,13 @@ class CreateItemsTable extends Migration
             $table->text('barcode');
             $table->text('description');
             $table->text('price')->nullable();
+            $table->text('sides_price')->nullable();
+            $table->text('after_sale_price')->nullable();
+            $table->text('after_sale_sides_price')->nullable();
             $table->text('cost')->nullable();
             $table->tinyInteger('hide')->nullable();
             $table->Integer('quantity')->nullable();
-            $table->unsignedBigInteger('category_id')->nullable();
+            $table->json('category_ids')->nullable();
             $table->text('keywords')->nullable();
             $table->timestamps();
         });

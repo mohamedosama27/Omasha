@@ -45,6 +45,14 @@
             display: none;
         }
 
+        #both-sides-price {
+            display: none;
+        }
+
+        #both-sides-after-sale-price {
+            display: none;
+        }
+
         .image-thumbnail-wrapper {
             display: inline-block;
             text-align: center;
@@ -79,6 +87,19 @@
             cursor: pointer;
             color: white;
             font-weight: bold;
+        }
+
+        .form-check {
+            width: fit-content;
+            margin-right: 35px;
+            margin-bottom: 15px;
+        }
+
+        #categories {
+            display: flex;
+            margin: 12px;
+            flex-wrap: wrap;
+            width: 80%;
         }
     </style>
     {{-- Form of inserting a new Item --}}
@@ -132,11 +153,16 @@
             <!-- Category Dropdown -->
             <div class="form-group">
                 <label for="category">Category</label>
-                <select name="category" id="category" class="form-control">
+                <div id="categories" class="row">
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        <div class="form-check">
+                            <input type="checkbox" name="category[]" id="category-{{ $category->id }}"
+                                value="{{ $category->id }}" class="form-check-input">
+                            <label for="category-{{ $category->id }}" class="form-check-label"
+                                style="font-weight: normal;">{{ $category->name }}</label>
+                        </div>
                     @endforeach
-                </select>
+                </div>
             </div>
 
             <div class="form-group" id="color-container">
@@ -180,6 +206,12 @@
                 </div>
             </div>
 
+            <div class="form-check">
+                <input type="checkbox" name="is_sides" id="is_sides" class="form-check-input">
+                <label for="is_sides" class="form-check-label" style="font-weight: normal;">Does the product have
+                    sides?</label>
+            </div>
+
             <div class="form-group" id="price-variations">
                 <label for="prices">Prices for Styles and Sizes</label>
                 <div id="price-container" class="ml-3">
@@ -193,6 +225,17 @@
                 <input type="number" step="0.01" name="price" class="form-control" id="price"
                     value="{{ old('price') }}" required>
                 @error('price')
+                    <span role="alert" style="color:red;">
+                        <strong>{{ $message }}</strong>
+                    </span><br>
+                @enderror
+            </div>
+
+            <div class="form-group" id="both-sides-price">
+                <label for="price">Price for 2 Sides</label>
+                <input type="number" step="0.01" name="sides_price" class="form-control" id="sides_price"
+                    value="{{ old('sides_price') }}" required>
+                @error('sides_price')
                     <span role="alert" style="color:red;">
                         <strong>{{ $message }}</strong>
                     </span><br>
@@ -220,8 +263,19 @@
 
             <div class="form-group" id="basic-after-sale-price">
                 <label for="after_sale_price">After Sale Price</label>
-                <input type="number" step="0.01" name="cost" class="form-control" id="after_sale_price"
+                <input type="number" step="0.01" name="after_sale_price" class="form-control" id="after_sale_price"
                     value="{{ old('after_sale_price') }}" required>
+            </div>
+
+            <div class="form-group" id="both-sides-after-sale-price">
+                <label for="price">After Sale Price for 2 Sides</label>
+                <input type="number" step="0.01" name="after_sale_sides_price" class="form-control" id="after_sale_sides_price"
+                    value="{{ old('after_sale_sides_price') }}" required>
+                @error('after_sale_sides_price')
+                    <span role="alert" style="color:red;">
+                        <strong>{{ $message }}</strong>
+                    </span><br>
+                @enderror
             </div>
 
             <!-- Care Instructions -->
@@ -267,23 +321,6 @@
     </div>
 
     <script>
-        // var form = document.getElementById('upload');
-        // var request = new XMLHttpRequest();
-        // form.addEventLisener('submit', function(e) {
-        //     e.preventDefault();
-        //     var formdata = new FormData(form);
-
-        //     request.open('post', '/createitem');
-        //     request.addEventListener('load', transferComplete);
-        //     request.send(
-        //         formdata);
-        // });
-
-        // function transferComplete(data) {
-        //     console.log(data.currentTarget.response);
-
-        // }
-
         // Dynamically add new description line
         function createDescriptionLine() {
             const newDescriptionLine = document.createElement('div');
@@ -442,21 +479,32 @@
             const priceContainer = document.getElementById('price-container');
             const priceDiv = document.getElementById('price-variations');
             const basicPriceDiv = document.getElementById('basic-price');
+            const checkbox = document.getElementById("is_sides");
+            const bothSidesPrice = document.getElementById("both-sides-price");
             const basicQuantityDiv = document.getElementById('basic-quantity');
             const basicCostDiv = document.getElementById('basic-cost');
             const basicAfterSaleDiv = document.getElementById('basic-after-sale-price');
+            const afterSaleSidesPriceDiv = document.getElementById('both-sides-after-sale-price');
             const priceInput = document.getElementById('price');
+            const sidesPriceInput = document.getElementById('sides_price');
             const costInput = document.getElementById('cost');
             const quantityInput = document.getElementById('quantity');
             const afterSaleInput = document.getElementById('after_sale_price');
+            const afterSaleSidesPriceInput = document.getElementById('after_sale_sides_price');
+
+            checkbox.addEventListener("change", updatePriceFields);
 
             function showPriceVariations() {
                 priceDiv.style.display = 'block';
                 basicPriceDiv.style.display = 'none';
+                bothSidesPrice.style.display = 'none';
                 basicCostDiv.style.display = 'none';
                 basicQuantityDiv.style.display = 'none';
                 basicAfterSaleDiv.style.display = 'none';
+                afterSaleSidesPriceDiv.style.display = 'none';
                 priceInput.removeAttribute('required');
+                sidesPriceInput.removeAttribute('required');
+                afterSaleSidesPriceInput.removeAttribute('required');
                 costInput.removeAttribute('required');
                 quantityInput.removeAttribute('required');
                 afterSaleInput.removeAttribute('required');
@@ -468,6 +516,7 @@
                 const styles = document.getElementsByClassName('style-input');
                 const sizes = document.getElementsByClassName('size-input');
 
+                let additionalPriceInput = ``;
                 if (sizes.length == 1 && styles.length > 1) {
                     let size = "";
                     if (sizes[0].value != null && sizes[0].value != "") {
@@ -477,6 +526,11 @@
                     }
                     Array.from(styles).forEach(function(style) {
                         if (style.value != null && style.value != "") {
+                            if (checkbox.checked) {
+                                additionalPriceInput =
+                                    `<input type="number" name="sides_prices[${style.value}][${size}]" class="form-control" placeholder="Both Sides Price" required>
+                                    <input type="number" name="after_sale_sides_prices[${style.value}][${size}]" class="form-control" placeholder="After Sale Both Sides Price" required>`
+                            }
                             const priceInput = document.createElement('div');
                             priceInput.classList.add('d-flex', 'align-items-center', 'mt-2',
                                 'mb-1',
@@ -488,7 +542,8 @@
                     <input type="number" name="costs[${style.value}][${size}]" class="form-control" placeholder="Cost" required>
                     <input type="number" name="quantities[${style.value}][${size}]" class="form-control" placeholder="Quantity" required>
                     <input type="number" name="after_sale_prices[${style.value}][${size}]" class="form-control" placeholder="After Sale Price" required>
-                `;
+                    ${additionalPriceInput}
+                    `;
 
                             priceContainer.appendChild(priceInput);
                         }
@@ -503,6 +558,11 @@
                     }
                     Array.from(sizes).forEach(function(size) {
                         if (size.value != null && size.value != "") {
+                            if (checkbox.checked) {
+                                additionalPriceInput =
+                                    `<input type="number" name="sides_prices[${style}][${size.value}]" class="form-control" placeholder="Both Sides Price" required>
+                                    <input type="number" name="after_sale_sides_prices[${style}][${size.value}]" class="form-control" placeholder="After Sale Both Sides Price" required>`
+                            }
                             const priceInput = document.createElement('div');
                             priceInput.classList.add('d-flex', 'align-items-center', 'mt-2',
                                 'mb-1',
@@ -513,8 +573,9 @@
                     <input type="number" name="prices[${style}][${size.value}]" class="form-control" placeholder="Price" required>
                     <input type="number" name="costs[${style}][${size.value}]" class="form-control" placeholder="Cost" required>
                     <input type="number" name="quantities[${style}][${size.value}]" class="form-control" placeholder="Quantity" required>
-                    <input type="number" name="after_sale_prices[${style.value}][${size.value}]" class="form-control" placeholder="After Sale Price" required>
-                `;
+                    <input type="number" name="after_sale_prices[${style}][${size.value}]" class="form-control" placeholder="After Sale Price" required>
+                    ${additionalPriceInput}
+                    `;
 
                             priceContainer.appendChild(priceInput);
                         }
@@ -525,6 +586,11 @@
                         if (style.value != null && style.value != "") {
                             Array.from(sizes).forEach(function(size) {
                                 if (size.value != null && size.value != "") {
+                                    if (checkbox.checked) {
+                                        additionalPriceInput =
+                                            `<input type="number" name="sides_prices[${style.value}][${size.value}]" class="form-control" placeholder="Both Sides Price" required>
+                                            <input type="number" name="after_sale_sides_prices[${style.value}][${size.value}]" class="form-control" placeholder="After Sale Both Sides Price" required>`
+                                    }
                                     const priceInput = document.createElement('div');
                                     priceInput.classList.add('d-flex', 'align-items-center', 'mt-2',
                                         'mb-1',
@@ -532,11 +598,12 @@
 
                                     priceInput.innerHTML = `
                     <label class="mr-1 overflow-label">Fields for Style: "${style.value}" and Size: "${size.value}":</label>
-                    <input type="number" name="prices[${style.value}][${size.value}]" class="form-control" placeholder="Price" required>
-                    <input type="number" name="costs[${style.value}][${size.value}]" class="form-control" placeholder="Cost" required>
+                    <input type="number" step="0.01" name="prices[${style.value}][${size.value}]" class="form-control" placeholder="Price" required>
+                    <input type="number" step="0.01" name="costs[${style.value}][${size.value}]" class="form-control" placeholder="Cost" required>
                     <input type="number" name="quantities[${style.value}][${size.value}]" class="form-control" placeholder="Quantity" required>
-                    <input type="number" name="after_sale_prices[${style.value}][${size.value}]" class="form-control" placeholder="After Sale Price" required>
-                `;
+                    <input type="number" step="0.01" name="after_sale_prices[${style.value}][${size.value}]" class="form-control" placeholder="After Sale Price" required>
+                    ${additionalPriceInput}
+                    `;
 
                                     priceContainer.appendChild(priceInput);
                                 }
@@ -554,6 +621,17 @@
                     costInput.setAttribute('required', 'true');
                     quantityInput.setAttribute('required', 'true');
                     afterSaleInput.setAttribute('required', 'true');
+                    if (checkbox.checked) {
+                        bothSidesPrice.style.display = 'block';
+                        afterSaleSidesPriceDiv.style.display = 'block';
+                        sidesPriceInput.setAttribute('required', 'true');
+                        afterSaleSidesPriceInput.setAttribute('required', 'true');
+                    } else {
+                        bothSidesPrice.style.display = 'none';
+                        afterSaleSidesPriceDiv.style.display = 'none';
+                        sidesPriceInput.removeAttribute('required');
+                        afterSaleSidesPriceInput.removeAttribute('required');
+                    }
                 }
             }
         });
@@ -678,7 +756,6 @@
             const keywordTags = document.querySelectorAll('#keywordTags .tag');
             const tagsArray = Array.from(keywordTags).map(tag => tag.textContent.trim().replace('×', ''));
             document.getElementById('keywordsInput').value = tagsArray.join(',');
-            console.log(document.getElementById('keywordsInput').value);
         }
     </script>
 @endsection

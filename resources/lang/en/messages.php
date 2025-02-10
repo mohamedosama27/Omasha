@@ -61,5 +61,9 @@ return [
     'add_success' => 'Added Successfully',
     'already_added' => 'Already Added',
     'must_login' => 'You Must Login',
-    'not_enough_items' => 'Not Enough Items Available'
+    'not_enough_items' => 'Not Enough Items Available',
+    'side' => 'Side',
+    'left' => 'Left',
+    'right' => 'Right',
+    'both' => 'Both'
 ];

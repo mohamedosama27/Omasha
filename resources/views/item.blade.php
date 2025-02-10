@@ -189,10 +189,10 @@
                     @endif
                 </div>
 
+
                 <div class="pt-2 product-reviews desktop-reviews" style="max-width: 500px">
                     <h4 class='mb-4'>{{ __('messages.reviews') }}</h4>
                     <ul class="list-unstyled">
-                        {{-- @foreach ($reviews as $review) --}}
                         <li class="mb-4">
                             <div class="d-flex align-items-center">
                                 <!-- Display star ratings -->
@@ -224,7 +224,6 @@
                             <p class="mt-3 mb-1"><strong> John </strong></p>
                             <p class="text-muted">Product not so great</p>
                         </li>
-                        {{-- @endforeach --}}
                     </ul>
                 </div>
             </div>
@@ -232,7 +231,14 @@
             <!-- Right Column: Product Details -->
             <div class="col-md-4 text-align-right product-details">
                 <h2 class="font-weight-bold">{{ app()->getLocale() == 'ar' ? $item->name_ar : $item->name }}</h2>
-                <h3 class="mt-4" id="price">{{ number_format($item->price, 2) }} EGP</h3>
+                <h3 class="mt-4" id="price">
+                    @if ($item->after_sale_price > 0)
+                        <del>{{ number_format($item->price, 2) }} {{ __('messages.egp') }}</del>
+                        <span class="ml-2">{{ number_format($item->after_sale_price, 2) }} {{ __('messages.egp') }}</span>
+                    @else
+                        {{ number_format($item->price, 2) }} {{ __('messages.egp') }}
+                    @endif
+                </h3>
 
                 <div class="pt-3 mobile-description" style="max-width: 500px">
                     @if (!empty($descriptions))
@@ -273,6 +279,19 @@
                     $sizes = json_decode($item->sizes);
                 @endphp
 
+                @if ($item->sides_price > 0)
+                    <div class="mt-4">
+                        <label for="side">
+                            <h5>{{ __('messages.side') }}</h5>
+                        </label>
+                        <select id="side" name="side" class="form-control mt-1">
+                            <option value="left" selected>{{ __('messages.left') }}</option>
+                            <option value="right">{{ __('messages.right') }}</option>
+                            <option value="both">{{ __('messages.both') }}</option>
+                        </select>
+                    </div>
+                @endif
+
                 @if (!empty($styles))
                     <div class="mt-4">
                         <label for="style">
@@ -307,8 +326,8 @@
                     <div class='d-flex align-items-center mt-1'>
                         <button class="btn btn-outline-secondary minus-btn" type="button" style="font-size: 10px;"><i
                                 class="fas fa-minus"></i></button>
-                        <input type="number" id="quantity" name="quantity" value="1" class="form-control ml-2 mr-2"
-                            style="width: 80px;" readonly>
+                        <input type="number" id="quantity" name="quantity" value="1"
+                            class="form-control ml-2 mr-2" style="width: 80px;" readonly>
                         <button class="btn btn-outline-secondary plus-btn" style="font-size: 10px;" type="button"><i
                                 class="fas fa-plus"></i></button>
                     </div>
@@ -458,25 +477,80 @@
         const productPrices = @json($productPrices);
         const styleDropdown = document.getElementById('style');
         const sizeDropdown = document.getElementById('size');
+        const sideDropdown = document.getElementById('side');
         const priceDisplay = document.getElementById('price');
+
+        const afterSalePrice = <?php echo $item->after_sale_price; ?>;
+        const basic_price = <?php echo $item->price; ?>;
+        const sidePrice = <?php echo $item->sides_price; ?>;
+        const afterSaleSidePrice = <?php echo $item->after_sale_sides_price; ?>;
 
         function initPrice() {
             if (productPrices.length != 0) {
-                const minPriceObject = productPrices.reduce((min, product, index) => {
-                    return (product.price < min.price) ? product : min;
-                });
-                styleDropdown.value = minPriceObject.style;
-                sizeDropdown.value = minPriceObject.size;
+                let minPriceObject;
+                if (afterSalePrice > 0) {
+                    minPriceObject = productPrices.reduce((min, product, index) => {
+                        return (parseFloat(product.after_sale_price) < parseFloat(min.after_sale_price)) ? product :
+                            min;
+                    });
+                } else {
+                    minPriceObject = productPrices.reduce((min, product, index) => {
+                        return (parseFloat(product.price) < parseFloat(min.price)) ? product : min;
+                    });
+                }
+                if (styleDropdown != null) {
+                    styleDropdown.value = minPriceObject.style;
+                }
+                if (sizeDropdown != null) {
+                    sizeDropdown.value = minPriceObject.size;
+                }
             }
         }
 
         initPrice();
 
+        const currencyLabel = "{{ __('messages.egp') }}";
+
         function updatePrice() {
+            if (productPrices.length == 0) {
+                if (sideDropdown != null && sideDropdown.value == 'both') {
+                    if (afterSaleSidePrice > 0) {
+                        let price = parseFloat(afterSaleSidePrice);
+                        priceDisplay.innerHTML = `<del>${sidePrice.toFixed(2)} ${currencyLabel}</del>
+                            <span class="ml-2">${price.toFixed(2)} ${currencyLabel}</span>`
+                    } else {
+                        let price = parseFloat(basic_price);
+                        priceDisplay.innerHTML = `${price.toFixed(2)} ${currencyLabel}`;
+                    }
+                } else {
+                    if (afterSalePrice > 0) {
+                        let newPrice = parseFloat(afterSalePrice);
+                        priceDisplay.innerHTML = `<del>${basic_price.toFixed(2)} ${currencyLabel}</del>
+                            <span class="ml-2">${newPrice.toFixed(2)} ${currencyLabel}</span>`
+                    } else {
+                        let price = parseFloat(sidePrice);
+                        priceDisplay.innerHTML = `${price.toFixed(2)} ${currencyLabel}`;
+                    }
+                }
+            }
             productPrices.forEach(function(item) {
-                if (item.size == sizeDropdown.value && item.style == styleDropdown.value) {
+                if ((sizeDropdown == null || item.size == sizeDropdown.value) && (styleDropdown == null || item
+                        .style == styleDropdown.value)) {
                     let price = parseFloat(item.price);
-                    priceDisplay.textContent = price.toFixed(2) + ' EGP';
+                    if (sideDropdown != null && sideDropdown.value == 'both') {
+                        price = parseFloat(item.sides_price);
+                        if (item.after_sale_sides_price > 0) {
+                            let newPrice = parseFloat(item.after_sale_sides_price);
+                            priceDisplay.innerHTML = `<del>${price.toFixed(2)} ${currencyLabel}</del>
+                            <span class="ml-2">${newPrice.toFixed(2)} ${currencyLabel}</span>`
+                        }
+                    } else if (item.after_sale_price > 0) {
+                        let newPrice = parseFloat(item.after_sale_price);
+                        priceDisplay.innerHTML = `<del>${price.toFixed(2)} ${currencyLabel}</del>
+                        <span class="ml-2">${newPrice.toFixed(2)} ${currencyLabel}</span>`
+                    } else {
+                        priceDisplay.innerHTML = `${price.toFixed(2)} ${currencyLabel}`;
+                    }
                 }
             });
         }
@@ -486,6 +560,9 @@
         }
         if (sizeDropdown != null) {
             sizeDropdown.addEventListener('change', updatePrice);
+        }
+        if (sideDropdown != null) {
+            sideDropdown.addEventListener('change', updatePrice);
         }
 
 

@@ -21,12 +21,12 @@
   }
 
   .slogo {
-      margin-top: 40px;
+      /* margin-top: 40px; */
       width: 300px;
   }
 
   .curtains-section {
-      padding: 50px 5px;
+      padding: 5px 5px;
       /* text-align: center; */
   }
 
@@ -51,7 +51,7 @@
       position: relative;
       width: 450px;
       max-width: 450px;
-      height: 630px;
+      height: 500px;
       overflow: hidden;
       margin-right: 10px;
       margin-left: 10px;
@@ -126,8 +126,8 @@
   }
 
   .curtain-item .view-button {
-      background-color: rgba(125, 217, 90, 255);
-      color: white;
+      background-color: black;
+      color: #f6c20a !important;;
       padding: 15px 30px;
       text-decoration: none;
       font-size: 0.95em;
@@ -180,7 +180,7 @@
       }
 
       .curtains-section {
-          padding: 25px 10px;
+          padding: 5px 10px;
           /* text-align: center; */
       }
 

@@ -21,7 +21,7 @@
                         </div>
                     @endif
                 @endforeach
-                @if (count($home_images) > 1)
+                {{-- @if (count($home_images) > 1)
                     <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
                         <i class="fa fa-3x fa-angle-left carouselArrow-left"></i>
 
@@ -29,7 +29,7 @@
                     <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
                         <i class="fa fa-3x fa-angle-right carouselArrow-right"></i>
                     </a>
-                @endif
+                @endif --}}
             </div>
 
             <!-- Controls -->
@@ -49,7 +49,7 @@
                     <div class="productImg mb-3">
 
                         <img src={{ URL::asset("images/{$item->images->first()->name}") }} width="100%">
-                        <button class="btn center-block" data-toggle="modal"
+                        <button class="btn center-block brandcolor" data-toggle="modal" style="border-radius: 0%"
                             data-target="#myModal{{ $item->id }}">{{ __('messages.quick_view') }}</button>
                     </div>
                     <!-- Modal -->
@@ -62,7 +62,7 @@
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                    <div id="carousel{{ $item->id }}" class="carousel topCarousel" data-ride="carousel">
+                                    <div id="carousel{{ $item->id }}" class="carousel topCarousel quickViewCarousel" data-ride="carousel">
                                         <!-- Indicators -->
                                         {{-- <ol class="carousel-indicators">
                                             @foreach ($item->images as $image)
@@ -117,7 +117,7 @@
                         <a href="{{ route('item.show', ['id' => $item->id]) }}">
                             <p>{{ app()->getLocale() == 'ar' ? $item->name_ar : $item->name }}</p>
                         </a>
-                        <p class='ml-1'>{{ $item->price }} {{ __('messages.egp') }}</p>
+                        <p class='ml-1 mt-1'>{{ $item->after_sale_price > 0 ? $item->after_sale_price : $item->price }} {{ __('messages.egp') }}</p>
                         {{-- <button class="btn brandcolor raleway btnWeight btn-addtocart mb-2"
                             data-value="{{ $item->id }}">
                             Add To Cart</button><br> --}}
@@ -140,7 +140,7 @@
     <!-- END SHOP LATEST ARRIVALSl SECTION IN SM , MD , LG-->
 
     <!-- START LOGO -->
-    <img class="slogo center-block" src={{ URL::asset('images/Slogan.png') }}>
+    <img class="slogo center-block" src={{ URL::asset('images/Logo-on-White.jpg') }}>
     <!-- END LOGO -->
 
     @foreach ($parent_categories as $parentCategory)
@@ -157,7 +157,7 @@
                     <div class="curtain-categories" id="slider-{{ $parentCategory->id }}">
                         @foreach ($parentCategory->children as $childCategory)
                             <div class="curtain-item">
-                                <img src="{{ URL::asset('images/blackout.jpg') }}">
+                                <img src="{{ URL::asset("images/" . optional($childCategory->image)->name) }}" alt="No Image">
                                 <div class="overlay">
                                     <span
                                         class="category-name">{{ app()->getLocale() == 'ar' ? $childCategory->name_ar : $childCategory->name }}</span>

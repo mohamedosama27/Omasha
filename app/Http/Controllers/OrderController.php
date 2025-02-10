@@ -115,6 +115,9 @@ class OrderController extends Controller
         Session::put('number_of_items', 0);
         Session::put('selcteditems', array());
 
+        $PaymentKey = PayMobController::pay($order->total_price, $order->id);
+        return view('paymob_iframe')->with('token', $PaymentKey);
+
         $details = [
             'title' => 'Spot Fabrics Order Confirmed',
             'order' => $order ,

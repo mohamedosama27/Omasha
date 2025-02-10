@@ -10,4 +10,9 @@ class image extends Model
     {
         return $this->belongsTo(item::class);
     }
+
+    public function category()
+    {
+        return $this->belongsTo(category::class);
+    }
 }

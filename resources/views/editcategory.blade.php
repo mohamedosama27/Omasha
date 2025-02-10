@@ -7,6 +7,15 @@
 @endauth
 
 @section('content')
+    <style>
+        .image-label {
+            font-size: 14px;
+        }
+
+        .image-error {
+            font-size: 12px;
+        }
+    </style>
     <div class="container my-4">
         <h3 class="pb-4">Parent Categories</h3>
         <table class="table">
@@ -29,8 +38,8 @@
                                     required>
                             </td>
                             <td>
-                                <input type="Text" class="form-control"Name="name_ar" value ="{{ $parentCategory->name_ar }}"
-                                    required>
+                                <input type="Text" class="form-control"Name="name_ar"
+                                    value ="{{ $parentCategory->name_ar }}" required>
                             </td>
                             <td>
                                 <button type="submit" name="submit" class="btn btn-primary mb-2">Save</button>
@@ -49,6 +58,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Arabic Name</th>
                     <th scope="col">Parent Category</th>
+                    <th scope="col">Image</th>
                     <th scope="col" colspan='2'>Actions</th>
                 </tr>
             </thead>
@@ -64,8 +74,8 @@
                                     required>
                             </td>
                             <td>
-                                <input type="Text" class="form-control"Name="name_ar" value ="{{ $childCategory->name_ar }}"
-                                    required>
+                                <input type="Text" class="form-control"Name="name_ar"
+                                    value ="{{ $childCategory->name_ar }}" required>
                             </td>
                             <td>
                                 <!-- Dropdown for selecting parent category -->
@@ -78,6 +88,24 @@
                                     @endforeach
                                 </select>
                             </td>
+                            @if (count($childCategory->parent->children) > 2)
+                                <td style="vertical-align: middle; text-align: center;">
+                                    @if (!$childCategory->image)
+                                        <label for="validatedCustomFile" class="image-label">Pick Image</label>
+                                        @error('img')
+                                            <br>
+                                            <span class="text-danger image-error">{{ $message }}</span>
+                                        @enderror
+                                    @else
+                                        <label for="validatedCustomFile" class="image-label">Replace Image</label>
+                                    @endif
+                                    <input type="file" name="img" id="validatedCustomFile"
+                                        class="form-control image-label" style="height: auto;"
+                                        accept="image/*">
+                                </td>
+                            @else
+                                <td style="vertical-align: middle; text-align: center;">-</td>
+                            @endif
                             <td>
                                 <button type="submit" name="submit" class="btn btn-primary mb-2">Save</button>
                         </form>

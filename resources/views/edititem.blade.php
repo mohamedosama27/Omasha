@@ -80,11 +80,24 @@
             color: white;
             font-weight: bold;
         }
+
+        .form-check {
+            width: fit-content;
+            margin-right: 35px;
+            margin-bottom: 15px;
+        }
+
+        #categories {
+            display: flex;
+            margin: 12px;
+            flex-wrap: wrap;
+            width: 80%;
+        }
     </style>
     {{-- Form of inserting a new Item --}}
     <div class="container raleway">
         <h3 class="py-4">Edit Product</h3>
-        <form method="POST" action="{{ route('item.store') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('item.store', ['id' => $item->id ?? null]) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -103,14 +116,32 @@
                 @enderror
             </div>
 
+            @php
+                $colors = json_decode($item->colors);
+            @endphp
+
             <!-- Product Images -->
             <div class="form-group">
-                <label for="validatedCustomFile">Product Images</label>
+                <label for="validatedCustomFile">Replace Images</label>
                 <input type="file" name="img[]" id="validatedCustomFile" class="form-control image-label"
-                    accept="image/*" required multiple>
+                    accept="image/*" multiple>
             </div>
 
-            <div id="imagePreviewContainer" class="d-flex flex-wrap ml-3"></div>
+            <div id="imagePreviewContainer" class="d-flex flex-wrap ml-3">
+                @foreach ($item->images as $image)
+                    <div class="image-thumbnail-wrapper mr-4 mb-3" style="position: relative;">
+                        <img src="{{ URL::asset("images/{$image->name}") }}" alt="{{ $image->name }}" class="img-thumbnail"
+                            style="width: 150px; height: 150px; objectFit: cover;">
+                        </img>
+                        <select name="image_dropdown[]" class="form-control mt-2 image-color">
+                            @foreach ($colors as $color)
+                                <option value="{{ $color->hex }}"
+                                    {{ $image->color_hex == $color->hex ? 'selected' : '' }}>{{ $color->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                @endforeach
+            </div>
 
             @php
                 $descriptions_ar = json_decode($item->description_ar);
@@ -143,17 +174,24 @@
             <!-- Category Dropdown -->
             <div class="form-group">
                 <label for="category">Category</label>
-                <select name="category" id="category" class="form-control">
+                <div id="categories" class="row">
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" {{ $category->id == $item->category_id ? 'selected' : '' }}>
+                        <div class="form-check">
+                            <input type="checkbox" name="category[]" id="category-{{ $category->id }}"
+                                value="{{ $category->id }}" class="form-check-input"
+                                {{ in_array($category->id, json_decode($item->category_ids, true)) ? 'checked' : '' }}>
+                            <label for="category-{{ $category->id }}" class="form-check-label"
+                                style="font-weight: normal;">{{ $category->name }}</label>
+                        </div>
+                    @endforeach
+                </div>
+                {{-- <select name="category" id="category" class="form-control">
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" {{ in_array($category->id, json_decode($item->category_ids, true)) ? 'selected' : '' }}>
                             {{ $category->name }}</option>
                     @endforeach
-                </select>
+                </select> --}}
             </div>
-
-            @php
-                $colors = json_decode($item->colors);
-            @endphp
 
             <div class="form-group" id="color-container">
                 <label for="color">Select a Color</label>
@@ -186,8 +224,9 @@
                     <div class="style-line" id="style-lines">
                         @foreach ($styles as $index => $style)
                             <div class='d-flex style-line align-items-center'>
-                                <input type="text" name="style[]" id="style" class="form-control mt-2 style-input"
-                                    placeholder="English" value="{{ $style }}">
+                                <input type="text" name="style[]" id="style"
+                                    class="form-control mt-2 style-input" placeholder="English"
+                                    value="{{ $style }}">
                                 <input type="text" name="style_ar[]" id="style_ar" class="form-control mt-2"
                                     placeholder="Arabic" value="{{ $styles_ar[$index] }}">
                                 @if ($index > 0)
@@ -227,6 +266,12 @@
                 </div>
             </div>
 
+            <div class="form-check">
+                <input type="checkbox" name="is_sides" id="is_sides" class="form-check-input" {{ $item->sides_price > 0 ? 'checked' : '' }}>
+                <label for="is_sides" class="form-check-label" style="font-weight: normal;">Does the product have
+                    sides?</label>
+            </div>
+
             <div class="form-group" id="price-variations">
                 <label for="prices">Prices for Styles and Sizes</label>
                 <div id="price-container" class="ml-3">
@@ -240,6 +285,17 @@
                 <input type="number" step="0.01" name="price" class="form-control" id="price"
                     value="{{ $item->price }}" required>
                 @error('price')
+                    <span role="alert" style="color:red;">
+                        <strong>{{ $message }}</strong>
+                    </span><br>
+                @enderror
+            </div>
+
+            <div class="form-group" id="both-sides-price">
+                <label for="price">Price for 2 Sides</label>
+                <input type="number" step="0.01" name="sides_price" class="form-control" id="sides_price"
+                    value="{{ $item->sides_price }}" required>
+                @error('sides_price')
                     <span role="alert" style="color:red;">
                         <strong>{{ $message }}</strong>
                     </span><br>
@@ -267,8 +323,19 @@
 
             <div class="form-group" id="basic-after-sale-price">
                 <label for="after_sale_price">After Sale Price</label>
-                <input type="number" step="0.01" name="cost" class="form-control" id="after_sale_price"
-                    value="{{ old('after_sale_price') }}" required>
+                <input type="number" step="0.01" name="after_sale_price" class="form-control" id="after_sale_price"
+                    value="{{ $item->after_sale_price }}" required>
+            </div>
+
+            <div class="form-group" id="both-sides-after-sale-price">
+                <label for="price">After Sale Price for 2 Sides</label>
+                <input type="number" step="0.01" name="after_sale_sides_price" class="form-control"
+                    id="after_sale_sides_price" value="{{ $item->after_sale_sides_price }}" required>
+                @error('after_sale_sides_price')
+                    <span role="alert" style="color:red;">
+                        <strong>{{ $message }}</strong>
+                    </span><br>
+                @enderror
             </div>
 
             @php
@@ -308,22 +375,39 @@
                 </div>
             </div>
 
+            @php
+                $keywordsList = explode(',', $item->keywords);
+            @endphp
+
             <div class="form-group">
                 <label for="keywordInput">Keywords</label>
                 <div class="d-flex align-items-center">
                     <input type="text" id="keywordInput" class="form-control" placeholder="Enter keyword">
                     <button type="button" id="addKeywordBtn" class="btn btn-secondary ml-2">Add Keyword</button>
                 </div>
-                <div id="keywordTags" class="mt-3"></div>
+                <div id="keywordTags" class="mt-3">
+                    @foreach ($keywordsList as $keyword)
+                        <span class="tag">
+                            {{ $keyword }} <span class="remove-tag">&times;</span>
+                        </span>
+                    @endforeach
+                </div>
                 <input type="hidden" name="keywords" id="keywordsInput">
             </div>
 
             <!-- Submit Button -->
-            {{-- <button type="submit" class="btn btn-primary mt-5 ml-2 brandcolor add-button">Add Product</button> --}}
+            <button type="submit" class="btn btn-primary mt-5 ml-2 brandcolor add-button">Save Product</button>
         </form>
     </div>
 
+    @php
+        $stylesArray = $item->styles;
+        $productPrices = $item->priceVariations;
+    @endphp
+
     <script>
+        const productPrices = <?php echo $productPrices; ?>;
+
         // Dynamically add new description line
         function createDescriptionLine() {
             const newDescriptionLine = document.createElement('div');
@@ -375,15 +459,58 @@
 
         // Dynamically add new description line
         document.addEventListener('DOMContentLoaded', function() {
-            firstStyleInput = document.getElementById('style');
-            firstSizeInput = document.getElementById('size');
+            const styleInputs = document.getElementsByClassName('style-input');
+            const sizeInputs = document.getElementsByClassName('size-input');
 
-            firstStyleInput.addEventListener('input', function() {
-                updatePriceFields();
+            // Add event listeners to all style-input elements
+            Array.from(styleInputs).forEach(function(input) {
+                const parentDiv = input.closest(
+                    'div'); // Get the parent div containing the input and button
+
+                // Find the remove button within the same parent div
+                const removeButton = parentDiv.querySelector('.remove-style-line');
+
+                if (removeButton) {
+                    removeButton.addEventListener('click', function() {
+                        // Remove the entire parent div
+                        parentDiv.remove();
+                        updatePriceFields();
+                    });
+                }
+
+                input.addEventListener('input', function() {
+                    updatePriceFields();
+                });
             });
 
-            firstSizeInput.addEventListener('input', function() {
-                updatePriceFields();
+            // Add event listeners to all size-input elements
+            Array.from(sizeInputs).forEach(function(input) {
+                const parentDiv = input.closest(
+                    'div'); // Get the parent div containing the input and button
+
+                // Find the remove button within the same parent div
+                const removeButton = parentDiv.querySelector('.remove-size-line');
+
+                if (removeButton) {
+                    removeButton.addEventListener('click', function() {
+                        // Remove the entire parent div
+                        parentDiv.remove();
+                        updatePriceFields();
+                    });
+                }
+
+                input.addEventListener('input', function() {
+                    updatePriceFields();
+                });
+            });
+
+            const tags = document.getElementsByClassName('tag');
+
+            Array.from(tags).forEach(function(tag) {
+                tag.querySelector('.remove-tag').addEventListener('click', function() {
+                    tag.remove();
+                    updateKeywordsInput();
+                });
             });
 
             const descriptionContainer = document.getElementById('description-container');
@@ -482,21 +609,32 @@
             const priceContainer = document.getElementById('price-container');
             const priceDiv = document.getElementById('price-variations');
             const basicPriceDiv = document.getElementById('basic-price');
+            const checkbox = document.getElementById("is_sides");
+            const bothSidesPrice = document.getElementById("both-sides-price");
             const basicQuantityDiv = document.getElementById('basic-quantity');
             const basicCostDiv = document.getElementById('basic-cost');
             const basicAfterSaleDiv = document.getElementById('basic-after-sale-price');
+            const afterSaleSidesPriceDiv = document.getElementById('both-sides-after-sale-price');
             const priceInput = document.getElementById('price');
+            const sidesPriceInput = document.getElementById('sides_price');
             const costInput = document.getElementById('cost');
             const quantityInput = document.getElementById('quantity');
             const afterSaleInput = document.getElementById('after_sale_price');
+            const afterSaleSidesPriceInput = document.getElementById('after_sale_sides_price');
+
+            checkbox.addEventListener("change", updatePriceFields);
 
             function showPriceVariations() {
                 priceDiv.style.display = 'block';
                 basicPriceDiv.style.display = 'none';
+                bothSidesPrice.style.display = 'none';
                 basicCostDiv.style.display = 'none';
                 basicQuantityDiv.style.display = 'none';
                 basicAfterSaleDiv.style.display = 'none';
+                afterSaleSidesPriceDiv.style.display = 'none';
                 priceInput.removeAttribute('required');
+                sidesPriceInput.removeAttribute('required');
+                afterSaleSidesPriceInput.removeAttribute('required');
                 costInput.removeAttribute('required');
                 quantityInput.removeAttribute('required');
                 afterSaleInput.removeAttribute('required');
@@ -508,15 +646,25 @@
                 const styles = document.getElementsByClassName('style-input');
                 const sizes = document.getElementsByClassName('size-input');
 
-                if (sizes.length == 1 && styles.length > 1) {
+                let additionalPriceInput = ``;
+                if (sizes.length <= 1 && styles.length > 1) {
                     let size = "";
-                    if (sizes[0].value != null && sizes[0].value != "") {
+                    if (sizes.length != 0 && (sizes[0].value != null && sizes[0].value != "")) {
                         size = sizes[0].value;
                     } else {
                         size = "none"
                     }
-                    Array.from(styles).forEach(function(style) {
+                    Array.from(styles).forEach(function(style, styleIndex) {
                         if (style.value != null && style.value != "") {
+                            let valuesIndex = productPrices.findIndex(item => item.style === styleIndex &&
+                                item.size === size);
+
+                            if (checkbox.checked) {
+                                additionalPriceInput =
+                                    `<input type="number" name="sides_prices[${style.value}][${size}]" value="${productPrices[valuesIndex]['sides_price']}" class="form-control" placeholder="Both Sides Price" required>
+                                    <input type="number" name="after_sale_sides_prices[${style.value}][${size}]" value="${productPrices[valuesIndex]['after_sale_sides_price']}" class="form-control" placeholder="After Sale Both Sides Price" required>`
+                            }
+
                             const priceInput = document.createElement('div');
                             priceInput.classList.add('d-flex', 'align-items-center', 'mt-2',
                                 'mb-1',
@@ -524,25 +672,36 @@
 
                             priceInput.innerHTML = `
                     <label class="mr-1 overflow-label">Fields for Style: "${style.value}":</label>
-                    <input type="number" name="prices[${style.value}][${size}]" class="form-control" placeholder="Price" required>
-                    <input type="number" name="costs[${style.value}][${size}]" class="form-control" placeholder="Cost" required>
-                    <input type="number" name="quantities[${style.value}][${size}]" class="form-control" placeholder="Quantity" required>
-                    <input type="number" name="after_sale_prices[${style.value}][${size}]" class="form-control" placeholder="After Sale Price" required>
-                `;
+                    <input type="number" name="prices[${style.value}][${size}]" value="${productPrices[valuesIndex]['price']}" class="form-control" placeholder="Price" required>
+                    <input type="number" name="costs[${style.value}][${size}]" value="${productPrices[valuesIndex]['cost']}" class="form-control" placeholder="Cost" required>
+                    <input type="number" name="quantities[${style.value}][${size}]" value="${productPrices[valuesIndex]['quantity']}" class="form-control" placeholder="Quantity" required>
+                    <input type="number" name="after_sale_prices[${style.value}][${size}]" value="${productPrices[valuesIndex]['after_sale_price']}" class="form-control" placeholder="After Sale Price" required>
+                            ${additionalPriceInput}
+                    `;
 
                             priceContainer.appendChild(priceInput);
                         }
                     });
                     showPriceVariations();
-                } else if (styles.length == 1 && sizes.length > 1) {
+                } else if (styles.length <= 1 && sizes.length > 1) {
                     let style = "";
-                    if (styles[0].value != null && styles[0].value != "") {
+                    if (styles.length != 0 && (styles[0].value != null && styles[0].value != "")) {
                         style = styles[0].value;
                     } else {
                         style = "none"
                     }
                     Array.from(sizes).forEach(function(size) {
                         if (size.value != null && size.value != "") {
+                            let valuesIndex = productPrices.findIndex(item => (item.style === 0 || item
+                                    .style === "none") && item
+                                .size === size.value);
+
+                            if (checkbox.checked) {
+                                additionalPriceInput =
+                                    `<input type="number" name="sides_prices[${style}][${size.value}]" value="${productPrices[valuesIndex]['sides_price']}" class="form-control" placeholder="Both Sides Price" required>
+                                    <input type="number" name="after_sale_sides_prices[${style}][${size.value}]" value="${productPrices[valuesIndex]['after_sale_sides_price']}" class="form-control" placeholder="After Sale Both Sides Price" required>`
+                            }
+
                             const priceInput = document.createElement('div');
                             priceInput.classList.add('d-flex', 'align-items-center', 'mt-2',
                                 'mb-1',
@@ -550,21 +709,31 @@
 
                             priceInput.innerHTML = `
                     <label class="mr-1 overflow-label">Fields for Size: "${size.value}":</label>
-                    <input type="number" name="prices[${style}][${size.value}]" class="form-control" placeholder="Price" required>
-                    <input type="number" name="costs[${style}][${size.value}]" class="form-control" placeholder="Cost" required>
-                    <input type="number" name="quantities[${style}][${size.value}]" class="form-control" placeholder="Quantity" required>
-                    <input type="number" name="after_sale_prices[${style.value}][${size.value}]" class="form-control" placeholder="After Sale Price" required>
-                `;
+                    <input type="number" name="prices[${style}][${size.value}]" value="${productPrices[valuesIndex]['price']}" class="form-control" placeholder="Price" required>
+                    <input type="number" name="costs[${style}][${size.value}]" value="${productPrices[valuesIndex]['cost']}" class="form-control" placeholder="Cost" required>
+                    <input type="number" name="quantities[${style}][${size.value}]" value="${productPrices[valuesIndex]['quantity']}" class="form-control" placeholder="Quantity" required>
+                    <input type="number" name="after_sale_prices[${style}][${size.value}]" value="${productPrices[valuesIndex]['after_sale_price']}" class="form-control" placeholder="After Sale Price" required>
+                            ${additionalPriceInput}
+                    `;
 
                             priceContainer.appendChild(priceInput);
                         }
                     });
                     showPriceVariations();
                 } else if (styles.length > 1 || sizes.length > 1) {
-                    Array.from(styles).forEach(function(style) {
+                    Array.from(styles).forEach(function(style, styleIndex) {
                         if (style.value != null && style.value != "") {
                             Array.from(sizes).forEach(function(size) {
                                 if (size.value != null && size.value != "") {
+                                    let valuesIndex = productPrices.findIndex(item => item.style ===
+                                        styleIndex && item.size === size.value);
+
+                                    if (checkbox.checked) {
+                                        additionalPriceInput =
+                                            `<input type="number" name="sides_prices[${style.value}][${size.value}]" value="${productPrices[valuesIndex]['sides_price']}" class="form-control" placeholder="Both Sides Price" required>
+                                            <input type="number" name="after_sale_sides_prices[${style.value}][${size.value}]" value="${productPrices[valuesIndex]['after_sale_sides_price']}" class="form-control" placeholder="After Sale Both Sides Price" required>`
+                                    }
+
                                     const priceInput = document.createElement('div');
                                     priceInput.classList.add('d-flex', 'align-items-center', 'mt-2',
                                         'mb-1',
@@ -572,11 +741,12 @@
 
                                     priceInput.innerHTML = `
                     <label class="mr-1 overflow-label">Fields for Style: "${style.value}" and Size: "${size.value}":</label>
-                    <input type="number" name="prices[${style.value}][${size.value}]" class="form-control" placeholder="Price" required>
-                    <input type="number" name="costs[${style.value}][${size.value}]" class="form-control" placeholder="Cost" required>
-                    <input type="number" name="quantities[${style.value}][${size.value}]" class="form-control" placeholder="Quantity" required>
-                    <input type="number" name="after_sale_prices[${style.value}][${size.value}]" class="form-control" placeholder="After Sale Price" required>
-                `;
+                    <input type="number" name="prices[${style.value}][${size.value}]" value="${productPrices[valuesIndex]['price']}" class="form-control" placeholder="Price" required>
+                    <input type="number" name="costs[${style.value}][${size.value}]" value="${productPrices[valuesIndex]['cost']}" class="form-control" placeholder="Cost" required>
+                    <input type="number" name="quantities[${style.value}][${size.value}]" value="${productPrices[valuesIndex]['quantity']}" class="form-control" placeholder="Quantity" required>
+                    <input type="number" name="after_sale_prices[${style.value}][${size.value}]" value="${productPrices[valuesIndex]['after_sale_price']}" class="form-control" placeholder="After Sale Price" required>
+                                    ${additionalPriceInput}
+                    `;
 
                                     priceContainer.appendChild(priceInput);
                                 }
@@ -594,8 +764,21 @@
                     costInput.setAttribute('required', 'true');
                     quantityInput.setAttribute('required', 'true');
                     afterSaleInput.setAttribute('required', 'true');
+                    if (checkbox.checked) {
+                        bothSidesPrice.style.display = 'block';
+                        afterSaleSidesPriceDiv.style.display = 'block';
+                        sidesPriceInput.setAttribute('required', 'true');
+                        afterSaleSidesPriceInput.setAttribute('required', 'true');
+                    } else {
+                        bothSidesPrice.style.display = 'none';
+                        afterSaleSidesPriceDiv.style.display = 'none';
+                        sidesPriceInput.removeAttribute('required');
+                        afterSaleSidesPriceInput.removeAttribute('required');
+                    }
                 }
             }
+
+            updatePriceFields();
         });
 
         document.querySelectorAll('input[name="color-name[]"]').forEach(input => {
@@ -714,11 +897,12 @@
             }
         });
 
+        updateKeywordsInput();
+
         function updateKeywordsInput() {
             const keywordTags = document.querySelectorAll('#keywordTags .tag');
             const tagsArray = Array.from(keywordTags).map(tag => tag.textContent.trim().replace('×', ''));
             document.getElementById('keywordsInput').value = tagsArray.join(',');
-            console.log(document.getElementById('keywordsInput').value);
         }
     </script>
 @endsection

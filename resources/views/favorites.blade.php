@@ -23,7 +23,7 @@
                     <div class="productImg mb-3">
                         <img src={{ URL::asset("images/{$item->images->first()->name}") }} width="100%">
 
-                        <button class="btn center-block" data-toggle="modal"
+                        <button class="btn center-block brandcolor" data-toggle="modal" style="border-radius: 0%"
                             data-target="#myModal{{ $item->id }}">{{ __('messages.quick_view') }}</button>
                     </div>
                     <!-- Modal -->
@@ -93,7 +93,7 @@
                         <a href="{{ route('item.show', ['id' => $item->id]) }}">
                             <p>{{ app()->getLocale() == 'ar' ? $item->name_ar : $item->name }}</p>
                         </a>
-                        <p>{{ $item->price }} LE</p>
+                        <p class='ml-1 mt-1'>{{ $item->price }} LE</p>
                         <div class='text-align-right'>
                             {{-- <button class="btn brandcolor raleway btnWeight btn-addtocart"
                                 data-value="{{ $item->id }}">

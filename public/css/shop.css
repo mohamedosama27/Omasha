@@ -9,7 +9,7 @@
 }
 
 .actionIcons {
-    color: white;
+    color: #f6c20a !important;
 }
 
 @media (max-width:768px) {

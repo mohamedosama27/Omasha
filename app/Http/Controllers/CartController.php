@@ -68,7 +68,11 @@ class CartController extends Controller
 
         foreach ($productPrices as $productPrice) {
             if ($styles[$productPrice->style] == $style && $productPrice->size == $size) {
-                $price = $productPrice->price;
+                if ($productPrice->after_sale_price > 0) {
+                    $price = $productPrice->after_sale_price;
+                } else {
+                    $price = $productPrice->price;
+                }
                 $availableQuantity = $productPrice->quantity;
                 break;
             }

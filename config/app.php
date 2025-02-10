@@ -175,6 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        PayMob\PayMobServiceProvider::class,
         // Elibyy\TCPDF\ServiceProvider::class,
 
         Laravel\Socialite\SocialiteServiceProvider::class,
@@ -235,6 +236,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'PayMob' => PayMob\Facades\PayMob::class,
         // 'PDF' => Elibyy\TCPDF\Facades\TCPDF::class,
 
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,

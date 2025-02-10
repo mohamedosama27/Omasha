@@ -19,4 +19,9 @@ class category extends Model
     {
         return $this->hasMany(category::class, 'parent_category_id');
     }
+
+    public function image()
+    {
+        return $this->hasOne(image::class);
+    }
 }

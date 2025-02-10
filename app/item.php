@@ -20,6 +20,6 @@ class item extends Model
     }
     public function category()
     {
-        return $this->belongsTo(category::class);
+        return $this->belongsToMany(category::class);
     }
 }

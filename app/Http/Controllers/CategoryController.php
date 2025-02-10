@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 
 class CategoryController extends Controller
 {
@@ -12,7 +13,7 @@ class CategoryController extends Controller
     {
         //show items has category_id with id chose
 
-        $items = \App\item::where('category_id','=',$id)->paginate($this->items_per_page);
+        $items = \App\item::whereJsonContains('category_ids', $id)->paginate($this->items_per_page);
         return view('shop')->with(compact('items'));
 
     }
@@ -20,7 +21,7 @@ class CategoryController extends Controller
     {
         //add new category in table categories
 
-        $category = new  \App\category;
+        $category = new \App\category;
 
         $category->name = $request['name'];
         $category->name_ar = $request['name_ar'];
@@ -29,6 +30,15 @@ class CategoryController extends Controller
             $category->parent_category_id = $request['parent_category'];
         }
         $category->save();
+        $file = $request->file('img');
+        $name = 'category' . $category->id . '.' . $file->getClientOriginalExtension();
+        $file->move("images", $name);
+        $image = new \App\image;
+
+        $image->name = $name;
+        $image->category_id = $category->id;
+
+        $image->save();
         return redirect()->back();
     }
     public function edit()
@@ -38,9 +48,9 @@ class CategoryController extends Controller
         $parentCategories = \App\category::where('is_child', false)->get();
         $childCategories = \App\category::where('is_child', true)->get();
 
-        return view('editcategory',[
-            'parentCategories'=>$parentCategories,
-            'childCategories'=> $childCategories
+        return view('editcategory', [
+            'parentCategories' => $parentCategories,
+            'childCategories' => $childCategories
         ]);
     }
     public function update(Request $request, $id)
@@ -48,12 +58,35 @@ class CategoryController extends Controller
         //update name of category by passed id
 
         $category = \App\category::findorfail($id);
-        $category->name=$request['name'];
+        // if (!$category->image) {
+        //     $request->validate([
+        //         'img' => ['required']
+        //     ], [
+        //         'img.required' => 'The image is required'
+        //     ]);
+        // }
+
+        $category->name = $request['name'];
         $category->name_ar = $request['name_ar'];
         if ($category->is_child) {
             $category->parent_category_id = $request['parent_category_id'];
         }
         $category->save();
+        if ($request->file('img')) {
+            if ($category->image) {
+                $this->deleteImage($category->image->id);
+            }
+            $file = $request->file('img');
+            $name = 'category' . $category->id . '.' . $file->getClientOriginalExtension();
+            $file->move("images", $name);
+            $image = new \App\image;
+
+            $image->name = $name;
+            $image->category_id = $category->id;
+
+            $image->save();
+        }
+
         return redirect('editcategory');
     }
     public function destroy($id)
@@ -61,8 +94,32 @@ class CategoryController extends Controller
         //delete category from table categories by passed id
 
         $category = \App\category::findorfail($id);
+        $this->deleteImage($category->image->id);
         $category->delete();
         return redirect('editcategory');
+
+    }
+
+    public function deleteImage($id)
+    {
+        //delete image from images table with passed id
+
+        $image = \App\image::find($id);
+        if ($image) {
+            DB::table('images')->where('id', '=', $id)->delete();
+            echo $image->name;
+            if (\File::exists(public_path('images/' . $image->name))) {
+
+                \File::delete(public_path('images/' . $image->name));
+
+            } else {
+
+                echo 'File does not exists.';
+
+            }
+        }
+
+        return redirect()->back();
 
     }
 }

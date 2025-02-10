@@ -17,7 +17,6 @@ class ItemController extends Controller
 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'img' => ['required']
         ]);
 
     }
@@ -26,14 +25,17 @@ class ItemController extends Controller
         //show items has product with num choosen
         $ids = request()->input('num');
 
+        $ids = array_map('intval', $ids);
+
         if (Auth::user() && auth()->user()->type == 1) {
             $items = \App\item::orderBy('id', 'DESC')
-                ->whereIn('category_id', $ids)
+                ->whereJsonContains('category_ids', $ids)
                 ->paginate($this->items_per_page);
+            // dd($items);
         } else {
             $items = \App\item::where('hide', '=', NULL)
                 ->orderBy('id', 'DESC')
-                ->whereIn('category_id', $ids)
+                ->whereJsonContains('category_ids', $ids)
                 ->paginate($this->items_per_page);
 
         }
@@ -43,12 +45,12 @@ class ItemController extends Controller
     public function welcome()
     {
         if (Auth::user() && auth()->user()->type == 1) {
-            $newArrivals = \App\item::orderBy('id', 'DESC')->take(4)->get();
+            $newArrivals = \App\item::orderBy('id', 'DESC')->get();
             $items = \App\item::orderBy('id', 'DESC')->get()->slice(4, 8);
             $donation = \App\item::where('description', 'like', '%Donation%')
                 ->orderBy('id', 'DESC')->get();
         } else {
-            $newArrivals = \App\item::where('hide', '=', NULL)->orderBy('id', 'DESC')->take(4)->get();
+            $newArrivals = \App\item::where('hide', '=', NULL)->orderBy('id', 'DESC')->get();
             $items = \App\item::where('hide', '=', NULL)->orderBy('id', 'DESC')->get()->slice(4, 8);
             $donation = \App\item::where('hide', '=', NULL)
                 ->where('description', 'like', '%Donation%')
@@ -87,7 +89,10 @@ class ItemController extends Controller
     {
         //retieve all categories and passed to add item view
 
-        $categories = \App\category::where('is_child', true)->get();
+        $categories = \App\category::where('is_child', true)->orWhere(function ($query) {
+            $query->where('is_child', false)
+                ->whereDoesntHave('children');
+        })->get();
 
         return view('additem', [
             'categories' => $categories
@@ -101,7 +106,11 @@ class ItemController extends Controller
         //create new item in items table and create images in images table
 
         $this->validation($request);
-        $item = new \App\item;
+        if ($request->input('id')) {
+            $item = \App\item::find($request->input('id'));
+        } else {
+            $item = new \App\item;
+        }
 
         // Loop over the description input, add to array, and convert to JSON
         $descriptionArray = [];
@@ -163,9 +172,11 @@ class ItemController extends Controller
 
         $productPrices = [];
         $prices = $request->input('prices');
+        $sidesPrices = $request->input('sides_prices');
         $costs = $request->input('costs');
         $quantities = $request->input('quantities');
         $afterSalePrices = $request->input('after_sale_prices');
+        $afterSaleSidesPrices = $request->input('after_sale_sides_prices');
         if (count($sizeArray) > 0 && count($styleArray) > 0) {
             // dd($prices, $costs, $quantities, $afterSalePrices);
             foreach ($styleArray as $styleIndex => $style) {
@@ -177,7 +188,9 @@ class ItemController extends Controller
                             'price' => $prices[$style][$size],
                             'cost' => $costs[$style][$size],
                             'quantity' => $quantities[$style][$size],
-                            'after_sale_price' => $afterSalePrices[$style][$size]
+                            'after_sale_price' => $afterSalePrices[$style][$size],
+                            'sides_price' => $sidesPrices ? $sidesPrices[$style][$size] : "",
+                            'after_sale_sides_price' => $afterSaleSidesPrices ? $afterSaleSidesPrices[$style][$size] : ""
                         ];
                     }
                 }
@@ -191,7 +204,9 @@ class ItemController extends Controller
                         'price' => $prices[$style]["none"],
                         'cost' => $costs[$style]["none"],
                         'quantity' => $quantities[$style]["none"],
-                        'after_sale_price' => $afterSalePrices[$style]["none"]
+                        'after_sale_price' => $afterSalePrices[$style]["none"],
+                        'sides_price' => $sidesPrices ? $sidesPrices[$style]["none"] : "",
+                        'after_sale_sides_price' => $afterSaleSidesPrices ? $afterSaleSidesPrices[$style]["none"] : ""
                     ];
                 }
             }
@@ -204,14 +219,22 @@ class ItemController extends Controller
                         'price' => $prices["none"][$size],
                         'cost' => $costs["none"][$size],
                         'quantity' => $quantities["none"][$size],
-                        'after_sale_price' => $afterSalePrices["none"][$size]
+                        'after_sale_price' => $afterSalePrices["none"][$size],
+                        'sides_price' => $sidesPrices ? $sidesPrices["none"][$size] : "",
+                        'after_sale_sides_price' => $afterSaleSidesPrices ? $afterSaleSidesPrices["none"][$size] : ""
                     ];
                 }
             }
         }
         if (count($productPrices) > 0) {
             $pricesOnly = array_column($productPrices, 'price');
+            $afterSalePricesOnly = array_column($productPrices, 'after_sale_price');
+            $sidePricesOnly = array_column($productPrices, 'sides_price');
+            $afterSaleSidePricesOnly = array_column($productPrices, 'after_sale_sides_price');
             $lowestPrice = min($pricesOnly);
+            $lowestAfterSalePrice = min($afterSalePricesOnly);
+            $lowestSidesPrice = $sidePricesOnly ? min($sidePricesOnly) : 0;
+            $lowestAfterSaleSidesPrice = $afterSaleSidePricesOnly ? min($afterSaleSidePricesOnly) : 0;
         }
         // dd($productPrices);
         $productPricesJson = json_encode($productPrices);
@@ -232,14 +255,26 @@ class ItemController extends Controller
         }
         $careInstructionsJsonArabic = json_encode($careInstructionsArrayArabic);
 
+        // dd($request['category']);
+
+        $categories = array_map('intval', $request['category']);
+
         $item->name = $request['name'];
         $item->name_ar = $request['name_ar'];
         $item->description = $descriptionJson;
         $item->description_ar = $descriptionJsonArabic;
         $item->quantity = $request['quantity'];
         $item->price = count($productPrices) > 0 ? $lowestPrice : $request['price'];
+        if (count($productPrices) > 0) {
+            $item->sides_price = $lowestSidesPrice;
+            $item->after_sale_sides_price = $lowestAfterSaleSidesPrice;
+        } else {
+            $item->sides_price = $request['sides_price'] ? $request['sides_price'] : 0;
+            $item->after_sale_sides_price = $request['after_sale_sides_price'] ? $request['after_sale_sides_price'] : 0;
+        }
+        $item->after_sale_price = count($productPrices) > 0 ? $lowestAfterSalePrice : $request['after_sale_price'];
         $item->cost = $request['cost'];
-        $item->category_id = $request['category'];
+        $item->category_ids = json_encode($categories);
         $item->care_instructions = $careInstructionsJson;
         $item->care_instructions_ar = $careInstructionsJsonArabic;
         $item->return_policy = $request['refund_policy'];
@@ -255,17 +290,22 @@ class ItemController extends Controller
         $item_id = $item->id;
 
         $files = $request->file('img');
-        $imageColors = $request['image_dropdown'];
-        foreach ($files as $index => $file) {
-            $name = rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
-            $file->move("images", $name);
-            $image = new \App\image;
+        if ($files) {
+            foreach ($item->images as $image) {
+                $this->deleteImage($image->id);
+            }
+            $imageColors = $request['image_dropdown'];
+            foreach ($files as $index => $file) {
+                $name = rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
+                $file->move("images", $name);
+                $image = new \App\image;
 
-            $image->name = $name;
-            $image->item_id = $item_id;
-            $image->color_hex = $imageColors[$index];
+                $image->name = $name;
+                $image->item_id = $item_id;
+                $image->color_hex = $imageColors[$index];
 
-            $image->save();
+                $image->save();
+            }
         }
         return redirect('home');
     }
@@ -289,7 +329,10 @@ class ItemController extends Controller
         //retieve all categories and item data to pass to edit item view
 
         $item = \App\item::findorfail($id);
-        $categories = \App\category::all();
+        $categories = \App\category::where('is_child', true)->orWhere(function ($query) {
+            $query->where('is_child', false)
+                ->whereDoesntHave('children');
+        })->get();
         return view('edititem', [
             'item' => $item,
             'categories' => $categories
@@ -334,7 +377,7 @@ class ItemController extends Controller
         //delete item with passed item
 
         $item = \App\item::findorfail($id);
-        foreach($item->images as $image) {
+        foreach ($item->images as $image) {
             $this->deleteImage($image->id);
         }
         $item->delete();
@@ -376,26 +419,26 @@ class ItemController extends Controller
                 if (Auth::user() && auth()->user()->type == 1) {
                     if (app()->getLocale() == 'ar') {
                         $items = \App\item::where('name_ar', 'like', '%' . $query . '%')->orWhere('keywords', 'like', '%' . $query . '%')
-                        ->orWhereHas('category', function ($q) use ($query) {
-                            $q->where('name', 'like', '%' . $query . '%');
-                        })->orderBy('id', 'DESC')->get();
+                            ->orWhereHas('category', function ($q) use ($query) {
+                                $q->where('name', 'like', '%' . $query . '%');
+                            })->orderBy('id', 'DESC')->get();
                     } else {
                         $items = \App\item::where('name', 'like', '%' . $query . '%')->orWhere('keywords', 'like', '%' . $query . '%')
-                        ->orWhereHas('category', function ($q) use ($query) {
-                            $q->where('name', 'like', '%' . $query . '%');
-                        })->orderBy('id', 'DESC')->get();
+                            ->orWhereHas('category', function ($q) use ($query) {
+                                $q->where('name', 'like', '%' . $query . '%');
+                            })->orderBy('id', 'DESC')->get();
                     }
                 } else {
                     if (app()->getLocale() == 'ar') {
                         $items = \App\item::where('hide', '=', NULL)->where('name_ar', 'like', '%' . $query . '%')->orWhere('keywords', 'like', '%' . $query . '%')
-                        ->orWhereHas('category', function ($q) use ($query) {
-                            $q->where('name', 'like', '%' . $query . '%');
-                        })->orderBy('id', 'DESC')->get();
+                            ->orWhereHas('category', function ($q) use ($query) {
+                                $q->where('name', 'like', '%' . $query . '%');
+                            })->orderBy('id', 'DESC')->get();
                     } else {
                         $items = \App\item::where('hide', '=', NULL)->where('name', 'like', '%' . $query . '%')->orWhere('keywords', 'like', '%' . $query . '%')
-                        ->orWhereHas('category', function ($q) use ($query) {
-                            $q->where('name', 'like', '%' . $query . '%');
-                        })->orderBy('id', 'DESC')->get();
+                            ->orWhereHas('category', function ($q) use ($query) {
+                                $q->where('name', 'like', '%' . $query . '%');
+                            })->orderBy('id', 'DESC')->get();
                     }
                 }
 
