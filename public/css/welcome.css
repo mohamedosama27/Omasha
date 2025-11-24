@@ -50,8 +50,7 @@
       flex: 0 0 30%;
       position: relative;
       width: 450px;
-      max-width: 450px;
-      height: 500px;
+      height: 600px;
       overflow: hidden;
       margin-right: 10px;
       margin-left: 10px;
@@ -121,17 +120,18 @@
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
       font-size: 1.75rem;
       font-weight: bold;
-      margin-bottom: 25px;
+      margin-bottom: 40px;
       opacity: 1;
   }
 
   .curtain-item .view-button {
       background-color: black;
-      color: #f6c20a !important;;
+      color: #f6c20a !important;
+      ;
       padding: 15px 30px;
       text-decoration: none;
       font-size: 0.95em;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       display: inline-block;
       opacity: 0;
       transition: opacity 0.3s ease;
@@ -157,6 +157,10 @@
 
   .curtain-item:hover .view-button {
       opacity: 1;
+  }
+
+  .subheading {
+      font-weight: 500;
   }
 
   @media (max-width:768px) {
@@ -369,11 +373,92 @@
   }
 
   .carouselArrow-right {
-    position: absolute;
+      position: absolute;
       right: 0;
   }
 
+  .category-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      margin-top: 25px;
+      /* gap: 20px; */
+  }
+
+  .category-item {
+      position: relative;
+      overflow: hidden;
+      /* border-radius: 8px; */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .category-item::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.2);
+      /* Dark overlay to improve text contrast */
+      z-index: 1;
+  }
+
+  .category-item img {
+      width: 100%;
+      height: 550px;
+      object-fit: cover;
+      transition: transform 0.3s ease-in-out;
+  }
+
+  .category-item:hover img {
+      transform: scale(1.05);
+  }
+
+  .category-info {
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+      padding: 10px 15px;
+      border-radius: 5px;
+      z-index: 2;
+  }
+
+  .category-info h3 {
+      color: white;
+      font-size: 24px;
+      margin-bottom: 40px;
+      font-weight: bold;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .shop-button {
+      display: inline-block;
+      padding: 12px 20px;
+      background: white;
+      color: black;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      /* border-radius: 5px; */
+      transition: background 0.3s ease-in-out;
+  }
+
+  /* .shop-button:hover {
+      background: #ddd;
+  } */
+
+
   @media (min-width:768px) {
+      .welcome-container {
+          width: 85%;
+      }
+
+      .titles {
+          margin-bottom: 1.25rem;
+          margin-top: 1.5rem;
+          font-size: 36px;
+      }
+
       .celebrities-title {
           width: 400px;
           height: 160px;
@@ -468,6 +553,12 @@
       }
   }
 
+  .titles {
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      color: black;
+  }
+
   @media (max-width:768px) {
       .celebritiesSection .img-div img {
           width: 135px;
@@ -533,7 +624,6 @@
 
       .titles {
           font-size: 18px;
-          font-weight: bold;
       }
 
       .subscribe .form-control {
@@ -566,6 +656,20 @@
 
       .celebritiesSection {
           background-size: 70% 100%;
+      }
+
+      .category-item img {
+          height: 300px;
+      }
+
+      .category-info h3 {
+          font-size: 22px;
+          margin-bottom: 15px;
+      }
+
+      .shop-button {
+          padding: 6px 10px;
+          font-size: 11px;
       }
   }
 

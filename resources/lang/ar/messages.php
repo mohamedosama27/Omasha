@@ -7,7 +7,7 @@ return [
     'actions' => 'الإجراءات',
     'about' => 'عن الشركة',
     'view_all' => 'الجميع',
-    'best_sellers' => 'الاكثر مبيعاّّ',
+    'latest_items' => 'أحدث المنتجات',
     'quick_view' => 'عرض سريع',
     'add_to_wishlist' => 'أضف إلى قائمة الرغبات',
     'subscribe' => 'اشترك',

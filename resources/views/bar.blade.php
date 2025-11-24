@@ -24,7 +24,7 @@
     @endif
 </head>
 
-<body>
+<body class="d-flex flex-column" style="min-height: 100vh">
     <!-- Start Search Modal -->
     <div class="modal fade px-5 py-1" id="searchModel" role="dialog">
         <div class="modal-dialog modal-lg">
@@ -494,8 +494,9 @@
 
         </nav>
 
+<main class="flex-fill">
         @yield('content')
-
+</main>
 
         <!-- START FOOTER SECTION-->
         <section class="footer brandcolor">
@@ -529,7 +530,7 @@
                     </div> --}}
 
                     <div class="col-lg-3 col-xs-2 footer-margin text-align-right"
-                        style="height: 100px; padding-left: 20px;">
+                        style="padding-left: 20px;">
                         <h5>{{ __('messages.contact_us') }}</h5>
                         @php($contacts = \App\contact::all())
                         @foreach ($contacts as $contact)
@@ -570,6 +571,21 @@
         }
 
         $(document).ready(function() {
+            function disableScroll() {
+                $("body").css({
+                    "overflow": "hidden",
+                    "position": "fixed",
+                    "width": "100%"
+                });
+            }
+
+            function enableScroll() {
+                $("body").css({
+                    "overflow": "visible",
+                    "position": "static",
+                    "width": ""
+                });
+            }
             $('.dropdown-menu').on('click', function(e) {
                 e.stopPropagation();
             });
@@ -580,6 +596,11 @@
             // });
 
             $('.navbar-toggle').on('click', function() {
+                if ($("body").css("overflow") === "hidden") {
+                    enableScroll();
+                } else {
+                    disableScroll();
+                }
                 if ($(this).hasClass('collapsed')) {
                     // Navbar is opening, check if there are any open dropdowns
                     $('.dropdown').removeClass('show');

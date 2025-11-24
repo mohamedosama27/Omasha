@@ -45,13 +45,11 @@ class ItemController extends Controller
     public function welcome()
     {
         if (Auth::user() && auth()->user()->type == 1) {
-            $newArrivals = \App\item::orderBy('id', 'DESC')->get();
-            $items = \App\item::orderBy('id', 'DESC')->get()->slice(4, 8);
+            $newArrivals = \App\item::orderBy('id', 'DESC')->get()->slice(0, 8);
             $donation = \App\item::where('description', 'like', '%Donation%')
                 ->orderBy('id', 'DESC')->get();
         } else {
-            $newArrivals = \App\item::where('hide', '=', NULL)->orderBy('id', 'DESC')->get();
-            $items = \App\item::where('hide', '=', NULL)->orderBy('id', 'DESC')->get()->slice(4, 8);
+            $newArrivals = \App\item::where('hide', '=', NULL)->orderBy('id', 'DESC')->get()->slice(0, 8);
             $donation = \App\item::where('hide', '=', NULL)
                 ->where('description', 'like', '%Donation%')
                 ->orderBy('id', 'DESC')->get();
@@ -60,7 +58,6 @@ class ItemController extends Controller
         $parentCategories = \App\category::where('is_child', false)->get();
         return view('welcome', [
             'newArrivals' => $newArrivals,
-            'items' => $items,
             'donation' => $donation,
             'home_images' => $home_images,
             'parent_categories' => $parentCategories
@@ -114,17 +111,23 @@ class ItemController extends Controller
 
         // Loop over the description input, add to array, and convert to JSON
         $descriptionArray = [];
-        foreach ($request->input('description') as $descriptionLine) {
-            if ($descriptionLine != null && $descriptionLine != '') {
-                $descriptionArray[] = $descriptionLine;
+        $descriptionInput = $request->input('description');
+        if ($descriptionInput) {
+            foreach ($descriptionInput as $descriptionLine) {
+                if ($descriptionLine != null && $descriptionLine != '') {
+                    $descriptionArray[] = $descriptionLine;
+                }
             }
         }
         $descriptionJson = json_encode($descriptionArray);
 
         $descriptionArrayArabic = [];
-        foreach ($request->input('description_ar') as $descriptionLine) {
-            if ($descriptionLine != null && $descriptionLine != '') {
-                $descriptionArrayArabic[] = $descriptionLine;
+        $descriptionArabicInput = $request->input('description_ar');
+        if ($descriptionArabicInput) {
+            foreach ($descriptionArabicInput as $descriptionLine) {
+                if ($descriptionLine != null && $descriptionLine != '') {
+                    $descriptionArrayArabic[] = $descriptionLine;
+                }
             }
         }
         $descriptionJsonArabic = json_encode($descriptionArrayArabic);
@@ -147,25 +150,34 @@ class ItemController extends Controller
         $colorsJson = json_encode($colorData);
 
         $styleArray = [];
-        foreach ($request->input('style') as $styleLine) {
-            if ($styleLine != null && $styleLine != '') {
-                $styleArray[] = $styleLine;
+        $styleInput = $request->input('style');
+        if ($styleInput) {
+            foreach ($styleInput as $styleLine) {
+                if ($styleLine != null && $styleLine != '') {
+                    $styleArray[] = $styleLine;
+                }
             }
         }
         $styleJson = json_encode($styleArray);
 
         $styleArrayArabic = [];
-        foreach ($request->input('style_ar') as $styleLine) {
-            if ($styleLine != null && $styleLine != '') {
-                $styleArrayArabic[] = $styleLine;
+        $styleArabicInput = $request->input('style_ar');
+        if ($styleArabicInput) {
+            foreach ($styleArabicInput as $styleLine) {
+                if ($styleLine != null && $styleLine != '') {
+                    $styleArrayArabic[] = $styleLine;
+                }
             }
         }
         $styleJsonArabic = json_encode($styleArrayArabic);
 
         $sizeArray = [];
-        foreach ($request->input('size') as $sizeLine) {
-            if ($sizeLine != null && $sizeLine != '') {
-                $sizeArray[] = $sizeLine;
+        $sizeInput = $request->input('size');
+        if ($sizeInput) {
+            foreach ($sizeInput as $sizeLine) {
+                if ($sizeLine != null && $sizeLine != '') {
+                    $sizeArray[] = $sizeLine;
+                }
             }
         }
         $sizeJson = json_encode($sizeArray);
@@ -240,17 +252,23 @@ class ItemController extends Controller
         $productPricesJson = json_encode($productPrices);
 
         $careInstructionsArray = [];
-        foreach ($request->input('care_instructions') as $instructionLine) {
-            if ($instructionLine != '' && $instructionLine != null) {
-                $careInstructionsArray[] = $instructionLine;
+        $careInstructionsInput = $request->input('care_instructions');
+        if ($careInstructionsInput) {
+            foreach ($careInstructionsInput as $instructionLine) {
+                if ($instructionLine != '' && $instructionLine != null) {
+                    $careInstructionsArray[] = $instructionLine;
+                }
             }
         }
         $careInstructionsJson = json_encode($careInstructionsArray);
 
         $careInstructionsArrayArabic = [];
-        foreach ($request->input('care_instructions_ar') as $instructionLine) {
-            if ($instructionLine != '' && $instructionLine != null) {
-                $careInstructionsArrayArabic[] = $instructionLine;
+        $careInstructionsArabicInput = $request->input('care_instructions_ar');
+        if ($careInstructionsArabicInput) {
+            foreach ($careInstructionsArabicInput as $instructionLine) {
+                if ($instructionLine != '' && $instructionLine != null) {
+                    $careInstructionsArrayArabic[] = $instructionLine;
+                }
             }
         }
         $careInstructionsJsonArabic = json_encode($careInstructionsArrayArabic);
@@ -290,11 +308,11 @@ class ItemController extends Controller
         $item_id = $item->id;
 
         $files = $request->file('img');
+        $imageColors = $request['image_dropdown'];
         if ($files) {
             foreach ($item->images as $image) {
                 $this->deleteImage($image->id);
             }
-            $imageColors = $request['image_dropdown'];
             foreach ($files as $index => $file) {
                 $name = rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
                 $file->move("images", $name);
@@ -304,6 +322,11 @@ class ItemController extends Controller
                 $image->item_id = $item_id;
                 $image->color_hex = $imageColors[$index];
 
+                $image->save();
+            }
+        } else {
+            foreach ($item->images as $index => $image) {
+                $image->color_hex = $imageColors[$index];
                 $image->save();
             }
         }

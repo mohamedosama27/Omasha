@@ -6,7 +6,8 @@
 
     <!-- Top  Carousel -->
     @if (count($home_images) > 0)
-        <div id="carousel-example-generic" class="carousel slide topCarousel mainCarousel" data-ride="carousel">
+        <div id="carousel-example-generic" class="carousel slide topCarousel mainCarousel pb-3" data-ride="carousel"
+            data-interval="3500">
 
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
@@ -21,15 +22,15 @@
                         </div>
                     @endif
                 @endforeach
-                {{-- @if (count($home_images) > 1)
+                @if (count($home_images) > 1)
                     <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                        <i class="fa fa-3x fa-angle-left carouselArrow-left"></i>
+                        <i class="fa fa-2x fa-angle-left carouselArrow-left brandcolor-only"></i>
 
                     </a>
                     <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                        <i class="fa fa-3x fa-angle-right carouselArrow-right"></i>
+                        <i class="fa fa-2x fa-angle-right carouselArrow-right brandcolor-only"></i>
                     </a>
-                @endif --}}
+                @endif
             </div>
 
             <!-- Controls -->
@@ -40,9 +41,10 @@
 
     <!-- SHOP LATEST ARRIVALSl SECTION-->
 
-    <h3 class="text-center raleway titles mb-4 mt-4">{{ __('messages.best_sellers') }}</h3>
-    <div class="container">
-        <div class="row">
+    <div class="container py-3 welcome-container">
+        <h3 class="raleway titles">{{ __('messages.latest_items') }}</h3>
+        <h6 class="subheading">Explore unique fabrics for every occasion.</h6>
+        <div class="row mt-5">
             @foreach ($newArrivals as $item)
                 <div class="product col-xs-6 col-md-3">
 
@@ -62,7 +64,8 @@
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                    <div id="carousel{{ $item->id }}" class="carousel topCarousel quickViewCarousel" data-ride="carousel">
+                                    <div id="carousel{{ $item->id }}" class="carousel topCarousel quickViewCarousel"
+                                        data-ride="carousel">
                                         <!-- Indicators -->
                                         {{-- <ol class="carousel-indicators">
                                             @foreach ($item->images as $image)
@@ -117,7 +120,8 @@
                         <a href="{{ route('item.show', ['id' => $item->id]) }}">
                             <p>{{ app()->getLocale() == 'ar' ? $item->name_ar : $item->name }}</p>
                         </a>
-                        <p class='ml-1 mt-1'>{{ $item->after_sale_price > 0 ? $item->after_sale_price : $item->price }} {{ __('messages.egp') }}</p>
+                        <p class='ml-1 mt-1'>{{ $item->after_sale_price > 0 ? $item->after_sale_price : $item->price }}
+                            {{ __('messages.egp') }}</p>
                         {{-- <button class="btn brandcolor raleway btnWeight btn-addtocart mb-2"
                             data-value="{{ $item->id }}">
                             Add To Cart</button><br> --}}
@@ -137,17 +141,48 @@
             @endforeach
         </div>
     </div>
-    <!-- END SHOP LATEST ARRIVALSl SECTION IN SM , MD , LG-->
 
-    <!-- START LOGO -->
-    <img class="slogo center-block" src={{ URL::asset('images/Logo-on-White.jpg') }}>
-    <!-- END LOGO -->
+    <h3 class="text-center raleway titles">Browse Our Categories</h3>
+    <h6 class="text-center subheading">Discover a variety of fabrics and decor items.</h6>
+
+    <div class="category-grid mb-4">
+        {{-- @foreach ($categories as $category) --}}
+        <div class="category-item">
+            <img src="{{ asset('images/curtain1.jpg') }}" alt="Category 1">
+            <div class="category-info">
+                <h3>Curtains</h3>
+                <a href="" class="shop-button">Shop Now</a>
+            </div>
+        </div>
+        <div class="category-item">
+            <img src="{{ asset('images/curtain2.jpg') }}" alt="Category 1">
+            <div class="category-info">
+                <h3>Cushions</h3>
+                <a href="" class="shop-button">Shop Now</a>
+            </div>
+        </div>
+        <div class="category-item">
+            <img src="{{ asset('images/curtain3.jpg') }}" alt="Category 1">
+            <div class="category-info">
+                <h3>Ramadan Collection</h3>
+                <a href="" class="shop-button">Shop Now</a>
+            </div>
+        </div>
+        <div class="category-item">
+            <img src="{{ asset('images/curtain4.jpg') }}" alt="Category 1">
+            <div class="category-info">
+                <h3>Offers</h3>
+                <a href="" class="shop-button">Shop Now</a>
+            </div>
+        </div>
+        {{-- @endforeach --}}
+    </div>
 
     @foreach ($parent_categories as $parentCategory)
         @if ($parentCategory->children->count() > 2)
             <section class="curtains-section raleway">
                 <h3 class="text-center raleway titles mb-4">
-                    {{ strtoupper(app()->getLocale() == 'ar' ? $parentCategory->name_ar : $parentCategory->name) }}</h3>
+                    {{ app()->getLocale() == 'ar' ? $parentCategory->name_ar : $parentCategory->name }}</h3>
                 <div class="slider-container">
                     <!-- Left Scroll Button -->
                     @if ($parentCategory->children->count() > 3)
@@ -157,7 +192,8 @@
                     <div class="curtain-categories" id="slider-{{ $parentCategory->id }}">
                         @foreach ($parentCategory->children as $childCategory)
                             <div class="curtain-item">
-                                <img src="{{ URL::asset("images/" . optional($childCategory->image)->name) }}" alt="No Image">
+                                <img src="{{ URL::asset('images/' . optional($childCategory->image)->name) }}"
+                                    alt="No Image">
                                 <div class="overlay">
                                     <span
                                         class="category-name">{{ app()->getLocale() == 'ar' ? $childCategory->name_ar : $childCategory->name }}</span>
@@ -176,11 +212,14 @@
         @endif
     @endforeach
 
+    <!-- START LOGO -->
+    <img class="slogo center-block mt-5" src={{ URL::asset('images/Logo-on-White.jpg') }}>
+    <!-- END LOGO -->
+
     <!-- START SUBSCRIBE -->
     <div class="subscribe text-center">
         <h6 class="raleway">{{ __('messages.subscribe_for_updates') }}</h6>
         <form id="subscribe" class="form-inline">
-
             <input class="form-control" type="email" name="email" id="email"
                 placeholder="{{ __('messages.enter_your_email') }}">
             <button type="submit" class="btn brandcolor raleway">{{ __('messages.subscribe') }}</button>
@@ -194,7 +233,6 @@
         </form>
     </div>
     <!-- END SUBSCRIBE -->
-
 
     @include('errormessage')
 

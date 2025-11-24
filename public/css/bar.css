@@ -94,6 +94,10 @@
     /* background-color: rgba(86, 156, 172, 0.87); */
 }
 
+.brandcolor-only {
+    color: #f6c20a !important;
+}
+
 .notificationHeader {
     font-size: 22px;
     margin-top: 30px;
@@ -150,6 +154,7 @@
         width: 100%;
         height: 100%;
         padding-top: 40px;
+        padding-bottom: 80px;
         margin-left: 0 !important;
     }
 
@@ -517,9 +522,10 @@
 }
 
 .footer {
-    margin-top: 100px;
     padding-bottom: 50px;
     padding-top: 20px;
+    margin-top: auto;
+    width: 100%;
 }
 
 .parent-category-dropdown {
@@ -535,6 +541,8 @@
     /* background: white; */
     padding: 0;
     list-style: none;
+    transition: opacity 5s ease-in-out;
+    transition-delay: 3s;
     /* box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); */
 }
 
@@ -575,7 +583,7 @@
 }
 
 .footer .socialIcon {
-    width: 30%;
+    width: 50px;
     max-height: 50px;
 }
 
@@ -602,6 +610,8 @@
     min-width: 200px;
     overflow-y: auto;
     scrollbar-width: none;
+    transition: opacity 5s ease-in-out;
+    transition-delay: 3s;
 }
 
 .scrollable::-webkit-scrollbar-thumb {

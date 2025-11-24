@@ -68,11 +68,11 @@
 }
 
 .productImg img {
-    /* height: 194px; */
+    height: 194px;
 }
 
 .productImg>img {
-    min-height: 80%;
+    min-height: 90%;
 }
 
 .btnWeight {
@@ -80,7 +80,8 @@
 }
 
 .product {
-    padding-bottom: 35px;
+    padding-bottom: 15px;
+    min-height: 345px;
 }
 
 .carousel-control .fa {
@@ -130,7 +131,10 @@
     .productImg {
         border-style: solid;
         border-color: rgba(86, 156, 172, 0.87);
-        height: 300px;
+        height: 350px;
+    }
+    .product {
+        padding-bottom: 35px;
     }
 }
 

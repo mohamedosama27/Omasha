@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="/css/shop.css">
     <link rel="stylesheet" href="/css/item_design.css">
 
-    <div class="container my-5">
+    <div class="container my-5 welcome-container">
         <div class="row">
             @foreach ($items as $item)
                 <div class="product col-xs-6 col-md-3">

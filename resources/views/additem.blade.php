@@ -234,7 +234,7 @@
             <div class="form-group" id="both-sides-price">
                 <label for="price">Price for 2 Sides</label>
                 <input type="number" step="0.01" name="sides_price" class="form-control" id="sides_price"
-                    value="{{ old('sides_price') }}" required>
+                    value="{{ old('sides_price') }}">
                 @error('sides_price')
                     <span role="alert" style="color:red;">
                         <strong>{{ $message }}</strong>
@@ -270,7 +270,7 @@
             <div class="form-group" id="both-sides-after-sale-price">
                 <label for="price">After Sale Price for 2 Sides</label>
                 <input type="number" step="0.01" name="after_sale_sides_price" class="form-control" id="after_sale_sides_price"
-                    value="{{ old('after_sale_sides_price') }}" required>
+                    value="{{ old('after_sale_sides_price') }}">
                 @error('after_sale_sides_price')
                     <span role="alert" style="color:red;">
                         <strong>{{ $message }}</strong>

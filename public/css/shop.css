@@ -21,3 +21,9 @@
         height: 500px;
     }
 }
+
+@media (min-width:768px) {
+    .welcome-container {
+        width: 85%;
+    }
+}
